@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+	width: 100%;
+    height: 100%;    
+}
+
+/*Navbar*/
+.navbar > a {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    padding: 2%;
+}
+.navbar{
+    background-color: #003F30;
+    text-align: center;
+}
+
+/*Horizontal scroll*/
+.scrollContainer{
+    width: 100%;
+    height: auto;
+}
+.scroll{
+    display: flex;
+    overflow-x: auto;
+    background-color: transparent;
+    scroll-behavior: smooth;
+}
+.scroll .item{
+    margin: 1%;
+    min-width: 150px;
+    height: 150px;
+    line-height: 100    px;
+    text-align: center;
+    border: 1px solid #ddd;
+    box-shadow: 3px 4px #ddd;
+    border-radius: 2%;    
+    transition: all 200ms ease-in-out;
+}
+.scroll .item:hover{
+    box-shadow: 6px 6px 8px 6px #ddd;
+    transition: all 200ms ease-in-out;
+}
+.scroll-image{
+    margin: 5%;
+}
+/*Scroll bar*/
+::-webkit-scrollbar{
+    width: 20px;
+}
+::-webkit-scrollbar-track {
+    box-shadow: inset 1px 1px 3px #003f30; 
+    border-radius: 2px;
+}
+::-webkit-scrollbar-thumb {
+    background: #ddd; 
+    border-radius: 2px;
+}
+
+  /*Cartas*/
+.card{
+    width: 70%;
+    height: auto;
+    transition: all 200ms ease-in-out;
+}
+.card > a {
+    text-decoration: none;
+    color: #000;
+ 
+}
+.card:hover{
+    transition: all 200ms ease-in-out;
+    box-shadow: 7px 9px 13px 0px rgba(0,0,0,0.67);
+}
+
+/*Botones*/
+.s-btn{
+    background-color: #003F30;
+    color: #FFF;
+}
+.s-btn:hover{
+    text-decoration: none;
+    color: #439A86;
+}
+.material-symbols-outlined{
+    font-size: 2em;
+}
+.badge {
+    font-size: 1em;
+}
+
+.titulo-foros{
+    position: relative;
+    font-weight: 900;
+    font-size: 3em;
+  }
+  
+  .titulo-foros .wrapper {
+    position: relative;
+    display: inline-block;
+    padding-top: 0.2em;
+    padding-right: 0.05em;
+    padding-bottom: 0.1em;
+    overflow: hidden;
+  }
+  
+  .titulo-foros.elemento {
+    display: inline-block;
+    line-height: 1em;
+    transform-origin: 0 0;
+  }
+
+/*Pantallas*/
+@media screen and (min-width: 990px) {  
+
+}
+
+@media screen and (min-width: 600px) and (max-width: 990px) {     
+
+}
+@media screen and (max-width: 600px){
+
+}
+

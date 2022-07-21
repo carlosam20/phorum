@@ -1,0 +1,33 @@
+  <div class="recomendacionesPost">
+    <div class="row m-3">
+      <div class="col-lg-11 justify-content-center d-flex m-3">
+        <div class="card">
+            <img src="subidas/{{id}}.jpg" class="card-img-top" alt="subidas/{{id}}.jpg">
+            <div class="card-body mb-3">
+              <h5 class="card-title">{{nombre}}</h5>
+              <p class="card-text">{{descripcion}}</p>
+              
+              <button class="s-btn responder" type="button">Responder</button>
+              
+            </div>
+            
+            
+            <!--Un bucle con los comentarios o ponerlo a parte y añadirlo al div de alguna forma -->
+            <!--Podría hacerse con un SQL o añadirlo a otro contenedor o algo así -->
+            {{#comentarios}}
+            <div class="media ml-3 mt-3">
+              <img class="s-avatar s-avatar__96 mr-5" src="music_profile.jpg" alt="Generic placeholder image">
+              <div class="media-body mb-2">
+                <h5 class="mt-0">{{usuario}}</h5>
+                {textoComentario}        
+               </div>
+             </div>
+             {{/comentarios}}
+              
+           </div>
+            
+
+        </div>
+      </div>
+    </div>
+  
