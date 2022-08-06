@@ -34,7 +34,7 @@ usuario: <springform:select path="usuario">
 
 <springform:hidden path="id"/>
 <!-- Imagen que introducimos -->
-<input type="submit" value="Registrar Foro">
+<input type="submit" value="Registrar Post">
 </springform:form>
 
 </body>

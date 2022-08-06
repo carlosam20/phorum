@@ -17,5 +17,6 @@ List<Usuario> obtenerUsuarios(String nombre, int comienzo);
 int obtenerTotalDeUsuarios(String nombre);
 void eliminarUsuario(long id);
 void guardarCambiosUsuario(Usuario l);
+Map<String, String >obtenerUsuariosParaDesplegable();
 	
 }

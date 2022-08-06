@@ -5,7 +5,7 @@ package serviciosImpl;
 
 
 import java.time.LocalDate;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
@@ -30,16 +30,30 @@ public class ServicioUsuariosImpl implements ServicioUsuarios{
 	private SessionFactory sessionFactory;
 	
 	@Override
-	public void registrarUsuario(Usuario u) {
-		try {
+	public void registrarUsuario(Usuario u) {	
+			//Esto ha estado comentado
 			u.setFechaCreacion(LocalDate.now().getDayOfMonth()+"/"+LocalDate.now().getMonthValue()+"/"+LocalDate.now().getYear());
 			sessionFactory.getCurrentSession().save(u);
-		}
-		catch (Exception e) {
-		
-		}
+	
 		
 	}
+	
+	public Map<String, String> obtenerUsuariosParaDesplegable() {
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(
+				ConstantesSQL.SQL_OBTENER_USUARIOS_PARA_DESPLEGABLE);
+
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		
+		List <Map<String, Object>> res =query.list();
+		Map<String, String> valoresDesplegable = new HashMap<String, String>();
+		
+		for (Map<String, Object> map : res) {
+			System.out.println("id: "+map.get("id") + " nombre" +map.get("nombre"));
+			valoresDesplegable.put(map.get("id").toString(), map.get("nombre").toString());
+		}
+		return valoresDesplegable;
+	}
+
 
 	@Override
 	public boolean comprobarEmail(String email) {
@@ -102,10 +116,10 @@ public class ServicioUsuariosImpl implements ServicioUsuarios{
 
 	@Override
 	public void eliminarUsuario(long id) {
+		System.out.println("Eliminando usuario");
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_USUARIO);
 		query.setParameter("id", id);
-		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
-		// TODO Auto-generated method stub
+		query.executeUpdate();
 		
 	}
 

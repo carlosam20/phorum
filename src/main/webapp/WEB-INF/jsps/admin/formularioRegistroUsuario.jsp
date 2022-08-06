@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>formularioRegistroOrdenador</title>
+<title>formularioRegistroUsuario</title>
 </head>
 <body>
 
@@ -16,7 +16,6 @@
 nombre: <springform:input path="nombre"/>
 pass: <springform:input path="pass"/>
 email: <springform:input path="email"/>
-alta: <springform:checkbox path="alta"/>
 imagen : <springform:input path="imagen" type="file"/><br>
 <springform:hidden path="id"/>
 <!-- Imagen que introducimos -->

@@ -28,13 +28,14 @@ public class Usuario  {
     @NotBlank(message = "Introduce un nombre de usuario")
     @Pattern(regexp = "^[a-zA-Z 0-9]{3,60}$", message="Los nombres solo admiten letras, numeros y espacios")
     private String nombre;
+    @NotBlank(message = "Introduce una contraseña")
     //@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$")
-    private String pass = Arrays.toString(new byte[60]);
+    private String pass;
     @Email
     //https://stackoverflow.com/questions/1423195/what-is-the-actual-minimum-length-of-an-email-address-as-defined-by-the-ietf#:~:text=The%20shortest%20valid%20email%20address,two%20parts%3A%20name%20and%20domain.&text=Since%20both%20the%20name%20and,length%20resolves%20to%203%20characters.
     //https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
     @Pattern(regexp = "^[a-zA-Z]+@[a-zA-Z]+\\.[a-zA-Z]{3,254}+$", message="El email debe contener '@', '.' y al menos 10 caracteres")
-    @NotEmpty(message = "Introduce un email")
+    @NotEmpty(message = "Introduce un email")	
     private String email;
     
     private String fechaCreacion;

@@ -2,6 +2,7 @@ package serviciosImpl;
 
 import java.util.List;
 
+
 import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -15,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import constantesSQL.ConstantesSQL;
-
 import modelo.Foro;
 import modelo.Post;
 import modelo.Usuario;
@@ -58,7 +58,13 @@ public class ServicioPostsImpl implements ServicioPosts{
 
 	@Override
 	public void registrarPosts(Post p) {
-		//SET FOREIGN_KEY_CHECKS = 0;
+		
+		
+		Foro f = (Foro) sessionFactory.getCurrentSession().get(Foro.class,p.getForo().getId());
+		p.setForo(f);
+		
+		Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class,p.getUsuario().getId());
+		p.setUsuario(u);
 		sessionFactory.getCurrentSession().save(p);
 	}
 	

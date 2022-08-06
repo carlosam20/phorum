@@ -61,7 +61,7 @@
   
   <div class="card-body">
   <a href="editarForo?id=${foro.id}" class="card-link" >Editar</a>
-	<a href="eliminarForo?id=${foro.id}" onclick="return confirm(Estas seguro?)">Borrar</a> 
+	<a href="borrarForo?id=${foro.id}" onclick="return confirm(Estas seguro?)">Borrar</a> 
   </div>
 </div>
 </c:forEach>

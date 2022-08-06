@@ -19,6 +19,8 @@ public class ConstantesSQL {
 	//Desplegable
 	public final static String SQL_OBTENER_FOROS_PARA_DESPLEGABLE = "select id, nombre from foro order by id asc";
 	
+	public final static String SQL_OBTENER_USUARIOS_PARA_DESPLEGABLE = "select id, nombre from usuario order by id asc";
+	
 	//TOTALES
 	public static final String OBTENER_TOTAL_USUARIOS = "select count(id) from usuario where nombre like :nombre ";
 	public static final String OBTENER_TOTAL_FOROS = "select count(id) from foro where nombre like :nombre ";
@@ -28,7 +30,7 @@ public class ConstantesSQL {
 	
 	
 	//DELETE
-	public final static String SQL_BORRAR_USUARIO="delete from usuario where usuario_id = :id";
+	public final static String SQL_BORRAR_USUARIO="delete from usuario where id = :id";
 	public final static String SQL_BORRAR_FORO="delete from foro where id = :id";
 	public final static String SQL_BORRAR_POST="delete from post where  id = :id";
 	public final static String SQL_BORRAR_COMENTARIO="delete from comentario where  id = :id";

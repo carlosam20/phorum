@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import modelo.Post;
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
+import servicios.ServicioUsuarios;
+import utilidadesArchivos.GestorArchivos;
 
 
 
@@ -33,6 +35,9 @@ public class ControladoresPost {
 	
 	@Autowired
 	private ServicioForos servicioForos;
+	
+	@Autowired
+	private ServicioUsuarios servicioUsuarios;
 	
 	@RequestMapping("listarPosts")
 	public String listarPosts(@RequestParam(defaultValue = "")String nombre, Integer comienzo, Model model) {
@@ -59,24 +64,36 @@ public class ControladoresPost {
 		model.addAttribute("nuevoPost", nuevo);
 		
 		Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
+		Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+		
 		model.addAttribute("foros", mapForos);
+		model.addAttribute("usuarios", mapUsuarios);
 		
 		return "admin/formularioRegistroPost";
 	}
+	
 	@RequestMapping("guardarNuevoPost")
-	public String guardarNuevoPost(@ModelAttribute("nuevoForo") @Valid Post nuevoPost, BindingResult br, Model model,
+	public String guardarNuevoPost(@ModelAttribute("nuevoPost") @Valid Post nuevoPost, BindingResult br, Model model,
 			HttpServletRequest request) {
 		if (!br.hasErrors()) {		
 			servicioPosts.registrarPosts(nuevoPost);
-		
+			System.out.println("archivo de imagen" + nuevoPost.getImagen());
+			String rutaRealDelProyecto =
+			request.getServletContext().getRealPath("");
+			GestorArchivos.guardarImagenPost(nuevoPost, rutaRealDelProyecto, null);
 			return "admin/registroPostOk";
+			
 			
 		} else {
 			
 			Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
+			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+			
 			model.addAttribute("foros", mapForos);
-			model.addAttribute("nuevoForo", nuevoPost);
-			return "admin/formularioPost";
+			model.addAttribute("usuarios", mapUsuarios);
+			
+			model.addAttribute("nuevoPost", nuevoPost);
+			return "admin/formularioRegistroPost";
 		}
 		
 	}

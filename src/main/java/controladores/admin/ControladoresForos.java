@@ -1,5 +1,8 @@
 package controladores.admin;
 
+
+
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,6 +67,8 @@ public class ControladoresForos {
 			
 		} else {
 			
+			Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
+			model.addAttribute("foros", mapForos);
 			
 			model.addAttribute("nuevoForo", nuevoForo);
 			return "admin/formularioRegistroForo";
@@ -91,9 +96,10 @@ public class ControladoresForos {
 			
 	}
 	@RequestMapping("borrarForo")
-	public String borrarOrdenador(String id, Model model) {
+	public String borrarForo(String id, Model model) {
 		servicioForos.borrarForo(Long.parseLong(id));
-		return listarForos("",0,model);
+		
+		return listarForos("",null,model);
 	}
 	
 	

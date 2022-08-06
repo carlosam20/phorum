@@ -2,6 +2,8 @@ package controladores.admin;
 
 
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import modelo.Usuario;
 import servicios.ServicioUsuarios;
+import utilidadesArchivos.GestorArchivos;
 
 
 @Controller
@@ -56,10 +59,14 @@ public class ControladoresUsuarios {
 			HttpServletRequest request) {
 		if (!br.hasErrors()) {		
 			servicioUsuarios.registrarUsuario(nuevoUsuario);
-		
+			String rutaRealDelProyecto =
+					request.getServletContext().getRealPath("");
+				GestorArchivos.guardarFotoUsuario(nuevoUsuario, rutaRealDelProyecto, null);
 			return "admin/registroUsuarioOk";
 			
 		} else {
+			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+			model.addAttribute("usuarios", mapUsuarios);
 			
 			model.addAttribute("nuevoUsuario", nuevoUsuario);
 			return "admin/formularioRegistroUsuario";
@@ -69,9 +76,7 @@ public class ControladoresUsuarios {
 	@RequestMapping("guardarCambiosUsuario")
 	public String guardarCambiosUsuario(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult br,  Model model,
 			HttpServletRequest request) {
-		
-		
-		
+	
 		if(!br.hasErrors()) {
 			servicioUsuarios.guardarCambiosUsuario(usuario);
 			return listarUsuarios("",0,model);
@@ -89,6 +94,14 @@ public class ControladoresUsuarios {
 		return "admin/formularioEditarUsuario";
 			
 	}
+	@RequestMapping("borrarUsuario")
+	public String borrarUsuario(String id, Model model) {
+		servicioUsuarios.eliminarUsuario(Long.parseLong(id));
+		
+		return listarUsuarios("", null, model);
+			
+	}
+	
 	
 	
 }

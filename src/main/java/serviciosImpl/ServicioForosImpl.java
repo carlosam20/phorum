@@ -107,7 +107,6 @@ public class ServicioForosImpl implements ServicioForos{
 
 	@Override
 	public void guardarCambiosForo(Foro f) {
-		
 		sessionFactory.getCurrentSession().merge(f);
 		
 	}

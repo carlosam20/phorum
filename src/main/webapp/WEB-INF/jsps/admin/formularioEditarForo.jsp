@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>formularioEditarForo</title>
+<title>Formulario Editar Foro</title>
 </head>
 <body>
 <jsp:include page="cabecera.jsp"></jsp:include>
@@ -19,7 +19,7 @@
 	pass: <springform:input path="descripcion" class="form-label"/>
 	</div>
 	<div class="mb-3">
-	pass: <springform:input path="fechaCreacion" class="form-label"/>
+	fecha: <springform:input path="fechaCreacion" class="form-label"/>
 	</div>
 	<div class="mb-3">
 	imagen : <springform:input path="imagen" type="file"/><br>
