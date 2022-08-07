@@ -60,13 +60,12 @@ public class ControladoresUsuarios {
 		if (!br.hasErrors()) {		
 			servicioUsuarios.registrarUsuario(nuevoUsuario);
 			String rutaRealDelProyecto =
-					request.getServletContext().getRealPath("");
-				GestorArchivos.guardarFotoUsuario(nuevoUsuario, rutaRealDelProyecto, null);
+			request.getServletContext().getRealPath("");
+			GestorArchivos.guardarFotoUsuario(nuevoUsuario, rutaRealDelProyecto, null);
 			return "admin/registroUsuarioOk";
 			
 		} else {
-			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
-			model.addAttribute("usuarios", mapUsuarios);
+			
 			
 			model.addAttribute("nuevoUsuario", nuevoUsuario);
 			return "admin/formularioRegistroUsuario";

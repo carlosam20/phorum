@@ -10,7 +10,7 @@
 <body>
 <jsp:include page="cabecera.jsp"></jsp:include>
 
-<springform:form modelAttribute="foro" action="guardarCambiosForo" enctype="multipart/form-data">
+<springform:form modelAttribute="foro" action="guardarCambiosForo" method="post" enctype="multipart/form-data">
 <div>
 	<div class="mb-3">
 	nombre: <springform:input path="nombre" class="form-label"/>
@@ -25,6 +25,7 @@
 	imagen : <springform:input path="imagen" type="file"/><br>
 	</div>
 	<springform:hidden path="id"/>
+	
 </div>	
 
 	<div class="mb-3">

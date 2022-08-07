@@ -58,7 +58,7 @@ public class GestorArchivos {
 			}
 		}
 		else {
-			System.out.println("El foro no tiene imagen");
+			
 		}
 		
 		

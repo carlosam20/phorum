@@ -1,8 +1,6 @@
 package serviciosImpl;
 
 
-
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import constantesSQL.ConstantesSQL;
 import modelo.Foro;
 import servicios.ServicioForos;
+
 @Service
 @Transactional
 public class ServicioForosImpl implements ServicioForos{

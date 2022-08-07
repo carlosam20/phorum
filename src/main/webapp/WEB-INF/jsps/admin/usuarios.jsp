@@ -45,7 +45,7 @@
 
 <div class="card mx-auto " style="width: 32rem;" >
 	
-	<img style="height: 500px; margin: 3px"class="card-img-top" src="../fotos/${usuario.id}.jpg"/>
+	<img style="height: 500px; margin: 3px"class="card-img-top" src="../subidasUsuario/${usuario.id}.jpg"/>
 	<ul class="list-group list-group-flush">
     <li class="list-group-item">id: ${usuario.id} </li>
     <li class="list-group-item">nombre: ${usuario.nombre} </li>

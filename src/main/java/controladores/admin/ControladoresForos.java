@@ -50,7 +50,7 @@ public class ControladoresForos {
 	
 	@RequestMapping("registrarForo")
 	public String registrarForo(Model model) {
-		Usuario nuevo = new Usuario();
+		Foro nuevo = new Foro();
 		model.addAttribute("nuevoForo", nuevo);
 		
 		return "admin/formularioRegistroForo";
@@ -75,12 +75,18 @@ public class ControladoresForos {
 		}
 		
 	}
+	
 	@RequestMapping("guardarCambiosForo")
 	public String guardarCambiosForo(@ModelAttribute("foro") @Valid Foro foro, BindingResult br,  Model model,
 			HttpServletRequest request) {
 		servicioForos.guardarCambiosForo(foro);
+		
 		if(!br.hasErrors()) {
-			servicioForos.registrarForo(foro);
+			
+			String rutaRealDelProyecto = 
+					request.getServletContext().getRealPath("");
+			GestorArchivos.guardarImagenForo(foro, rutaRealDelProyecto, null);
+			
 			return listarForos("",0,model);
 		}else {
 			model.addAttribute("foro",foro);
