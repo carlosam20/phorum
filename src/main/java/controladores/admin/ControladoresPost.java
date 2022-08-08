@@ -6,7 +6,6 @@ package controladores.admin;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import modelo.Post;
-import servicios.ServicioForos;
+import modelo.Usuario;
 import servicios.ServicioPosts;
-import servicios.ServicioUsuarios;
 import utilidadesArchivos.GestorArchivos;
 
 
@@ -32,13 +29,6 @@ public class ControladoresPost {
 
 	@Autowired
 	private ServicioPosts servicioPosts;
-	
-	@Autowired
-	private ServicioForos servicioForos;
-	
-	@Autowired
-	private ServicioUsuarios servicioUsuarios;
-	
 	@RequestMapping("listarPosts")
 	public String listarPosts(@RequestParam(defaultValue = "")String nombre, Integer comienzo, Model model) {
 		
@@ -55,7 +45,7 @@ public class ControladoresPost {
 		model.addAttribute("total", servicioPosts.obtenerTotalDePosts(nombre));
 		model.addAttribute("nombre", nombre);
 		
-		return "admin/posts";
+		return "admin/Posts";
 	}
 	
 	@RequestMapping("registrarPost")
@@ -63,66 +53,59 @@ public class ControladoresPost {
 		Post nuevo = new Post();
 		model.addAttribute("nuevoPost", nuevo);
 		
-		Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
-		Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
-		
-		model.addAttribute("foros", mapForos);
-		model.addAttribute("usuarios", mapUsuarios);
-		
 		return "admin/formularioRegistroPost";
 	}
-	
 	@RequestMapping("guardarNuevoPost")
 	public String guardarNuevoPost(@ModelAttribute("nuevoPost") @Valid Post nuevoPost, BindingResult br, Model model,
 			HttpServletRequest request) {
 		if (!br.hasErrors()) {		
-			servicioPosts.registrarPosts(nuevoPost);
-			System.out.println("archivo de imagen" + nuevoPost.getImagen());
+			servicioPosts.registrarPost(nuevoPost);
 			String rutaRealDelProyecto =
 			request.getServletContext().getRealPath("");
 			GestorArchivos.guardarImagenPost(nuevoPost, rutaRealDelProyecto, null);
 			return "admin/registroPostOk";
 			
-			
 		} else {
 			
-			Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
-			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
-			
-			model.addAttribute("foros", mapForos);
-			model.addAttribute("usuarios", mapUsuarios);
+			Map<String, String> mapPosts = servicioPosts.obtenerPostsParaDesplegable();
+			model.addAttribute("posts", mapPosts);
 			
 			model.addAttribute("nuevoPost", nuevoPost);
 			return "admin/formularioRegistroPost";
 		}
 		
 	}
+	
 	@RequestMapping("guardarCambiosPost")
-	public String guardarCambiosPost(@ModelAttribute("foro") @Valid Post post, BindingResult br,  Model model,
+	public String guardarCambiosPost(@ModelAttribute("Post") @Valid Post Post, BindingResult br,  Model model,
 			HttpServletRequest request) {
-		servicioPosts.guardarCambiosPosts(post);
+		servicioPosts.guardarCambiosPost(Post);
+		
 		if(!br.hasErrors()) {
-			servicioPosts.registrarPosts(post);
+			
+			String rutaRealDelProyecto = 
+					request.getServletContext().getRealPath("");
+			GestorArchivos.guardarImagenPost(Post, rutaRealDelProyecto, null);
+			
 			return listarPosts("",0,model);
 		}else {
-			Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
-			model.addAttribute("foros", mapForos);
-			model.addAttribute("post",post);
+			model.addAttribute("Post",Post);
 			return "admin/formularioEditarPost";
 		}		
 		
 	}
 	@RequestMapping("editarPost")
-	public String editarForo(String id, Model model) {
-		Post p = servicioPosts.obtenerPostsPorId(Long.parseLong(id));
-		model.addAttribute("post",p);
+	public String editarPost(String id, Model model) {
+		Post f = servicioPosts.obtenerPostsPorId(Long.parseLong(id));
+		model.addAttribute("Post",f);
 		return "admin/formularioEditarPost";
 			
 	}
 	@RequestMapping("borrarPost")
-	public String borrarOrdenador(String id, Model model) {
-		servicioPosts.eliminarPosts(Long.parseLong(id));
-		return listarPosts("",0,model);
+	public String borrarPost(String id, Model model) {
+		servicioPosts.borrarPost(Long.parseLong(id));
+		
+		return listarPosts("",null,model);
 	}
 	
 	

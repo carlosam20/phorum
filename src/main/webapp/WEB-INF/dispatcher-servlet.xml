@@ -82,6 +82,8 @@ de dicha clase en el contenedor debo indicar lo siguiente:
 	<mvc:resources mapping="/js/**" location="/js/" />
 	<mvc:resources mapping="/images/**" location="/images/" />
 	<mvc:resources mapping="/subidas/**" location="/subidas/" />
+	<mvc:resources mapping="/subidasUsuario/**" location="/subidasUsuario/" />
+	<mvc:resources mapping="/subidasPost/**" location="/subidasPost/" />	
 	<mvc:resources mapping="/fotos/**" location="/fotos/" />
 
 </beans>

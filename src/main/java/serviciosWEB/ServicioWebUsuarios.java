@@ -43,7 +43,7 @@ public class ServicioWebUsuarios {
 		//tras hacer un registro con hibernate, hibernate asigna a este usuario la id del 
 		//registro en la tabla de la base de datos
 		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
-		GestorArchivos.guardarFotoUsuario(u, rutaRealDelProyecto, foto);
+		GestorArchivos.guardarFotoUsuario(u, rutaRealDelProyecto);
 		respuesta = "ok";
 		
 		return new ResponseEntity<String>(

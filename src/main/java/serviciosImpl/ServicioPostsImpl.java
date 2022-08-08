@@ -65,6 +65,7 @@ public class ServicioPostsImpl implements ServicioPosts{
 		
 		Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class,p.getUsuario().getId());
 		p.setUsuario(u);
+		
 		sessionFactory.getCurrentSession().save(p);
 	}
 	
