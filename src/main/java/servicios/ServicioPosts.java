@@ -10,7 +10,7 @@ public interface ServicioPosts {
 public int obtenerTotalDePosts(String marca);
 List<Post> obtenerPosts(String marca, int comienzo);
 Post obtenerPostsPorId(long id);
-void registrarPosts(Post p);
+void registrarPost(Post p);
 void eliminarPosts(long id);
 void guardarCambiosPosts(Post p);
 List<Long> obtenerIdPostPorForoId(long id);

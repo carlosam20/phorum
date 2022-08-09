@@ -57,7 +57,7 @@ public class ServicioPostsImpl implements ServicioPosts{
 	}
 
 	@Override
-	public void registrarPosts(Post p) {
+	public void registrarPost(Post p) {
 		
 		
 		Foro f = (Foro) sessionFactory.getCurrentSession().get(Foro.class,p.getForo().getId());
@@ -82,7 +82,7 @@ public class ServicioPostsImpl implements ServicioPosts{
 
 	@Override
 	public Post obtenerPostsPorId(long id) {
-		return (Post) sessionFactory.getCurrentSession().get(Foro.class, id);
+		return (Post) sessionFactory.getCurrentSession().get(Post.class, id);
 	}
 	
 	

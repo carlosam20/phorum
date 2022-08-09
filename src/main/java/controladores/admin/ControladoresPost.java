@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import modelo.Post;
 import modelo.Usuario;
+import servicios.ServicioForos;
 import servicios.ServicioPosts;
+import servicios.ServicioUsuarios;
 import utilidadesArchivos.GestorArchivos;
 
 
@@ -29,6 +31,12 @@ public class ControladoresPost {
 
 	@Autowired
 	private ServicioPosts servicioPosts;
+	@Autowired
+	private ServicioForos servicioForos;
+	@Autowired
+	private ServicioUsuarios servicioUsuarios;
+	
+	
 	@RequestMapping("listarPosts")
 	public String listarPosts(@RequestParam(defaultValue = "")String nombre, Integer comienzo, Model model) {
 		
@@ -38,19 +46,23 @@ public class ControladoresPost {
 		}
 		
 		model.addAttribute("info", servicioPosts.obtenerPosts(nombre, comienzo_int));
-		//model.addAttribute("fecha_hora_actual", new Date().getTime());
-		
 		model.addAttribute("siguiente", comienzo_int+10);
 		model.addAttribute("anterior", comienzo_int-10);
 		model.addAttribute("total", servicioPosts.obtenerTotalDePosts(nombre));
 		model.addAttribute("nombre", nombre);
 		
-		return "admin/Posts";
+		return "admin/posts";
 	}
 	
 	@RequestMapping("registrarPost")
 	public String registrarPost(Model model) {
 		Post nuevo = new Post();
+		
+		Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
+		Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+		model.addAttribute("foros", mapForos);
+		model.addAttribute("usuarios", mapUsuarios);
+		
 		model.addAttribute("nuevoPost", nuevo);
 		
 		return "admin/formularioRegistroPost";
@@ -60,6 +72,7 @@ public class ControladoresPost {
 			HttpServletRequest request) {
 		if (!br.hasErrors()) {		
 			servicioPosts.registrarPost(nuevoPost);
+			
 			String rutaRealDelProyecto =
 			request.getServletContext().getRealPath("");
 			GestorArchivos.guardarImagenPost(nuevoPost, rutaRealDelProyecto, null);
@@ -67,9 +80,11 @@ public class ControladoresPost {
 			
 		} else {
 			
-			Map<String, String> mapPosts = servicioPosts.obtenerPostsParaDesplegable();
-			model.addAttribute("posts", mapPosts);
+			Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
+			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
 			
+			model.addAttribute("foros", mapForos);
+			model.addAttribute("usuarios", mapUsuarios);		
 			model.addAttribute("nuevoPost", nuevoPost);
 			return "admin/formularioRegistroPost";
 		}
@@ -77,35 +92,39 @@ public class ControladoresPost {
 	}
 	
 	@RequestMapping("guardarCambiosPost")
-	public String guardarCambiosPost(@ModelAttribute("Post") @Valid Post Post, BindingResult br,  Model model,
+	public String guardarCambiosPost(@ModelAttribute("post") @Valid Post post, BindingResult br,  Model model,
 			HttpServletRequest request) {
-		servicioPosts.guardarCambiosPost(Post);
+		servicioPosts.guardarCambiosPosts(post);
 		
 		if(!br.hasErrors()) {
 			
 			String rutaRealDelProyecto = 
 					request.getServletContext().getRealPath("");
-			GestorArchivos.guardarImagenPost(Post, rutaRealDelProyecto, null);
+			GestorArchivos.guardarImagenPost(post, rutaRealDelProyecto, null);
 			
 			return listarPosts("",0,model);
 		}else {
-			model.addAttribute("Post",Post);
+			Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
+			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+			model.addAttribute("foros", mapForos);
+			model.addAttribute("usuarios", mapUsuarios);
+			model.addAttribute("post",post);
 			return "admin/formularioEditarPost";
 		}		
 		
 	}
 	@RequestMapping("editarPost")
 	public String editarPost(String id, Model model) {
-		Post f = servicioPosts.obtenerPostsPorId(Long.parseLong(id));
-		model.addAttribute("Post",f);
+		Post p = servicioPosts.obtenerPostsPorId(Long.parseLong(id));
+		model.addAttribute("post",p);
 		return "admin/formularioEditarPost";
 			
 	}
 	@RequestMapping("borrarPost")
 	public String borrarPost(String id, Model model) {
-		servicioPosts.borrarPost(Long.parseLong(id));
+		servicioPosts.eliminarPosts(Long.parseLong(id));
 		
-		return listarPosts("",null,model);
+		return listarPosts("",0,model);
 	}
 	
 	

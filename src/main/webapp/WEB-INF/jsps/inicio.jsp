@@ -473,8 +473,12 @@ function mostrarIdentificacionUsuario(){
 	//$("#enlace_foro").click(obtener);
 	
 	
-	$("#enlace_listado_foros").on("load"+obtener_listado_foros);
+		
 	$("#enlace_listado_foros").click(obtener_listado_foros);
+	
+	
+	$("#enlace_registrar_foro").click(obtener_formulario_foro);
+	
 	$("#enlace_registrarme").click(mostrarRegistroUsuario);
 	$("#enlace_identificarme").click(mostrarIdentificacionUsuario);
 	$("#enlace_logout").click(logout);
