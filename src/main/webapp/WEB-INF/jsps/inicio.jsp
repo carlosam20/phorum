@@ -124,8 +124,10 @@ cargar_plantillas_del_servidor();
 						foros);
 				$("#contenedor").html(texto_html);
 				
-				$(".enlace").click(function(){
+				$(".enlace_crear_foro").click(function(){
 					var id = $(this).attr("id");
+					var nombre = $("#nombre").val();
+					var descripcion = $("#descripcion").val();
 					$.post("identificado/servicioWebForo/registroForo",
 							{
 								idForo : id+""
@@ -139,38 +141,6 @@ cargar_plantillas_del_servidor();
 							});
 				});
 				
-				$("#enlace_crear_foro").submit(function(e){
-					var id = $(this).attr("id");
-					var nombre = $("#nombre").val();
-					var descripcion = $("#descripcion").val();
-					if( validarNombre(nombre) && validarEmail(email) && 
-						validarPass(pass)){
-						
-						alert("todo ok, mandando informacion al servicio web...");
-						
-						//vamos a usar FormData para mandar el form al servicio web
-						var formulario = document.forms[0];
-						var formData = new FormData(formulario);
-						$.ajax("servicioWebUsuarios/registrarUsuario",{
-							type: "POST",
-							data: formData,
-							cache: false,
-							contentType: false,
-							processData: false,
-							success: function(res){
-								if(res == "ok"){
-									alert("registrado correctamente, ya puedes identificarte");
-									mostrarIdentificacionUsuario();
-								}else{
-									alert(res);
-									alert("Usuario no valido");
-								}
-							}
-						});
-							
-					}//end if validaciones
-					e.preventDefault();
-				});
 				
 			}//---end success---
 		});//--end ajax--
