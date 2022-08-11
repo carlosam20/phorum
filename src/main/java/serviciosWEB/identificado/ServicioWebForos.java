@@ -64,7 +64,7 @@ public class ServicioWebForos {
 		System.out.println("Foro a registrar " + f.toString());
 		servicioForos.registrarForo(f);
 		
-		//tras hacer un registro con hibernate, hibernate asigna a este usuario la id del 
+		//tras hacer un registro con hibernate, hibernate asigna a este foro la id del 
 		//registro en la tabla de la base de datos
 		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
 		GestorArchivos.guardarImagenForo(f, rutaRealDelProyecto, foto);

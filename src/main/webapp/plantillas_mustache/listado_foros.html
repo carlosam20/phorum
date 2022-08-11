@@ -5,7 +5,61 @@
 <span class="titulo-foros text-primary text-center d-flex justify-content-center m-3">
     <span class="elemento">Foros</span> 
  </span>
- <button class="registrar_foro s-btn" type="button">Crear Foro</button>
+ 
+ 
+ 
+ 
+ 
+ 
+ <!-- Button trigger modal -->
+<button type="button" class="enlace_crear_foro s-btn " data-bs-toggle="modal" data-bs-target="#crearForoModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="crearForoModal" tabindex="-1" aria-labelledby="crearForoModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Crear Foro</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+         <form id="form_registro_foro">
+
+
+	<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1 ">
+		<div class="col-lg-8 col-md-6">
+			 <input type="text" name="nombre"  class="form-control form-control-lg" placeholder="Nombre del post"  id="nombre"/><br>
+		</div>
+	</div>
+	<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
+		<div class="col-lg-8 col-md-6">
+			 <textarea  name="text" class="form-control form-control-lg" placeholder="Descripcion" id="descripcion" ></textarea><br>
+		</div>
+	</div>
+	<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
+		<div class="col-lg-8 col-md-6">
+			<input type="file" name="foto" id="foto" /> <br>
+		</div>
+	</div>
+	<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
+		<div class="col-lg-8 col-md-6">
+	<input class="s-btn" type="submit" value="Subir Foro" />
+		</div>
+	</div>
+
+</form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+
+
+
  
 {{#.}}
 <!--Listado foros-->

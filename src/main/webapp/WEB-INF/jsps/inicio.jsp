@@ -44,7 +44,7 @@
                         <a class="nav-link m-3" id="enlace_listado_posts" aria-current="page" href="#">Posts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link m-3" id="enlace_logout" aria-current="page" href="#">Cerrar Sesion</a>
+                        <a class="nav-link m-3" id="enlace_logout" aria-current="page" href="#">Cerrar Sesi√≥n</a>
                     </li>
                 </ul>
             </div>
@@ -52,7 +52,7 @@
 
              <ul class="navbar-nav me-auto mb-3 mb-lg-0">
                  <li class="nav-item">
-                     <a class="s-btn nav-link active m-3" id="enlace_identificarme" aria-current="page" href="#">Iniciar SesiÛn</a>
+                     <a class="s-btn nav-link active m-3" id="enlace_identificarme" aria-current="page" href="#">Iniciar Sesi√≥n</a>
                  </li>
                  <li class="nav-item">
                      <a class="s-btn nav-link active m-3" id="enlace_registrarme" aria-current="page" href="#">Registrar</a>
@@ -124,7 +124,7 @@ cargar_plantillas_del_servidor();
 						foros);
 				$("#contenedor").html(texto_html);
 				
-				$(".enlace_crear_foro").click(function(){
+				$(".enlace").click(function(){
 					var id = $(this).attr("id");
 					$.post("identificado/servicioWebForo/registroForo",
 							{
@@ -133,10 +133,43 @@ cargar_plantillas_del_servidor();
 								if( res!= "ok" ){
 									alert(res);
 								}else{
-									//Llamar· al obtenerPostConComentarios Recogiendo el id
+									//Llamar√° al obtenerPostConComentarios Recogiendo el id
 									obtenerComentariosPost();	
 								}
 							});
+				});
+				
+				$("#enlace_crear_foro").submit(function(e){
+					var id = $(this).attr("id");
+					var nombre = $("#nombre").val();
+					var descripcion = $("#descripcion").val();
+					if( validarNombre(nombre) && validarEmail(email) && 
+						validarPass(pass)){
+						
+						alert("todo ok, mandando informacion al servicio web...");
+						
+						//vamos a usar FormData para mandar el form al servicio web
+						var formulario = document.forms[0];
+						var formData = new FormData(formulario);
+						$.ajax("servicioWebUsuarios/registrarUsuario",{
+							type: "POST",
+							data: formData,
+							cache: false,
+							contentType: false,
+							processData: false,
+							success: function(res){
+								if(res == "ok"){
+									alert("registrado correctamente, ya puedes identificarte");
+									mostrarIdentificacionUsuario();
+								}else{
+									alert(res);
+									alert("Usuario no valido");
+								}
+							}
+						});
+							
+					}//end if validaciones
+					e.preventDefault();
 				});
 				
 			}//---end success---
@@ -214,7 +247,7 @@ function obtener_listado_posts() {
 									if( res!= "ok" ){
 										alert(res);
 									}else{
-										//Llamar· al obtenerPostConComentarios Recogiendo el id
+										//Llamar√° al obtenerPostConComentarios Recogiendo el id
 										obtenerComentariosPost();	
 									}
 								});
@@ -229,7 +262,7 @@ function obtener_listado_posts() {
 									if( res!= "ok" ){
 										alert(res);
 									}else{
-										//Llamar· al obtenerPostConComentarios Recogiendo el id
+										//Llamar√° al obtenerPostConComentarios Recogiendo el id
 										mostrarRegistroPost();	
 									}
 								});
@@ -375,7 +408,8 @@ function obtener_listado_posts() {
 			e.preventDefault();
 		});
 	}
-
+	
+	
 
 function mostrarIdentificacionUsuario(){
 	$("#contenedor").html(plantillaLogin);
@@ -444,7 +478,7 @@ function mostrarIdentificacionUsuario(){
 						if( res!= "ok" ){
 							alert(res);
 						}else{
-							//Llamar· al obtenerPostConComentarios Recogiendo el id
+							//Llamar√° al obtenerPostConComentarios Recogiendo el id
 							obtenerComentariosPost();	
 						}
 					});
@@ -460,7 +494,7 @@ function mostrarIdentificacionUsuario(){
 						if( res!= "ok" ){
 							alert(res);
 						}else{
-							//Llamar· al obtenerPostConComentarios Recogiendo el id
+							//Llamar√° al obtenerPostConComentarios Recogiendo el id
 							mostrarRegistroPost();	
 						}
 					});
@@ -469,15 +503,13 @@ function mostrarIdentificacionUsuario(){
 	
 
 	
-	//$("#enlace_listado_foros_y_categorias").on("load"+obtener_listado_foros_y_categorias);
-	//$("#enlace_foro").click(obtener);
+	
 	
 	
 		
 	$("#enlace_listado_foros").click(obtener_listado_foros);
+	$("#enlace_registrar_foro").click();
 	
-	
-	$("#enlace_registrar_foro").click(obtener_formulario_foro);
 	
 	$("#enlace_registrarme").click(mostrarRegistroUsuario);
 	$("#enlace_identificarme").click(mostrarIdentificacionUsuario);

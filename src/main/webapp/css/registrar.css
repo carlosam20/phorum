@@ -42,6 +42,8 @@ input{
     color: #FFF;
     padding: 1%;
 }
+
+
 @media screen and (min-width: 900px) {
     img[src="explora.svg"]{
         margin: auto;
