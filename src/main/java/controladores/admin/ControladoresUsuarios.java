@@ -61,7 +61,7 @@ public class ControladoresUsuarios {
 			servicioUsuarios.registrarUsuario(nuevoUsuario);
 			String rutaRealDelProyecto =
 			request.getServletContext().getRealPath("");
-			GestorArchivos.guardarFotoUsuario(nuevoUsuario, rutaRealDelProyecto);
+			GestorArchivos.guardarFotoUsuarioAdmin(nuevoUsuario, rutaRealDelProyecto);
 			return "admin/registroUsuarioOk";
 			
 		} else {

@@ -14,13 +14,34 @@ import modelo.Usuario;
 
 public class GestorArchivos {
 	
-	public static void guardarFotoUsuario(Usuario u, String rutaReal) {
-		//si el libro recibido aquí, ha sido previamente guardad en bd
-		//por hibernate, hibernate le ha asignado ya una id
+	public static void guardarFotoUsuario(Usuario u, String rutaReal, CommonsMultipartFile foto) {
+		String nombreArchivo = u.getId()+".jpg";
+		
+		String rutaFotos = rutaReal+"/subidasUsuario";
+		File fileCarpetaFotos = new File(rutaFotos);
+		if( ! fileCarpetaFotos.exists()) {
+			fileCarpetaFotos.mkdirs();
+		}
+		if(foto.getSize() > 0) {
+			
+			
+			try {
+				foto.transferTo(new File(rutaFotos, nombreArchivo));
+				System.out.println("ruta: "+rutaFotos);
+			} catch (IllegalStateException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	public static void guardarFotoUsuarioAdmin(Usuario u, String rutaReal) {
+		
 		MultipartFile archivo = u.getImagen();
 		String nombreArchivo = u.getId()+".jpg";
 		
-		//vamos a crear una carpeta de subidas (si no existe) en la ruta real del proyecto
+		
 		String rutaSubidas = rutaReal+"/subidasUsuario";
 		File fileRutaSubidas = new File(rutaSubidas);
 		if(! fileRutaSubidas.exists()) {
@@ -37,15 +58,15 @@ public class GestorArchivos {
 			}
 		}
 		else {
-			System.out.println("Ordenador sin imagen de momento es opcional");
+			
 		}
 		
 		
-	}// end guardarImagenOrdenador
-
+	}// end guardarImagenForo
 	
-
-	public static void guardarImagenForo(Foro f, String rutaReal, CommonsMultipartFile foto) {
+	
+	
+	public static void guardarImagenForo(Foro f, String rutaReal) {
 	
 		MultipartFile archivo = f.getImagen();
 		String nombreArchivo = f.getId()+".jpg";
@@ -74,7 +95,7 @@ public class GestorArchivos {
 	}// end guardarImagenForo
 	
 	
-	public static void guardarImagenPost(Post p, String rutaReal, CommonsMultipartFile foto) {
+	public static void guardarImagenPost(Post p, String rutaReal) {
 		
 		MultipartFile archivo = p.getImagen();
 		String nombreArchivo = p.getId()+".jpg";

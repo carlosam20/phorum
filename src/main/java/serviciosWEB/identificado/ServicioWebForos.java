@@ -66,10 +66,11 @@ public class ServicioWebForos {
 		
 		//tras hacer un registro con hibernate, hibernate asigna a este foro la id del 
 		//registro en la tabla de la base de datos
-		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
-		GestorArchivos.guardarImagenForo(f, rutaRealDelProyecto, foto);
 		
-		respuesta = "ok";		
+		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
+		GestorArchivos.guardarImagenForo(f, rutaRealDelProyecto);
+		respuesta = "ok";
+		
 		return new ResponseEntity<String>(
 				respuesta,HttpStatus.OK);
 	}

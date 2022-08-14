@@ -75,7 +75,7 @@ public class ControladoresPost {
 			
 			String rutaRealDelProyecto =
 			request.getServletContext().getRealPath("");
-			GestorArchivos.guardarImagenPost(nuevoPost, rutaRealDelProyecto, null);
+			GestorArchivos.guardarImagenPost(nuevoPost, rutaRealDelProyecto);
 			return "admin/registroPostOk";
 			
 		} else {
@@ -100,7 +100,7 @@ public class ControladoresPost {
 			
 			String rutaRealDelProyecto = 
 					request.getServletContext().getRealPath("");
-			GestorArchivos.guardarImagenPost(post, rutaRealDelProyecto, null);
+			GestorArchivos.guardarImagenPost(post, rutaRealDelProyecto);
 			
 			return listarPosts("",0,model);
 		}else {
