@@ -12,12 +12,12 @@
  
  
  <!-- Botón del Modal -->
-<button type="button" class="enlace_crear_foro s-btn " data-bs-toggle="modal" data-bs-target="#crearForoModal">
-  Crear Foro
+<button type="button" class="enlace_crear_post s-btn " data-bs-toggle="modal" data-bs-target="#crearForoModal">
+  Crear Post
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="crearForoModal" tabindex="-1" aria-labelledby="crearForoModal" aria-hidden="true">
+<div class="modal fade" id="crearPostModal" tabindex="-1" aria-labelledby="crearPostModal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -26,7 +26,7 @@
       </div>
       <div class="modal-body">
         
-     <form id="form_registro_foro">
+     <form id="form_registro_post">
 
 
 	<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1 ">
@@ -46,7 +46,7 @@
 	</div>
 	<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
 		<div class="col-lg-8 col-md-6">
-	<input class="s-btn" type="submit" value="Subir Foro" />
+	<input class="s-btn" type="submit" value="Subir Post" />
 		</div>
 	</div>
 
@@ -73,7 +73,7 @@
             <div class="card-body">
               <h5 class="card-title">{{nombre}}</h5>
               <p class="card-text">{{descripcion}}</p>
-              <button class="enlace_entrar_post s-btn" type="button" id="{{id}}">Ver Foro</button>
+              <button class="enlace_entrar_post s-btn" type="button" id="{{id}}">Ver Post</button>
             </div>
             
           </a>

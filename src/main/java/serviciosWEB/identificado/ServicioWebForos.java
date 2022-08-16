@@ -68,7 +68,7 @@ public class ServicioWebForos {
 		//registro en la tabla de la base de datos
 		
 		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
-		GestorArchivos.guardarImagenForo(f, rutaRealDelProyecto);
+		GestorArchivos.guardarImagenForo(f, rutaRealDelProyecto, foto);
 		respuesta = "ok";
 		
 		return new ResponseEntity<String>(

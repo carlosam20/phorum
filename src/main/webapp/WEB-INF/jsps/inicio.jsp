@@ -147,7 +147,8 @@ cargar_plantillas_del_servidor();
 			                success: function(res){
 			                    if(res == "ok"){
 			                        alert("registrado correctamente");
-			                        mostrarIdentificacionUsuario();
+			                        $('#crearForoModal').modal('hide');
+			                        obtener_listado_foros();
 			                    }else{
 			                        alert(res);
 			                        alert("Foro no valido");
@@ -166,24 +167,60 @@ cargar_plantillas_del_servidor();
 	}//-end obtener_listado-
 	
 	
-function obtener_listado_posts() {
-		
-		$.ajax("servicioWebCategorias/obtenerCategorias", {
-			success : function(data) {
-				alert("recibido: "+data);
-				var categorias = JSON.parse(data);
-				var texto_html = "";
-				texto_html = Mustache.render(plantillaListarCategorias,
-						categorias);
-				$("#contenedor").html(texto_html);
+function obtener_listado_posts(id) {
+	var id = $('#boton-post').val();
+						
+				$.ajax("servicioWebPosts/obtenerPosts?id="+id", {
+					success : function(data) {
+						alert("recibido: "+data);
+						var foros = JSON.parse(data);
+						var texto_html = "";
+						texto_html = Mustache.render(plantillaListarPosts,
+								posts);
+						$("#contenedor").html(texto_html);
+						
+						
+						<!--Registro -->
+						 
+					    $("#form_registro_post").submit(function(e){
+					        var nombre = $("#nombre").val();
+					        var descripcion = $("#descripcion").val();
+					        
+					        if( validarNombre(nombre)){
+					            
+					            alert("todo ok, mandando informacion al servicio web...");
+					            
+					            //vamos a usar FormData para mandar el form al servicio web
+					            var formulario = document.forms[0];
+					            var formData = new FormData(formulario);
+					            $.ajax("identificado/servicioWebForos/registroPost",{
+					                type: "POST",
+					                data: formData,
+					                cache: false,
+					                contentType: false,
+					                processData: false,
+					                success: function(res){
+					                    if(res == "ok"){
+					                        alert("registrado correctamente");
+					                        $('#crearPostModal').modal('hide');
+					                        obtener_listado_posts();
+					                    }else{
+					                        alert(res);
+					                        alert("Foro no valido");
+					                    }
+					                }
+					            });
+					                
+					        }//end if validaciones
+					        e.preventDefault();
+					    });
+						
+						
+					}//---end success---
+				});//--end ajax--
 				
 			}//---end success---
-		});//--end ajax--
-		
-
-		
-		
-
+	
 	}//-end obtener_listado
 	
 	
@@ -202,6 +239,9 @@ function obtener_listado_posts() {
 				
 			}//---end success---
 		});//--end ajax--
+		
+		
+		
 	}//-end obtener_listado-comentarios_post
 		
 		

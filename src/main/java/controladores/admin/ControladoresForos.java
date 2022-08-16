@@ -62,7 +62,7 @@ public class ControladoresForos {
 			servicioForos.registrarForo(nuevoForo);
 			String rutaRealDelProyecto =
 			request.getServletContext().getRealPath("");
-			GestorArchivos.guardarImagenForo(nuevoForo, rutaRealDelProyecto);
+			GestorArchivos.guardarImagenForoAdmin(nuevoForo, rutaRealDelProyecto);
 			return "admin/registroForoOk";
 			
 		} else {
@@ -85,7 +85,7 @@ public class ControladoresForos {
 			
 			String rutaRealDelProyecto = 
 					request.getServletContext().getRealPath("");
-			GestorArchivos.guardarImagenForo(foro, rutaRealDelProyecto);
+			GestorArchivos.guardarImagenForoAdmin(foro, rutaRealDelProyecto);
 			
 			return listarForos("",0,model);
 		}else {

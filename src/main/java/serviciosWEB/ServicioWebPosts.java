@@ -20,35 +20,35 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
-import modelo.Foro;
-import servicios.ServicioForos;
+import modelo.Post;
+import servicios.ServicioPosts;
 import utilidadesArchivos.GestorArchivos;
 
 
 
 
 @Controller
-@RequestMapping("servicioWebForos/")
-public class ServicioWebForos {
+@RequestMapping("servicioWebPosts/")
+public class ServicioWebPosts {
 
 	@Autowired
-	private ServicioForos servicioForos;
+	private ServicioPosts servicioPosts;
 	
-	@RequestMapping("obtenerForos")
-	public ResponseEntity<String> obtenerForos(){
-		String json = new Gson().toJson(servicioForos.obtenerForosParaListado());
+	@RequestMapping("obtenerPosts")
+	public ResponseEntity<String> obtenerPosts(){
+		String json = new Gson().toJson(servicioPosts.obtenerPostsParaListado());
 		return new ResponseEntity<String>(
 				json,HttpStatus.OK);	
 	}
-	@RequestMapping("obtenerForo")
-	public ResponseEntity<String> obtenerForo(String id){
-		String json = new Gson().toJson(servicioForos.obtenerForo(Long.parseLong(id)));
+	@RequestMapping("obtenerPost")
+	public ResponseEntity<String> obtenerPost(String id){
+		String json = new Gson().toJson(servicioPosts.obtenerPosts(Long.parseLong(id)));
 		return new ResponseEntity<String>(
 				json,HttpStatus.OK);
 	}
 	
-	@RequestMapping("registrarForos")
-	public ResponseEntity<String> registrarForo(@RequestParam Map<String, Object> formData,
+	@RequestMapping("registrarPosts")
+	public ResponseEntity<String> registrarPost(@RequestParam Map<String, Object> formData,
 			@RequestParam("foto") CommonsMultipartFile foto,
 			HttpServletRequest request){
 		String respuesta = "";
@@ -58,13 +58,13 @@ public class ServicioWebForos {
 		JsonElement json = gson.toJsonTree(formData);
 		
 		System.out.println("--------"+json);
-		Foro f = gson.fromJson(json, Foro.class);
+		Post f = gson.fromJson(json, Post.class);
 		System.out.println("foro a registrar: " + f.toString());
-		servicioForos.registrarForo(f);
+		servicioPosts.registrarPost(f);
 		//tras hacer un registro con hibernate, hibernate asigna a este usuario la id del 
 		//registro en la tabla de la base de datos
 		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
-		GestorArchivos.guardarImagenForo(f, rutaRealDelProyecto, foto);
+		GestorArchivos.guardarImagenPost(f, rutaRealDelProyecto);
 		respuesta = "ok";
 		
 		return new ResponseEntity<String>(
@@ -73,12 +73,12 @@ public class ServicioWebForos {
 }
 	
 	/*
-	@RequestMapping("obtenerPostsForo")
-	public ResponseEntity<String> obtenerPostsForo(HttpServletRequest request){
+	@RequestMapping("obtenerPostsPost")
+	public ResponseEntity<String> obtenerPostsPost(HttpServletRequest request){
 		String respuesta = "";
 		System.out.println("----ENTRA EN OBTENER PRODUCTOS CARRITO----");
 		
-		respuesta = new Gson().toJson(servicioForos.obtenerPostsForo(
+		respuesta = new Gson().toJson(servicioPosts.obtenerPostsPost(
 					(Usuario)request.getSession().getAttribute("usuario")));
 		
 		return new ResponseEntity<String>(
