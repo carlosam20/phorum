@@ -69,15 +69,23 @@ public class ServicioPostsImpl implements ServicioPosts{
 		sessionFactory.getCurrentSession().save(p);
 	}
 	
-	public List<Long> obtenerIdPostPorForoId(long id) {
+	public List<Map<String, Object>> obtenerIdPostPorForoId(long id) {
 		
-		SQLQuery query = sessionFactory.getCurrentSession().
-				createSQLQuery(ConstantesSQL.OBTENER_ID_POST_CON_FORO);
+		/*
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_POST_CON_FORO);
 		query.setParameter("id", id);
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		*/
 		
-		List<Long> obtenerLista = query.list();
 		
-		return obtenerLista;
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_POST_CON_FORO);
+		query.setParameter("id", id);
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		List<Map<String, Object>> res = query.list();
+		
+		
+		
+		return res;
 	}
 
 	@Override
@@ -101,15 +109,6 @@ public class ServicioPostsImpl implements ServicioPosts{
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_POSTS_DE_FORO);		
 		query.setParameter("id", id);
 		query.executeUpdate();
-	}
-	@Override
-	public Map<String, Object> obtenerPosts(long id) {
-		SQLQuery query = 
-				sessionFactory.getCurrentSession().
-					createSQLQuery(ConstantesSQL.SQL_OBTENER_DATOS_POST);
-		query.setParameter("id", id);
-		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
-		return (Map<String, Object>)query.uniqueResult();
 	}
 	
 

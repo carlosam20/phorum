@@ -6,6 +6,7 @@ package serviciosWEB;
 import java.util.Map;
 
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 import modelo.Post;
+
 import servicios.ServicioPosts;
 import utilidadesArchivos.GestorArchivos;
 
@@ -40,9 +42,9 @@ public class ServicioWebPosts {
 		return new ResponseEntity<String>(
 				json,HttpStatus.OK);	
 	}
-	@RequestMapping("obtenerPost")
-	public ResponseEntity<String> obtenerPost(String id){
-		String json = new Gson().toJson(servicioPosts.obtenerPosts(Long.parseLong(id)));
+	@RequestMapping("obtenerPostPorForoId")
+	public ResponseEntity<String> obtenerPost(String id, HttpServletRequest request){
+			String json = new Gson().toJson(servicioPosts.obtenerIdPostPorForoId(Long.parseLong(id)));
 		return new ResponseEntity<String>(
 				json,HttpStatus.OK);
 	}

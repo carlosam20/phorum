@@ -71,7 +71,7 @@ public class ServicioWebForos {
 				respuesta,HttpStatus.OK);
 	}
 }
-	
+
 	/*
 	@RequestMapping("obtenerPostsForo")
 	public ResponseEntity<String> obtenerPostsForo(HttpServletRequest request){

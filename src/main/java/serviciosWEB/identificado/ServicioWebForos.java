@@ -2,6 +2,7 @@ package serviciosWEB.identificado;
 
 import java.util.Map;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 import modelo.Foro;
-import modelo.Post;
+
 import modelo.Usuario;
 import servicios.ServicioComentarios;
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
-import servicios.ServicioUsuarios;
+
 import utilidadesArchivos.GestorArchivos;
 
 @Controller("servicioWebForosIdentificado")
@@ -83,8 +84,8 @@ public class ServicioWebForos {
 		
 		for(int i = 0; i < servicioPosts.obtenerIdPostPorForoId(u.getId()).size(); i++) {
 			
-			long j=servicioPosts.obtenerIdPostPorForoId(u.getId()).get(i);
-			servicioComentarios.eliminarComentariosPost(j);
+			//long j=servicioPosts.obtenerIdPostPorForoId(u.getId()).get(i);
+			//servicioComentarios.eliminarComentariosPost(j);
 		}
 
 		for(int i = 0; i < servicioForos.obtenerIdPostDeForo(u.getId()).size(); i++) {

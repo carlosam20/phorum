@@ -1,8 +1,9 @@
 package servicios;
 
 import java.util.List;
+
 import java.util.Map;
-import modelo.Foro;
+
 import modelo.Post;
 
 public interface ServicioPosts {
@@ -13,9 +14,9 @@ Post obtenerPostsPorId(long id);
 void registrarPost(Post p);
 void eliminarPosts(long id);
 void guardarCambiosPosts(Post p);
-List<Long> obtenerIdPostPorForoId(long id);
+List<Map<String, Object>> obtenerIdPostPorForoId(long id);
 void eliminarPostsDeForo(long id);
-Map<String, Object> obtenerPosts(long id); 
+
 //funciones de ajax
 List<Map<String, Object>> obtenerPostsParaListado();
 

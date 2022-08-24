@@ -53,7 +53,7 @@ public class ConstantesSQL {
 			+ "where u.id = :id ";
 	
 	//OBTENER ID A PARTIR DE ID
-	public final static String OBTENER_ID_POST_CON_FORO="select id from post where foro = :id";
+	public final static String OBTENER_POST_CON_FORO="select * from post where foro = :id";
 	public final static String OBTENER_ID_COMENTARIO_CON_POSTS="select id from comentario where post = :id";
 		
 	

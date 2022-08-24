@@ -131,13 +131,14 @@ cargar_plantillas_del_servidor();
 			        var nombre = $("#nombre").val();
 			        var descripcion = $("#descripcion").val();
 			        
-			        if( validarNombre(nombre)){
+			        if(validarNombre(nombre)){
 			            
 			            alert("todo ok, mandando informacion al servicio web...");
 			            
 			            //vamos a usar FormData para mandar el form al servicio web
 			            var formulario = document.forms[0];
 			            var formData = new FormData(formulario);
+			            
 			            $.ajax("identificado/servicioWebForos/registroForo",{
 			                type: "POST",
 			                data: formData,
@@ -155,11 +156,33 @@ cargar_plantillas_del_servidor();
 			                    }
 			                }
 			            });
+			            
+			            
+			            
 			                
 			        }//end if validaciones
 			        e.preventDefault();
 			    });
-				
+			    
+			    
+			    <!--Boton Ver Post -->
+			    $(".boton_post_foro").click(function(e){
+					var id = $(this).attr("id");
+					alert("pedir al servidor id:" +id);
+					
+					$.ajax("servicioWebPosts/obtenerPostPorForoId?id="+id, {
+						success : function(data) {
+							alert("recibido: "+data);
+							var posts = JSON.parse(data);
+							var texto_html = Mustache.render(plantillaListarPosts ,posts);
+							$("#contenedor").html(texto_html);
+							
+						}//---end success---
+					});//--end ajax--
+					
+					e.preventDefault();
+					
+				});//-end obtener_listado-comentarios_post	
 				
 			}//---end success---
 		});//--end ajax--
@@ -167,62 +190,65 @@ cargar_plantillas_del_servidor();
 	}//-end obtener_listado-
 	
 	
-function obtener_listado_posts(id) {
-	var id = $('#boton-post').val();
-						
-				$.ajax("servicioWebPosts/obtenerPosts?id="+id", {
-					success : function(data) {
-						alert("recibido: "+data);
-						var foros = JSON.parse(data);
-						var texto_html = "";
-						texto_html = Mustache.render(plantillaListarPosts,
-								posts);
-						$("#contenedor").html(texto_html);
-						
-						
-						<!--Registro -->
-						 
-					    $("#form_registro_post").submit(function(e){
-					        var nombre = $("#nombre").val();
-					        var descripcion = $("#descripcion").val();
-					        
-					        if( validarNombre(nombre)){
-					            
-					            alert("todo ok, mandando informacion al servicio web...");
-					            
-					            //vamos a usar FormData para mandar el form al servicio web
-					            var formulario = document.forms[0];
-					            var formData = new FormData(formulario);
-					            $.ajax("identificado/servicioWebForos/registroPost",{
-					                type: "POST",
-					                data: formData,
-					                cache: false,
-					                contentType: false,
-					                processData: false,
-					                success: function(res){
-					                    if(res == "ok"){
-					                        alert("registrado correctamente");
-					                        $('#crearPostModal').modal('hide');
-					                        obtener_listado_posts();
-					                    }else{
-					                        alert(res);
-					                        alert("Foro no valido");
-					                    }
-					                }
-					            });
-					                
-					        }//end if validaciones
-					        e.preventDefault();
-					    });
-						
-						
-					}//---end success---
-				});//--end ajax--
+	function obtener_listado_posts() {
+		
+		$.ajax("servicioWebPosts/obtenerPosts", {
+			success : function(data) {
+				alert("recibido: "+data);
+				var posts = JSON.parse(data);
+				var texto_html = "";
+				texto_html = Mustache.render(plantillaListarPosts, posts);
+				$("#contenedor").html(texto_html);
+				
+				
+				<!--Registro -->
+				 
+			    $("#form_registro_post").submit(function(e){
+			        var nombre = $("#nombre").val();
+			        var descripcion = $("#descripcion").val();
+			        
+			        if(validarNombre(nombre)){
+			            
+			            alert("todo ok, mandando informacion al servicio web...");
+			            
+			            //vamos a usar FormData para mandar el form al servicio web
+			            var formulario = document.forms[0];
+			            var formData = new FormData(formulario);
+			            
+			            $.ajax("identificado/servicioWebPosts/registroPosts",{
+			                type: "POST",
+			                data: formData,
+			                cache: false,
+			                contentType: false,
+			                processData: false,
+			                success: function(res){
+			                    if(res == "ok"){
+			                        alert("registrado correctamente");
+			                        $('#crearPostModal').modal('hide');
+			                        obtener_listado_posts();
+			                        
+			                    }else{
+			                        alert(res);
+			                        alert("Foro no valido");
+			                    }
+			                }
+			            });
+			            
+			                
+			        }//end if validaciones
+			        e.preventDefault();
+			    });
+			    
+			    
+			    <!--Boton Ver Comentarios -->
+
 				
 			}//---end success---
+		});//--end ajax--
+
+	}//-end obtener_listado-
 	
-	}//-end obtener_listado
-	
+
 	
 	
 	
@@ -244,67 +270,10 @@ function obtener_listado_posts(id) {
 		
 	}//-end obtener_listado-comentarios_post
 		
-		
-	function obtener_listado_posts_foro(id){
-		var id = $('#boton-post').val();
-		$.ajax("servicioWebPosts/obtenerPosts?id="+id, {
-			success : function(data) {
-				alert("recibido: "+data);
-				var categorias = JSON.parse(data);
-				var texto_html = "";
-				texto_html = Mustache.render(plantillaListarPosts,
-						categorias);
-				$("#contenedor").html(texto_html);
-				
-			}//---end success---
-		});//--end ajax--
-	}	
 	
 	
-	function obtenerPostsForo() {
-		$.ajax("identificado/servicioWebForo/obtenerPostsForo",{
-			success:function(res){
-				if(res == "te has colado."){
-					alert("tienes que identificarte");
-				}else{
-					var posts_foro = JSON.parse(res);
-					var html = Mustache.render(plantillaForo,posts_foro);
-					$("#contenedor").html(html);
-					
-					$(".enlace_entrar_post").click(function(){
-						var id = $(this).attr("id-foro");
-						$.post("identificado/servicioWebForo/listarPosts",
-								{
-									idProducto : id+""
-								}).done(function(res){
-									if( res!= "ok" ){
-										alert(res);
-									}else{
-										//Llamará al obtenerPostConComentarios Recogiendo el id
-										obtenerComentariosPost();	
-									}
-								});
-					});
-					
-					$(".enlace_crear_post").click(function(id){
-						var id = $(this).attr("id-foro");
-						$.post("identificado/servicioWebForos/crearPostForo?id="+id,
-								{
-									idProducto : id+""
-								}).done(function(res){
-									if( res!= "ok" ){
-										alert(res);
-									}else{
-										//Llamará al obtenerPostConComentarios Recogiendo el id
-										mostrarRegistroPost();	
-									}
-								});
-					});
-
-				}	
-			}
-		});
-	}
+	
+	
 	
 
 	function mostrarRegistroComentario(){
@@ -539,11 +508,12 @@ function mostrarIdentificacionUsuario(){
 	
 	
 	
-		
+	
 	$("#enlace_listado_foros").click(obtener_listado_foros);
 	$("#enlace_registrar_foro").click();
 	
 	
+	$("#enlace_listado_posts").click(obtener_listado_posts);
 	$("#enlace_registrarme").click(mostrarRegistroUsuario);
 	$("#enlace_identificarme").click(mostrarIdentificacionUsuario);
 	$("#enlace_logout").click(logout);

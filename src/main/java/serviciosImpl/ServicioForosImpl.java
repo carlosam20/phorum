@@ -111,7 +111,7 @@ public class ServicioForosImpl implements ServicioForos{
 	}
 	@Override
 	public List<Long> obtenerIdPostDeForo(long id) {
-		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_ID_POST_CON_FORO);
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_POST_CON_FORO);
 		query.setParameter("id", id);
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 		return query.list();
