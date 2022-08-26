@@ -8,9 +8,6 @@
  
  
  
- 
- 
- 
  <!-- Botón del Modal -->
 <button type="button" class="enlace_crear_foro s-btn " data-bs-toggle="modal" data-bs-target="#crearForoModal">
   Crear Foro
@@ -18,7 +15,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="crearForoModal" tabindex="-1" aria-labelledby="crearForoModal" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Crear Foro</h5>
@@ -58,8 +55,6 @@
 </div>
  
 
-
-
  
 {{#.}}
 <!--Listado foros-->
@@ -67,13 +62,16 @@
     <div class="row m-3">
       <div class="col-lg-5 m-3">
         <div class="card">
-          <a href="">
+          <a href="boton_post_foro">
 	   		<img src="subidas/{{id}}.jpg" id="{{id}}" class="card-img-top" alt="{{nombre}}">
 	   		<img hidden="true" src="" class="card-img-top"/>
+	   		
             <div class="card-body">
+            
               <h5 class="card-title">{{nombre}}</h5>
               <p class="card-text">{{descripcion}}</p>
-              <a class="boton_post_foro s-btn" type="button" id="{{id}}">Ver Foro</button>
+              <button class="boton_post_foro s-btn" type="button" id="{{id}}">Ver Foro</button>
+              
             </div>
             
           </a>

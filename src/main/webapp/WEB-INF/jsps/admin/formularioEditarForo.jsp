@@ -19,7 +19,7 @@
 	pass: <springform:input path="descripcion" class="form-label"/>
 	</div>
 	<div class="mb-3">
-	fecha: <springform:input path="fechaCreacion" class="form-label"/>
+	fecha: <springform:input type="date" path="fechaCreacion" class="form-label" pattern="dd/MM/yyyy" />
 	</div>
 	<div class="mb-3">
 	imagen : <springform:input path="imagen" type="file"/><br>

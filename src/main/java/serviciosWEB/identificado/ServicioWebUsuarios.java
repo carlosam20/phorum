@@ -42,7 +42,7 @@ public class ServicioWebUsuarios {
 	
 	@RequestMapping("editarUsuarioPorId")
 	public ResponseEntity<String> editarUsuarioPorId(@RequestParam Map<String, Object> formData,
-			@RequestParam("foto") CommonsMultipartFile foto,
+			@RequestParam("foto") CommonsMultipartFile foto, 
 			HttpServletRequest request){
 		Usuario u = (Usuario)request.getSession().getAttribute("usuario");
 		

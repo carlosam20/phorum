@@ -21,10 +21,11 @@
 <div class="barraNavegacion">
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
+        
             <a class="navbar-brand" href="#">
             	<img src=<c:url value="images/logo-phorum.svg"></c:url> alt="Foto" width="60" height="60" class="d-inline-block align-text-top"/>
-                
             </a>
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="material-symbols-outlined">menu</span>
             </button>
@@ -44,16 +45,17 @@
                         <a class="nav-link m-3" id="enlace_listado_posts" aria-current="page" href="#">Posts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link m-3" id="enlace_logout" aria-current="page" href="#">Cerrar Sesión</a>
+                        <a class="nav-link m-3" id="enlace_logout" aria-current="page" href="#">Cerrar Sesi&oacuten</a>
                     </li>
                 </ul>
             </div>
 
 
-             <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+             <ul class="navbar-nav mb-auto mb-lg-0">
                  <li class="nav-item">
-                     <a class="s-btn nav-link active m-3" id="enlace_identificarme" aria-current="page" href="#">Iniciar Sesión</a>
+                     <a class="s-btn nav-link active m-3" id="enlace_identificarme" aria-current="page" href="#">Iniciar Sesi&oacuten</a>
                  </li>
+                 
                  <li class="nav-item">
                      <a class="s-btn nav-link active m-3" id="enlace_registrarme" aria-current="page" href="#">Registrar</a>
                  </li>
@@ -64,7 +66,7 @@
 </div>
 
 
-<!--Modal -->
+
 
 
 
@@ -83,7 +85,6 @@
 <script type="text/javascript" src="js/carga_plantilla.js"></script>
 <script src="https://unpkg.com/@stackoverflow/stacks/dist/js/stacks.min.js"></script>
 <script type="text/javascript" src="js/validaciones.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 
@@ -241,6 +242,23 @@ cargar_plantillas_del_servidor();
 			    
 			    
 			    <!--Boton Ver Comentarios -->
+			    function obtener_listado_comentarios_post(id){
+					var id = $('#boton_comentarios').val();
+					$.ajax("servicioWebComentarios/obtenerComentarios?id="+id, {
+						success : function(data) {
+							alert("recibido: "+data);
+							var categorias = JSON.parse(data);
+							var texto_html = "";
+							texto_html = Mustache.render(plantillaListarComentarios,
+									categorias);
+							$("#contenedor").html(texto_html);
+							
+						}//---end success---
+					});//--end ajax--
+					
+					
+					
+				}//-end obtener_listado-comentarios_post
 
 				
 			}//---end success---
@@ -249,32 +267,6 @@ cargar_plantillas_del_servidor();
 	}//-end obtener_listado-
 	
 
-	
-	
-	
-	function obtener_listado_comentarios_post(id){
-		var id = $('#boton-post').val();
-		$.ajax("servicioWebComentarios/obtenerComentarios?id="+id, {
-			success : function(data) {
-				alert("recibido: "+data);
-				var categorias = JSON.parse(data);
-				var texto_html = "";
-				texto_html = Mustache.render(plantillaListarComentarios,
-						categorias);
-				$("#contenedor").html(texto_html);
-				
-			}//---end success---
-		});//--end ajax--
-		
-		
-		
-	}//-end obtener_listado-comentarios_post
-		
-	
-	
-	
-	
-	
 
 	function mostrarRegistroComentario(){
 		$("#contenedor").html(plantillaRegistrarPost);
@@ -386,10 +378,13 @@ cargar_plantillas_del_servidor();
 			var pass = $("#pass").val();
 			if( validarNombre(nombre) && validarEmail(email) && 
 				validarPass(pass)){
-	
+				
+				alert("todo ok, mandando informacion al servicio web...");
+				
+				//vamos a usar FormData para mandar el form al servicio web
 				var formulario = document.forms[0];
 				var formData = new FormData(formulario);
-				$.ajax("servicioWebUsuarios/editarUsuario",{
+				$.ajax("servicioWebUsuarios/registrarUsuario",{
 					type: "POST",
 					data: formData,
 					cache: false,
@@ -438,6 +433,7 @@ function mostrarIdentificacionUsuario(){
 					
 					$("#mensaje_login").html("( identificado como: " + nombre_login + " )");
 					$("#contenedor").html("login ok");
+					
 				}else{
 					alert(res);
 				}
@@ -459,6 +455,7 @@ function mostrarIdentificacionUsuario(){
 	}
 	
 	function perfil(){
+		
 		$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId",{
 			success:function(data){
 				alert("recibido: "+data);
@@ -472,16 +469,19 @@ function mostrarIdentificacionUsuario(){
 		
 		
 		$(".enlace_editar_usuario").click(function(){
-			var id = $(this).attr("id-foro");
+			
+			var id = $('.enlace_editar_usuario').val();
+			
 			$.post("identificado/servicioWebUsuarios/editarUsuarioPorId",
 					{
-						idProducto : id+""
+				
+						
 					}).done(function(res){
 						if( res!= "ok" ){
 							alert(res);
 						}else{
 							//Llamará al obtenerPostConComentarios Recogiendo el id
-							obtenerComentariosPost();	
+							perfil();	
 						}
 					});
 			
@@ -506,13 +506,7 @@ function mostrarIdentificacionUsuario(){
 
 	
 	
-	
-	
-	
 	$("#enlace_listado_foros").click(obtener_listado_foros);
-	$("#enlace_registrar_foro").click();
-	
-	
 	$("#enlace_listado_posts").click(obtener_listado_posts);
 	$("#enlace_registrarme").click(mostrarRegistroUsuario);
 	$("#enlace_identificarme").click(mostrarIdentificacionUsuario);
@@ -535,12 +529,6 @@ function mostrarIdentificacionUsuario(){
 
 
 </script>
-
-
-
-
-
-
 
 
 </body>
