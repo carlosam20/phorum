@@ -1,4 +1,7 @@
 
+<link rel="stylesheet" href="bootstrap.css">
+<link rel="stylesheet" href="login.css">
+
 <div class="row justify-content-center">
       <div class="d-flex justify-content-center">
         <div class="col-lg-8 col-md-6">
@@ -11,7 +14,7 @@
       <img class="explora border rounded-top p-5" src="webapp/images/explora.svg" alt="">
     </div>
     
-<form id="form_registro_usuario">
+<form id="form_editar_usuario">
 
 	<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
 		<div class="col-lg-8 col-md-6">
@@ -30,6 +33,12 @@
 	</div>
 	<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
 		<div class="col-lg-8 col-md-6">
+			 <input type="text" name="descripcion" class="form-control form-control-lg" placeholder="Descripción" id="descripcion" value="{{descripcion}}" /><br>
+		</div>
+	</div>
+	
+	<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
+		<div class="col-lg-8 col-md-6">
 			<input type="file" name="foto" id="foto"/> <br>
 		</div>
 	</div>
@@ -41,5 +50,5 @@
 </form>
 <script type="text/javascript" src="js/carga_plantilla.js"></script>
 <script type="text/javascript" src="js/validaciones.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+
 

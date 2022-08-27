@@ -110,6 +110,7 @@ var plantillaPerfil = "";
 
 
 
+
 		
 cargar_plantillas_del_servidor();
 //funciones ajax
@@ -164,7 +165,7 @@ cargar_plantillas_del_servidor();
 			        }//end if validaciones
 			        e.preventDefault();
 			    });
-			    
+				
 			    
 			    <!--Boton Ver Post -->
 			    $(".boton_post_foro").click(function(e){
@@ -370,41 +371,7 @@ cargar_plantillas_del_servidor();
 		});
 	}
 
-	function mostrarEditarUsuario(){
-		$("#contenedor").html(plantillaEditarUsuario);
-		$("#form_editar_usuario").submit(function(e){
-			var nombre = $("#nombre").val();
-			var email = $("#email").val();
-			var pass = $("#pass").val();
-			if( validarNombre(nombre) && validarEmail(email) && 
-				validarPass(pass)){
-				
-				alert("todo ok, mandando informacion al servicio web...");
-				
-				//vamos a usar FormData para mandar el form al servicio web
-				var formulario = document.forms[0];
-				var formData = new FormData(formulario);
-				$.ajax("servicioWebUsuarios/registrarUsuario",{
-					type: "POST",
-					data: formData,
-					cache: false,
-					contentType: false,
-					processData: false,
-					success: function(res){
-						if(res == "ok"){
-							alert("registrado correctamente, ya puedes identificarte");
-							mostrarIdentificacionUsuario();
-						}else{
-							alert(res);
-							alert("Usuario no valido");
-						}
-					}
-				});
-					
-			}//end if validaciones
-			e.preventDefault();
-		});
-	}
+
 	
 	
 
@@ -456,58 +423,80 @@ function mostrarIdentificacionUsuario(){
 	
 	function perfil(){
 		
-		$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId",{
-			success:function(data){
-				alert("recibido: "+data);
-				var info = JSON.parse(data);	
-				var texto_html = "";
-				texto_html = Mustache.render(plantillaPerfil,info);
-				$("#contenedor").html(texto_html);
-			}//end success
-		});	//end ajax
-		
-		
-		
-		$(".enlace_editar_usuario").click(function(){
-			
-			var id = $('.enlace_editar_usuario').val();
-			
-			$.post("identificado/servicioWebUsuarios/editarUsuarioPorId",
-					{
+			$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId",{
+				success:function(data){
+					alert("recibido: "+data);
+					var info = JSON.parse(data);	
+					var texto_html = "";
+					texto_html = Mustache.render(plantillaPerfil,info);
+					$("#contenedor").html(texto_html);
+					
+					
+					<!--Boton Editar -->
+					 $(".enlace_editar_usuario").click(function(e){
+						 
+						 $.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId",{
+								success:function(data){
+									alert("recibido: "+data);
+									var info = JSON.parse(data);	
+									var texto_html = "";
+									texto_html = Mustache.render(plantillaEditarUsuario, info);
+									$("#contenedor").html(texto_html);						
+
+								}//end success
+								
+							});	//end ajax
+							
+							
+							
+						 							
+							var nombre = $("#nombre").val();
+							var email = $("#email").val();
+							var descripcion = $("#descripcion").val();
+							var pass = $("#pass").val();					
+					
+							alert("pedir al servidor id:" +id);
+							
+						$("#form_editar_usuario").submit(function(e){
+							
+							var formulario = document.forms[0];
+							var formData = new FormData(formulario);
+							$.ajax("identificado/servicioWebUsuarios/editarUsuarioPorId",{
+								type: "POST",
+								data: formData,
+								cache: false,
+								contentType: false,
+								processData: false,
+								success: function(res){
+								
+									if(res == "ok"){
+										alert("registrado correctamente, ya puedes identificarte");
+										mostrarIdentificacionUsuario();
+									}else{
+										alert(res);
+										alert("Usuario no valido");
+									}
+								}
+							});
+							
+							
+					}); // end submit form
+							
+				});//-end enlace editar
+						
+						
+				}//end success
 				
-						
-					}).done(function(res){
-						if( res!= "ok" ){
-							alert(res);
-						}else{
-							//Llamará al obtenerPostConComentarios Recogiendo el id
-							perfil();	
-						}
-					});
+			});	//end ajax
 			
-		});
-		
-		$(".enlace_borrar_usuario").click(function(){
-		
-			$.post("identificado/servicioWebUsuarios/borrarUsuarioid",
-					{
-						
-					}).done(function(res){
-						if( res!= "ok" ){
-							alert(res);
-						}else{
-							//Llamará al obtenerPostConComentarios Recogiendo el id
-							mostrarRegistroPost();	
-						}
-					});
-		});
-	}//end mis_datos
+	}//end perfil
 	
 
 	
 	
 	$("#enlace_listado_foros").click(obtener_listado_foros);
 	$("#enlace_listado_posts").click(obtener_listado_posts);
+	$("#enlace_editar_usuario").click(mostrarRegistroUsuario);
 	$("#enlace_registrarme").click(mostrarRegistroUsuario);
 	$("#enlace_identificarme").click(mostrarIdentificacionUsuario);
 	$("#enlace_logout").click(logout);
