@@ -16,6 +16,10 @@ public class ConstantesSQL {
 			+ "from post " 
 			+ "order by id desc";
 	
+	public final static String SQL_OBTENER_COMENTARIOS_PARA_LISTADO="select id, nombre, descripcion, fechaCreacion "
+			+ "from post " 
+			+ "order by id desc";
+	
 	//Desplegable
 	public final static String SQL_OBTENER_FOROS_PARA_DESPLEGABLE = "select id, nombre from foro order by id asc";
 	
@@ -25,7 +29,7 @@ public class ConstantesSQL {
 	public static final String OBTENER_TOTAL_USUARIOS = "select count(id) from usuario where nombre like :nombre ";
 	public static final String OBTENER_TOTAL_FOROS = "select count(id) from foro where nombre like :nombre ";
 	public static final String OBTENER_TOTAL_POSTS = "select count(id) from post where nombre like :nombre";
-	public static final String OBTENER_TOTAL_COMENTARIOS= "select count(id) from comentario where nombre like :nombre ";
+	public static final String OBTENER_TOTAL_COMENTARIOS= "select count(id) from comentario where textoComentario like :textoComentario ";
 	public static final String OBTENER_POST_POR_ID_USUARIO = "select count(p.id) from post as p  where usuario = :id";
 	
 	

@@ -356,6 +356,7 @@ cargar_plantillas_del_servidor();
 					contentType: false,
 					processData: false,
 					success: function(res){
+						
 						if(res == "ok"){
 							alert("registrado correctamente, ya puedes identificarte");
 							mostrarIdentificacionUsuario();
@@ -421,9 +422,9 @@ function mostrarIdentificacionUsuario(){
 		});	
 	}
 	
-	function perfil(){
+function perfil(){
 		
-			$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId",{
+		$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId",{
 				success:function(data){
 					alert("recibido: "+data);
 					var info = JSON.parse(data);	
@@ -441,55 +442,59 @@ function mostrarIdentificacionUsuario(){
 									var info = JSON.parse(data);	
 									var texto_html = "";
 									texto_html = Mustache.render(plantillaEditarUsuario, info);
-									$("#contenedor").html(texto_html);						
+									$("#contenedor").html(texto_html);
+									
+									
+									
+									
+									<!--Form-->
+									$("#form_editar_usuario").submit(function(e){
+										
+										<!--Variables form -->
+										var nombre = $("#nombre").val();
+										var email = $("#email").val();
+										var descripcion = $("#descripcion").val();
+										var pass = $("#pass").val();
+										 
+										var formulario = document.forms[0];
+										var formData = new FormData(formulario);
+										
+										
+										alert("Entra en el boton");
+										
+										$.ajax("identificado/servicioWebUsuarios/editarUsuarioPorId",{
+											type: "POST",
+											data: formData,
+											cache: false,
+											contentType: false,
+											processData: false,
+											success: function(res){
+																				
+												if(res == "ok"){
+													alert("editado correctamente");
+													perfil();
+												}else{
+													alert(res);
+													alert("Usuario no valido");
+												}
+											}
+										});
+										
+									}); // end submit form
+									
 
-								}//end success
-								
-							});	//end ajax
-							
-							
-							
-						 							
-							var nombre = $("#nombre").val();
-							var email = $("#email").val();
-							var descripcion = $("#descripcion").val();
-							var pass = $("#pass").val();					
-					
-							alert("pedir al servidor id:" +id);
-							
-						$("#form_editar_usuario").submit(function(e){
-							
-							var formulario = document.forms[0];
-							var formData = new FormData(formulario);
-							$.ajax("identificado/servicioWebUsuarios/editarUsuarioPorId",{
-								type: "POST",
-								data: formData,
-								cache: false,
-								contentType: false,
-								processData: false,
-								success: function(res){
-								
-									if(res == "ok"){
-										alert("registrado correctamente, ya puedes identificarte");
-										mostrarIdentificacionUsuario();
-									}else{
-										alert(res);
-										alert("Usuario no valido");
-									}
-								}
-							});
-							
-							
-					}); // end submit form
-							
+								}//end success plantillaCargarForm Editar
+												
+						});	//end ajax
+						
+
+													 											
 				});//-end enlace editar
-						
-						
-				}//end success
-				
-			});	//end ajax
+												
+			}//end success				
+		});	//end ajax
 			
-	}//end perfil
+}//end perfil
 	
 
 	

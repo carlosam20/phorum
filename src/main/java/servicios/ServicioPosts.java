@@ -16,6 +16,7 @@ void eliminarPosts(long id);
 void guardarCambiosPosts(Post p);
 List<Map<String, Object>> obtenerIdPostPorForoId(long id);
 void eliminarPostsDeForo(long id);
+Map<String, String> obtenerPostsParaDesplegable();
 
 //funciones de ajax
 List<Map<String, Object>> obtenerPostsParaListado();

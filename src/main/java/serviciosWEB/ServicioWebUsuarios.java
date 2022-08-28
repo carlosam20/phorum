@@ -50,6 +50,7 @@ public class ServicioWebUsuarios {
 				respuesta,HttpStatus.OK);
 	}
 	
+	
 	@RequestMapping("loginUsuario")
 	public ResponseEntity<String> identificarUsuario(String email, String pass, HttpServletRequest request){
 		Usuario u = servicioUsuarios.obtenerUsuarioPorEmailYpass(email, pass);

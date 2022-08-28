@@ -119,5 +119,10 @@ public class ServicioPostsImpl implements ServicioPosts{
 		sessionFactory.getCurrentSession().merge(p);
 		
 	}
+	@Override
+	public Map<String, String> obtenerPostsParaDesplegable() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 		
 }

@@ -44,6 +44,7 @@ public class ServicioWebUsuarios {
 	public ResponseEntity<String> editarUsuarioPorId(@RequestParam Map<String, Object> formData,
 			@RequestParam("foto") CommonsMultipartFile foto, 
 			HttpServletRequest request){
+		
 		Usuario u = (Usuario)request.getSession().getAttribute("usuario");
 		
 		String respuesta = "";
@@ -51,8 +52,8 @@ public class ServicioWebUsuarios {
 		JsonElement json = gson.toJsonTree(formData);
 		
 		Usuario nu = gson.fromJson(json, Usuario.class);
-		nu.setId(u.getId());
-		System.out.println("usuario a registrar: " + nu.toString());
+		nu.setId((u.getId()));
+		System.out.println("usuario a editar: " + nu.toString());
 		servicioUsuarios.guardarCambiosUsuario(nu);
 		//tras hacer un registro con hibernate, hibernate asigna a este usuario la id del 
 		//registro en la tabla de la base de datos

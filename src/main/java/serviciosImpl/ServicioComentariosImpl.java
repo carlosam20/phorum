@@ -6,10 +6,12 @@ package serviciosImpl;
 
 import java.time.LocalDate;
 
+
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import constantesSQL.ConstantesSQL;
 import modelo.Comentario;
+import modelo.Foro;
 import modelo.Usuario;
 import servicios.ServicioComentarios;
 import servicios.ServicioUsuarios;
@@ -32,33 +35,31 @@ public class ServicioComentariosImpl implements ServicioComentarios{
 	
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Override
-	public void registrarComentario(Comentario c) {
-		try {
-			c.setFechaCreacion(LocalDate.now().getDayOfMonth()+"/"+LocalDate.now().getMonthValue()+"/"+LocalDate.now().getYear());
-			sessionFactory.getCurrentSession().save(c);
-		}
-		catch (Exception e) {
+	public List<Map<String, Object>> obtenerComentariosParaListado() {
 		
-		}
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_COMENTARIOS_PARA_LISTADO);
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		List<Map<String, Object>> res = query.list();
+		
+		return res;
+	}
+
+	@Override
+	public int obtenerTotalDeComentarios(String textoComentario) {
+		SQLQuery query = sessionFactory.getCurrentSession().
+		createSQLQuery(ConstantesSQL.OBTENER_TOTAL_COMENTARIOS);
+		query.setParameter("textoComentario","%"+textoComentario+"%");
+		
+		return Integer.parseInt(query.list().get(0).toString());
 		
 	}
 
 	@Override
-	public int obtenerTotalDeComentarios(String nombre) {
-		SQLQuery query = sessionFactory.getCurrentSession().
-				createSQLQuery(ConstantesSQL.OBTENER_TOTAL_USUARIOS);
-		query.setParameter("nombre","%"+nombre+"%");
-		return Integer.parseInt(query.list().get(0).toString());
-	}
-	
-	
-	@Override
-	public List<Comentario> obtenerComentarios(String nombre, int comienzo) {
-		
-		Criteria c = sessionFactory.getCurrentSession().createCriteria(Usuario.class);
-		c.add(Restrictions.like("nombre", "%"+nombre+"%"));
+	public List<Comentario> obtenerComentarios(String textoComentario, int comienzo) {
+		Criteria c = sessionFactory.getCurrentSession().createCriteria(Comentario.class);
+		c.add(Restrictions.like("textoComentario", "%"+textoComentario+"%"));
 		c.addOrder(Order.desc("id"));
 		c.setFirstResult(comienzo);
 		c.setMaxResults(10);
@@ -66,48 +67,52 @@ public class ServicioComentariosImpl implements ServicioComentarios{
 	}
 
 	@Override
-	public List<Map<String, Object>> obtenerComentariosParaListado() {
-		// TODO Auto-generated method stub
-		return null;
+	public Comentario obtenerComentariosPorId(long id) {
+		return (Comentario) sessionFactory.getCurrentSession().get(Comentario.class, id);
 	}
 
 	@Override
-	public Map<String, Object> obtenerComentariosPorId(long id) {
-		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_DATOS_COMENTARIO);
+	public List<Long> obtenerIdComentariosDePost(long id) {
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_POST_CON_FORO);
 		query.setParameter("id", id);
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
-		return (Map<String, Object>)query.uniqueResult();
+		return query.list();
+	}
+
+	@Override
+	public void registrarComentario(Comentario c) {
+		sessionFactory.getCurrentSession().save(c);
 		
 	}
-	
+
+	@Override
+	public void borrarComentario(long id) {
+		System.out.println("Borrar Comentario");
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_FORO);		
+		query.setParameter("id", id);
+		query.executeUpdate();
+		
+	}
+
 	@Override
 	public void guardarCambiosComentario(Comentario c) {
 		sessionFactory.getCurrentSession().merge(c);
-	}
-
-	@Override
-	public void eliminarComentario(long id) {
-		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_COMENTARIO);
-		query.setParameter("id", id);
-		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
-		// TODO Auto-generated method stub
 		
 	}
-	
-	
-	public void eliminarComentariosPost(long id) {
-		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_COMENTARIOS_DE_POST);
-		query.setParameter("id", id);
-		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
-		// TODO Auto-generated method stub
-	}
 
 	@Override
-	public Comentario obtenerComentarioPorId(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> obtenerComentario(long id) {
+		SQLQuery query = 
+				sessionFactory.getCurrentSession().
+					createSQLQuery(ConstantesSQL.SQL_OBTENER_DATOS_COMENTARIO);
+		query.setParameter("id", id);
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		return (Map<String, Object>)query.uniqueResult();
 	}
 
+	
+	
+	
 }
 
 

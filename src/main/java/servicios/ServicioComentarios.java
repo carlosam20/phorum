@@ -5,18 +5,21 @@ import java.util.List;
 import java.util.Map;
 
 import modelo.Comentario;
+import modelo.Foro;
 
 
 public interface ServicioComentarios {
 
+
 List<Map<String, Object>> obtenerComentariosParaListado();
-Map<String, Object> obtenerComentariosPorId(long id);
+public int obtenerTotalDeComentarios(String marca);
+List<Comentario> obtenerComentarios(String marca, int comienzo);
+Comentario obtenerComentariosPorId(long id);
+List<Long>  obtenerIdComentariosDePost(long id);
 void registrarComentario(Comentario c);
-Comentario obtenerComentarioPorId(long id);
-List<Comentario> obtenerComentarios(String nombre, int comienzo);
-int obtenerTotalDeComentarios(String nombre);
-void eliminarComentario(long id);
-public void eliminarComentariosPost(long id);
+void borrarComentario(long id);
 void guardarCambiosComentario(Comentario c);
+Map<String, Object> obtenerComentario(long id); 
+
 	
 }
