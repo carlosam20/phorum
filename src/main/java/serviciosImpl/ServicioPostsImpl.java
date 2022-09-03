@@ -1,5 +1,6 @@
 package serviciosImpl;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -60,10 +61,10 @@ public class ServicioPostsImpl implements ServicioPosts{
 	public void registrarPost(Post p) {
 		
 		
-		Foro f = (Foro) sessionFactory.getCurrentSession().get(Foro.class,p.getForo().getId());
+		Foro f = (Foro) sessionFactory.getCurrentSession().get(Foro.class,p.getIdForo());
 		p.setForo(f);
 		
-		Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class,p.getUsuario().getId());
+		Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class,p.getIdUsuario());
 		p.setUsuario(u);
 		
 		sessionFactory.getCurrentSession().save(p);
@@ -121,8 +122,19 @@ public class ServicioPostsImpl implements ServicioPosts{
 	}
 	@Override
 	public Map<String, String> obtenerPostsParaDesplegable() {
-		// TODO Auto-generated method stub
-		return null;
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(
+				ConstantesSQL.SQL_OBTENER_POSTS_PARA_DESPLEGABLE);
+
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		
+		List <Map<String, Object>> res =query.list();
+		Map<String, String> valoresDesplegable = new HashMap<String, String>();
+		
+		for (Map<String, Object> map : res) {
+			System.out.println("id: "+map.get("id") + " nombre" +map.get("nombre"));
+			valoresDesplegable.put(map.get("id").toString(), map.get("nombre").toString());
+		}
+		return valoresDesplegable;
 	}
 		
 }

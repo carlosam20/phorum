@@ -21,36 +21,77 @@ public class Comentario {
     private Post postComentario;
     private String fechaCreacion;
 
-
-
     @ManyToOne
     @JoinColumn(name = "usuario")
     private Usuario usuario;
+    
+    @Transient
+    private long idPostComentario;
+    
+    @Transient
+    private long idUsuario;
 
 
     public Comentario() {
     }
 
    
-    public Comentario(Long id, String textoComentario, Post postComentario, String fechaCreacion, Usuario usuario) {
+    
+
+
+	public Comentario(Long id, String textoComentario, Post postComentario, String fechaCreacion, Usuario usuario,
+			long idPostComentario, long idUsuario) {
 		super();
 		this.id = id;
 		this.textoComentario = textoComentario;
 		this.postComentario = postComentario;
 		this.fechaCreacion = fechaCreacion;
 		this.usuario = usuario;
+		this.idPostComentario = idPostComentario;
+		this.idUsuario = idUsuario;
 	}
 
 
-	
 
-    public Long getId() {
+
+
+	public Long getId() {
 		return id;
 	}
 
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+
+	public String getTextoComentario() {
+		return textoComentario;
+	}
+
+
+	public void setTextoComentario(String textoComentario) {
+		this.textoComentario = textoComentario;
+	}
+
+
+	public Post getPostComentario() {
+		return postComentario;
+	}
+
+
+	public void setPostComentario(Post postComentario) {
+		this.postComentario = postComentario;
+	}
+
+
+	public String getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
 
 
@@ -64,29 +105,27 @@ public class Comentario {
 	}
 
 
-	public String getTextoComentario() {
-        return textoComentario;
-    }
+	public long getIdPostComentario() {
+		return idPostComentario;
+	}
 
-    public void setTextoComentario(String textoComentario) {
-        this.textoComentario = textoComentario;
-    }
 
-    public Post getPostComentario() {
-        return postComentario;
-    }
+	public void setIdPostComentario(long idPostComentario) {
+		this.idPostComentario = idPostComentario;
+	}
 
-    public void setPostComentario(Post postComentario) {
-        this.postComentario = postComentario;
-    }
 
-    public String getFechaCreacion() {
-        return fechaCreacion;
-    }
+	public long getIdUsuario() {
+		return idUsuario;
+	}
 
-    public void setFechaCreacion(String fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
+
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+
+	
 
    
 }

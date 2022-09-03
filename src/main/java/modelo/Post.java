@@ -4,6 +4,8 @@ package modelo;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -35,17 +37,27 @@ public class Post {
     @JoinColumn(name = "usuario")
     private Usuario usuario;
 
+    
+    @Transient
+    private long idForo;
+
+    @Transient
+    private long idUsuario;
 
 
+   
+    private long likes;
 
-    public Post() {
+   
+
+
+	public Post() {
     	
     }
 
-    
 
-    public Post(Long id, String nombre, String descripcion, Integer postVotos, String fechaCreacion, Foro foro,
-			MultipartFile imagen, Usuario usuario) {
+	public Post(Long id, String nombre, String descripcion, String fechaCreacion, Foro foro, MultipartFile imagen,
+			Usuario usuario, long idForo, long idUsuario, long likes) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -54,10 +66,13 @@ public class Post {
 		this.foro = foro;
 		this.imagen = imagen;
 		this.usuario = usuario;
+		this.idForo = idForo;
+		this.idUsuario = idUsuario;
+		this.likes = likes;
 	}
 
 
-    public Long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -68,50 +83,96 @@ public class Post {
 
 
 	public String getNombre() {
-        return nombre;
-    }
+		return nombre;
+	}
 
-    public void setNombre(String postNombre) {
-        this.nombre = postNombre;
-    }
-   
-    public String getDescripcion() {
-        return descripcion;
-    }
 
-    public void setDescripcion( String descripcion) {
-        this.descripcion = descripcion;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    
-    public String getFechaCreacion() {
-        return fechaCreacion;
-    }
 
-    public void setFechaCreacion(String fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
+	public String getDescripcion() {
+		return descripcion;
+	}
 
-    public Foro getForo() {
-        return foro;
-    }
 
-    public void setForo(Foro foro) {
-        this.foro = foro;
-    }
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-    public MultipartFile getImagen() {
-        return imagen;
-    }
+	public String getFechaCreacion() {
+		return fechaCreacion;
+	}
 
-    public void setImagen(MultipartFile imagen) {
-        this.imagen = imagen;
-    }
+
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+
+	public Foro getForo() {
+		return foro;
+	}
+
+
+	public void setForo(Foro foro) {
+		this.foro = foro;
+	}
+
+
+	public MultipartFile getImagen() {
+		return imagen;
+	}
+
+
+	public void setImagen(MultipartFile imagen) {
+		this.imagen = imagen;
+	}
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+
+	public long getIdForo() {
+		return idForo;
+	}
+
+
+	public void setIdForo(long idForo) {
+		this.idForo = idForo;
+	}
+
+
+	public long getIdUsuario() {
+		return idUsuario;
+	}
+
+
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+
+	public long getLikes() {
+		return likes;
+	}
+
+
+	public void setLikes(long likes) {
+		this.likes = likes;
+	}
+
+
+
+
+
 }

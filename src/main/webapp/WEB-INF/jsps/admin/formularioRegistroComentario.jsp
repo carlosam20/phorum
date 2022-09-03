@@ -4,31 +4,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>formularioRegistroOrdenador</title>
+<meta charset="UTF-8">
+<title>formularioRegistroPost</title>
+
 </head>
 <body>
-<jsp:include page="cabecera.jsp"></jsp:include>
+
 
 <springform:form modelAttribute="nuevoComentario" action="guardarNuevoComentario" enctype="multipart/form-data">
 
-texto del comentario: <springform:input path="nombreCompleto"/><br><br>
-direccion: <springform:input path="direccion"/><br>
-provincia: <springform:input path="provincia"/><br>
-campo provincia: <springform:input path="campoProvincia"/><br>
-codigo postal: <springform:input path="codigoPostal"/><br>
-tipo de tarjeta <springform:input path="tipoTarjeta"/><br>
-titular de la tarjeta <springform:input path="titularTarjeta"/><br>
-pais: <springform:input path="pais"/><br>
-<springform:hidden path="usuario_id"/>
+<div class="mb-3">
+Texto del comentario: <springform:input path="textoComentario"/>
+</div>
+<div class="mb-3">
+fechaCreacion: <springform:input type="date" pattern="dd/MM/yyyy" path="fechaCreacion"/>
+</div>
+
+post: <springform:select path="idPostComentario">
+		<springform:options items="${posts}"/>
+</springform:select><br>
+
+usuario: <springform:select path="idUsuario">
+		<springform:options items="${usuarios}"/>
+</springform:select><br>
+
 <springform:hidden path="id"/>
 
 
-<input type="submit" value="Registrar Pedido">
 
-
-
+<input type="submit" value="Registrar Comentario">
 </springform:form>
+
 </body>
 </html>
 

@@ -22,6 +22,7 @@ import modelo.Usuario;
 import servicios.ServicioComentarios;
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
+import servicios.ServicioUsuarios;
 import utilidadesArchivos.GestorArchivos;
 
 
@@ -35,6 +36,11 @@ public class ControladoresComentarios {
 	
 	@Autowired
 	private ServicioPosts servicioPosts;
+	
+	@Autowired
+	private ServicioUsuarios servicioUsuarios;
+	
+	
 	
 	@RequestMapping("listarComentarios")
 	public String listarComentarios(@RequestParam(defaultValue = "")String nombre, Integer comienzo, Model model) {
@@ -58,6 +64,12 @@ public class ControladoresComentarios {
 	@RequestMapping("registrarComentario")
 	public String registrarComentario(Model model) {
 		Comentario nuevo = new Comentario();
+		
+		Map<String, String> mapPosts = servicioPosts.obtenerPostsParaDesplegable();
+		Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+		
+		model.addAttribute("posts", mapPosts);
+		model.addAttribute("usuarios", mapUsuarios);	
 		model.addAttribute("nuevoComentario", nuevo);
 		
 		return "admin/formularioRegistroComentario";
@@ -65,6 +77,9 @@ public class ControladoresComentarios {
 	@RequestMapping("guardarNuevoComentario")
 	public String guardarNuevoComentario(@ModelAttribute("nuevoComentario") @Valid Comentario nuevoComentario, BindingResult br, Model model,
 			HttpServletRequest request) {
+		
+		
+		
 		if (!br.hasErrors()) {		
 			servicioComentarios.registrarComentario(nuevoComentario);
 			
@@ -75,6 +90,9 @@ public class ControladoresComentarios {
 			
 			Map<String, String> mapPosts = servicioPosts.obtenerPostsParaDesplegable();
 			model.addAttribute("posts", mapPosts);
+			
+			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+			model.addAttribute("usuarios", mapUsuarios);
 			
 			model.addAttribute("nuevoComentario", nuevoComentario);
 			return "admin/formularioRegistroComentario";
@@ -92,6 +110,14 @@ public class ControladoresComentarios {
 			
 			return listarComentarios("",0,model);
 		}else {
+			
+			
+			Map<String, String> mapPosts = servicioPosts.obtenerPostsParaDesplegable();
+			model.addAttribute("posts", mapPosts);
+			
+			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+			model.addAttribute("usuarios", mapUsuarios);
+			
 			model.addAttribute("comentario",comentario);
 			return "admin/formularioEditarComentario ";
 		}		

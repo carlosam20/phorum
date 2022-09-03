@@ -4,17 +4,14 @@ package serviciosImpl;
 
 
 
-import java.time.LocalDate;
 
 
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Resource;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.AliasToEntityMapResultTransformer;
@@ -23,10 +20,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import constantesSQL.ConstantesSQL;
 import modelo.Comentario;
-import modelo.Foro;
+import modelo.Post;
 import modelo.Usuario;
 import servicios.ServicioComentarios;
-import servicios.ServicioUsuarios;
 
 @Service
 @Transactional
@@ -81,6 +77,14 @@ public class ServicioComentariosImpl implements ServicioComentarios{
 
 	@Override
 	public void registrarComentario(Comentario c) {
+		
+		Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class, c.getIdUsuario()); 
+		c.setUsuario(u);
+		
+		Post p = (Post) sessionFactory.getCurrentSession().get(Post.class, c.getIdPostComentario());
+		c.setPostComentario(p);
+		
+		
 		sessionFactory.getCurrentSession().save(c);
 		
 	}

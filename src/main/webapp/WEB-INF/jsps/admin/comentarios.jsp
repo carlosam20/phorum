@@ -17,13 +17,13 @@
 <c:forEach var="categoria" items="${info}">
 <div class="card mx-auto " style="width: 32rem;" >
 	<div>
-		nombre: ${comentario.textoComentario}<br>
+		texto del comentario: ${comentario.textoComentario}<br>
 		usuario: ${comentario.usuario}<br>
 		post: ${comentario.post}<br>
 	</div>
 	<div class="card-body">
-	<a href="editarComentario?id=${categoria.id}" class="card-link">Editar</a>
-	<a href="borrarComentario?id=${categoria.id}" class="card-link">Borrar</a>
+	<a href="editarComentario?id=${comentario.id}" class="card-link">Editar</a>
+	<a href="borrarComentario?id=${comentario.id}" class="card-link">Borrar</a>
  	</div>
  </div>
 </c:forEach>

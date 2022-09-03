@@ -5,6 +5,7 @@ package controladores.admin;
 
 import java.util.Map;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import modelo.Post;
-import modelo.Usuario;
+
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
 import servicios.ServicioUsuarios;
@@ -73,8 +74,11 @@ public class ControladoresPost {
 		if (!br.hasErrors()) {		
 			servicioPosts.registrarPost(nuevoPost);
 			
+			
+			
 			String rutaRealDelProyecto =
 			request.getServletContext().getRealPath("");
+			
 			GestorArchivos.guardarImagenPost(nuevoPost, rutaRealDelProyecto);
 			return "admin/registroPostOk";
 			
@@ -84,7 +88,8 @@ public class ControladoresPost {
 			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
 			
 			model.addAttribute("foros", mapForos);
-			model.addAttribute("usuarios", mapUsuarios);		
+			model.addAttribute("usuarios", mapUsuarios);
+			
 			model.addAttribute("nuevoPost", nuevoPost);
 			return "admin/formularioRegistroPost";
 		}

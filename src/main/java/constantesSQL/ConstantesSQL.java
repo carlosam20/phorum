@@ -22,6 +22,7 @@ public class ConstantesSQL {
 	
 	//Desplegable
 	public final static String SQL_OBTENER_FOROS_PARA_DESPLEGABLE = "select id, nombre from foro order by id asc";
+	public final static String SQL_OBTENER_POSTS_PARA_DESPLEGABLE = "select id, nombre from post order by id asc";
 	
 	public final static String SQL_OBTENER_USUARIOS_PARA_DESPLEGABLE = "select id, nombre from usuario order by id asc";
 	
