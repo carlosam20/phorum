@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import modelo.Post;
-
+import servicios.ServicioComentarios;
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
 import servicios.ServicioUsuarios;
@@ -36,6 +36,9 @@ public class ControladoresPost {
 	private ServicioForos servicioForos;
 	@Autowired
 	private ServicioUsuarios servicioUsuarios;
+	
+	@Autowired
+	private ServicioComentarios servicioComentarios;
 	
 	
 	@RequestMapping("listarPosts")
@@ -68,12 +71,13 @@ public class ControladoresPost {
 		
 		return "admin/formularioRegistroPost";
 	}
+	
 	@RequestMapping("guardarNuevoPost")
 	public String guardarNuevoPost(@ModelAttribute("nuevoPost") @Valid Post nuevoPost, BindingResult br, Model model,
 			HttpServletRequest request) {
+		
 		if (!br.hasErrors()) {		
 			servicioPosts.registrarPost(nuevoPost);
-			
 			
 			
 			String rutaRealDelProyecto =
@@ -99,6 +103,7 @@ public class ControladoresPost {
 	@RequestMapping("guardarCambiosPost")
 	public String guardarCambiosPost(@ModelAttribute("post") @Valid Post post, BindingResult br,  Model model,
 			HttpServletRequest request) {
+		
 		servicioPosts.guardarCambiosPosts(post);
 		
 		if(!br.hasErrors()) {
@@ -110,8 +115,8 @@ public class ControladoresPost {
 			return listarPosts("",0,model);
 		}else {
 			Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
-			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
 			model.addAttribute("foros", mapForos);
+			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
 			model.addAttribute("usuarios", mapUsuarios);
 			model.addAttribute("post",post);
 			return "admin/formularioEditarPost";
@@ -120,6 +125,13 @@ public class ControladoresPost {
 	}
 	@RequestMapping("editarPost")
 	public String editarPost(String id, Model model) {
+		
+		
+		Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
+		Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+		model.addAttribute("foros", mapForos);
+		model.addAttribute("usuarios", mapUsuarios);
+		
 		Post p = servicioPosts.obtenerPostsPorId(Long.parseLong(id));
 		model.addAttribute("post",p);
 		return "admin/formularioEditarPost";
@@ -127,6 +139,8 @@ public class ControladoresPost {
 	}
 	@RequestMapping("borrarPost")
 	public String borrarPost(String id, Model model) {
+		
+		servicioComentarios.borrarComentariosPoridPost(Long.parseLong(id));
 		servicioPosts.eliminarPosts(Long.parseLong(id));
 		
 		return listarPosts("",0,model);

@@ -2,10 +2,6 @@ package serviciosImpl;
 
 
 
-
-
-
-
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
@@ -92,7 +88,7 @@ public class ServicioComentariosImpl implements ServicioComentarios{
 	@Override
 	public void borrarComentario(long id) {
 		System.out.println("Borrar Comentario");
-		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_FORO);		
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_COMENTARIO);		
 		query.setParameter("id", id);
 		query.executeUpdate();
 		
@@ -100,6 +96,13 @@ public class ServicioComentariosImpl implements ServicioComentarios{
 
 	@Override
 	public void guardarCambiosComentario(Comentario c) {
+		
+		Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class, c.getIdUsuario()); 
+		c.setUsuario(u);
+		
+		Post p = (Post) sessionFactory.getCurrentSession().get(Post.class, c.getIdPostComentario());
+		c.setPostComentario(p);
+		
 		sessionFactory.getCurrentSession().merge(c);
 		
 	}
@@ -112,6 +115,24 @@ public class ServicioComentariosImpl implements ServicioComentarios{
 		query.setParameter("id", id);
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 		return (Map<String, Object>)query.uniqueResult();
+	}
+
+	@Override
+	public void borrarComentariosPorIdUsuario(long id) {
+		System.out.println("Borrar Comentario");
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_COMENTARIO);		
+		query.setParameter("id", id);
+		query.executeUpdate();
+		
+	}
+
+	@Override
+	public void borrarComentariosPoridPost(long id) {
+	
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_COMENTARIOS_DE_POST);		
+		query.setParameter("id", id);
+		query.executeUpdate();
+		
 	}
 
 	

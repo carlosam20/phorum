@@ -18,6 +18,8 @@ Comentario obtenerComentariosPorId(long id);
 List<Long>  obtenerIdComentariosDePost(long id);
 void registrarComentario(Comentario c);
 void borrarComentario(long id);
+void borrarComentariosPoridPost(long id);
+void borrarComentariosPorIdUsuario(long id);
 void guardarCambiosComentario(Comentario c);
 Map<String, Object> obtenerComentario(long id); 
 

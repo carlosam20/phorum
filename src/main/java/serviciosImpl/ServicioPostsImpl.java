@@ -99,14 +99,14 @@ public class ServicioPostsImpl implements ServicioPosts{
 	@Override
 	public void eliminarPosts(long id) {
 		System.out.println("Borrar Post");
-		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_FORO);		
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_POST);		
 		query.setParameter("id", id);
 		query.executeUpdate();
 	}
 	
 	@Override
 	public void eliminarPostsDeForo(long id) {
-		System.out.println("Borrar Post");
+		
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_POSTS_DE_FORO);		
 		query.setParameter("id", id);
 		query.executeUpdate();
@@ -116,7 +116,12 @@ public class ServicioPostsImpl implements ServicioPosts{
 	@Override
 	public void guardarCambiosPosts(Post p) {
 		
-		//f.setCategoria(c);
+		Foro f = (Foro) sessionFactory.getCurrentSession().get(Foro.class,p.getIdForo());
+		p.setForo(f);
+		
+		Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class,p.getIdUsuario());
+		p.setUsuario(u);
+		
 		sessionFactory.getCurrentSession().merge(p);
 		
 	}
@@ -135,6 +140,14 @@ public class ServicioPostsImpl implements ServicioPosts{
 			valoresDesplegable.put(map.get("id").toString(), map.get("nombre").toString());
 		}
 		return valoresDesplegable;
+	}
+	@Override
+	public void eliminarPostUsuarios(long id) {
+		
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_POSTS_DE_USUARIO);		
+		query.setParameter("id", id);
+		query.executeUpdate();
+		
 	}
 		
 }

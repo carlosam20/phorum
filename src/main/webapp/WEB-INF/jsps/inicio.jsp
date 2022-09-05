@@ -109,8 +109,6 @@ var plantillaEditarUsuario = "";
 var plantillaPerfil = "";
 
 
-
-
 		
 cargar_plantillas_del_servidor();
 //funciones ajax
@@ -202,22 +200,23 @@ cargar_plantillas_del_servidor();
 				texto_html = Mustache.render(plantillaListarPosts, posts);
 				$("#contenedor").html(texto_html);
 				
-				
 				<!--Registro -->
 				 
 			    $("#form_registro_post").submit(function(e){
 			        var nombre = $("#nombre").val();
 			        var descripcion = $("#descripcion").val();
 			        
+			        var foro = $('#foro').val();
+			        var usuario = $('#usuario').val();
+			        
 			        if(validarNombre(nombre)){
 			            
 			            alert("todo ok, mandando informacion al servicio web...");
-			            
-			            //vamos a usar FormData para mandar el form al servicio web
+			          
 			            var formulario = document.forms[0];
 			            var formData = new FormData(formulario);
 			            
-			            $.ajax("identificado/servicioWebPosts/registroPosts",{
+			            $.ajax("identificado/servicioWebPosts/registrarPosts",{
 			                type: "POST",
 			                data: formData,
 			                cache: false,
@@ -236,7 +235,6 @@ cargar_plantillas_del_servidor();
 			                }
 			            });
 			            
-			                
 			        }//end if validaciones
 			        e.preventDefault();
 			    });
@@ -313,7 +311,7 @@ cargar_plantillas_del_servidor();
 				//vamos a usar FormData para mandar el form al servicio web
 				var formulario = document.forms[0];
 				var formData = new FormData(formulario);
-				$.ajax("identificado/servicioWebPosts/registroPost",{
+				$.ajax("identificado/servicioWebPosts/registrarPosts",{
 					type: "POST",
 					data: formData,
 					cache: false,
@@ -443,10 +441,7 @@ function perfil(){
 									var texto_html = "";
 									texto_html = Mustache.render(plantillaEditarUsuario, info);
 									$("#contenedor").html(texto_html);
-									
-									
-									
-									
+												
 									<!--Form-->
 									$("#form_editar_usuario").submit(function(e){
 										

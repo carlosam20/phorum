@@ -43,13 +43,8 @@ public class Post {
 
     @Transient
     private long idUsuario;
-
-
    
     private long likes;
-
-   
-
 
 	public Post() {
     	

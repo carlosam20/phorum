@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -117,7 +118,7 @@ public class ServicioUsuariosImpl implements ServicioUsuarios{
 	@Override
 	public void eliminarUsuario(long id) {
 		System.out.println("Eliminando usuario");
-		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_USUARIO);
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_USUARIO);		
 		query.setParameter("id", id);
 		query.executeUpdate();
 		

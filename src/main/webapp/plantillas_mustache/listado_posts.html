@@ -10,7 +10,7 @@
  
  
  <!-- Botón del Modal -->
-<button type="button" class="enlace_crear_post s-btn " data-bs-toggle="modal" data-bs-target="#crearForoModal">
+<button type="button" class="enlace_crear_post s-btn " data-bs-toggle="modal" data-bs-target="#crearPostModal">
   Crear Post
 </button>
 
@@ -35,6 +35,16 @@
 				<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
 					<div class="col-lg-8 col-md-6">
 						 <input type="text"  name="descripcion" class="form-control form-control-lg" placeholder="Descripcion" id="descripcion" ></input><br>
+					</div>
+				</div>
+				<div hidden="true" class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
+					<div class="col-lg-8 col-md-6">
+						 <input type="text"  name="usuario" value="{{usuario}}" class="form-control form-control-lg" placeholder="Descripcion" id="usuario" ></input><br>
+					</div>
+				</div>
+				<div hidden="true" class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
+					<div class="col-lg-8 col-md-6">
+						 <input type="text"  name="foro" value="{{foro}}" class="form-control form-control-lg" placeholder="Descripcion" id="foro" ></input><br>
 					</div>
 				</div>
 				<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
@@ -64,17 +74,17 @@
     <div class="row m-3">
       <div class="col-lg-5 m-3">
         <div class="card">
-          <a href="" class="enlace_entrar_post" id="{{id}}">
+        
 	   		<img src="subidas/{{id}}.jpg" id="{{id}}" class="card-img-top" alt="{{nombre}}">
 	   		<img hidden="true" src="" class="card-img-top"/>
 	   		
             <div class="card-body">
               <h5 class="card-title">{{nombre}}</h5>
               <p class="card-text">{{descripcion}}</p>
+              <p hidden="true" id="{{usuario}}"></p>
               <button class="enlace_entrar_post s-btn" type="button" id="{{id}}">Ver Post</button>
             </div>
-            
-          </a>
+
         </div>
       </div>
     </div>

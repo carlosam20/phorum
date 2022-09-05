@@ -23,8 +23,8 @@
   <input type="submit" value="BUSCAR"  class="btn btn-primary" />
 </div>
 
-	 
 </form>
+
 
 
 <div class="mx-auto">
@@ -44,11 +44,11 @@
 
 
 	
-<c:forEach var="ordenador" items="${info}" >
+<c:forEach var="post" items="${info}" >
 
 <div class="card mx-auto " style="width: 32rem;" >
 
-  <img style="height: 500px"class="card-img-top" src="../subidas/${ordenador.id}.jpg?t=${fecha_hora_actual}"/><br>
+  <img style="height: 500px"class="card-img-top" src="../subidas/${post.id}.jpg?t=${fecha_hora_actual}"/><br>
   <div class="card-body">
     <h5 class="card-title">${post.nombre}  ${post.fechaCreacion }</h5>
     <p class="card-text">Descripcion</p>
@@ -56,11 +56,13 @@
   
   <ul class="list-group list-group-flush">
     <li class="list-group-item">descripcion: ${post.descripcion} </li>
-    <li class="list-group-item">foro: ${post.foro}</li>
+    <li class="list-group-item">nombre foro: ${post.foro.nombre}</li>
+    <li class="list-group-item">foro id: ${post.foro.id}</li>
   </ul>
   
   <div class="card-body">
-	<a href="editarPost?id=${post.id}" class="card-link" >Editar</a>
+  <a href="editarPost?id=${post.id}" class="card-link" >Editar</a>
+	<a href="borrarPost?id=${post.id}" onclick="return confirm(Estas seguro?)">Borrar</a> 
   </div>
 </div>
 </c:forEach>

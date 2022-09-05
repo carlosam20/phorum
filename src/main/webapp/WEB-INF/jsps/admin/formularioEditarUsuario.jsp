@@ -28,7 +28,8 @@
 </div>	
 	<div class="mb-3">
 		<input type="submit" value="Guardar Cambios">
-	</div>
+</div>
+	
 </springform:form>
 
 </body>

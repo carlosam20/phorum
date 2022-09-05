@@ -51,7 +51,6 @@ public class ControladoresComentarios {
 		}
 		
 		model.addAttribute("info", servicioComentarios.obtenerComentarios(nombre, comienzo_int));
-		//model.addAttribute("fecha_hora_actual", new Date().getTime());
 		
 		model.addAttribute("siguiente", comienzo_int+10);
 		model.addAttribute("anterior", comienzo_int-10);
@@ -77,13 +76,10 @@ public class ControladoresComentarios {
 	@RequestMapping("guardarNuevoComentario")
 	public String guardarNuevoComentario(@ModelAttribute("nuevoComentario") @Valid Comentario nuevoComentario, BindingResult br, Model model,
 			HttpServletRequest request) {
-		
-		
-		
+			
 		if (!br.hasErrors()) {		
 			servicioComentarios.registrarComentario(nuevoComentario);
-			
-			
+
 			return "admin/registroComentarioOk";
 			
 		} else {
@@ -103,28 +99,30 @@ public class ControladoresComentarios {
 	@RequestMapping("guardarCambiosComentario")
 	public String guardarCambiosComentario(@ModelAttribute("comentario") @Valid Comentario comentario, BindingResult br,  Model model,
 			HttpServletRequest request) {
+		
 		servicioComentarios.guardarCambiosComentario(comentario);
 		
 		if(!br.hasErrors()) {
-			
-			
 			return listarComentarios("",0,model);
 		}else {
-			
-			
 			Map<String, String> mapPosts = servicioPosts.obtenerPostsParaDesplegable();
 			model.addAttribute("posts", mapPosts);
-			
 			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
 			model.addAttribute("usuarios", mapUsuarios);
-			
 			model.addAttribute("comentario",comentario);
-			return "admin/formularioEditarComentario ";
+			return "admin/formularioEditarComentario";
 		}		
 		
 	}
 	@RequestMapping("editarComentario")
 	public String editarComentario(String id, Model model) {
+		
+		Map<String, String> mapPosts = servicioPosts.obtenerPostsParaDesplegable();
+		model.addAttribute("posts", mapPosts);
+		
+		Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+		model.addAttribute("usuarios", mapUsuarios);
+		
 		Comentario c = servicioComentarios.obtenerComentariosPorId(Long.parseLong(id));
 		model.addAttribute("comentario",c);
 		return "admin/formularioEditarComentario";

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import modelo.Usuario;
+import servicios.ServicioComentarios;
+import servicios.ServicioPosts;
 import servicios.ServicioUsuarios;
 import utilidadesArchivos.GestorArchivos;
 
@@ -28,6 +30,14 @@ public class ControladoresUsuarios {
 
 	@Autowired
 	private ServicioUsuarios servicioUsuarios;
+	
+	@Autowired
+	private ServicioPosts servicioPosts;
+	
+	@Autowired
+	private ServicioComentarios servicioComentarios;
+	
+	
 	@RequestMapping("listarUsuarios")
 	public String listarUsuarios(@RequestParam(defaultValue = "")String nombre, Integer comienzo, Model model) {
 		
@@ -96,6 +106,10 @@ public class ControladoresUsuarios {
 	}
 	@RequestMapping("borrarUsuario")
 	public String borrarUsuario(String id, Model model) {
+		
+		
+		servicioComentarios.borrarComentariosPorIdUsuario(Long.parseLong(id));
+		servicioPosts.eliminarPostUsuarios(Long.parseLong(id));
 		servicioUsuarios.eliminarUsuario(Long.parseLong(id));
 		
 		return listarUsuarios("", null, model);
