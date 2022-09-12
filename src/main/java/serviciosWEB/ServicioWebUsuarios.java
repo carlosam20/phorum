@@ -30,6 +30,10 @@ public class ServicioWebUsuarios {
 	public ResponseEntity<String> registrarUsuario(@RequestParam Map<String, Object> formData,
 			@RequestParam("foto") CommonsMultipartFile foto,
 			HttpServletRequest request){
+		
+		
+		//Hay que realizar una comprobación de que no se duplica el Usuario aqui y devolver duplicado si ocurre
+		
 		String respuesta = "";
 		System.out.println("--------"+formData);
 		

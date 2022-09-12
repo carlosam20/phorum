@@ -72,18 +72,6 @@ public class ServicioWebForos {
 	}
 }
 
-	/*
-	@RequestMapping("obtenerPostsForo")
-	public ResponseEntity<String> obtenerPostsForo(HttpServletRequest request){
-		String respuesta = "";
-		System.out.println("----ENTRA EN OBTENER PRODUCTOS CARRITO----");
-		
-		respuesta = new Gson().toJson(servicioForos.obtenerPostsForo(
-					(Usuario)request.getSession().getAttribute("usuario")));
-		
-		return new ResponseEntity<String>(
-				respuesta,HttpStatus.OK);
-	}
-	*/	
+
 
 

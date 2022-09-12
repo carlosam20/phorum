@@ -39,7 +39,7 @@ public class ServicioWebPosts {
 	
 	
 	@RequestMapping("registrarPosts")
-	public ResponseEntity<String> registrarPost(@RequestParam Map<String, Object> formData,
+	public ResponseEntity<String> registrarPosts(@RequestParam Map<String, Object> formData,
 			@RequestParam("foto") CommonsMultipartFile foto,
 			HttpServletRequest request){
 		String respuesta = "";
@@ -49,13 +49,17 @@ public class ServicioWebPosts {
 		JsonElement json = gson.toJsonTree(formData);
 		
 		System.out.println("--------"+json);
-		Post f = gson.fromJson(json, Post.class);
-		System.out.println("foro a registrar: " + f.toString());
-		servicioPosts.registrarPost(f);
+		Post p = gson.fromJson(json, Post.class);
+		System.out.println("foro a registrar: " + p.getNombre());
+		System.out.println("foro a registrar: " + p.getForo());
+		System.out.println("foro a registrar: " + p.getIdForo());
+		System.out.println("foro a registrar: " + p.getIdUsuario());
+		
+		servicioPosts.registrarPost(p);
 		//tras hacer un registro con hibernate, hibernate asigna a este usuario la id del 
 		//registro en la tabla de la base de datos
 		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
-		GestorArchivos.guardarImagenPost(f, rutaRealDelProyecto);
+		GestorArchivos.guardarImagenPost(p, rutaRealDelProyecto);
 		respuesta = "ok";
 		
 		return new ResponseEntity<String>(

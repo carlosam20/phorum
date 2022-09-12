@@ -13,8 +13,8 @@ public class ConstantesSQL {
 	public final static String SQL_OBTENER_POSTS_PARA_LISTADO="select id, nombre, descripcion, fechaCreacion "
 			+ "from post " 
 			+ "order by id desc";
-	public final static String SQL_OBTENER_COMENTARIOS_PARA_LISTADO="select id, nombre, descripcion, fechaCreacion "
-			+ "from post " 
+	public final static String SQL_OBTENER_COMENTARIOS_PARA_LISTADO="select id, nombre, descripcion, fechaCreacion, postComentario, usuario "
+			+ "from comentario " 
 			+ "order by id desc";
 	
 	//DESPLEGABLES
@@ -39,7 +39,10 @@ public class ConstantesSQL {
 	public final static String SQL_BORRAR_POSTS_DE_USUARIO="delete from post where usuario = :id";
 	public final static String SQL_BORRAR_COMENTARIOS_DE_POST="delete from comentario where postComentario_id = :id";
 
-		
+	
+	//UPDATES
+	public static final String ACTUALIZAR_POST = "UPDATE `post` SET `id`= :id,`descripcion`= :descripcion,`fechaCreacion`= :fechaCreacion,`nombre`= :nombre,`foro`= :foro ,`usuario`= :usuario,`likes`= :likes WHERE id = :id";
+	
 		
 	//OBTENER POR ID
 	public static final String OBTENER_USUARIO_POR_ID = "select * from usuario where id = :id";

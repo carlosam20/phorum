@@ -10,6 +10,9 @@
 <body>
 
 
+
+
+
 <springform:form modelAttribute="nuevoUsuario" action="guardarNuevoUsuario" enctype="multipart/form-data">
 
 
@@ -20,11 +23,16 @@ imagen : <springform:input path="imagen" type="file"/><br>
 <springform:hidden path="id"/>
 <!-- Imagen que introducimos -->
 
-<input type="submit" value="Registrar Usuario">
+<input  type="submit" value="Registrar Usuario">
+
 
 
 
 </springform:form>
+
+
+
+
 </body>
 </html>
 

@@ -3,6 +3,7 @@ package serviciosWEB;
 
 
 
+import java.time.LocalDate;
 import java.util.Map;
 
 
@@ -55,17 +56,18 @@ public class ServicioWebPosts {
 			HttpServletRequest request){
 		String respuesta = "";
 		System.out.println("--------"+formData);
-		
 		Gson gson = new Gson();
 		JsonElement json = gson.toJsonTree(formData);
 		
 		System.out.println("--------"+json);
 		Post f = gson.fromJson(json, Post.class);
 		System.out.println("foro a registrar: " + f.toString());
+		f.setLikes(0);
+		f.setFechaCreacion(LocalDate.now().getDayOfMonth()+"-"+LocalDate.now().getMonthValue()+"-"+LocalDate.now().getYear());
 		servicioPosts.registrarPost(f);
 		//tras hacer un registro con hibernate, hibernate asigna a este usuario la id del 
 		//registro en la tabla de la base de datos
-		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
+	 	String rutaRealDelProyecto = request.getServletContext().getRealPath("");
 		GestorArchivos.guardarImagenPost(f, rutaRealDelProyecto);
 		respuesta = "ok";
 		
@@ -74,18 +76,6 @@ public class ServicioWebPosts {
 	}
 }
 	
-	/*
-	@RequestMapping("obtenerPostsPost")
-	public ResponseEntity<String> obtenerPostsPost(HttpServletRequest request){
-		String respuesta = "";
-		System.out.println("----ENTRA EN OBTENER PRODUCTOS CARRITO----");
-		
-		respuesta = new Gson().toJson(servicioPosts.obtenerPostsPost(
-					(Usuario)request.getSession().getAttribute("usuario")));
-		
-		return new ResponseEntity<String>(
-				respuesta,HttpStatus.OK);
-	}
-	*/	
+	
 
 

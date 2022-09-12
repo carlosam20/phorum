@@ -122,7 +122,17 @@ public class ServicioPostsImpl implements ServicioPosts{
 		Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class,p.getIdUsuario());
 		p.setUsuario(u);
 		
-		sessionFactory.getCurrentSession().merge(p);
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.ACTUALIZAR_POST);		
+		query.setParameter("id", p.getId());
+		query.setParameter("descripcion", p.getDescripcion());
+		query.setParameter("fechaCreacion", p.getFechaCreacion());
+		query.setParameter("nombre", p.getNombre());
+		query.setParameter("likes", p.getLikes());
+		query.setParameter("foro", p.getForo());
+		query.setParameter("usuario", p.getUsuario());
+		query.executeUpdate();
+		
+		//sessionFactory.getCurrentSession().merge(p);
 		
 	}
 	@Override

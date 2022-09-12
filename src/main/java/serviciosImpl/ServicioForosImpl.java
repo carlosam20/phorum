@@ -75,7 +75,7 @@ public class ServicioForosImpl implements ServicioForos{
 
 	@Override
 	public void registrarForo(Foro o) {
-		//SET FOREIGN_KEY_CHECKS = 0;
+		
 		sessionFactory.getCurrentSession().save(o);
 	}
 
