@@ -151,7 +151,7 @@ public class GestorArchivos {
 		String nombreArchivo = p.getId()+".jpg";
 		
 		
-		String rutaSubidas = rutaReal+"/subidas";
+		String rutaSubidas = rutaReal+"/subidasPost";
 		File fileRutaSubidas = new File(rutaSubidas);
 		if(! fileRutaSubidas.exists()) {
 			fileRutaSubidas.mkdirs();

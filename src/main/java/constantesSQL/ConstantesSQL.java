@@ -10,6 +10,11 @@ public class ConstantesSQL {
 	public final static String SQL_OBTENER_FOROS_PARA_LISTADO="select id, nombre, descripcion, fechaCreacion "
 			+ "from foro " 
 			+ "order by id desc";
+	public final static String SQL_OBTENER_FOROS_PARA_LISTADO_RANDOM="select id, nombre, descripcion, fechaCreacion  "
+			+ "from foro " 
+			+ "order by rand(id)";
+	
+	
 	public final static String SQL_OBTENER_POSTS_PARA_LISTADO="select id, nombre, descripcion, fechaCreacion "
 			+ "from post " 
 			+ "order by id desc";

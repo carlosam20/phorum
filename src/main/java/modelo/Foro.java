@@ -18,7 +18,7 @@ public class Foro {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    @NotBlank(message = "Ser requiere un nombre para el foro")
+    @NotBlank(message = "Se requiere un nombre para el foro")
     private String nombre;
     @NotBlank(message = "Se requiere una descripción")
     private String descripcion;

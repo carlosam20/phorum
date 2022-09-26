@@ -36,6 +36,14 @@ public class ServicioForosImpl implements ServicioForos{
 		return res;
 	}
 	
+	public List<Map<String, Object>> obtenerForosParaListadoAleatorios() {
+			
+			SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_FOROS_PARA_LISTADO_RANDOM);
+			query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+			List<Map<String, Object>> res = query.list();
+			return res;
+	}
+	
 
 	@Override
 	public Map<String, String> obtenerForosParaDesplegable() {

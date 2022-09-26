@@ -1,54 +1,56 @@
 
 
 
-
-<div class="row justify-content-center">
-      <div class="d-flex justify-content-center">
-        <div class="col-lg-8 col-md-6">
-          <h1 class="text-center text-primary">Bienvenido a Phorum</h1>
-        </div>
-      </div>
-</div>
-
-<div class="row justify-content-center mb-5 mt-5">
-      <img class="explora border rounded-top p-5" src="file:///C:/Users/kikuy/Desktop/Eclipse%20y%20Tomcat/carlosWS/phorum/src/main/webapp/images/explora.svg" alt="">
-    </div>
-<form id="form_registro_usuario">
-
-
-	<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1 ">
-		<div class="col-lg-8 col-md-6">
-			 <input type="text" name="nombre"  class="form-control form-control-lg" placeholder="Nombre de Usuario"  id="nombre"   /><br>
+	<div class="row justify-content-center">
+		<div class="d-flex justify-content-center">
+		  <div class="col-lg-8 col-md-6">
+			<h1 class="text-center text-primary">Bienvenido a Phorum</h1>
+		  </div>
 		</div>
-	</div>
-	<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-		<div class="col-lg-8 col-md-6">
-			 <input type="text" name="email" class="form-control form-control-lg" placeholder="E-mail" id="email" /><br>
-		</div>
-	</div>
-	<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-		<div class="col-lg-8 col-md-6">
-			 <input type="password" name="pass" class="form-control form-control-lg" placeholder="Password"  id="pass" /><br>
-		</div>
-	</div>
-	<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-		<div class="col-lg-8 col-md-6">
-			<input type="file" name="foto" id="foto" /> <br>
-		</div>
-	</div>
-	<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-		<div class="col-lg-8 col-md-6">
-	<input id="registrar" type="submit" value="Registrarme" />
-		</div>
-	</div>
-	
+  </div>
+  
+  <div class="row justify-content-center mb-5 mt-5">
+		<img class="explora border rounded-top p-5" src="file:///C:/Users/kikuy/Desktop/Eclipse%20y%20Tomcat/carlosWS/phorum/src/main/webapp/images/explora.svg" alt="">
+  </div>
+  
+  <form id="form_registro_usuario">
+  
+  
+	  <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1 ">
+		  <div class="col-lg-8 col-md-6">
+			   <input type="text" name="nombre"  class="form-control form-control-lg" placeholder="Nombre de Usuario"  id="nombre" pattern="[a-z_áéíóú]{2,10}" title="Solo se admiten minusculas y de 2 a 10 carácteres"   /><br>
+		  </div>
+	  </div>
+	  <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
+		  <div class="col-lg-8 col-md-6">
+			   <input type="text" name="email" class="form-control form-control-lg" placeholder="E-mail" id="email" pattern="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})" title="Se tiene que incluir un @ y una dirección de dominio ejemplo: .com" /><br>
+		  </div>
+	  </div>
+	  <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
+		  <div class="col-lg-8 col-md-6">
+			   <input type="password" name="pass" class="form-control form-control-lg" placeholder="Password"  id="pass" pattern="[a-z0-9áéíóú]{3,10}" title="" /><br>
+		  </div>
+	  </div>
+	  <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
+		  <div class="col-lg-8 col-md-6">
+			  <input type="file" name="foto" id="foto" /> <br>
+		  </div>
+	  </div>
+	  <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
+		  <div class="col-lg-8 col-md-6">
+	  <input id="registrar" type="submit" value="Registrarme" />
+		  </div>
+	  </div>
+	  
+  </form>
+  
 
-</form>
-
-<div id="alertdiv"></div>
-
-<script type="text/javascript" src="js/alert.js"></script>
 <script type="text/javascript" src="js/carga_plantilla.js"></script>
 <script type="text/javascript" src="js/validaciones.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+
+
+
+
 

@@ -15,6 +15,7 @@ void borrarForo(long id);
 void guardarCambiosForo(Foro l);
 Map<String, Object> obtenerForo(long id); 
 List<Map<String, Object>> obtenerForosParaListado();
+List<Map<String, Object>> obtenerForosParaListadoAleatorios();
 Map<String, String> obtenerForosParaDesplegable();
 
 

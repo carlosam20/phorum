@@ -13,9 +13,7 @@
     duration: 2000
   });
 
-  // Wrap every letter in a span
-/*var textWrapper = document.querySelector('.titulo-foros .elementos');
-textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='elemento'>$&</span>");*/
+  
 
 anime.timeline()
   .add({

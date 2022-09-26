@@ -40,6 +40,12 @@ public class ServicioWebForos {
 		return new ResponseEntity<String>(
 				json,HttpStatus.OK);	
 	}
+	@RequestMapping("obtenerForosYPosts")
+	public ResponseEntity<String> obtenerForosYPosts(){
+		String json = new Gson().toJson(servicioForos.obtenerForosParaListadoAleatorios());
+		return new ResponseEntity<String>(
+				json,HttpStatus.OK);	
+	}
 	@RequestMapping("obtenerForo")
 	public ResponseEntity<String> obtenerForo(String id){
 		String json = new Gson().toJson(servicioForos.obtenerForo(Long.parseLong(id)));
