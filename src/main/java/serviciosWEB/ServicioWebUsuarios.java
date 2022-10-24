@@ -74,9 +74,9 @@ public class ServicioWebUsuarios {
 	public ResponseEntity<String> comprobarIdentificacion(HttpServletRequest request){
 		String respuesta = "";
 		if(request.getSession().getAttribute("usuario") != null) {
-			respuesta = "ok,"+((Usuario)request.getSession().getAttribute("usuario")).getNombre();
+			respuesta = "ok";
 		}else {
-			respuesta = "no identificado";
+			respuesta = "Te debes identificar para acceder al contenido";
 		}
 		return new ResponseEntity<String>(
 				respuesta,HttpStatus.OK);

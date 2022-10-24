@@ -1,12 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
-body{
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-	width: 99%;
-    height: 100%;    
-}
 .s-label{
     font-family: 'Roboto', sans-serif;
     font-size: 16px;

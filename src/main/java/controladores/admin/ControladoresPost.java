@@ -132,7 +132,7 @@ public class ControladoresPost {
 		model.addAttribute("foros", mapForos);
 		model.addAttribute("usuarios", mapUsuarios);
 		
-		Post p = servicioPosts.obtenerPostsPorId(Long.parseLong(id));
+		Post p = (Post) servicioPosts.obtenerPostsPorId(Long.parseLong(id));
 		model.addAttribute("post",p);
 		return "admin/formularioEditarPost";
 			

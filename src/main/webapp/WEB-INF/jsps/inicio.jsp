@@ -8,13 +8,16 @@
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
+<link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="icon" type="image/svg" href="images/logo-phorum.svg">
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/registrar.css">
-<link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="icon" type="image/svg" href="images/logo-phorum.svg">
 
- <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+
+
+
 </head>
 <body>
 
@@ -142,8 +145,7 @@ listadoInicio();
 				$("#contenedor").html(texto_html);
 				
 				
-				<!--Registro -->
-				 
+				<!--Registro -->		 
 			    $("#form_registro_foro").submit(function(e){
 			        var nombre = $("#nombre").val();
 			        var descripcion = $("#descripcion").val();
@@ -181,7 +183,7 @@ listadoInicio();
 			    });
 				
 			    
-			    <!--Boton Ver Post -->	
+			    <!--Boton Ver Posts de Foro -->	
 			    $(".boton_post_foro").click(function(e){
 					var id = $(this).attr("id");
 					
@@ -232,12 +234,28 @@ listadoInicio();
 							       
 							        e.preventDefault();
 							    });
-							  						  
-							  <!--Boton Ver Comentarios -->
+							  //if(comprobarLogin()==true){		  
+							  <!--Boton Ver Post y Comentarios -->
 							  $(".boton_ver_post").click(function(e){
-								  var id = $(this).attr("id");
-								  obtener_post_y_comentarios(id);
-								});						
+									var idPost = $(this).attr("id");
+									
+									alert("pedir al servidor post id:"+idPost);
+									
+									$.ajax("identificado/servicioWebComentarios/obtenerPostYComentariosPorId?idPost="+idPost, {
+										success : function(data) {
+											alert("recibido: "+data);
+											var postYComentarios = JSON.parse(data);
+											var texto_html = "";
+											texto_html = Mustache.render(plantillaListarPostYComentarios, postYComentarios);
+											$("#contenedor").html(texto_html);
+											
+										}//---end success---
+									});//--end ajax--
+								  
+							  });
+							// }else{
+							//	 mostrarIdentificacionUsuario();
+							// }
 						}//---end success---
 					});//--end ajax--
 					
@@ -251,20 +269,7 @@ listadoInicio();
 	}//-end obtener_listado-
 	
 	
-function obtener_post_y_comentarios(id){
-	var id = $('#boton_comentarios').val();
-	$.ajax("identificado/servicioWebComentarios/obtenerComentarios?id="+id, {
-		success : function(data) {
-			alert("recibido: "+data);
-			var categorias = JSON.parse(data);
-			var texto_html = "";
-			texto_html = Mustache.render(plantillaListarPostYComentarios,
-					categorias);
-			$("#contenedor").html(texto_html);
-			
-		}//---end success---
-	});//--end ajax--
-}//-end obtener_listado-comentarios_post
+
 	
 	
 function obtener_listado_posts() {
@@ -280,8 +285,7 @@ function obtener_listado_posts() {
 	});//--end ajax--
 }//-end obtener_listado-
 	
-
-
+	
 function mostrarRegistroComentario(){
 		
 	$("#contenedor").html(plantillaRegistrarPost);
@@ -315,8 +319,6 @@ function mostrarRegistroComentario(){
 	});
 }
 	
-	
-	
 
 function mostrarRegistroUsuario(){
 	
@@ -328,13 +330,10 @@ function mostrarRegistroUsuario(){
 		
 		if(validarNombre(nombre)){
 			
-	
 			if(validarEmail(email)){
 							
 				if(validarPass(pass)){
-					
-					
-						
+										
 			var formulario = document.forms[0];
 			var formData = new FormData(formulario);
 			$.ajax("servicioWebUsuarios/registrarUsuario",{
@@ -350,7 +349,7 @@ function mostrarRegistroUsuario(){
 						
 						
 					}else{
-						swal("El registro se ha realizado de forma incorrecta", "Fallo", "error");
+						swal("El registro se ha realizado de forma incorrecta", "Error", "error");
 					}
 				}
 			});
@@ -376,21 +375,25 @@ function mostrarRegistroUsuario(){
 function mostrarIdentificacionUsuario(){
 	
 	$("#contenedor").html(plantillaLogin);
+	
 	if( typeof(Cookies.get("email")) != "undefined" ){
 		$("#email").val(Cookies.get("email"));
 	}
 	if( typeof(Cookies.get("pass")) != "undefined" ){
 		$("#pass").val(Cookies.get("pass"));
 	}
+	
 	$("#form_login").submit(function(e){
+		
+		email = $("#email").val();
+		pass = $("#pass").val();
 		
 		if(validarEmail(email)){
 			
 			if(validarPass(pass)){
 				
 		
-		email = $("#email").val();
-		pass = $("#pass").val();
+		
 		$.ajax("servicioWebUsuarios/loginUsuario",{
 			data: "email="+email+"&pass="+pass,
 			success: function(res){
@@ -426,8 +429,7 @@ function logout(){
 	$.ajax("servicioWebUsuarios/logout",{
 		success:function(res){
 			if(res == "ok"){
-				$("#contenedor").html("hasta pronto " + nombre_login);
-				$("#mensaje_login").html("( no estas identificado )");
+				swal("", "Sesión cerrada", "info");
 			}
 		}
 	});	
@@ -522,14 +524,22 @@ function perfil(){
 	$("#enlace_perfil").click(perfil);
 
 	
+	
 	//comprobar si el usuario actual sigue idenficado
-	$.ajax("servicioWebUsuarios/comprobarLogin",{
-		success:function(res){
-			if(res.split(",")[0]=="ok"){
-				nombre_login = res.split(",")[1];			
+	function comprobarLogin(){
+		$.ajax("servicioWebUsuarios/comprobarLogin",{
+			success:function(res){
+				if(res=="ok"){
+					return true;
+				}else{
+					swal(""+res, "Tu sesión de usuario no está iniciada", "info");
+					return false;
+				}
 			}
-		}
-	});
+		});	
+	}
+	
+	
 	
 
 

@@ -90,9 +90,15 @@ public class ServicioPostsImpl implements ServicioPosts{
 	}
 
 	@Override
-	public Post obtenerPostsPorId(long id) {
-		return (Post) sessionFactory.getCurrentSession().get(Post.class, id);
+	public  Map<String, Object> obtenerPostsPorId(long id) {
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_DATOS_POST);
+		query.setParameter("id", id);
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		return (Map<String, Object>)query.uniqueResult();
 	}
+	
+	
+	
 	
 	
 

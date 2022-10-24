@@ -3,6 +3,7 @@ package serviciosWEB.identificado;
 import java.util.Map;
 
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +33,14 @@ public class ServicioWebForos {
 	
 	
 	@Autowired
-	private ServicioForos servicioForos;
-	
-	@Autowired
 	private ServicioComentarios servicioComentarios;
 	
 	@Autowired
-	private ServicioPosts servicioPosts ;
+	private ServicioForos servicioForos;
+	
+	
+	@Autowired
+	private ServicioPosts servicioPosts;
 	
 	@RequestMapping("obtenerForoPorId")
 	public ResponseEntity<String> obtenerForoPorId(HttpServletRequest request){
@@ -82,6 +84,8 @@ public class ServicioWebForos {
 		String respuesta = "";
 		//Eliminar los servicioPosts y servicioComentarios antes
 		
+		
+		//for(int i =0; i < servicioComentarios.obtenerComentariosPorId(u.getId()).size(); i++) {}
 		for(int i = 0; i < servicioPosts.obtenerIdPostPorForoId(u.getId()).size(); i++) {
 			
 			//long j=servicioPosts.obtenerIdPostPorForoId(u.getId()).get(i);
