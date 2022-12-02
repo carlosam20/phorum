@@ -9,10 +9,7 @@
   
  
  
- <!-- Botón del Modal -->
-<button type="button" class="enlace_crear_post btn btn-primary " data-bs-toggle="modal" data-bs-target="#crearPostModal">
-  Crear Post
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="crearPostModal" tabindex="-1" aria-labelledby="crearPostModal" aria-hidden="true">
@@ -61,32 +58,24 @@
 {{#.}}
 <!--Listado posts-->
   <div class="recomendacionesPosts">
-  
     <div class="row m-3">
-      <div class="col-lg-6 m-3">
+      <div class="col-lg-5 m-3">
         <div class="card">
         
-        <div class="card-header">
-        {{#foro}}
-        	<img src="subidas/{{foro.id}}.jpg" id="{{foro.id}}" class="card-img-top" alt="{{foro.nombre}}">
-    		<p class="card-text">{{foro.nombre}}</p>
-    		<p class="card-text">{{foro}}</p>
-    	{{/foro}}
-  		</div>
         
-	   		<img src="subidas/{{id}}.jpg" id="{{id}}" class="card-img-top" alt="{{nombre}}">
+        
+	   		<img src="subidasPost/{{id}}.jpg" id="{{id}}" class="card-img-top" alt="{{nombre}}">
 	   		<img hidden="true" src="" class="card-img-top"/>
 	   		
             <div class="card-body">
               <h5 class="card-title">{{nombre}}</h5>
               <p class="card-text">{{descripcion}}</p>
-              <button class="boton_ver_post btn btn-primary" type="button" id="{{id}}">Ver Post</button>
+              <button class="btn btn-primary boton_ver_post " type="button" id="{{id}}">Ver Post</button>
             </div>
 
         </div>
       </div>
     </div>
-    
   </div>
 		
 {{/.}}

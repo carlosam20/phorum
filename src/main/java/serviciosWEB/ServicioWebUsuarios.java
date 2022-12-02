@@ -61,7 +61,7 @@ public class ServicioWebUsuarios {
 		String respuesta = "";
 		if(u != null) {
 			request.getSession().setAttribute("usuario", u);
-			respuesta = "ok, "+u.getNombre();
+			respuesta = "ok,"+u.getNombre()+","+u.getId();
 			
 		}else {
 			respuesta = "email o pass incorrectos";
@@ -71,7 +71,7 @@ public class ServicioWebUsuarios {
 	}
 	
 	@RequestMapping("comprobarLogin")
-	public ResponseEntity<String> comprobarIdentificacion(HttpServletRequest request){
+	public ResponseEntity<String> comprobarLogin(HttpServletRequest request){
 		String respuesta = "";
 		if(request.getSession().getAttribute("usuario") != null) {
 			respuesta = "ok";
@@ -81,6 +81,8 @@ public class ServicioWebUsuarios {
 		return new ResponseEntity<String>(
 				respuesta,HttpStatus.OK);
 	}
+	
+	
 	
 	@RequestMapping("logout")
 	public ResponseEntity<String> logout(HttpServletRequest request){

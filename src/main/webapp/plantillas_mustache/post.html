@@ -2,25 +2,20 @@
     <div class="row m-3">
       <div class="col-lg-11 justify-content-center d-flex m-3">
         <div class="card">
-            <img src="subidas/{{post.id}}.jpg" class="card-img-top" alt="subidas/{{comentarios.post.id}}.jpg">
+            <img src="subidas/{{id}}.jpg" class="card-img-top" alt="subidas/{{id}}.jpg">
+            
             
             <div class="card-body mb-3">
               <h5 class="card-title">{{nombre}}</h5>
               <p class="card-text">{{descripcion}}</p>
+              <p class="card-text">{{id}}</p>
+               <p class="card-text">{{id.postComentario_id}}</p>               
               <button class="s-btn responder" type="button">Responder</button>
             </div>
             
-            
-            
-            {{#comentarios}}
-            <div class="media ml-3 mt-3">
-              <img class="s-avatar s-avatar__96 mr-5" src="subidas/{{}}.jpg" alt="">
-              <div class="media-body mb-2">
-                <h5 class="mt-0">{{comentarios.usuario}}</h5>
-                {comentarios.textoComentario}        
-               </div>
-             </div>
-             {{/comentarios}}
+            {{#id}}
+            	<p class="card-text">{{id.textoComentario}}</p> 
+            {{/id}}
               
            </div>
             

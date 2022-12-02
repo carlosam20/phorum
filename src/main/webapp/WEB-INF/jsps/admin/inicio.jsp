@@ -6,10 +6,16 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>inicio.jsp</title>
+<link rel="stylesheet" href="../css/bootstrap.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
 <jsp:include page="cabecera.jsp"></jsp:include>
-<div style="text-align: center">Bienvenido admin</div>
+<div id="title-phorum" style="text-align: center">Bienvenido a la administraci�n de phorum</div>
+
+
+<img src="../images/logo-phorum.svg" alt="Girl in a jacket" width="500" height="600">
 
 
 </body>

@@ -1,0 +1,44 @@
+html{
+    height: 100% !important; 
+    margin: 0 !important;
+}
+
+
+form{
+    border: 5px 5px 5px 5px #535395;
+}
+contenedor-form{
+	height: 50% !important;
+	width:auto 
+}
+
+h1{
+    font-family: 'Lato', sans-serif;
+    font-size: 24px;
+    font-weight:800;
+    color:"#202031";
+}
+input{
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    border:5px, solid, #202031;
+}
+
+img{
+  width: 15%;
+  height: auto;
+  position: relative;
+  background: #202031;
+  border: 2px solid white;
+  border-radius: 15px;
+  
+}
+
+.btn{
+	color: white;
+	background:#535395;
+}
+.btn:hover{
+	color: #439F88;
+	background:#535395;	
+}

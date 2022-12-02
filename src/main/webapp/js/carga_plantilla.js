@@ -13,8 +13,10 @@ function cargar_plantillas_del_servidor(){
     });
 	$.get("plantillas_mustache/listado_posts.html",function(data){
         plantillaListarPosts = data;
+    });
+	$.get("plantillas_mustache/listado_posts_populares.html",function(data){
+        plantillaListarPostsPopulares = data;
     });	
-	
     $.get("plantillas_mustache/registrar_usuario.html",function(data){
         plantillaRegistrarUsuario = data;
     });

@@ -1,0 +1,17 @@
+
+/*Home*/
+
+.enlace-foro, .enlace-post{
+	font-weight: 500;
+}
+
+
+.btn-outline-primary:hover{
+    background-color:#439F88 ;
+    color: black;
+    
+}
+img{
+	  max-width: 100%;
+  height: auto;
+}

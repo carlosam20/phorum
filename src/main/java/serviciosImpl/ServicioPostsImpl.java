@@ -97,6 +97,11 @@ public class ServicioPostsImpl implements ServicioPosts{
 		return (Map<String, Object>)query.uniqueResult();
 	}
 	
+	@Override
+	public Post obtenerPostPorId(long id) {
+		return (Post) sessionFactory.getCurrentSession().get(Post.class, id);
+	}
+	
 	
 	
 	

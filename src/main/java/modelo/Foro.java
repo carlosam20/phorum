@@ -32,11 +32,6 @@ public class Foro {
     
     
 
-    
-
- 
- 
-
     public Foro() {
     }
 

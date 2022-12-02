@@ -22,8 +22,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 import modelo.Post;
-
+import servicios.ServicioForos;
 import servicios.ServicioPosts;
+import servicios.ServicioUsuarios;
 import utilidadesArchivos.GestorArchivos;
 
 
@@ -36,28 +37,46 @@ public class ServicioWebPosts {
 	@Autowired
 	private ServicioPosts servicioPosts;
 	
+	@Autowired
+	private ServicioForos servicioForos;
+	
+	@Autowired
+	private ServicioUsuarios servicioUsuarios;
+
 	
 	
 	@RequestMapping("registrarPosts")
 	public ResponseEntity<String> registrarPosts(@RequestParam Map<String, Object> formData,
-			@RequestParam("foto") CommonsMultipartFile foto,
+			@RequestParam("foto") CommonsMultipartFile foto, String idForo, String idUsuario,
 			HttpServletRequest request){
 		String respuesta = "";
 		System.out.println("--------"+formData);
-		
 		Gson gson = new Gson();
 		JsonElement json = gson.toJsonTree(formData);
-		
 		System.out.println("--------"+json);
+		
 		Post p = gson.fromJson(json, Post.class);
-		System.out.println("foro a registrar: " + p.getNombre());
-		System.out.println("foro a registrar: " + p.getForo());
-		System.out.println("foro a registrar: " + p.getIdForo());
-		System.out.println("foro a registrar: " + p.getIdUsuario());
+		
+		System.out.println("idForo"+idForo);
+		System.out.println("idUsuario"+idUsuario);
+		
+		p.setIdForo(Long.parseLong(idForo));
+		
+		p.setIdUsuario(Long.parseLong(idUsuario));
+		
+		p.setForo(servicioForos.obtenerForosPorId(p.getIdForo()));
+		
+		p.setUsuario(servicioUsuarios.obtenerUsuario(p.getIdForo()));
+		
+		System.out.println("post ForoId:  " + p.getForo());
+		
+		System.out.println(p.toString());
 		
 		servicioPosts.registrarPost(p);
+		
 		//tras hacer un registro con hibernate, hibernate asigna a este usuario la id del 
 		//registro en la tabla de la base de datos
+		
 		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
 		GestorArchivos.guardarImagenPost(p, rutaRealDelProyecto);
 		respuesta = "ok";

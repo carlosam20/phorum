@@ -51,7 +51,7 @@ public class ServicioWebPosts {
 	}
 	
 	@RequestMapping("registrarPosts")
-	public ResponseEntity<String> registrarPost(@RequestParam Map<String, Object> formData,
+	public ResponseEntity<String> registrarPost(String idForo, String idUsuario, @RequestParam Map<String, Object> formData,
 			@RequestParam("foto") CommonsMultipartFile foto,
 			HttpServletRequest request){
 		String respuesta = "";
@@ -61,6 +61,8 @@ public class ServicioWebPosts {
 		
 		System.out.println("--------"+json);
 		Post f = gson.fromJson(json, Post.class);
+		f.setIdForo(Long.parseLong(idForo));
+		f.setIdUsuario(Long.parseLong(idUsuario));
 		System.out.println("foro a registrar: " + f.toString());
 		f.setLikes(0);
 		f.setFechaCreacion(LocalDate.now().getDayOfMonth()+"-"+LocalDate.now().getMonthValue()+"-"+LocalDate.now().getYear());

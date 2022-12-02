@@ -25,7 +25,8 @@ public class Post {
     @NotBlank(message = "La descripcion no puede estar vacia")
     private String descripcion;
     private String fechaCreacion;
-
+    
+   
     @ManyToOne(cascade = {CascadeType.MERGE}, targetEntity = Foro.class, optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "foro")
     private Foro foro;
@@ -66,6 +67,8 @@ public class Post {
 		this.likes = likes;
 	}
 
+	
+	
 
 	public Long getId() {
 		return id;

@@ -18,6 +18,7 @@ public class Comentario {
     private String textoComentario;
 
     @ManyToOne(cascade = {CascadeType.MERGE}, targetEntity = Post.class, optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "postComentario")
     private Post postComentario;
     private String fechaCreacion;
 
