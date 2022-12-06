@@ -4,21 +4,26 @@
         <div class="card">
             <img src="subidas/{{id}}.jpg" class="card-img-top" alt="subidas/{{id}}.jpg">
             
-            
+           {{#}} 
             <div class="card-body mb-3">
               <h5 class="card-title">{{nombre}}</h5>
               <p class="card-text">{{descripcion}}</p>
-              <p class="card-text">{{id}}</p>
-               <p class="card-text">{{id.postComentario_id}}</p>               
-              <button class="s-btn responder" type="button">Responder</button>
+              <p class="card-text">{{fechaCreacion}}</p>
+              <p class="card-text">{{usuario}}</p>
+              
+              <p class="card-text">{{id.fechaCreacion}}</p>
+                             
+              <button class="btn btn-primary responder" type="button">Responder</button>
+              <a class="likes"><i class="fa-solid fa-thumbs-up"></i></a>
             </div>
             
             {{#id}}
-            	<p class="card-text">{{id.textoComentario}}</p> 
+				<p class="card-text">{{id.fechaCreacion}}</p>
+            	<span class="card-text">{{id.usuario}}</span> 
             {{/id}}
               
            </div>
-            
+            {{/}}
 
         </div>
       </div>

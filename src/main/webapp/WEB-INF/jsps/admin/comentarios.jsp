@@ -11,7 +11,7 @@
 <body>
 
 <jsp:include page="cabecera.jsp"></jsp:include>
-<a class="btn btn-outline-secondary m-3" href="registrarPost">Nuevo post</a><br>
+<a class="btn btn-outline-secondary m-3" href="registrarComentario">Nuevo comentario</a><br>
 
 
 <form action="listarComentarios">

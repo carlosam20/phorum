@@ -1,12 +1,12 @@
 
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
   <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
   <link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/home.css">
 
 <title>Home</title>
@@ -160,7 +160,7 @@
   <!--Posts-->
   <div class="recomendacionesPost">
     
-    <!--Elementos-->
+    <!--Listado de Post-->
     <div class="d-flex flex-row justify-content-center m-3">
      
      <div class="row m-2"> 
@@ -176,15 +176,13 @@
     	  </div>	    	
   		  </div>
   		{{#id}}
-        <a href="boton_post">
             <img src="subidasPost/{{id}}.jpg"  id="{{id}}" class="card-img-top" alt="{{id}}" >
             <div class="card-body">
               <h5 class="card-title">{{id.nombre}}</h5>
               <p class="card-text">{{id.descripcion}}</p>
-              <a class="btn btn-link enlace-foro" type="button">Ir al Foro</a>
-              <a class="btn btn-link enlace-post" type="button">Ver Post</a>
+              <a class="btn btn-link boton_post_foro" type="button">Ir al Foro</a>
+              <a class="btn btn-link boton_ver_post" type="button">Ver Post</a>
             </div>
-        </a>
         </div>
       </div>
 
@@ -198,4 +196,6 @@
   integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@stackoverflow/stacks/dist/js/stacks.min.js"></script>
 <script src="anime-master/lib/anime.min.js"></script>
+<script src="../js/home-animacion.js"></script>
+
 

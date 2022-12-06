@@ -194,7 +194,10 @@ function obtener_listado_posts() {
 			texto_html = Mustache.render(plantillaListarPostsPopulares, posts);
 			$("#contenedor").html(texto_html);
 			
-			//Ver Foro
+			//Aqui va Ir a Foro en el que muestra los post
+			//También Va Ir al 
+			
+			
 							
 		}//---end success---
 	});//--end ajax--

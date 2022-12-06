@@ -56,7 +56,7 @@ public class ConstantesSQL {
 	public static final String SQL_OBTENER_DATOS_COMENTARIO = "select * from comentario where id = :id"; 
 	public static final String SQL_OBTENER_DATOS_FORO = "select * from foro where id = :id"; 
 	public static final String SQL_OBTENER_DATOS_POST = "select * from post where id = :id"; 
-	public final static String SQL_OBTENER_DATOS_USUARIO="SELECT u.id, u.nombre, u.email, u.pass, u.descripcion, u.fechaCreacion "
+	public final static String SQL_OBTENER_DATOS_USUARIO="SELECT u.id, u.nombre, u.email, u.pass, u.descripcion, u.fechaCreacion, u.foros, u.posts u.comentarios  "
 			+ "from usuario as u "
 			+ "where u.id = :id ";
 	

@@ -45,7 +45,6 @@ public class Usuario  {
     //@Pattern(regexp = "^[0-9a-z A-ZáéíóúÁÉÍÓÚ]{3,60}$", message="Las descripciones solo admiten letras, numeros y espacios")
     //private String descripcion;
     
-  
     private String descripcion;
 
     
@@ -60,7 +59,7 @@ public class Usuario  {
     private MultipartFile imagen;
 
 
-    public Usuario() {}
+    public Usuario(){}
 
 
 
