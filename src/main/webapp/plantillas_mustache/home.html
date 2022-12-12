@@ -16,14 +16,14 @@
 <!-- Header -->
 <div class="header row p-2 bg-secondary">
   <div class="header-titulos col-lg-6">
-    <h1 class="text-light ">Registrate en phorum</h1>
-    <h1 class="text-light">Para tener una mejor experiencia</h1>
+    <h1 class="display-4 text-light ">Registrate en phorum</h1>
+    <h1 class="display-4 text-light ">Para tener una mejor experiencia</h1>
   </div>
 
   
   <div class="header-titulos col-lg-6 bg-secondary">
 
-
+<!-- Comienza imagen svg -->
     <svg xmlns="http://www.w3.org/2000/svg" width="339.248" height="297.719" viewBox="0 0 339.248 297.719">
       <g id="undraw_off_road_re_leme" transform="translate(0 0)">
         <g id="Grupo_1191" data-name="Grupo 1191" transform="translate(184.224 140.648)">
@@ -121,76 +121,80 @@
         </g>
       </g>
     </svg>
-    
+<!-- Termina imagen svg -->
+
     <button class="btn btn-outline-primary m-3 bg-light" id="enlace_registrarme">Registrate</button>
   </div>
 
 </div>
 
 
-
+ 
 <span class="titulo-foros text-primary text-center d-flex justify-content-center m-3">
   <span class="elemento">Explora Los foros</span> 
 </span>
-
-
+{{#.}}
+{{#id}}
 <!--Scroll container-->
   <div class="row m-3">
     <div class="scrollContainer">
       <div class="scroll">
-      {{#.}}
+      
         <div class="item">
           <a href="">
             <img src="subidas/{{id}}.jpg" alt="{{nombre}}" id="{{id}}" class="scroll-image s-avatar s-avatar__64" srcset="">
             <h5>{{nombre}}</h5>
           </a>
         </div>
-        {{/.}}
+        
       </div>
     </div>
   </div>
+{{/id}}
+{{/.}} 
 
 
   <span class="titulo-foros text-primary text-center d-flex justify-content-center m-3">
     <span class="elemento">Explora los Post</span> 
   </span>
 
-{{#.}}
+
 
   <!--Posts-->
   <div class="recomendacionesPost">
     
     <!--Listado de Post-->
     <div class="d-flex flex-row justify-content-center m-3">
-     
+    {{#.}}
+    {{#idPost}}
      <div class="row m-2"> 
         <div class=" col-lg-6 col-sm-11 card">
         <div class="card-header">
       	<div class="row m-2 text-start">
-          <div class="col-lg-2 col-sm-2">
-            <img src="subidas/{{id}}.jpg" alt="{{nombre}}" id="{{id}}" class="s-avatar s-avatar__32 align-bottom">
+          <div class="col-lg-2 col-sm-2 s-avatar">
+          <div>
+            <img src="subidas/{{foroPost}}.jpg" alt="{{foroPost}}" id="{{foroPost}}" class="s-avatar s-avatar__32 align-bottom">
           </div>
           <div class="col-lg-9 col-sm-9">
-            <p class="card-text text-start m-2 align-middle ">{{nombre}}</p>
+            <p class="card-text text-start m-2 align-middle ">{{foroPost.nombre}}</p>
           </div>
     	  </div>	    	
   		  </div>
-  		{{#id}}
-            <img src="subidasPost/{{id}}.jpg"  id="{{id}}" class="card-img-top" alt="{{id}}" >
+  		
+            <img src="subidasPost/{{idPost}}.jpg"  id="{{idPost}}" class="card-img-top" alt="{{idPost}}" >
             <div class="card-body">
-              <h5 class="card-title">{{id.nombre}}</h5>
-              <p class="card-text">{{id.descripcion}}</p>
+              <h5 class="card-title">{{nombrePost}}</h5>
+              <p class="card-text">{{descripcionPost}}</p>
               <a class="btn btn-link boton_post_foro" type="button">Ir al Foro</a>
               <a class="btn btn-link boton_ver_post" type="button">Ver Post</a>
             </div>
         </div>
-      </div>
-
-      
+      </div>  
     </div>
+    {{/idPost}}
+    {{/.}} 
+    
   </div>
-{{/id}}
-{{/.}}
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

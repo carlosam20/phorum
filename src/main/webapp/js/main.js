@@ -1,25 +1,25 @@
 
-var email = "";
-var pass = "";	
+let email = "";
+let pass = "";	
 
 
 
 const login = "";
 
 
-var nombre_login ="";
+let nombre_login ="";
 
-//parte de carga de las plantillas en variables:
-var plantillaHome = "";
-var plantillaListarForos = "";
-var plantillaListarPostYComentarios = "";
-var plantillaForo = "";
-var plantillaLogin = "";
-var plantillaCategoria = "";
-var plantillaRegistrarUsuario = "";
-var plantillaIdentificarUsuario = "";
-var plantillaEditarUsuario = "";
-var plantillaPerfil = "";
+//parte de carga de las plantillas en  varibles:
+let plantillaHome = "";
+let plantillaListarForos = "";
+let plantillaListarPostYComentarios = "";
+let plantillaForo = "";
+let plantillaLogin = "";
+let plantillaCategoria = "";
+let plantillaRegistrarUsuario = "";
+let plantillaIdentificarUsuario = "";
+let plantillaEditarUsuario = "";
+let plantillaPerfil = "";
 
 		
 cargar_plantillas_del_servidor();
@@ -32,8 +32,8 @@ listadoInicio();
 		$.ajax("servicioWebForos/obtenerForosYPosts", {
 			success : function(data) {
 				alert("recibido: "+data);
-				var forosYPost = JSON.parse(data);
-				var texto_html = "";
+				let forosYPost = JSON.parse(data);
+				let texto_html = "";
 				texto_html = Mustache.render(plantillaHome,
 						forosYPost);
 				$("#contenedor").html(texto_html);
@@ -47,8 +47,8 @@ listadoInicio();
 		$.ajax("servicioWebForos/obtenerForos", {
 			success : function(data) {
 				alert("recibido: "+data);
-				var foros = JSON.parse(data);
-				var texto_html = "";
+				let foros = JSON.parse(data);
+				let texto_html = "";
 				texto_html = Mustache.render(plantillaListarForos,
 						foros);
 				$("#contenedor").html(texto_html);
@@ -56,16 +56,16 @@ listadoInicio();
 				
 				//Registro		 
 			    $("#form_registro_foro").submit(function(e){
-			        var nombre = $("#nombre").val();
-			        var descripcion = $("#descripcion").val();
+			        let nombre = $("#nombre").val();
+			        let descripcion = $("#descripcion").val();
 			        
 			        if(validarNombre(nombre)){
 			            
 			            alert("todo ok, mandando informacion al servicio web...");
 			            
 			            //vamos a usar FormData para mandar el form al servicio web
-			            var formulario = document.forms[0];
-			            var formData = new FormData(formulario);
+			            let formulario = document.forms[0];
+			            let formData = new FormData(formulario);
 			            
 			            $.ajax("identificado/servicioWebForos/registroForo",{
 			                type: "POST",
@@ -94,38 +94,38 @@ listadoInicio();
 			    
 			    //Boton Ver Posts de Foro	
 			    $(".boton_post_foro").click(function(e, login){
-					var id = $(this).attr("id");
+					let id = $(this).attr("id");
 					
 					alert("pedir al servidor id:" +id);
 					
 					$.ajax("servicioWebPosts/obtenerPostPorForoId?id="+id, {
 						success : function(data) {
 							alert("recibido: "+data);
-							var posts = JSON.parse(data);
-							var texto_html = Mustache.render(plantillaListarPosts ,posts);
+							let posts = JSON.parse(data);
+							let texto_html = Mustache.render(plantillaListarPosts ,posts);
 							$("#contenedor").html(texto_html);
 							
 											
 							//Registrar Post
 							
 							  $("#form_registro_post").submit(function(e){
-							        var nombre = $("#nombre").val();
-							        var descripcion = $("#descripcion").val();
+							        let nombre = $("#nombre").val();
+							        let descripcion = $("#descripcion").val();
 							        
-							        var idUsuario = "";
-							        var idForo = id;
+							        let idUsuario = "";
+							        let idForo = id;
 							        
 							        $.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId",{
 							            success:function(data){
 							                //alert("recibido: "+data);
-							                var info = JSON.parse(data);
+							                let info = JSON.parse(data);
 							                idUsuario = info.id;
 							                
 							                 
 							        	
 							        
-							            var formulario = document.forms[0];
-							            var formData = new FormData(formulario);
+							            let formulario = document.forms[0];
+							            let formData = new FormData(formulario);
 							            formData.append('idForo', idForo);
 							            formData.append('idUsuario', idUsuario);
 							            
@@ -155,15 +155,15 @@ listadoInicio();
 							  	  
 							  //Boton Ver Post y Comentarios 
 							  $(".boton_ver_post").click(function(e){
-									var idPost = $(this).attr("id");
+									let idPost = $(this).attr("id");
 									
 									alert("pedir al servidor post id:"+idPost);
 									
 									$.ajax("identificado/servicioWebComentarios/obtenerPostYComentariosPorId?idPost="+idPost, {
 										success : function(data) {
 											alert("recibido: "+data);
-											var postYComentarios = JSON.parse(data);
-											var texto_html = "";
+											let postYComentarios = JSON.parse(data);
+											let texto_html = "";
 											texto_html = Mustache.render(plantillaListarPostYComentarios, postYComentarios);
 											$("#contenedor").html(texto_html);
 											
@@ -189,8 +189,8 @@ function obtener_listado_posts() {
 	$.ajax("servicioWebPosts/obtenerPosts", {
 		success : function(data) {
 			alert("recibido: "+data);
-			var posts = JSON.parse(data);
-			var texto_html = "";
+			let posts = JSON.parse(data);
+			let texto_html = "";
 			texto_html = Mustache.render(plantillaListarPostsPopulares, posts);
 			$("#contenedor").html(texto_html);
 			
@@ -208,14 +208,14 @@ function mostrarRegistroComentario(){
 		
 	$("#contenedor").html(plantillaRegistrarPost);
 	$("#form_registro_comentarios").submit(function(e){
-		var comentario = $("#textoComentario").val();
+		let comentario = $("#textoComentario").val();
 		if(validarNombre(nombre)){
 			
 			alert("todo ok, mandando informacion al servicio web...");
 			
 			//vamos a usar FormData para mandar el form al servicio web
-			var formulario = document.forms[0];
-			var formData = new FormData(formulario);
+			let formulario = document.forms[0];
+			let formData = new FormData(formulario);
 			$.ajax("identificado/servicioWebComentarios/registroComentario",{
 				type: "POST",
 				data: formData,
@@ -242,9 +242,9 @@ function mostrarRegistroUsuario(){
 	
 	$("#contenedor").html(plantillaRegistrarUsuario);
 	$("#form_registro_usuario").submit(function(e){
-		var nombre = $("#nombre").val();
-		var email = $("#email").val();
-		var pass = $("#pass").val();
+		let nombre = $("#nombre").val();
+		let email = $("#email").val();
+		let pass = $("#pass").val();
 		
 		if(validarNombre(nombre)){
 			
@@ -252,8 +252,8 @@ function mostrarRegistroUsuario(){
 							
 				if(validarPass(pass)){
 										
-			var formulario = document.forms[0];
-			var formData = new FormData(formulario);
+			let formulario = document.forms[0];
+			let formData = new FormData(formulario);
 			$.ajax("servicioWebUsuarios/registrarUsuario",{
 				type: "POST",
 				data: formData,
@@ -362,8 +362,8 @@ function perfil(){
 		$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId",{
 				success:function(data){
 					alert("recibido: "+data);
-					var info = JSON.parse(data);	
-					var texto_html = "";
+					let info = JSON.parse(data);	
+					let texto_html = "";
 					
 					texto_html = Mustache.render(plantillaPerfil,info);
 					$("#contenedor").html(texto_html);
@@ -374,19 +374,19 @@ function perfil(){
 						 $.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId",{
 								success:function(data){
 									alert("recibido: "+data);
-									var info = JSON.parse(data);	
-									var texto_html = "";
+									let info = JSON.parse(data);	
+									let texto_html = "";
 									texto_html = Mustache.render(plantillaEditarUsuario, info);
 									$("#contenedor").html(texto_html);
 												
 									//Form
 									$("#form_editar_usuario").submit(function(e){
 										
-										//Variables form
-										var nombre = $("#nombre").val();
-										var email = $("#email").val();
-										var descripcion = $("#descripcion").val();
-										var pass = $("#pass").val();
+										//letiables form
+										let nombre = $("#nombre").val();
+										let email = $("#email").val();
+										let descripcion = $("#descripcion").val();
+										let pass = $("#pass").val();
 										
 										if(validarNombre(nombre)){
 											if(validarEmail(email)){
@@ -394,8 +394,8 @@ function perfil(){
 													if(validarPass(pass)){
 										
 										 
-										var formulario = document.forms[0];
-										var formData = new FormData(formulario);
+										let formulario = document.forms[0];
+										let formData = new FormData(formulario);
 										
 																		
 										$.ajax("identificado/servicioWebUsuarios/editarUsuarioPorId",{

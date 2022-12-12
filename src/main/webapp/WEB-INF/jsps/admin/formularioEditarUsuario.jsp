@@ -24,15 +24,20 @@
 	<div class="mb-3">
 	descripcion: <springform:input path="descripcion" class="form-label"/>
 	</div>
+	<div class="mb-3">
+	imagen : <springform:input path="imagen" type="file"/><br>
+	</div>
 	<springform:hidden path="id"/>
 </div>	
 	<div class="mb-3">
-		<input type="submit" value="Guardar Cambios">
+		<input class="btn btn-primary"type="submit" value="Guardar Cambios">
 </div>
 	
 </springform:form>
 
 </body>
+
+
 </html>
 
 

@@ -36,7 +36,6 @@ public class ControladoresPost {
 	private ServicioForos servicioForos;
 	@Autowired
 	private ServicioUsuarios servicioUsuarios;
-	
 	@Autowired
 	private ServicioComentarios servicioComentarios;
 	
@@ -82,8 +81,7 @@ public class ControladoresPost {
 			
 			String rutaRealDelProyecto =
 			request.getServletContext().getRealPath("");
-			
-			GestorArchivos.guardarImagenPost(nuevoPost, rutaRealDelProyecto);
+			GestorArchivos.guardarImagenPostAdmin(nuevoPost, rutaRealDelProyecto);
 			return "admin/registroPostOk";
 			
 		} else {
@@ -110,7 +108,7 @@ public class ControladoresPost {
 			
 			String rutaRealDelProyecto = 
 					request.getServletContext().getRealPath("");
-			GestorArchivos.guardarImagenPost(post, rutaRealDelProyecto);
+			GestorArchivos.guardarImagenPostAdmin(post, rutaRealDelProyecto);
 			
 			return listarPosts("",0,model);
 		}else {

@@ -94,7 +94,7 @@
         </div>
         
         <div class=" col-lg-4 col-sm-4  footer-enlaces">
-            <a class="text-light">Iniciar Sesión</a>
+            <a class="text-light">Iniciar Sesi&oacuten</a>
             <a class="text-light">Registrarse</a>
             
         </div>

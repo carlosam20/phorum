@@ -10,6 +10,7 @@ public interface ServicioPosts {
 
 public int obtenerTotalDePosts(String marca);
 List<Post> obtenerPosts(String marca, int comienzo);
+List<Map<String, Object>> obtenerPostsParaListadoAleatorio();
 Map<String, Object> obtenerPostsPorId(long id);
 void registrarPost(Post p);
 void eliminarPosts(long id);

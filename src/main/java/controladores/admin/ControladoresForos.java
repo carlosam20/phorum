@@ -55,6 +55,7 @@ public class ControladoresForos {
 		
 		return "admin/formularioRegistroForo";
 	}
+	
 	@RequestMapping("guardarNuevoForo")
 	public String guardarNuevoForo(@ModelAttribute("nuevoForo") @Valid Foro nuevoForo, BindingResult br, Model model,
 			HttpServletRequest request) {
@@ -79,10 +80,9 @@ public class ControladoresForos {
 	@RequestMapping("guardarCambiosForo")
 	public String guardarCambiosForo(@ModelAttribute("foro") @Valid Foro foro, BindingResult br,  Model model,
 			HttpServletRequest request) {
-		servicioForos.guardarCambiosForo(foro);
 		
 		if(!br.hasErrors()) {
-			
+			servicioForos.guardarCambiosForo(foro);
 			String rutaRealDelProyecto = 
 					request.getServletContext().getRealPath("");
 			GestorArchivos.guardarImagenForoAdmin(foro, rutaRealDelProyecto);

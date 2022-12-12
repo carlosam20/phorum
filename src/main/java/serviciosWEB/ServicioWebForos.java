@@ -3,8 +3,12 @@ package serviciosWEB;
 
 
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,10 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import modelo.Foro;
 import servicios.ServicioForos;
+import servicios.ServicioPosts;
 import utilidadesArchivos.GestorArchivos;
 
 
@@ -34,6 +41,11 @@ public class ServicioWebForos {
 	@Autowired
 	private ServicioForos servicioForos;
 	
+	@Autowired
+	private ServicioPosts servicioPosts;
+	
+	
+	
 	@RequestMapping("obtenerForos")
 	public ResponseEntity<String> obtenerForos(){
 		String json = new Gson().toJson(servicioForos.obtenerForosParaListado());
@@ -42,9 +54,38 @@ public class ServicioWebForos {
 	}
 	@RequestMapping("obtenerForosYPosts")
 	public ResponseEntity<String> obtenerForosYPosts(){
-		String json = new Gson().toJson(servicioForos.obtenerForosParaListadoAleatorios());
+		
+		
+		List<Map<String, Object>> forosResults = servicioForos.obtenerForosParaListadoAleatorios();
+		
+		String jsonForos = new Gson().toJson(forosResults);
+		
+		
+		List<Map<String, Object>> postsResults = servicioPosts.obtenerPostsParaListadoAleatorio();
+		String jsonPost = new Gson().toJson(postsResults);
+		
+
+		//Recogemos las keys del map
+		Set<String> keys = postsResults.get(0).keySet();
+		
+		//Las parseamos a iterdor para poder remplazarlas
+		Iterator<String> keysValues = keys.iterator();
+		
+		//Anyadimos a las keys el "Post" para diferenciarlas
+		while(keysValues.hasNext()) {
+			String key = keysValues.next();
+			jsonPost = jsonPost.replaceAll(key, key+"Post" );
+		}
+		
+		
+		//Cambiamos el cierre de jsonForos por una coma, para unirlo a jsonPosts, Adem�s de eliminar la abertura de jsonPost
+		 jsonForos = jsonForos.replaceAll("}]", ",");
+		 jsonPost = jsonPost.replaceAll(Pattern.quote("[{"), "");
+		
+		jsonForos = jsonForos + jsonPost ;
+		System.out.println(jsonForos);
 		return new ResponseEntity<String>(
-				json,HttpStatus.OK);	
+				jsonForos,HttpStatus.OK);	
 	}
 	@RequestMapping("obtenerForo")
 	public ResponseEntity<String> obtenerForo(String id){
@@ -67,6 +108,7 @@ public class ServicioWebForos {
 		Foro f = gson.fromJson(json, Foro.class);
 		System.out.println("foro a registrar: " + f.toString());
 		servicioForos.registrarForo(f);
+		
 		//tras hacer un registro con hibernate, hibernate asigna a este usuario la id del 
 		//registro en la tabla de la base de datos
 		String rutaRealDelProyecto = request.getServletContext().getRealPath("");

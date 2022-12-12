@@ -78,7 +78,7 @@ public class ServicioWebPosts {
 		//registro en la tabla de la base de datos
 		
 		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
-		GestorArchivos.guardarImagenPost(p, rutaRealDelProyecto);
+		GestorArchivos.guardarImagenPost(p, rutaRealDelProyecto, foto);
 		respuesta = "ok";
 		
 		return new ResponseEntity<String>(

@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>formularioRegistroPost</title>
-<link rel="stylesheet" href="css/formulario_admin.css">
+<title>formulario Editar Post</title>
+
 </head>
 <body>
 

@@ -81,7 +81,6 @@ public class GestorArchivos {
 				foto.transferTo(new File(rutaFotos, nombreArchivo));
 				System.out.println("ruta: "+rutaFotos);
 			} catch (IllegalStateException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -105,13 +104,11 @@ public class GestorArchivos {
 				archivo.transferTo(new File(rutaSubidas, nombreArchivo));
 				System.out.println("archivo movido a: "+rutaSubidas);
 			} catch (IllegalStateException | IOException e) {
-				System.out.println("No pude mover el archivo a la ruta de subidas");
+				System.out.println("No se pudo mover el archivo a rutas subidas");
 				e.printStackTrace();
 			}
 		}
-		else {
-			
-		}
+		
 		
 		
 	}// end guardarImagenForo
@@ -134,20 +131,14 @@ public class GestorArchivos {
 				archivo.transferTo(new File(rutaSubidas, nombreArchivo));
 				System.out.println("archivo movido a: "+rutaSubidas);
 			} catch (IllegalStateException | IOException e) {
-				System.out.println("No pude mover el archivo a la ruta de subidas");
+				System.out.println("No se pudo mover el archivo a rutas subidas");
 				e.printStackTrace();
 			}
 		}
-		else {
-			System.out.println("Ordenador sin imagen de momento es opcional");
-		}
-		
-		
+			
 	}
 	
-	public static void guardarImagenPost(Post p, String rutaReal) {
-		
-		MultipartFile archivo = p.getImagen();
+	public static void guardarImagenPost(Post p, String rutaReal, CommonsMultipartFile foto) {
 		String nombreArchivo = p.getId()+".jpg";
 		
 		
@@ -157,12 +148,13 @@ public class GestorArchivos {
 			fileRutaSubidas.mkdirs();
 		}
 		//mover el archivo a dicha ruta poniendole el nombre indicado:
-		if(archivo.getSize() > 0 && archivo.getSize() < 5000000) {
+		if(foto.getSize() > 0 && foto.getSize() < 5000000) {
+
 			try {
-				archivo.transferTo(new File(rutaSubidas, nombreArchivo));
+				foto.transferTo(new File(rutaSubidas, nombreArchivo));
 				System.out.println("archivo movido a: "+rutaSubidas);
 			} catch (IllegalStateException | IOException e) {
-				System.out.println("No pude mover el archivo a la ruta de subidas");
+				
 				e.printStackTrace();
 			}
 		}
@@ -171,7 +163,7 @@ public class GestorArchivos {
 		}
 		
 		
-	}// end guardarImagenForo
+	}// end guardarImagenPost del usuario
 	
 	
 	

@@ -53,21 +53,27 @@
     <div class="col-lg-3 col-sm-3">
          <div>
             <h2>Foros Creados</h2>
-            {{#foros}}
-            <h2>{{id}}</h2>
-            {{/foros}}
+            {{#.}}
+            {{#id}}
+            <h2>{{id.foro}}</h2>
+            {{/id}}
+            {{/.}}
          </div>
          <div>
-            {{#posts}}
             <h2>Post Creados</h2>
-            <h2>{{id}}</h2>
-            {{/posts}}
+         	{{#.}}
+            {{#id}}
+            <h2>{{id.nombre}}</h2>
+            {{/id}}
+            {{/.}}
          </div>
          <div>
             <h2>Comentario</h2>
-            {{#comentarios}}
-            <h2>{{id}}</h2>
-            {{/comentarios}}
+            {{#.}}
+            {{#id}}
+            <h2>{{id.textoComentario}}</h2>
+            {{/id}}
+            {{/.}}
          </div>
     </div>
  </div>
@@ -76,9 +82,11 @@
         <div class="row">
             <h2>Descripcion</h2>
         </div>
+        {{#.}}
         <div class="col-lg-11 col-sm-11">
             <p>{{descripcion}}</p>
         </div>
+        {{/.}}
     </div>
 
 </div>

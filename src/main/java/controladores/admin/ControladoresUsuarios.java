@@ -88,8 +88,12 @@ public class ControladoresUsuarios {
 			HttpServletRequest request) {
 	
 		if(!br.hasErrors()) {
+			String rutaRealDelProyecto = 
+					request.getServletContext().getRealPath("");
+			GestorArchivos.guardarFotoUsuarioAdmin(usuario, rutaRealDelProyecto);
 			servicioUsuarios.guardarCambiosUsuario(usuario);
 			return listarUsuarios("",0,model);
+			
 		}else {
 			return "admin/formularioEditarUsuario";	
 		}

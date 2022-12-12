@@ -18,6 +18,10 @@ public class ConstantesSQL {
 	public final static String SQL_OBTENER_POSTS_PARA_LISTADO="select id, nombre, descripcion, fechaCreacion "
 			+ "from post " 
 			+ "order by id desc";
+	
+	public final static String SQL_OBTENER_POSTS_PARA_LISTADO_RANDOM="select * from post order by rand(id) ";
+			
+	
 	public final static String SQL_OBTENER_COMENTARIOS_PARA_LISTADO="select id, nombre, descripcion, fechaCreacion, postComentario, usuario "
 			+ "from comentario " 
 			+ "order by id desc";
@@ -56,9 +60,8 @@ public class ConstantesSQL {
 	public static final String SQL_OBTENER_DATOS_COMENTARIO = "select * from comentario where id = :id"; 
 	public static final String SQL_OBTENER_DATOS_FORO = "select * from foro where id = :id"; 
 	public static final String SQL_OBTENER_DATOS_POST = "select * from post where id = :id"; 
-	public final static String SQL_OBTENER_DATOS_USUARIO="SELECT u.id, u.nombre, u.email, u.pass, u.descripcion, u.fechaCreacion, u.foros, u.posts u.comentarios  "
-			+ "from usuario as u "
-			+ "where u.id = :id ";
+	public final static String SQL_OBTENER_DATOS_USUARIO="SELECT * from usuario where id = :id ";
+			
 	
 	//OBTENER ID A PARTIR DE ID
 	public final static String OBTENER_POST_CON_FORO="select * from post where foro = :id";

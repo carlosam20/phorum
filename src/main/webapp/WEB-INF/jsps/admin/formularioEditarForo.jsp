@@ -6,6 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Formulario Editar Foro</title>
+
 </head>
 <body>
 <jsp:include page="cabecera.jsp"></jsp:include>

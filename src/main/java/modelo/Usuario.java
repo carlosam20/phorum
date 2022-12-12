@@ -48,11 +48,7 @@ public class Usuario  {
     private String descripcion;
 
     
-    @OneToMany(cascade = {CascadeType.ALL},mappedBy = "usuario" , fetch = FetchType.LAZY)
-    private List<Post> posts = new ArrayList<Post>();
-    
-    @OneToMany(cascade = {CascadeType.ALL},mappedBy = "usuario" , fetch = FetchType.LAZY)
-    private List<Comentario> comentarios = new ArrayList<Comentario>();
+   
     
 
     @Transient
@@ -64,8 +60,7 @@ public class Usuario  {
 
 
 
-	public Usuario(Long id, String nombre, String pass, String email, String fechaCreacion, String descripcion,
-			List<Post> posts, List<Comentario> comentarios, MultipartFile imagen) {
+	public Usuario(Long id, String nombre, String pass, String email, String fechaCreacion, String descripcion, MultipartFile imagen) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -73,8 +68,6 @@ public class Usuario  {
 		this.email = email;
 		this.fechaCreacion = fechaCreacion;
 		this.descripcion = descripcion;
-		this.posts = posts;
-		this.comentarios = comentarios;
 		this.imagen = imagen;
 	}
 
@@ -161,36 +154,6 @@ public class Usuario  {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-
-
-
-	public List<Post> getPosts() {
-		return posts;
-	}
-
-
-
-
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
-	}
-
-
-
-
-	public List<Comentario> getComentarios() {
-		return comentarios;
-	}
-
-
-
-
-	public void setComentarios(List<Comentario> comentarios) {
-		this.comentarios = comentarios;
-	}
-
-
 
 
 	public MultipartFile getImagen() {

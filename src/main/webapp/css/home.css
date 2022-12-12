@@ -1,6 +1,11 @@
 
 /*Home*/
 
+.display-4{
+  font-family: 'Roboto', sans-serif;
+  
+}
+
 .enlace-foro, .enlace-post{
 	font-weight: 500;
 }

@@ -38,6 +38,17 @@ public class ServicioPostsImpl implements ServicioPosts{
 		List<Map<String, Object>> res = query.list();
 		return res;
 	}
+	
+	public List<Map<String, Object>> obtenerPostsParaListadoAleatorio() {
+		
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_POSTS_PARA_LISTADO_RANDOM);
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		List<Map<String, Object>> res = query.list();
+		return res;
+	}
+	
+	
+	
 	@Override
 	public int obtenerTotalDePosts(String nombre) {
 		SQLQuery query = sessionFactory.getCurrentSession().
@@ -72,13 +83,6 @@ public class ServicioPostsImpl implements ServicioPosts{
 	
 	public List<Map<String, Object>> obtenerIdPostPorForoId(long id) {
 		
-		/*
-		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_POST_CON_FORO);
-		query.setParameter("id", id);
-		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
-		*/
-		
-		
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_POST_CON_FORO);
 		query.setParameter("id", id);
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
@@ -102,10 +106,7 @@ public class ServicioPostsImpl implements ServicioPosts{
 		return (Post) sessionFactory.getCurrentSession().get(Post.class, id);
 	}
 	
-	
-	
-	
-	
+
 
 	@Override
 	public void eliminarPosts(long id) {
