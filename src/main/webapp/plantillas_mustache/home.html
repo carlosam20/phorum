@@ -171,11 +171,11 @@
         <div class=" col-lg-6 col-sm-11 card">
         <div class="card-header">
       	<div class="row m-2 text-start">
-          <div class="col-lg-2 col-sm-2 s-avatar">
-          <div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="s-avatar">
             <img src="subidas/{{foroPost}}.jpg" alt="{{foroPost}}" id="{{foroPost}}" class="s-avatar s-avatar__32 align-bottom">
           </div>
-          <div class="col-lg-9 col-sm-9">
+          <div class="col-lg-6 col-sm-6">
             <p class="card-text text-start m-2 align-middle ">{{foroPost.nombre}}</p>
           </div>
     	  </div>	    	
@@ -185,8 +185,12 @@
             <div class="card-body">
               <h5 class="card-title">{{nombrePost}}</h5>
               <p class="card-text">{{descripcionPost}}</p>
-              <a class="btn btn-link boton_post_foro" type="button">Ir al Foro</a>
-              <a class="btn btn-link boton_ver_post" type="button">Ver Post</a>
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                <a class="btn btn-link boton_post_foro" type="button">Ir al Foro</a>
+                <a class="btn btn-link boton_ver_post" type="button">Ver Post</a>
+                </div>
+              </div>
             </div>
         </div>
       </div>  

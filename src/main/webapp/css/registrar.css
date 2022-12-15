@@ -1,7 +1,6 @@
 
-.s-label{
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
+.contenido{
+    height: 100%;   
 }
 h1{
     font-family: 'Lato', sans-serif;
@@ -11,47 +10,37 @@ h1{
 input{
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    border:5px, solid, #1B2C78;
+    border:5px, solid, black;
 }
 
-::placeholder{
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    color: #1B2C78;
-}
-.s-uploader--previews{
-    width: max;
-    height: auto;
-    margin: auto;
-}
+
 
 .previews{
     width: max;
     height: auto;
 }
-.s-btn-primary{
-    background-color: #003F30;
-    color: #FFF;
-    padding: 1%;
+#undraw_small_town_re_7mcn{
+    width: 40%;
+    height: auto;
+}
+
+#imagen_form{
+ height: 100%;   
 }
 
 
+#logo_phorum{
+    width: 35%;
+    height: auto;
+}
+
 @media screen and (min-width: 900px) {
-    img[src="explora.svg"]{
-        margin: auto;
-        width: 25%;
-        height: 25%;
-        
-    }
-    
     
 }
 
 @media screen and (max-width: 900px){
-    img[src="explora.svg"]{
-        margin: auto;
-        width: 300px;
-        height: 300px;
+    #imagen_form{
+        display: none;
     }
     
 }

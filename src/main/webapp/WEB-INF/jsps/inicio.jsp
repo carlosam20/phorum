@@ -3,14 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Home</title>
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
-<link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="icon" type="image/svg" href="images/logo-phorum.svg">
+<link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/style.css">
 
@@ -63,7 +62,6 @@
                  </li>
                  <li class="nav-item">
                         <p  id="mensaje_login" class="nav-link m-3" aria-current="page"></p>
-                        <!-- <p  id="id_login" class="nav-link m-3"aria-current="page"></p>  -->
                   </li>
              </ul>
 
@@ -111,8 +109,6 @@
     <div class=" col-lg-12 col-sm-12 footer-copy text-center">
         <h2 class="text-light">@phorum</h2>
     </div>
-
-
 </div>
 
 
@@ -127,7 +123,6 @@
 <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="js/validaciones.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 
 </body>

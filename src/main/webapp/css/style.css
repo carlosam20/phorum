@@ -96,6 +96,16 @@ h{
 .badge {
     font-size: 1em;
 }
+#file-upload-button{
+    background-color: #060637;
+}
+
+/*Forms*/
+::placeholder{
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: black;
+}
 
 .titulo-foros {
     position: relative;

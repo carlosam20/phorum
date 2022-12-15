@@ -27,31 +27,12 @@ import servicios.ServicioPosts;
 
 @Controller("servicioWebComentariosIdentificado")
 @RequestMapping("identificado/servicioWebComentarios/")
-public class ServicioWebComentarios {
-
+public class ServicioWebComentarios {	
+	
+	
 	@Autowired
 	private ServicioComentarios servicioComentarios;
 	
-	@Autowired
-	private ServicioPosts servicioPosts ;
-	
-	@RequestMapping("obtenerComentarios")
-	public ResponseEntity<String> obtenerComentarios(){
-		
-		String json = new Gson().toJson(servicioComentarios.obtenerIdComentariosDePost(0));
-		return new ResponseEntity<String>(
-				json,HttpStatus.OK);	
-	}
-	
-	
-	@RequestMapping("obtenerPostYComentariosPorId")
-	public ResponseEntity<String> obtenerPostYComentariosPorId(String idPost, HttpServletRequest request){
-
-		String json = new Gson().toJson(servicioPosts.obtenerPostsPorId(Long.parseLong(idPost)));
-		
-		return new ResponseEntity<String>(
-				json,HttpStatus.OK);
-	}
 	
 	
 }

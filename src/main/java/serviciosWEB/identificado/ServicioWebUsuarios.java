@@ -74,6 +74,18 @@ public class ServicioWebUsuarios {
 		return new ResponseEntity<String>(
 				respuesta,HttpStatus.OK);
 	}
+
+	@RequestMapping("comprobarIdentificacion")
+	public ResponseEntity<String> comprobarIdentificacion(HttpServletRequest request){
+		String respuesta = "";
+		if(request.getSession().getAttribute("usuario") != null) {
+			respuesta = "ok,"+((Usuario)request.getSession().getAttribute("usuario")).getNombre();
+		}else {
+			respuesta = "no identificado";
+		}
+		return new ResponseEntity<String>(
+				respuesta,HttpStatus.OK);
+	}
 	
 	
 	

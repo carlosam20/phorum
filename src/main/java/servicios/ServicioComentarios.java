@@ -12,10 +12,11 @@ public interface ServicioComentarios {
 
 
 List<Map<String, Object>> obtenerComentariosParaListado();
-public int obtenerTotalDeComentarios(String marca);
-List<Comentario> obtenerComentarios(String marca, int comienzo);
+public int obtenerTotalDeComentarios(String textoComentario);
+List<Comentario> obtenerComentarios(String textoComentario, int comienzo);
 Comentario obtenerComentariosPorId(long id);
 List<Long>  obtenerIdComentariosDePost(long id);
+List<Map<String, Object>> obtenerComentariosPost(long id);
 void registrarComentario(Comentario c);
 void borrarComentario(long id);
 void borrarComentariosPoridPost(long id);

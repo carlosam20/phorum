@@ -62,7 +62,7 @@ public class ServicioWebForos {
 		
 		
 		List<Map<String, Object>> postsResults = servicioPosts.obtenerPostsParaListadoAleatorio();
-		String jsonPost = new Gson().toJson(postsResults);
+		String jsonPosts = new Gson().toJson(postsResults);
 		
 
 		//Recogemos las keys del map
@@ -74,15 +74,15 @@ public class ServicioWebForos {
 		//Anyadimos a las keys el "Post" para diferenciarlas
 		while(keysValues.hasNext()) {
 			String key = keysValues.next();
-			jsonPost = jsonPost.replaceAll(key, key+"Post" );
+			jsonPosts = jsonPosts.replaceAll(key, key+"Post" );
 		}
 		
 		
 		//Cambiamos el cierre de jsonForos por una coma, para unirlo a jsonPosts, Adem�s de eliminar la abertura de jsonPost
 		 jsonForos = jsonForos.replaceAll("}]", ",");
-		 jsonPost = jsonPost.replaceAll(Pattern.quote("[{"), "");
+		 jsonPosts = jsonPosts.replaceAll(Pattern.quote("[{"), "");
 		
-		jsonForos = jsonForos + jsonPost ;
+		jsonForos = jsonForos + jsonPosts ;
 		System.out.println(jsonForos);
 		return new ResponseEntity<String>(
 				jsonForos,HttpStatus.OK);	

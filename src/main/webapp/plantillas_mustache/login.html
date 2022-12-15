@@ -1,63 +1,62 @@
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/login.css">
 
- <link rel="stylesheet" href="bootstrap.css">
-  <link rel="stylesheet" href="login.css">
-    <div class="imagen">
-      
-    </div>
-    <div class=" formulario">
-      <div class="row justify-content-center">
-        <div class="d-flex justify-content-center">
-          <div class="col-lg-12 col-md-12">
-            <h1 class="titulo text-center text-primary">
-            <span class="wrapperText">
-              <span class="elementos">Iniciar Sesión</span>
-            </span>
-            </h1>
-          </div>
-        </div>
-      </div>
-      
-      <div class="row justify-content-center m-1">
-          <img src="images/loginMovil.svg" alt="loginMovil">
-      </div>
-      
-      <form id="form_login">
-      
-        <div class="row justify-content-center m-3">
-          <div class="col-lg-8 col-md-8 col-sm-8">
-            <input id="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" pattern="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})" title="Se tiene que incluir un @ y una dirección de dominio ejemplo: .com">
-            <div id="emailHelp" class="form-text"></div>
-          </div>
-        </div>
-        
-        <div class="row justify-content-center m-3">
-          <div class="col-lg-8 col-md-8 col-sm-8">
-            <input id="pass" type="password" class="form-control" placeholder="Contrase&ntildea"  pattern="[a-z0-9áéíóú]{3,10}" title="">
-            <div id="passHelp" class="form-text"></div>
-          </div>
-        </div>
-        
-        <div class="row justify-content-center m-3">
-          <div class="col-lg-8 col-md-8 col-sm-8">
-           <input class="form-check-input" type="checkbox" id="recordar_datos" value="Recordar Sesion" id="flexCheckDefault">
-           <label class="form-check-label" for="flexCheckDefault">
-    			Guardar Inicio de Sesión
-  			</label>
-          </div>
-        </div>
-         
-        <div class="row row justify-content-center m-3">
-          <div class="col-lg-8 col-md-8 col-sm-8">
-            <button type="submit" class="btn btn-secondary btn-lg">Iniciar sesión</button>
-          </div>
-        </div>
-        
-      </form>
+</head>
 
+<div class=" formulario">
+  <div class="row justify-content-center">
+    <div class="d-flex justify-content-center">
+      <div class="col-lg-12 col-md-12">
+        <h1 class="titulo text-center text-primary">
+          <span class="wrapperText">
+            <span class="elementos">Iniciar Sesión</span>
+          </span>
+        </h1>
+      </div>
     </div>
-  
+  </div>
+
+  <div class="row justify-content-center m-1">
+    <img src="images/loginMovil.svg" alt="loginMovil">
+  </div>
+
+  <form id="form_login">
+
+    <div class="row justify-content-center m-3">
+
+      <div class="col-lg-6 col-md-6 col-sm-6 justify-content-center">
+
+        <input id="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email"
+          pattern="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})"
+          title="Se tiene que incluir un @ y una dirección de dominio ejemplo: .com">
+
+
+        <input id="pass" type="password" class="form-control" placeholder="Contraseña" pattern="[a-z0-9áéíóú]{3,10}"
+          title="">
+
+
+        <label class="form-check-label" for="flexCheckDefault">
+          Guardar Inicio de Sesión
+        </label>
+        <input class="form-check-input" type="checkbox" id="recordar_datos" value="Recordar Sesion"
+          id="flexCheckDefault">
+        <span class="slider round"></span>
+
+        <button type="submit" class="btn btn-secondary">Iniciar sesión</button>
+
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
 <!--Scripts-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 <script src="login.js"></script>
 

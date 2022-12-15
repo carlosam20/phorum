@@ -46,7 +46,7 @@ public class ConstantesSQL {
 	public final static String SQL_BORRAR_COMENTARIO="delete from comentario where  id = :id";
 	public final static String SQL_BORRAR_POSTS_DE_FORO="delete from post where foro = :id";
 	public final static String SQL_BORRAR_POSTS_DE_USUARIO="delete from post where usuario = :id";
-	public final static String SQL_BORRAR_COMENTARIOS_DE_POST="delete from comentario where postComentario_id = :id";
+	public final static String SQL_BORRAR_COMENTARIOS_DE_POST="delete from comentario where postComentario = :id";
 
 	
 	//UPDATES
@@ -56,7 +56,7 @@ public class ConstantesSQL {
 	//OBTENER POR ID
 	public static final String OBTENER_USUARIO_POR_ID = "select * from usuario where id = :id";
 	public static final String OBTENER_COMENTARIOS_POR_ID_USUARIO = "select count(c.id) from foro as c  where usuario = :id";
-	public final static String OBTENER_COMENTARIO_CON_ID_POST="select * from comentario where post = :id";
+	public final static String OBTENER_COMENTARIOS_CON_ID_POST="select * from comentario where post = :id";
 	public static final String SQL_OBTENER_DATOS_COMENTARIO = "select * from comentario where id = :id"; 
 	public static final String SQL_OBTENER_DATOS_FORO = "select * from foro where id = :id"; 
 	public static final String SQL_OBTENER_DATOS_POST = "select * from post where id = :id"; 

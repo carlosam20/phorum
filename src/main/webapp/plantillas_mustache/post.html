@@ -1,31 +1,39 @@
-  <div class="recomendacionesPost">
-    <div class="row m-3">
-      <div class="col-lg-11 justify-content-center d-flex m-3">
-        <div class="card">
-            <img src="subidas/{{id}}.jpg" class="card-img-top" alt="subidas/{{id}}.jpg">
-            
-           {{#}} 
-            <div class="card-body mb-3">
-              <h5 class="card-title">{{nombre}}</h5>
-              <p class="card-text">{{descripcion}}</p>
-              <p class="card-text">{{fechaCreacion}}</p>
-              <p class="card-text">{{usuario}}</p>
-              
-              <p class="card-text">{{id.fechaCreacion}}</p>
-                             
-              <button class="btn btn-primary responder" type="button">Responder</button>
-              <a class="likes"><i class="fa-solid fa-thumbs-up"></i></a>
-            </div>
-            
-            {{#id}}
-				<p class="card-text">{{id.fechaCreacion}}</p>
-            	<span class="card-text">{{id.usuario}}</span> 
-            {{/id}}
-              
-           </div>
-            {{/}}
 
-        </div>
-      </div>
-    </div>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/post.css">
   
+</head>
+
+<div class="recomendacionesPost">
+  <div class="row m-3">
+    <div class="col-lg-11 justify-content-center d-flex m-3">
+      <div class="card">
+        <img src="subidas/{{id}}.jpg" class="card-img-top" alt="subidas/{{id}}.jpg">
+
+        {{#}}
+        <div class="card-body mb-3">
+          <h5 class="card-title">{{nombre}}</h5>
+          <p class="card-text">{{descripcion}}</p>
+          <p class="card-text">{{fechaCreacion}}</p>
+          <p class="card-text">{{usuario}}</p>
+
+          <p class="card-text">{{id.fechaCreacion}}</p>
+
+          <button class="btn btn-primary responder" type="button">Responder</button>
+          <a class="likes"><i class="fa-solid fa-thumbs-up"></i></a>
+        </div>
+
+        {{#id}}
+        <p class="card-text">{{id.fechaCreacion}}</p>
+        <span class="card-text">{{id.usuario}}</span>
+        {{/id}}
+
+      </div>
+      {{/}}
+
+    </div>
+  </div>
+</div>

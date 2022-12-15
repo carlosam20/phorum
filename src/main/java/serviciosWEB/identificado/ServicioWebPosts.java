@@ -3,9 +3,10 @@ package serviciosWEB.identificado;
 
 
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-
-
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 import modelo.Post;
+import servicios.ServicioComentarios;
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
 import servicios.ServicioUsuarios;
@@ -44,6 +46,9 @@ public class ServicioWebPosts {
 	private ServicioUsuarios servicioUsuarios;
 
 	
+	@Autowired
+	private ServicioComentarios servicioComentarios;
+	
 	
 	@RequestMapping("registrarPosts")
 	public ResponseEntity<String> registrarPosts(@RequestParam Map<String, Object> formData,
@@ -61,11 +66,8 @@ public class ServicioWebPosts {
 		System.out.println("idUsuario"+idUsuario);
 		
 		p.setIdForo(Long.parseLong(idForo));
-		
 		p.setIdUsuario(Long.parseLong(idUsuario));
-		
 		p.setForo(servicioForos.obtenerForosPorId(p.getIdForo()));
-		
 		p.setUsuario(servicioUsuarios.obtenerUsuario(p.getIdForo()));
 		
 		System.out.println("post ForoId:  " + p.getForo());
@@ -83,6 +85,33 @@ public class ServicioWebPosts {
 		
 		return new ResponseEntity<String>(
 				respuesta,HttpStatus.OK);
+	}
+	
+	@RequestMapping("obtenerPostYComentariosPorId")
+	public ResponseEntity<String> obtenerPostYComentariosPorId(String idPost, HttpServletRequest request){
+		List<Map<String, Object>> forosResults = servicioForos.obtenerForosParaListadoAleatorios();
+		
+		
+		List<Map<String, Object>> postsResults = (List<Map<String, Object>>) servicioPosts.obtenerPostsPorId(Long.parseLong(idPost));
+		String jsonPosts = new Gson().toJson(servicioPosts.obtenerPostsPorId(Long.parseLong(idPost)));
+		
+		List<Map<String, Object>> comentariosResults = servicioComentarios.obtenerComentariosPost(Long.parseLong(idPost));
+		String jsonComentarios = new Gson().toJson(servicioComentarios.obtenerComentariosPost(Long.parseLong(idPost)));
+
+		Set<String> keys = postsResults.get(0).keySet();
+
+		Iterator<String> keysValues = keys.iterator();
+		
+		while(keysValues.hasNext()) {
+			String key = keysValues.next();
+			jsonComentarios = jsonComentarios.replaceAll("fechaCreacion", key+"Post" );
+		}
+
+		jsonPosts = jsonPosts + jsonComentarios;
+		
+		
+		return new ResponseEntity<String>(
+				jsonPosts,HttpStatus.OK);
 	}
 }
 	
