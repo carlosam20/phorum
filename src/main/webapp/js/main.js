@@ -22,12 +22,15 @@ let plantillaPerfil = "";
 cargar_plantillas_del_servidor();
 listadoInicio();
 
+let numberOfEntries = window.history.length;
+
+
 function listadoInicio() {
 
 	$.ajax("servicioWebForos/obtenerForosYPosts", {
-		
+
 		success: function (data) {
-			history.pushState("data","","home")
+			console.log(numberOfEntries);
 			let forosYPost = JSON.parse(data);
 			let texto_html = "";
 			texto_html = Mustache.render(plantillaHome,
@@ -42,7 +45,7 @@ function obtener_listado_foros() {
 
 	$.ajax("servicioWebForos/obtenerForos", {
 		success: function (data) {
-			history.pushState("data","","foros")
+			console.log(numberOfEntries);
 			alert("recibido: " + data);
 			let foros = JSON.parse(data);
 			let texto_html = "";
@@ -73,6 +76,7 @@ function obtener_listado_foros() {
 						success: function (res) {
 							if (res == "ok") {
 								alert("registrado correctamente");
+								
 								$('#crearForoModal').modal('hide');
 								obtener_listado_foros();
 							} else {
@@ -92,13 +96,10 @@ function obtener_listado_foros() {
 			//Boton Ver Posts de Foro	
 			$(".boton_post_foro").click(function (e) {
 				let id = $(this).attr("id");
-
-				alert("pedir al servidor id:" + id);
+				console.log(numberOfEntries);
 
 				$.ajax("servicioWebPosts/obtenerPostPorForoId?id=" + id, {
 					success: function (data) {
-						history.pushState("data","","posts")
-						alert("recibido: " + data);
 						let posts = JSON.parse(data);
 						let texto_html = Mustache.render(plantillaListarPosts, posts);
 						$("#contenedor").html(texto_html);
@@ -135,8 +136,8 @@ function obtener_listado_foros() {
 												location.reload();
 												// obtener_listado_posts();
 											} else {
+												swal("Error de sintaxis en algun form del post", "Post no valido", "error");
 												alert(res);
-												alert("Post no valido");
 											}
 										} //end Success Registrar Post
 									}); //end Registrar Post
@@ -148,9 +149,8 @@ function obtener_listado_foros() {
 						});
 
 						//Boton Ver Post y Comentarios 
-						$(".boton_ver_post").click(function (e) {
+						$(".boton_ver_post").on("click",function (e) {
 							let idPost = $(this).attr("id");
-
 							alert("pedir al servidor post id:" + idPost);
 
 							$.ajax("identificado/servicioWebComentarios/obtenerPostYComentariosPorId?idPost=" + idPost, {
@@ -205,7 +205,6 @@ function mostrarRegistroComentario() {
 		let comentario = $("#textoComentario").val();
 		if (validarNombre(nombre)) {
 
-			alert("todo ok, mandando informacion al servicio web...");
 
 			//vamos a usar FormData para mandar el form al servicio web
 			let formulario = document.forms[0];
@@ -221,7 +220,7 @@ function mostrarRegistroComentario() {
 						obtenerPostsForo();
 					} else {
 						alert(res);
-						alert("No ha cargado correctamente");
+						swal("Hay algún error en algún formulario", "Comentario no valido", "error");
 					}
 				}
 			});
@@ -351,83 +350,86 @@ function logout() {
 }
 
 function perfil() {
+	if (comprobarIdentificacion.includes("ok")) {
+		
+		$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
+			success: function (data) {
+				alert("recibido: " + data);
+				let info = JSON.parse(data);
+				let texto_html = "";
 
-	$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
-		success: function (data) {
-			alert("recibido: " + data);
-			let info = JSON.parse(data);
-			let texto_html = "";
+				texto_html = Mustache.render(plantillaPerfil, info);
+				$("#contenedor").html(texto_html);
 
-			texto_html = Mustache.render(plantillaPerfil, info);
-			$("#contenedor").html(texto_html);
+				//Boton Editar
+				$(".enlace_editar_usuario").click(function (e) {
 
-			//Boton Editar
-			$(".enlace_editar_usuario").click(function (e) {
+					$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
+						success: function (data) {
+							alert("recibido: " + data);
+							let info = JSON.parse(data);
+							let texto_html = "";
+							texto_html = Mustache.render(plantillaEditarUsuario, info);
+							$("#contenedor").html(texto_html);
 
-				$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
-					success: function (data) {
-						alert("recibido: " + data);
-						let info = JSON.parse(data);
-						let texto_html = "";
-						texto_html = Mustache.render(plantillaEditarUsuario, info);
-						$("#contenedor").html(texto_html);
+							//Form
+							$("#form_editar_usuario").submit(function (e) {
 
-						//Form
-						$("#form_editar_usuario").submit(function (e) {
+								//letiables form
+								let nombre = $("#nombre").val();
+								let email = $("#email").val();
+								let descripcion = $("#descripcion").val();
+								let pass = $("#pass").val();
 
-							//letiables form
-							let nombre = $("#nombre").val();
-							let email = $("#email").val();
-							let descripcion = $("#descripcion").val();
-							let pass = $("#pass").val();
-
-							if (validarNombre(nombre)) {
-								if (validarEmail(email)) {
-									if (validarDescripcion(descripcion)) {
-										if (validarPass(pass)) {
-
-
-											let formulario = document.forms[0];
-											let formData = new FormData(formulario);
+								if (validarNombre(nombre)) {
+									if (validarEmail(email)) {
+										if (validarDescripcion(descripcion)) {
+											if (validarPass(pass)) {
 
 
-											$.ajax("identificado/servicioWebUsuarios/editarUsuarioPorId", {
-												type: "POST",
-												data: formData,
-												cache: false,
-												contentType: false,
-												processData: false,
-												success: function (res) {
+												let formulario = document.forms[0];
+												let formData = new FormData(formulario);
 
-													if (res == "ok") {
-														alert("editado correctamente");
-														perfil();
-													} else {
-														alert(res);
-														alert("Usuario no valido");
+
+												$.ajax("identificado/servicioWebUsuarios/editarUsuarioPorId", {
+													type: "POST",
+													data: formData,
+													cache: false,
+													contentType: false,
+													processData: false,
+													success: function (res) {
+
+														if (res == "ok") {
+															swal("La edición ha sido correcta", "Editado", "success");
+															perfil();
+														} else {
+															alert(res);
+															swal("Usuario no valido", "Error", "error");
+														}
 													}
-												}
-											});
+												});
 
-										}//end Pass
-									}//end Descripcion
+											}//end Pass
+										}//end Descripcion
 
-								}//end Email
+									}//end Email
 
-							}//end Nombre
+								}//end Nombre
 
-						}); //end Submit Form							
+							}); //end Submit Form							
 
-					}//end Success (Carga plantilla)
+						}//end Success (Carga plantilla)
 
-				});	//end ajax 
+					});	//end ajax 
 
-			});//-end enlace editar
+				});//-end enlace editar
 
-		}//end success Obtener id
+			}//end success Obtener id
 
-	});	//end ajax
-
+		});	//end ajax
+	} else{
+		swal("Debes identificarte para acceder a esta parte de la aplicacion", "No estas identificado", "warning");
+	}
 }//end perfil
 
 
@@ -442,20 +444,20 @@ $("#enlace_perfil").click(perfil);
 
 
 //Si estoy identificado
-function comprobarIdentificacion(){
-	$.ajax(servicioWebUsuarios/comprobarIdentificacion, {
-		success: function(res){
-			if(res.includes("ok")){
-				return true;	
-			}else{
+function comprobarIdentificacion() {
+	$.ajax(servicioWebUsuarios / comprobarIdentificacion, {
+		success: function (res) {
+			if (res.includes("ok")) {
+				return true;
+			} else {
 				swal("Debes identificarte para acceder a esta parte de la aplicacion", "No estas identificado", "warning");
 				return false;
 			}
 		}
 	});
-} 
+}
 
-function obtenerUsuario(){
+function obtenerUsuario() {
 	$.ajax("servicioWebUsuarios/obtenerUsuario", {
 		success: function (res) {
 			if (res.split(",")[0] == "ok") {

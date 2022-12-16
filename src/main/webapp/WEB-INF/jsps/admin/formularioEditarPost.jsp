@@ -39,9 +39,10 @@ usuario: <springform:select path="idUsuario">
 
 <springform:hidden path="id"/>
 <!-- Imagen que introducimos -->
-<input type="submit" value="Editar Post">
+<input class="btn btn-primary" type="submit" value="Guardar Cambios">
 </springform:form>
 
+<script src="../js/admin.js"></script>
 </body>
 </html>
 

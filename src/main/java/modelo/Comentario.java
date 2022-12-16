@@ -33,14 +33,10 @@ public class Comentario {
     private long idUsuario;
 
 
-    public Comentario() {
-    }
+    public Comentario() {}
 
-   
-    
-
-
-	public Comentario(Long id, String textoComentario, Post postComentario, String fechaCreacion, Usuario usuario,
+       
+    public Comentario(Long id, String textoComentario, Post postComentario, String fechaCreacion, Usuario usuario,
 			long idPostComentario, long idUsuario) {
 		super();
 		this.id = id;
@@ -51,7 +47,6 @@ public class Comentario {
 		this.idPostComentario = idPostComentario;
 		this.idUsuario = idUsuario;
 	}
-
 
 
 

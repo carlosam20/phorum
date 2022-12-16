@@ -48,7 +48,7 @@
 
 <div class="card mx-auto " style="width: 32rem;" >
 
-  <img style="height: 500px"class="card-img-top" src="../subidas/${post.id}.jpg?t=${fecha_hora_actual}"/><br>
+  <img style="height: 500px"class="card-img-top" src="../subidasPost/${post.id}.jpg"/><br>
   <div class="card-body">
     <h5 class="card-title">${post.nombre}  ${post.fechaCreacion }</h5>
     <p class="card-text">Descripcion</p>
@@ -62,7 +62,7 @@
   
   <div class="card-body">
   <a href="editarPost?id=${post.id}" class="card-link" >Editar</a>
-	<a href="borrarPost?id=${post.id}" onclick="return confirm(Estas seguro?)">Borrar</a> 
+	<a href="borrarPost?id=${post.id}">Borrar</a> 
   </div>
 </div>
 </c:forEach>

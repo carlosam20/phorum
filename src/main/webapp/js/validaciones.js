@@ -17,7 +17,7 @@ const REGEXP_COMENTARIO_TEXTO = /^[a-z0-9áéíóú_\.-]{2,200}$/i;
 
 function validarNombre(nombre) {
 
-	if (regexp_nombre.test(nombre)) {
+	if (REGEXP_NOMBRE.test(nombre)) {
 		return true;
 
 	} else {
@@ -28,7 +28,7 @@ function validarNombre(nombre) {
 
 function validarNombrePost(nombrePost) {
 
-	if (regexp_nombre_post.test(nombre)) {
+	if (REGEXP_NOMBRE_POST.test(nombre)) {
 		return true;
 
 	} else {
@@ -37,7 +37,7 @@ function validarNombrePost(nombrePost) {
 	}
 }
 function validarTextoComentario(textoComentario) {
-	if (regexp_comentario_texto.test(textoComentario)) {
+	if (REGEXP_COMENTARIO_TEXTO.test(textoComentario)) {
 		return true;
 	} else {
 
@@ -47,7 +47,7 @@ function validarTextoComentario(textoComentario) {
 
 function validarEmail(email) {
 
-	if (regexp_email.test(email)) {
+	if (REGEXP_EMAIL.test(email)) {
 		return true;
 	} else {
 
@@ -58,7 +58,7 @@ function validarEmail(email) {
 
 function validarPass(pass) {
 
-	if (regexp_pass.test(pass)) {
+	if (REGEXP_PASS.test(pass)) {
 		return true;
 	} else {
 
@@ -69,7 +69,7 @@ function validarPass(pass) {
 
 function validarDescripcion(descripcion) {
 
-	if (regexp_descripcion.test(descripcion)) {
+	if (REGEXP_DESCRIPCION.test(descripcion)) {
 		return true;
 	} else {
 
@@ -79,7 +79,7 @@ function validarDescripcion(descripcion) {
 }
 
 function validarComentario(comentario) {
-	if (regexp_comentario_texto.text(comentario)) {
+	if (REGEXP_COMENTARIO_TEXTO.text(comentario)) {
 		return true;
 	} else {
 		return false;

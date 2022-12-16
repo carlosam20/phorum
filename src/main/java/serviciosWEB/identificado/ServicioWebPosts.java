@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -89,8 +90,7 @@ public class ServicioWebPosts {
 	
 	@RequestMapping("obtenerPostYComentariosPorId")
 	public ResponseEntity<String> obtenerPostYComentariosPorId(String idPost, HttpServletRequest request){
-		List<Map<String, Object>> forosResults = servicioForos.obtenerForosParaListadoAleatorios();
-		
+				
 		
 		List<Map<String, Object>> postsResults = (List<Map<String, Object>>) servicioPosts.obtenerPostsPorId(Long.parseLong(idPost));
 		String jsonPosts = new Gson().toJson(servicioPosts.obtenerPostsPorId(Long.parseLong(idPost)));
@@ -98,17 +98,26 @@ public class ServicioWebPosts {
 		List<Map<String, Object>> comentariosResults = servicioComentarios.obtenerComentariosPost(Long.parseLong(idPost));
 		String jsonComentarios = new Gson().toJson(servicioComentarios.obtenerComentariosPost(Long.parseLong(idPost)));
 
-		Set<String> keys = postsResults.get(0).keySet();
 
+		//Recogemos las keys del map
+		Set<String> keys = postsResults.get(0).keySet();
+		
+		//Las parseamos a iterdor para poder remplazarlas
 		Iterator<String> keysValues = keys.iterator();
+		
 		
 		while(keysValues.hasNext()) {
 			String key = keysValues.next();
-			jsonComentarios = jsonComentarios.replaceAll("fechaCreacion", key+"Post" );
+			jsonComentarios = jsonComentarios.replaceAll("id", key+"Comentario" );
+			jsonComentarios = jsonComentarios.replaceAll("fechaCreacion", key+"Comentario" );			
 		}
+		
+		//Cambiamos el cierre de jsonForos por una coma, para unirlo a jsonPosts, Ademas de eliminar la abertura de jsonPost
+		 jsonPosts = jsonPosts.replaceAll("}]", ",");
+		 jsonComentarios = jsonComentarios.replaceAll(Pattern.quote("[{"), "");
 
 		jsonPosts = jsonPosts + jsonComentarios;
-		
+		System.out.println(jsonPosts);
 		
 		return new ResponseEntity<String>(
 				jsonPosts,HttpStatus.OK);

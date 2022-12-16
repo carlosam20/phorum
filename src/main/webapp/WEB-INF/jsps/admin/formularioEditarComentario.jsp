@@ -36,7 +36,7 @@ usuario: <springform:select path="idUsuario">
 
 
 <div class="mb-3">
-<input type="submit" value="Guardar Cambios">
+<input class="btn btn-primary" type="submit" value="Guardar Cambios">
 </div>
 
 </springform:form>
