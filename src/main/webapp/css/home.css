@@ -1,22 +1,23 @@
-
 /*Home*/
 
-.display-4{
+.display-4 {
   font-family: 'Roboto', sans-serif;
-  
+
 }
 
-.enlace-foro, .enlace-post{
-	font-weight: 500;
+.enlace-foro,
+.enlace-post {
+  font-weight: 500;
 }
 
 
-.btn-outline-primary:hover{
-    background-color:#439F88 ;
-    color: black;
-    
+.btn-outline-primary:hover {
+  background-color: #439F88;
+  color: black;
+
 }
-img{
-	  max-width: 100%;
+
+img {
+  max-width: 100%;
   height: auto;
 }

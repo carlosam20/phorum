@@ -4,12 +4,12 @@
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 1.2rem;
-	width: 100%;
-    height: 100%;    
+    width: 100%;
+    height: 100%;
 }
 
-h{
-	font-family: 'Lato', sans-serif;
+h {
+    font-family: 'Lato', sans-serif;
     font-size: 2rem;
     padding: 1%;
 }
@@ -18,11 +18,12 @@ h{
 
 /*Navbar*/
 
-.navbar > a {
+.navbar>a {
     font-family: 'Lato', sans-serif;
     font-size: 2rem;
     padding: 1%;
 }
+
 .navbar {
     background-color: #003F30;
     text-align: center;
@@ -34,74 +35,84 @@ h{
     width: 100%;
     height: auto;
 }
+
 .scroll {
     display: flex;
     overflow-x: auto;
     background-color: transparent;
     scroll-behavior: smooth;
 }
-.scroll .item{
+
+.scroll .item {
     margin: 1%;
     min-width: 150px;
     height: 150px;
-    line-height: 100    px;
+    line-height: 100 px;
     text-align: center;
     border: 1px solid #ddd;
     box-shadow: 3px 4px #ddd;
-    border-radius: 2%;    
+    border-radius: 2%;
     transition: all 200ms ease-in-out;
 }
-.scroll .item:hover{
+
+.scroll .item:hover {
     box-shadow: 6px 6px 8px 6px #ddd;
     transition: all 200ms ease-in-out;
 }
-.scroll-image{
+
+.scroll-image {
     margin: 5%;
 }
 
 /*Scroll bar*/
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     width: 20px;
 }
+
 ::-webkit-scrollbar-track {
-    box-shadow: inset 1px 1px 3px #969696; 
-    border-radius: 2px;
-}
-::-webkit-scrollbar-thumb {
-    background: #ddd; 
+    box-shadow: inset 1px 1px 3px #969696;
     border-radius: 2px;
 }
 
- /*Cartas*/
- 
+::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 2px;
+}
+
+/*Cartas*/
+
 .card {
     width: 70%;
     height: auto;
     transition: all 200ms ease-in-out;
 }
-.card > a {
+
+.card>a {
     text-decoration: none;
     color: #060637;
- 
-}
-.card:hover{
-    transition: all 200ms ease-in-out;
-    box-shadow: 7px 9px 13px 0px rgba(0,0,0,0.67);
+
 }
 
- /*Botones*/
-.material-symbols-outlined{
+.card:hover {
+    transition: all 200ms ease-in-out;
+    box-shadow: 7px 9px 13px 0px rgba(0, 0, 0, 0.67);
+}
+
+/*Botones*/
+.material-symbols-outlined {
     font-size: 2em;
 }
+
 .badge {
     font-size: 1em;
 }
-#file-upload-button{
+
+#file-upload-button {
     background-color: #060637;
 }
 
 /*Forms*/
-::placeholder{
+::placeholder {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     color: black;
@@ -110,71 +121,90 @@ h{
 .titulo-foros {
     position: relative;
     font-weight: 900;
-    font-size: 3em;
-  }
-  
-  .titulo-foros .wrapper {
+    font-size: 3rem;
+}
+
+.titulo-foros .wrapper {
     position: relative;
     display: inline-block;
     padding-top: 0.2em;
     padding-right: 0.05em;
     padding-bottom: 0.1em;
     overflow: hidden;
-  }
-  
-  .titulo-foros.elemento {
+}
+
+.titulo-foros.elemento {
     display: inline-block;
     line-height: 1em;
     transform-origin: 0 0;
-  }
-  
- /*Modal */
-  
-  .modal-backdrop
-{
-    opacity:0.8 !important;
+}
+
+/*Modal */
+
+.modal-backdrop {
+    opacity: 0.8 !important;
 }
 
 
 
 .modal-dialog {
-  margin: 0;
-  margin-right: auto;
-  margin-left: auto;
-  width: 100%;
-  
+    margin: 0;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+
 }
+
 .modal-body {
-	width: 100%;
+    width: 100%;
 }
 
 /*Footer*/
 
-.footer-menu, .footer-copy, .footer-imagen{
-	background-color:#202031;
+.footer-menu {
+    display: block;
+    height: 50%;
+}
+
+.list-group {
+    border: none;
+}
+
+.list-group-item {
+    border: none;
+}
+
+.footer-menu,
+.footer-copy,
+.footer-imagen,
+.list-group,
+.list-group-item,
+.phorum-tag-container,
+.phorum-tag {
+    background-color: #002031;
 }
 
 .imagen-footer {
-	max-width: 10%;
-  height: auto;
+    max-width: 100%;
+    height: auto;
 }
 
-.logo-footer{
-	max-width: 10%;
-  height: auto;
+
+.logo-footer {
+    display: block; 
+    margin: auto;
+    max-width: 5%;
+    height: auto;
 }
 
+.phorum-tag {
+    font-size: 1.1rem;
+}
 
 /*Pantallas*/
 
-@media screen and (min-width: 990px) {  
- 
-}
+@media screen and (min-width: 990px) {}
 
-@media screen and (min-width: 600px) and (max-width: 990px) {     
+@media screen and (min-width: 600px) and (max-width: 990px) {}
 
-}
-@media screen and (max-width: 600px){
-	
-}
-
+@media screen and (max-width: 600px) {}

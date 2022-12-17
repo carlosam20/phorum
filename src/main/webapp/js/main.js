@@ -149,7 +149,7 @@ function obtener_listado_foros() {
 						});
 
 						//Boton Ver Post y Comentarios 
-						$(".boton_ver_post").on("click",function (e) {
+						$(".boton_ver_post").click(function (e) {
 							let idPost = $(this).attr("id");
 							alert("pedir al servidor post id:" + idPost);
 
