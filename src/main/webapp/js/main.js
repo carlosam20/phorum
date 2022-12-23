@@ -76,7 +76,7 @@ function obtener_listado_foros() {
 						success: function (res) {
 							if (res == "ok") {
 								alert("registrado correctamente");
-								
+
 								$('#crearForoModal').modal('hide');
 								obtener_listado_foros();
 							} else {
@@ -350,8 +350,9 @@ function logout() {
 }
 
 function perfil() {
-	if (comprobarIdentificacion.includes("ok")) {
-		
+
+	if (comprobarIdentificacion().includes("ok")) {
+
 		$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
 			success: function (data) {
 				alert("recibido: " + data);
@@ -362,7 +363,7 @@ function perfil() {
 				$("#contenedor").html(texto_html);
 
 				//Boton Editar
-				$(".enlace_editar_usuario").click(function (e) {
+				$(".boton_editar_usuario").click(function (e) {
 
 					$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
 						success: function (data) {
@@ -416,18 +417,36 @@ function perfil() {
 
 								}//end Nombre
 
-							}); //end Submit Form							
+							}); //end Submit Form
 
+							
 						}//end Success (Carga plantilla)
 
 					});	//end ajax 
 
 				});//-end enlace editar
 
+
+				//Boton Borrar usuario 
+				$(".boton_borrar_usuario").click(function (e) {
+					$.ajax("identificado/servicioWebUsuarios/borrarUsuarioPorId=", {
+						success: function (data) {
+							alert("recibido: " + data);
+							if (data.contains("ok")) {
+								logout();
+								listadoInicio();
+							}
+						}//---end success---
+					});//--end ajax--
+
+				});//end Borrar Usuario
+
+
+
 			}//end success Obtener id
 
 		});	//end ajax
-	} else{
+	} else {
 		swal("Debes identificarte para acceder a esta parte de la aplicacion", "No estas identificado", "warning");
 	}
 }//end perfil

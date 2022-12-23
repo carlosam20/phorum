@@ -100,20 +100,20 @@
 
                     <div class="col-lg-3 col-sm-3  footer-enlaces">
 
-                        <ul class="list-group">
-                            <li class="list-group-item"><a class="text-light">Home</a></li>
-                            <li class="list-group-item"><a class="text-light">Perfil</a></li>
-                            <li class="list-group-item"><a class="text-light">Posts</a></li>
-                            <li class="list-group-item"><a class="text-light">Foros</a></li>
-                            <li class="list-group-item"><a class="text-light">Cerrar Sesi&oacuten</a></li>
+                        <ul class="list-group list-footer">
+                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_home">Home</a></li>
+                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_perfil">Perfil</a></li>
+                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_listado_posts">Posts</a></li>
+                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_listado_foros">Foros</a></li>
+                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_logout">Cerrar Sesi&oacuten</a></li>
                         </ul>
 
                     </div>
 
                     <div class="col-lg-3 col-sm-3  footer-enlaces">
                         <ul class="list-group m-3">
-                            <li class="list-group-item"><a class="text-light">Iniciar Sesi&oacuten</a></li>
-                            <li class="list-group-item"><a class="text-light">Registrarse</a></li>
+                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_identificarme">Iniciar Sesi&oacuten</a></li>
+                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_registrarme">Registrarse</a></li>
                         </ul>
                     </div>
 
@@ -145,6 +145,7 @@
             <script type="text/javascript" src="js/validaciones.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
             <script type="text/javascript" src="js/main.js"></script>
+            <script src="https://kit.fontawesome.com/485aa9f350.js" crossorigin="anonymous"></script>
 
         </body>
 

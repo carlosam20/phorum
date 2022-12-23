@@ -1,7 +1,10 @@
-.listado:hover{
-    border: 1px,#003F30,solid;
-}
+input {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+  }
 
-h5{
-    color: black;
-}
+  .fa-magnifying-glass{
+    width: 50%;
+    height: auto;
+  }
+  

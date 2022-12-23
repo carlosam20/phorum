@@ -29,9 +29,10 @@ h1 {
 
 input {
   font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-  border: 5px, solid, #1B2C78;
+  font-size: 1rem;
+  border: 5px, solid, black;
 }
+
 
 a {
   font-size: 12px;
