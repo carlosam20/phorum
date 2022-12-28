@@ -1,3 +1,4 @@
+
 input {
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
@@ -7,4 +8,34 @@ input {
     width: 50%;
     height: auto;
   }
+  .form-inline {
+    display: flex;
+    align-items: center;
+    border-radius: 2rem;
+    background-color: #fff;
+  }
+  
+  .form-control {
+    flex: 1;
+    border: 0;
+    background-color: transparent;
+    color: black;
+    padding: 1rem 1rem 1rem 2.5rem;
+  }
+  
+  #boton-buscar {
+    border: 0;
+    background-color: transparent;
+    color: #006B59;
+  }
+  
+  #boton-buscar:hover{
+    background-size: 70%;
+    background-color:white;
+  }
+  #boton-buscar:focus {
+    background-color: white;
+  }
+  
+
   

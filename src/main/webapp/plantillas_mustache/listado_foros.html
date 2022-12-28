@@ -21,10 +21,10 @@
     <div class="col-11-lg col-11-md col-11-sm">
       <button class="btn btn-primary" onclick="window.history.go(-1)">Volver</button>
       <!-- Botón del Modal -->
-      <input type="submit" class=" btn btn-primary enlace_crear_foro  " data-bs-toggle="modal"
+      <button type="submit" class=" btn btn-primary enlace_crear_foro  " data-bs-toggle="modal"
         data-bs-target="#crearForoModal">
         Crear Foro
-    </input>
+    </button>
     </div>
   </div>
 
@@ -77,12 +77,16 @@
   <!--Search Bar-->
 
   <div class="row justify-content-center align-items-center m-3">
-    <form class="col-lg-8 col-md-8 col-sm-8">
-      <div class="row">
-      <input class="col-lg-10 col-md-10 col-sm-10 p-1" type="text" placeholder="Buscar por nombre">
-      <button class="col-lg-1 col-md-1 col-sm-1 rounded-right btn btn-secondary "  type="submit"><i class="fa-solid fa-magnifying-glass "></i></button>
-      </div>
+   
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="boton-buscar">
+        <i class="fa-solid fa-magnifying-glass "></i>
+      </button>
     </form>
+  
+
+  
   </div>
 
   <!--Listado foros-->
