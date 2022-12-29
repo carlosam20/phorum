@@ -1,39 +1,55 @@
 
-input {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-  }
 
   .fa-magnifying-glass{
     width: 50%;
     height: auto;
+    color: white;
   }
+
   .form-inline {
     display: flex;
     align-items: center;
-    border-radius: 2rem;
+    border-radius: 1rem;
     background-color: #fff;
   }
   
   .form-control {
-    flex: 1;
-    border: 0;
+    border-right: none;
+    border-left: 1px, solid, black;
+    border-top: 1px, solid, black;
+    border-bottom: 1px, solid, black;
+
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    border-top-right-radius: none;
+    border-bottom-right-radius: none;
+    
     background-color: transparent;
     color: black;
-    padding: 1rem 1rem 1rem 2.5rem;
+    padding: 1rem 1.4rem 1rem 2.5rem;
   }
-  
+
+  .form-control:hover {
+    border-color: #003F30;
+  }
+
   #boton-buscar {
     border: 0;
-    background-color: transparent;
-    color: #006B59;
+    border-right: 1px, solid, black;
+    border-top: 1px, solid, black;
+    border-bottom: 1px, solid, black;
+    border-left: 1px, solid, #060637;
+
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 0.45rem 1.2rem 0.45rem 1.1rem;
+
+
+    
+    /* background-color: transparent; */
   }
   
-  #boton-buscar:hover{
-    background-size: 70%;
-    background-color:white;
-  }
-  #boton-buscar:focus {
+  #boton-buscar:active {
     background-color: white;
   }
   
