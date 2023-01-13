@@ -29,11 +29,7 @@ a:hover {
   width: 40%;
 }
 
-@media screen and (min-width: 990px) {
-  img[src="images/loginMovil.svg"] {
-    display: none;
-  }
-}
+
 
 @media screen and (min-width: 600px) and (max-width: 990px) {
   .imagen {
@@ -63,7 +59,7 @@ a:hover {
   .formulario {
     float: none;
     width: 100%;
-    height: 100%;
+    height: auto;
   }
 
   img[src="loginMovil.svg"] {

@@ -8,8 +8,6 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/admin.css">
 <title>Login Admin</title>
-
-
 </head>
 <body>
 

@@ -5,20 +5,24 @@
 
         <head>
             <meta charset="UTF-8">
-            <title>Home</title>
-
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
             <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
             <link rel="icon" type="image/svg" href="images/logo-phorum.svg">
             <link rel="stylesheet"
                 href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
             <link rel="stylesheet" href="css/bootstrap.css">
-            <link rel="stylesheet" href="css/style.css">
+            <link rel="stylesheet" href="css/style.css"> 
+            <link rel="stylesheet" href="css/inicio.css">
+
 
         </head>
 
-        <body>
 
+       
+        <body>
 
             <!--Navbar -->
             <div class="barraNavegacion">
@@ -82,17 +86,15 @@
 
 
             <!-- Contenedor donde cargan las vistas -->
-            <div id="contenedor"></div>
+            <div class="" id="contenedor"></div>
 
 
             <!-- Foooter -->
-
-
             <div class="footer-menu p-3">
 
-                <div class="row m-1">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 justify-content-center">
+                <div class="row footer-bg">
+                    <div class="row m-1">
+                        <div class="col-lg-10 col-md-10 col-sm-10 justify-content-left m-1">
                             <div><img class="logo-footer" src="images/logo-phorum.svg" alt="logo-phorum" srcset="">
                             </div>
                         </div>
@@ -101,19 +103,26 @@
                     <div class="col-lg-3 col-sm-3  footer-enlaces">
 
                         <ul class="list-group list-footer">
-                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_home">Home</a></li>
-                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_perfil">Perfil</a></li>
-                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_listado_posts">Posts</a></li>
-                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_listado_foros">Foros</a></li>
-                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_logout">Cerrar Sesi&oacuten</a></li>
+                            <li class="list-group-item list-footer-item"><a class="text-light" 
+                                id="enlace_home">Home</a></li>
+                            <li class="list-group-item list-footer-item"><a class="text-light"
+                                    id="enlace_perfil">Perfil</a></li>
+                            <li class="list-group-item list-footer-item"><a class="text-light"
+                                    id="enlace_listado_posts">Posts</a></li>
+                            <li class="list-group-item list-footer-item"><a class="text-light"
+                                    id="enlace_listado_foros">Foros</a></li>
+                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_logout">Cerrar
+                                    Sesi&oacuten</a></li>
                         </ul>
 
                     </div>
 
                     <div class="col-lg-3 col-sm-3  footer-enlaces">
                         <ul class="list-group m-3">
-                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_identificarme">Iniciar Sesi&oacuten</a></li>
-                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_registrarme">Registrarse</a></li>
+                            <li class="list-group-item list-footer-item"><a class="text-light"
+                                    id="enlace_identificarme">Iniciar Sesi&oacuten</a></li>
+                            <li class="list-group-item list-footer-item"><a class="text-light"
+                                    id="enlace_registrarme">Registrarse</a></li>
                         </ul>
                     </div>
 
@@ -125,17 +134,13 @@
 
             </div>
 
-            <div class="row phorum-tag-container">
-                <div class=" col-lg-12 col-sm-12 footer-copy text-center">
-                    <h2 class="text-light phorum-tag">@phorum</h2>
-                </div>
-            </div>
 
             <!-- JavaScript -->
 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
                 crossorigin="anonymous"></script>
+
             <script type="text/javascript" src="librerias_javascript/jquery.js"></script>
             <script type="text/javascript" src="librerias_javascript/mustache.js"></script>
             <script type="text/javascript" src="librerias_javascript/js.cookie.min.js"></script>

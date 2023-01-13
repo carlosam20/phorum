@@ -8,7 +8,6 @@
 
   .form-inline {
     display: flex;
-    align-items: center;
     border-radius: 1rem;
     background-color: #fff;
   }
@@ -39,19 +38,21 @@
     border-top: 1px, solid, black;
     border-bottom: 1px, solid, black;
     border-left: 1px, solid, #060637;
-
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
     padding: 0.45rem 1.2rem 0.45rem 1.1rem;
-
-
-    
-    /* background-color: transparent; */
   }
   
   #boton-buscar:active {
     background-color: white;
   }
   
-
+  @media screen and (max-width: 425px) {
+    .form-control{
+      padding: 0.8rem 1.2rem 0.8rem 2.3rem;
+    }
+    #boton-buscar{
+      padding: 0.25rem 1.0rem 0.25rem 0.9rem;
+    }
+  }
   

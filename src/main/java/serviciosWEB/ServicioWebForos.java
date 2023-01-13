@@ -1,13 +1,11 @@
 package serviciosWEB;
 
 
-
-
 import java.util.Iterator;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+
 
 import modelo.Foro;
 import servicios.ServicioForos;
@@ -46,12 +43,15 @@ public class ServicioWebForos {
 	
 	
 	
-	@RequestMapping("obtenerForos")
-	public ResponseEntity<String> obtenerForos(){
+	@RequestMapping("obtenerForosDeNombreIntroducido")
+	public ResponseEntity<String>obtenerForosDeNombreIntroducido(String nombreForo){
+		
+		List<Map<String, Object>> foros = servicioForos.obtenerForosParaListadoBusquedaForo(nombreForo);
 		String json = new Gson().toJson(servicioForos.obtenerForosParaListado());
 		return new ResponseEntity<String>(
 				json,HttpStatus.OK);	
 	}
+	
 	@RequestMapping("obtenerForosYPosts")
 	public ResponseEntity<String> obtenerForosYPosts(){
 		
@@ -118,6 +118,7 @@ public class ServicioWebForos {
 		return new ResponseEntity<String>(
 				respuesta,HttpStatus.OK);
 	}
+	
 }
 
 

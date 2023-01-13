@@ -1,5 +1,7 @@
 package serviciosWEB.identificado;
 
+
+
 import java.util.Map;
 
 
@@ -31,9 +33,6 @@ import utilidadesArchivos.GestorArchivos;
 
 public class ServicioWebForos {
 	
-	
-	@Autowired
-	private ServicioComentarios servicioComentarios;
 	
 	@Autowired
 	private ServicioForos servicioForos;
@@ -82,9 +81,8 @@ public class ServicioWebForos {
 	public ResponseEntity<String> borrarUsuarioPorId(HttpServletRequest request){
 		Usuario u = (Usuario)request.getSession().getAttribute("usuario");
 		String respuesta = "";
+		
 		//Eliminar los servicioPosts y servicioComentarios antes
-		
-		
 		//for(int i =0; i < servicioComentarios.obtenerComentariosPorId(u.getId()).size(); i++) {}
 		for(int i = 0; i < servicioPosts.obtenerIdPostPorForoId(u.getId()).size(); i++) {
 			
@@ -97,14 +95,22 @@ public class ServicioWebForos {
 			long z = servicioForos.obtenerIdPostDeForo(u.getId()).get(i);
 			servicioPosts.eliminarPostsDeForo(z);
 		}
-		
-		
+			
 		servicioForos.borrarForo(u.getId());
-		
-		
+				
 		respuesta = "ok";
 		return new ResponseEntity<String>(
 				respuesta,HttpStatus.OK);
+	}
+	
+	@RequestMapping("buscarForoNombre")
+	public ResponseEntity<String> buscarForoNombre(HttpServletRequest request){
+	
+		String f = (String) request.getAttribute("foro");
+		String json=  new Gson().toJson(servicioForos.obtenerForos(f, 0));   
+		return new ResponseEntity<String>(json,HttpStatus.OK);
+		
+		
 	}
 	
 	

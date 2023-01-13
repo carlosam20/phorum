@@ -54,6 +54,38 @@ function obtener_listado_foros() {
 			$("#contenedor").html(texto_html);
 
 
+			//Busqueda de foro
+			$(".boton_buscar_foro").submit(function (e) {
+				let nombreForo = $("#nombre").val();
+
+				if (validarNombreBuscar(nombreForo)) {
+					alert("busqueda");
+
+					
+					$.ajax("servicioWebForos/buscarForo" +nombreForo, {
+						success: function (data) {
+							let forosEncontrados = JSON.parse(data);
+							let texto_html = "";
+							texto_html = Mustache.render(plantillaListarForos, forosEncontrados);
+							$("#contenedor").html(texto_html);
+						}
+					});
+
+				}
+
+
+				//Mostrar Foros
+				$.ajax("servicioWebForos/buscarForo", {
+					success: function (data) {
+						let forosEncontrados = JSON.parse(data);
+						let texto_html = "";
+						texto_html = Mustache.render(plantillaListarForos, forosEncontrados);
+						$("#contenedor").html(texto_html);
+					}
+				});
+			});
+
+
 			//Registro		 
 			$("#form_registro_foro").submit(function (e) {
 				let nombre = $("#nombre").val();
@@ -351,7 +383,7 @@ function logout() {
 
 function perfil() {
 
-	if (comprobarIdentificacion().includes("ok")) {
+	if (comprobarIdentificacion() === true) {
 
 		$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
 			success: function (data) {
@@ -411,6 +443,7 @@ function perfil() {
 												});
 
 											}//end Pass
+
 										}//end Descripcion
 
 									}//end Email
@@ -419,7 +452,7 @@ function perfil() {
 
 							}); //end Submit Form
 
-							
+
 						}//end Success (Carga plantilla)
 
 					});	//end ajax 
@@ -446,8 +479,10 @@ function perfil() {
 			}//end success Obtener id
 
 		});	//end ajax
+
 	} else {
-		swal("Debes identificarte para acceder a esta parte de la aplicacion", "No estas identificado", "warning");
+
+		//Devolver a Iniciar Sesión
 	}
 }//end perfil
 
@@ -464,12 +499,11 @@ $("#enlace_perfil").click(perfil);
 
 //Si estoy identificado
 function comprobarIdentificacion() {
-	$.ajax(servicioWebUsuarios / comprobarIdentificacion, {
+	$.ajax("servicioWebUsuarios/comprobarLogin", {
 		success: function (res) {
-			if (res.includes("ok")) {
+			if (res.includes('ok')) {
 				return true;
 			} else {
-				swal("Debes identificarte para acceder a esta parte de la aplicacion", "No estas identificado", "warning");
 				return false;
 			}
 		}

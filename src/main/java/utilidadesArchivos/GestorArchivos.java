@@ -62,7 +62,7 @@ public class GestorArchivos {
 		}
 		
 		
-	}// end guardarImagenForo
+	}// end guardarImagenForoz
 	
 	
 	

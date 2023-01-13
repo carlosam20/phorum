@@ -1,24 +1,14 @@
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
-  <link rel="stylesheet"
-    href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/foros.css">
-
   <title>Listado Foros</title>
-
 </head>
 
 <body>
 
-  <h2 class="text-primary text-align-center">Foros</h2>
+  <h1 class="text-primary justify-content-center m-1">Foros</h1>
 
   <div class="row m-3">
-    <div class="col-11-lg col-11-md col-11-sm">
+    <div class="col-11-lg col-11-md col-10-sm">
       <button class="btn btn-primary" onclick="window.history.go(-1)">Volver</button>
 
       <!-- Botón del Modal -->
@@ -46,24 +36,24 @@
           <form id="form_registro_foro">
 
             <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1 ">
-              <div class="col-lg-8 col-md-6">
+              <div class="col-lg-8 col-md-8 col-sm-8">
                 <input type="text" name="nombre" class="form-control form-control-lg" placeholder="Nombre del post"
                   id="nombre" /><br>
               </div>
             </div>
             <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-              <div class="col-lg-8 col-md-6">
+              <div class="col-lg-8 col-md-8 col-sm-8">
                 <input type="text" name="descripcion" class="form-control form-control-lg" placeholder="Descripcion"
                   id="descripcion"></input><br>
               </div>
             </div>
             <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-              <div class="col-lg-8 col-md-6">
+              <div class="col-lg-8 col-md-8 col-sm-8">
                 <input type="file" name="foto" id="foto" /> <br>
               </div>
             </div>
             <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-              <div class="col-lg-8 col-md-6">
+              <div class="col-lg-8 col-md-8 col-sm-8">
                 <input class="btn btn-primary" type="submit" value="Subir Foro" />
               </div>
             </div>
@@ -76,15 +66,18 @@
   </div>
 
   <!--Search Bar-->
-  <div class="row justify-content-center align-items-center m-1">
-
-    <form class="form-inline col-lg-8 col-md-8 col-sm-8 ">
-      <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-secondary justify-content-center align-items-center" type="submit" id="boton-buscar">
-        <i class="fa-solid fa-magnifying-glass "></i>
-      </button>
-    </form>
-
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-6 col-sm-5">
+      <div class="row justify-content-center">
+        <form class="form-inline justify-content-center align-items-center">
+          <input class="col-lg-9 col-md-9 col-sm-4 form-control" type="search" placeholder="Search" aria-label="Search">
+          <button class="col-lg-3 col-sm-3 col-sm-2 btn btn-secondary justify-content-center align-items-center"
+            type="submit" id="boton-buscar">
+            <i class="fa-solid fa-magnifying-glass "></i>
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
 
   <!--Listado foros-->
@@ -100,7 +93,9 @@
           <p class="m-1">{{descripcion}}</p>
           <button class="btn btn-secondary boton_post_foro " type="button" id="{{id}}">Ver Foro</button>
         </div>
-        {{/.}}
+      </li>
+      {{/.}}
+    </ul>
   </div>
 
 </body>

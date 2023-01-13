@@ -3,7 +3,6 @@ package serviciosImpl;
 
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -38,12 +37,21 @@ public class ServicioForosImpl implements ServicioForos{
 	
 	public List<Map<String, Object>> obtenerForosParaListadoAleatorios() {
 			
-			SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_FOROS_PARA_LISTADO_RANDOM);
-			query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_FOROS_PARA_LISTADO_RANDOM);
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 
-			
-			List<Map<String, Object>> res = query.list();
-			return res;
+		
+		List<Map<String, Object>> res = query.list();
+		return res;
+	}
+	
+	public List<Map<String, Object>> obtenerForosParaListadoBusquedaForo(String nombre) {
+		
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_FOROS_PARA_LISTADO);
+		query.setParameter("nombre","%"+nombre+"%");
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		List<Map<String, Object>> res = query.list();
+		return res;
 	}
 	
 
