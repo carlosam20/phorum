@@ -4,7 +4,6 @@ encoding//src/main/webapp/WEB-INF/jsps/inicio.jsp=UTF-8
 encoding//src/main/webapp/loginAdmin.jsp=UTF-8
 encoding//src/main/webapp/plantillas_mustache/editar_usuario.html=UTF-8
 encoding//src/main/webapp/plantillas_mustache/home.html=UTF-8
-encoding//src/main/webapp/plantillas_mustache/listado_comentarios.html=UTF-8
 encoding//src/main/webapp/plantillas_mustache/listado_foros.html=UTF-8
 encoding//src/main/webapp/plantillas_mustache/listado_posts.html=UTF-8
 encoding//src/main/webapp/plantillas_mustache/listado_posts_populares.html=UTF-8

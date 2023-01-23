@@ -23,10 +23,18 @@ button select {
     font: inherit;
 }
 
+/* Root */
 :root {
     --primary: #003F30;
+    --primaryHover:#00140F;
+    --primaryFocus:#439F88;
+
     --secondary: #060637;
-    --footer-color:#002031;
+    --secondaryHover: #202031;
+    --secondaryFocus: #9C9CD3;
+
+    --footer-color: #002031;
+    --textLightColor: #34403A;
 }
 
 body {
@@ -39,14 +47,77 @@ h2,
 h3,
 h4,
 h5 {
+    color: var(--primary);
     font-family: 'Lato', sans-serif;
     font-size: 1.3rem;
 }
 
-#contenedor{
-    height: auto;
-    width: 99.3%;
+a{
+    text-decoration: none;
 }
+
+.text-primary {
+    color: var(--primary);
+}
+
+.text-secondary {
+    color: var(--secondary);
+}
+
+/* Botones */
+
+/* -Primarios */
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+.btn-primary:hover {
+    background-color: var(--primaryHover);
+    color: white;
+}
+.btn-primary:focus{
+    background-color: var(--primaryFocus);
+    color: var(--textLightColor);
+}
+
+.btn-outline-primary {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+
+/* -Secundarios */
+
+.btn-secondary {
+    background-color: var(--secondary);
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: var(--secondaryHover);
+    color: white;
+}
+.btn-secondary:focus {
+    background-color: var(--secondaryFocus);
+    color: var(--textLightColor);
+}
+
+
+.bg-secondary {
+    background-color: var(--secondary)!;
+}
+
+/* Contenedor */
+.contenedor-block {
+    display: block;
+}
+
+#contenedor {
+    height: auto;
+    width: 98vw;
+}
+
+
+
 /*Navbar*/
 
 .navbar>a {
@@ -68,7 +139,7 @@ h5 {
 
 .scroll {
     display: flex;
-    overflow-x: auto;
+    overflow-x: scroll;
     background-color: transparent;
     scroll-behavior: smooth;
 }
@@ -92,18 +163,18 @@ h5 {
 
 .scroll-image {
     margin: 5%;
-} */
+}
 
+*/
 /*Scroll bar*/
 
 ::-webkit-scrollbar {
-    width: 20px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
     box-shadow: inset 1px 1px 3px #969696;
-    border-radius: 2px;
-}
+    border-radius: 2px;}
 
 ::-webkit-scrollbar-thumb {
     background: #ddd;
@@ -113,12 +184,12 @@ h5 {
 /*Cartas*/
 
 .card {
-    width: 0.7rem;
+    width: 50%;
     height: auto;
     transition: all 200ms ease-in-out;
 }
 
-.card > a {
+.card>a {
     text-decoration: none;
     color: var(--secondary);
 
@@ -150,13 +221,10 @@ h5 {
 }
 
 
-/*Modal */
-
+/*Modal Bootstrap */
 .modal-backdrop {
     opacity: 0.8 !important;
 }
-
-
 
 .modal-dialog {
     margin: 0rem;
@@ -183,16 +251,20 @@ h5 {
     font-size: 1rem;
 }
 
+/* Spinner */
+#spinner { visibility:hidden; } 
+body.cargando .spinner { visibility:visible !important; }
+
 /*Footer*/
+
 .footer-bg {
     background-color: var(--footer-color);
+    width: 100%;
+    height: auto;
 }
 
 .footer-menu {
     display: block;
-    height: 0.5rem;
-    width: auto;
-
 }
 
 .list-footer {
@@ -232,6 +304,10 @@ h5 {
 
 /*Pantallas*/
 
-@media screen and (min-width: 990px) {}
+@media only screen and (max-width: 425px) {
 
-@media screen and (max-width: 600px) {}
+}
+
+@media only screen and (max-width: 768px) {
+
+}

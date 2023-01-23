@@ -46,8 +46,19 @@
   #boton-buscar:active {
     background-color: white;
   }
+
+
+  @media only screen and (max-width: 425px) {
+
+    .form-control{
+      padding: 0.5rem 1.0rem 0.6rem 1.8rem;
+    }
+    #boton-buscar{
+      padding: 0.20rem 0.8rem 0.21rem 0.7rem;
+    }
+  }
   
-  @media screen and (max-width: 425px) {
+  @media only screen and (max-width: 768px) {
     .form-control{
       padding: 0.8rem 1.2rem 0.8rem 2.3rem;
     }
@@ -55,4 +66,5 @@
       padding: 0.25rem 1.0rem 0.25rem 0.9rem;
     }
   }
+  
   

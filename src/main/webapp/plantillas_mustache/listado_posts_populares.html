@@ -5,24 +5,22 @@
   <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
   <link rel="stylesheet"
     href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <link rel="stylesheet" href="../css/home.css">
 
   <title>Listado Posts Populares</title>
 
 </head>
 
-  <h1 class="elemento">Posts</h1>
+<h1 class="elemento">Posts</h1>
 
 <!--Listado posts-->
 <div class="recomendacionesPostsPopulares">
-  <div class="row m-3 justify-content-center">
-    {{#.}}
-    <div class="col-lg-4 col-md-4 col-sm-4 m-1">
-      <div class="card">
+  <div class="row m-2 justify-content-center">
 
+    <div class="col-lg-6 col-md-6 col-sm-11 m-1">
+      {{#.}}
+      <div class="card mb-2">
         <img src="subidasPost/{{id}}.jpg" id="{{id}}" class="card-img-top" alt="{{nombre}}">
         <img hidden="true" src="" class="card-img-top" />
-
         <div class="card-body">
           <h5 class="card-title">{{nombre}}</h5>
           <p class="card-text">{{descripcion}}</p>
@@ -30,8 +28,9 @@
         </div>
 
       </div>
+      {{/.}}
     </div>
-    {{/.}}
+
   </div>
 </div>
 

@@ -1,6 +1,5 @@
 package serviciosWEB;
 
-
 import java.util.Iterator;
 
 import java.util.List;
@@ -22,14 +21,10 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
-
 import modelo.Foro;
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
 import utilidadesArchivos.GestorArchivos;
-
-
-
 
 @Controller
 @RequestMapping("servicioWebForos/")
@@ -37,90 +32,85 @@ public class ServicioWebForos {
 
 	@Autowired
 	private ServicioForos servicioForos;
-	
+
 	@Autowired
 	private ServicioPosts servicioPosts;
-	
-	
-	
+
 	@RequestMapping("obtenerForosDeNombreIntroducido")
-	public ResponseEntity<String>obtenerForosDeNombreIntroducido(String nombreForo){
+	public ResponseEntity<String> obtenerForosDeNombreIntroducido(String nombreForo, HttpServletRequest request) {
+		String json = new Gson().toJson(servicioForos.obtenerForosParaListadoBusquedaForo(nombreForo));
+		return new ResponseEntity<String>(json, HttpStatus.OK);
 		
-		List<Map<String, Object>> foros = servicioForos.obtenerForosParaListadoBusquedaForo(nombreForo);
-		String json = new Gson().toJson(servicioForos.obtenerForosParaListado());
-		return new ResponseEntity<String>(
-				json,HttpStatus.OK);	
 	}
-	
+
+	@RequestMapping("obtenerForos")
+	public ResponseEntity<String> obtenerForos() {
+		List<Map<String, Object>> foros = servicioForos.obtenerForosParaListado();
+		String json = new Gson().toJson(foros);
+		return new ResponseEntity<String>(json, HttpStatus.OK);
+
+	}
+
 	@RequestMapping("obtenerForosYPosts")
-	public ResponseEntity<String> obtenerForosYPosts(){
-		
-		
+	public ResponseEntity<String> obtenerForosYPosts() {
+
 		List<Map<String, Object>> forosResults = servicioForos.obtenerForosParaListadoAleatorios();
-		
+
 		String jsonForos = new Gson().toJson(forosResults);
-		
-		
+
 		List<Map<String, Object>> postsResults = servicioPosts.obtenerPostsParaListadoAleatorio();
 		String jsonPosts = new Gson().toJson(postsResults);
-		
 
-		//Recogemos las keys del map
+		// Recogemos las keys del map
 		Set<String> keys = postsResults.get(0).keySet();
-		
-		//Las parseamos a iterdor para poder remplazarlas
+
+		// Las parseamos a iterdor para poder remplazarlas
 		Iterator<String> keysValues = keys.iterator();
-		
-		//Anyadimos a las keys el "Post" para diferenciarlas
-		while(keysValues.hasNext()) {
+
+		// Anyadimos a las keys el "Post" para diferenciarlas
+		while (keysValues.hasNext()) {
 			String key = keysValues.next();
-			jsonPosts = jsonPosts.replaceAll(key, key+"Post" );
+			jsonPosts = jsonPosts.replaceAll(key, key + "Post");
 		}
-		
-		
-		//Cambiamos el cierre de jsonForos por una coma, para unirlo a jsonPosts, Adem�s de eliminar la abertura de jsonPost
-		 jsonForos = jsonForos.replaceAll("}]", ",");
-		 jsonPosts = jsonPosts.replaceAll(Pattern.quote("[{"), "");
-		
-		jsonForos = jsonForos + jsonPosts ;
+
+		// Cambiamos el cierre de jsonForos por una coma, para unirlo a jsonPosts,
+		// Adem�s de eliminar la abertura de jsonPost
+		jsonForos = jsonForos.replaceAll("}]", ",");
+		jsonPosts = jsonPosts.replaceAll(Pattern.quote("[{"), "");
+
+		jsonForos = jsonForos + jsonPosts;
 		System.out.println(jsonForos);
-		return new ResponseEntity<String>(
-				jsonForos,HttpStatus.OK);	
+		return new ResponseEntity<String>(jsonForos, HttpStatus.OK);
 	}
-	@RequestMapping("obtenerForo")
-	public ResponseEntity<String> obtenerForo(String id){
-		String json = new Gson().toJson(servicioForos.obtenerForo(Long.parseLong(id)));
-		return new ResponseEntity<String>(
-				json,HttpStatus.OK);
-	}
-	
+//	@RequestMapping("obtenerForo")
+//	public ResponseEntity<String> obtenerForo(String id){
+//		String json = new Gson().toJson(servicioForos.obtenerForo(Long.parseLong(id)));
+//		return new ResponseEntity<String>(
+//				json,HttpStatus.OK);
+//	}
+
 	@RequestMapping("registrarForos")
 	public ResponseEntity<String> registrarForo(@RequestParam Map<String, Object> formData,
-			@RequestParam("foto") CommonsMultipartFile foto,
-			HttpServletRequest request){
+			@RequestParam("foto") CommonsMultipartFile foto, HttpServletRequest request) {
 		String respuesta = "";
-		System.out.println("--------"+formData);
-		
+		System.out.println("--------" + formData);
+
 		Gson gson = new Gson();
 		JsonElement json = gson.toJsonTree(formData);
-		
-		System.out.println("--------"+json);
+
+		System.out.println("--------" + json);
 		Foro f = gson.fromJson(json, Foro.class);
 		System.out.println("foro a registrar: " + f.toString());
 		servicioForos.registrarForo(f);
-		
-		//tras hacer un registro con hibernate, hibernate asigna a este usuario la id del 
-		//registro en la tabla de la base de datos
+
+		// tras hacer un registro con hibernate, hibernate asigna a este usuario la id
+		// del
+		// registro en la tabla de la base de datos
 		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
 		GestorArchivos.guardarImagenForo(f, rutaRealDelProyecto, foto);
 		respuesta = "ok";
-		
-		return new ResponseEntity<String>(
-				respuesta,HttpStatus.OK);
+
+		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
 	}
-	
+
 }
-
-
-
-

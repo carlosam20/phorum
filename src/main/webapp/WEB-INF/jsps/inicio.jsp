@@ -7,21 +7,15 @@
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
             <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
             <link rel="icon" type="image/svg" href="images/logo-phorum.svg">
             <link rel="stylesheet"
                 href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-            <link rel="stylesheet" href="css/bootstrap.css">
-            <link rel="stylesheet" href="css/style.css"> 
-            <link rel="stylesheet" href="css/inicio.css">
-
-
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="css/style.css">
         </head>
 
 
-       
         <body>
 
             <!--Navbar -->
@@ -85,12 +79,18 @@
             </div>
 
 
-            <!-- Contenedor donde cargan las vistas -->
+
             <div class="" id="contenedor"></div>
 
+            <!-- Contenedor donde cargan las vistas -->
+
+
+            <div class="d-flex justify-content-center spinner-grow text-primary col-11" role="status" id="#loadingDiv">
+                <span class="sr-only">Loading...</span>
+            </div>
 
             <!-- Foooter -->
-            <div class="footer-menu p-3">
+            <div class="footer-menu">
 
                 <div class="row footer-bg">
                     <div class="row m-1">
@@ -103,8 +103,8 @@
                     <div class="col-lg-3 col-sm-3  footer-enlaces">
 
                         <ul class="list-group list-footer">
-                            <li class="list-group-item list-footer-item"><a class="text-light" 
-                                id="enlace_home">Home</a></li>
+                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_home">Home</a>
+                            </li>
                             <li class="list-group-item list-footer-item"><a class="text-light"
                                     id="enlace_perfil">Perfil</a></li>
                             <li class="list-group-item list-footer-item"><a class="text-light"

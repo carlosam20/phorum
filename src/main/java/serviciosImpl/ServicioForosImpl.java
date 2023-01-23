@@ -1,6 +1,5 @@
 package serviciosImpl;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,53 +19,52 @@ import servicios.ServicioForos;
 
 @Service
 @Transactional
-public class ServicioForosImpl implements ServicioForos{
+public class ServicioForosImpl implements ServicioForos {
 
 	@Autowired
 	private SessionFactory sessionFactory; // bean del hibernate-context
-	
-	
-		
+
 	public List<Map<String, Object>> obtenerForosParaListado() {
-		
-		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_FOROS_PARA_LISTADO);
+
+		SQLQuery query = sessionFactory.getCurrentSession()
+				.createSQLQuery(ConstantesSQL.SQL_OBTENER_FOROS_PARA_LISTADO);
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 		List<Map<String, Object>> res = query.list();
 		return res;
 	}
-	
+
 	public List<Map<String, Object>> obtenerForosParaListadoAleatorios() {
-			
-		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_FOROS_PARA_LISTADO_RANDOM);
+
+		SQLQuery query = sessionFactory.getCurrentSession()
+				.createSQLQuery(ConstantesSQL.SQL_OBTENER_FOROS_PARA_LISTADO_RANDOM);
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 
-		
 		List<Map<String, Object>> res = query.list();
 		return res;
 	}
-	
-	public List<Map<String, Object>> obtenerForosParaListadoBusquedaForo(String nombre) {
+
+	public List<Map<String, Object>> obtenerForosParaListadoBusquedaForo(String nombreForo) {
 		
-		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_FOROS_PARA_LISTADO);
-		query.setParameter("nombre","%"+nombre+"%");
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_FOROS_POR_NOMBRE_LISTADO);		
+		query.setParameter("nombreForo", "%"+nombreForo+"%");
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 		List<Map<String, Object>> res = query.list();
+		
 		return res;
 	}
-	
 
 	@Override
 	public Map<String, String> obtenerForosParaDesplegable() {
-		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(
-				ConstantesSQL.SQL_OBTENER_FOROS_PARA_DESPLEGABLE);
+		SQLQuery query = sessionFactory.getCurrentSession()
+				.createSQLQuery(ConstantesSQL.SQL_OBTENER_FOROS_PARA_DESPLEGABLE);
 
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
-		
-		List <Map<String, Object>> res =query.list();
+
+		List<Map<String, Object>> res = query.list();
 		Map<String, String> valoresDesplegable = new HashMap<String, String>();
-		
+
 		for (Map<String, Object> map : res) {
-			System.out.println("id: "+map.get("id") + " nombre" +map.get("nombre"));
+			System.out.println("id: " + map.get("id") + " nombre" + map.get("nombre"));
 			valoresDesplegable.put(map.get("id").toString(), map.get("nombre").toString());
 		}
 		return valoresDesplegable;
@@ -74,17 +72,16 @@ public class ServicioForosImpl implements ServicioForos{
 
 	@Override
 	public int obtenerTotalDeForos(String nombre) {
-		SQLQuery query = sessionFactory.getCurrentSession().
-				createSQLQuery(ConstantesSQL.OBTENER_TOTAL_FOROS);
-		query.setParameter("nombre","%"+nombre+"%");
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_TOTAL_FOROS);
+		query.setParameter("nombre", "%" + nombre + "%");
 		return Integer.parseInt(query.list().get(0).toString());
 	}
-	
+
 	@Override
 	public List<Foro> obtenerForos(String nombre, int comienzo) {
-		
+
 		Criteria c = sessionFactory.getCurrentSession().createCriteria(Foro.class);
-		c.add(Restrictions.like("nombre", "%"+nombre+"%"));
+		c.add(Restrictions.like("nombre", "%" + nombre + "%"));
 		c.addOrder(Order.desc("id"));
 		c.setFirstResult(comienzo);
 		c.setMaxResults(10);
@@ -93,7 +90,7 @@ public class ServicioForosImpl implements ServicioForos{
 
 	@Override
 	public void registrarForo(Foro o) {
-		
+
 		sessionFactory.getCurrentSession().save(o);
 	}
 
@@ -105,28 +102,26 @@ public class ServicioForosImpl implements ServicioForos{
 	@Override
 	public void borrarForo(long id) {
 		System.out.println("Borrar Foro");
-		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_FORO);		
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_FORO);
 		query.setParameter("id", id);
 		query.executeUpdate();
-		
-		
+
 	}
+
 	@Override
 	public Map<String, Object> obtenerForo(long id) {
-		SQLQuery query = 
-				sessionFactory.getCurrentSession().
-					createSQLQuery(ConstantesSQL.SQL_OBTENER_DATOS_FORO);
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_DATOS_FORO);
 		query.setParameter("id", id);
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
-		return (Map<String, Object>)query.uniqueResult();
+		return (Map<String, Object>) query.uniqueResult();
 	}
-	
 
 	@Override
 	public void guardarCambiosForo(Foro f) {
 		sessionFactory.getCurrentSession().merge(f);
-		
+
 	}
+
 	@Override
 	public List<Long> obtenerIdPostDeForo(long id) {
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_POST_CON_FORO);
@@ -134,5 +129,5 @@ public class ServicioForosImpl implements ServicioForos{
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 		return query.list();
 	}
-		
+
 }

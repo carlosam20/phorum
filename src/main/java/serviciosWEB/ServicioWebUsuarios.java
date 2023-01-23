@@ -25,72 +25,65 @@ public class ServicioWebUsuarios {
 
 	@Autowired
 	private ServicioUsuarios servicioUsuarios;
-	
+
 	@RequestMapping("registrarUsuario")
 	public ResponseEntity<String> registrarUsuario(@RequestParam Map<String, Object> formData,
-			@RequestParam("foto") CommonsMultipartFile foto,
-			HttpServletRequest request){
-		
-		
-		//Hay que realizar una comprobación de que no se duplica el Usuario aqui y devolver duplicado si ocurre
-		
+			@RequestParam("foto") CommonsMultipartFile foto, HttpServletRequest request) {
+
+		// Hay que realizar una comprobación de que no se duplica el Usuario aqui y
+		// devolver duplicado si ocurre
+
 		String respuesta = "";
-		System.out.println("--------"+formData);
-		
+		System.out.println("--------" + formData);
+
 		Gson gson = new Gson();
 		JsonElement json = gson.toJsonTree(formData);
-		
-		System.out.println("--------"+json);
+
+		System.out.println("--------" + json);
 		Usuario u = gson.fromJson(json, Usuario.class);
 		System.out.println("usuario a registrar: " + u.toString());
 		servicioUsuarios.registrarUsuario(u);
-		//tras hacer un registro con hibernate, hibernate asigna a este usuario la id del 
-		//registro en la tabla de la base de datos
+		// tras hacer un registro con hibernate, hibernate asigna a este usuario la id
+		// del
+		// registro en la tabla de la base de datos
 		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
 		GestorArchivos.guardarFotoUsuario(u, rutaRealDelProyecto, foto);
 		respuesta = "ok";
-		
-		return new ResponseEntity<String>(
-				respuesta,HttpStatus.OK);
+
+		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
 	}
-	
-	
+
 	@RequestMapping("loginUsuario")
-	public ResponseEntity<String> identificarUsuario(String email, String pass, HttpServletRequest request){
+	public ResponseEntity<String> identificarUsuario(String email, String pass, HttpServletRequest request) {
 		Usuario u = servicioUsuarios.obtenerUsuarioPorEmailYpass(email, pass);
 		String respuesta = "";
-		if(u != null) {
+		if (u != null) {
 			request.getSession().setAttribute("usuario", u);
-			respuesta = "ok,"+u.getNombre()+","+u.getId();
-			
-		}else {
+			respuesta = "ok," + u.getNombre() + "," + u.getId();
+
+		} else {
 			respuesta = "email o pass incorrectos";
 		}
-		return new ResponseEntity<String>(
-				respuesta,HttpStatus.OK);
+		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping("comprobarLogin")
-	public ResponseEntity<String> comprobarLogin(HttpServletRequest request){
+	public ResponseEntity<String> comprobarLogin(HttpServletRequest request) {
 		String respuesta = "";
-		if(request.getSession().getAttribute("usuario") != null) {
+		if (request.getSession().getAttribute("usuario") != null) {
 			respuesta = "ok";
-		}else {
+		} else {
 			respuesta = "Te debes identificar para acceder al contenido";
 		}
-		return new ResponseEntity<String>(
-				respuesta,HttpStatus.OK);
+		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
 	}
-	
-	
-	
+
 	@RequestMapping("logout")
-	public ResponseEntity<String> logout(HttpServletRequest request){
+	public ResponseEntity<String> logout(HttpServletRequest request) {
 		String respuesta = "";
 		request.getSession().invalidate();
 		respuesta = "ok";
-		return new ResponseEntity<String>(
-				respuesta,HttpStatus.OK);
+		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
 	}
-	
+
 }

@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/home.css">
   <title>Home</title>
 </head>
@@ -258,13 +259,14 @@
 
 
   <h1 class="text-primary text-center">Explora los foros</h1>
-  {{#.}}
-  {{#id}}
+  
+  
   <!--Scroll container-->
   <div class="row m-3">
     <div class=" col-lg-12 col-md-12 col-sm-12 scrollContainer">
       <div class="scroll">
-
+        {{#.}}
+        {{#id}}
         <div class="item">
           <a href="boton-foro" class="link-foro">
             <img src="subidas/{{id}}.jpg" alt="{{nombre}}" id="{{id}}" class="scroll-image s-avatar s-avatar__64"
@@ -272,19 +274,20 @@
             <h5 class="text text-primary">{{nombre}}</h5>
           </a>
         </div>
-
+        {{/id}}
+        {{/.}}
       </div>
     </div>
   </div>
-  {{/id}}
-  {{/.}}
+  
+  
 
 
   <h1 class="text-primary text-center">Explora los posts</h1>
 
 
   <!-- Posts -->
-   <div class="recomendacionesPost row">
+  <div class="recomendacionesPost row">
 
     <!--Listado de Post-->
     <div class="col-lg-5 col-md-5 col-sm-11 m-3">
@@ -327,4 +330,4 @@
 </body>
 
 </html>
-<script src="../js/home-animacion.js"></script> -->
+<script src="../js/home-animacion.js"></script>

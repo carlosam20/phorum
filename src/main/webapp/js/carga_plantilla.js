@@ -11,6 +11,9 @@ function cargar_plantillas_del_servidor(){
     $.get("plantillas_mustache/listado_foros.html",function(data){
         plantillaListarForos = data;
     });
+    $.get("plantillas_mustache/listado_foros_busqueda.html",function(data){
+        plantillaListarForosBusqueda = data;
+    });
 	$.get("plantillas_mustache/listado_posts.html",function(data){
         plantillaListarPosts = data;
     });

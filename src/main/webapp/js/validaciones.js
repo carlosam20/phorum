@@ -6,6 +6,10 @@ const REGEXP_EMAIL = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/i;
 const REGEXP_PASS = /^[a-z0-9áéíóú]{3,10}$/i;
 const REGEXP_DESCRIPCION = /^[a-z0-9áéíóú ]{3,500}$/i;
 
+//Foro
+const REGEXP_NOMBRE_FORO = /^[a-z0-9áéíóú_\.-]{2,200}$/i;
+const REGEXP_DESCRIPCION_FORO = /^[a-z0-9áéíóú ]{3,500}$/i; 
+
 //Post
 const REGEXP_NOMBRE_POST = /^[a-z0-9áéíóú_\.-]{2,200}$/i;
 const REGEXP_DESCRIPCION_POST = /^[a-z0-9áéíóú ]{3,500}$/i;
