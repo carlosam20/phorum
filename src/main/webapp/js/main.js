@@ -44,6 +44,25 @@ function listadoInicio() {
 	}); //---end ajax ---
 }
 
+
+function busquedaForos() {
+	//Buscador de Foros
+	$(".boton_buscar").click(function (e) {
+		let nombreForo = $("#inputBuscador").val();
+		$.ajax("servicioWebForos/obtenerForosDeNombreIntroducido?nombreForo=" + nombreForo, {
+			success: function (res) {
+				let forosEncontrados = JSON.parse(res);
+				let texto_html = "";
+				texto_html = Mustache.render(plantillaListarForosBusqueda, forosEncontrados);
+				$("#contenedor").html(texto_html);
+				busquedaForos();
+			}//---end success---
+
+		});//--end ajax obtenerForosBuscados--
+
+	});//--end click boton_buscar--
+}
+
 function obtener_listado_foros() {
 
 	$.ajax("servicioWebForos/obtenerForos", {
@@ -178,23 +197,10 @@ function obtener_listado_foros() {
 
 			});//--end obtener_listado-comentarios_post--
 
+			// Buscar foros
+			busquedaForos();
 
 
-
-			//Buscador de Foros
-			$(".boton_buscar").click(function (e) {
-				let nombreForo = $("#inputBuscador").val();
-				$.ajax("servicioWebForos/obtenerForosDeNombreIntroducido?nombreForo=" + nombreForo, {
-					success: function (res) {
-						let forosEncontrados = JSON.parse(res);
-						let texto_html = "";
-						texto_html = Mustache.render(plantillaListarForosBusqueda, forosEncontrados);
-						$("#contenedor").html(texto_html);
-					}//---end success---
-
-				});//--end ajax obtenerForosBuscados--
-
-			});//--end click boton_buscar--
 
 		}//---end success---
 	});//--end ajax--
@@ -204,6 +210,8 @@ function obtener_listado_foros() {
 
 
 }//-end obtener_listado-
+
+
 
 
 function obtener_listado_posts() {

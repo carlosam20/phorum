@@ -84,7 +84,6 @@
 
             <!-- Contenedor donde cargan las vistas -->
 
-
             <div class="d-flex justify-content-center spinner-grow text-primary col-11" role="status" id="#loadingDiv">
                 <span class="sr-only">Loading...</span>
             </div>
