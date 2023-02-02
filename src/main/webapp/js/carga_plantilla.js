@@ -1,10 +1,11 @@
 
 function cargar_plantillas_del_servidor(){
-	
+
 	$.get("plantillas_mustache/post.html",function(data){
         plantillaListarPostYComentarios = data;
     });
 	$.get("plantillas_mustache/home.html",function(data){
+        
         plantillaHome = data;
     });
 

@@ -17,7 +17,8 @@ public class InterceptorIdentificado extends HandlerInterceptorAdapter{
 		if( u!=null ) {
 			return true;
 		}else {
-			response.sendRedirect("../../error_identificacion.jsp");
+			response.sendRedirect("login.html");
+			
 			return false;
 		}
 		

@@ -22,7 +22,7 @@ public class GestorArchivos {
 		if( ! fileCarpetaFotos.exists()) {
 			fileCarpetaFotos.mkdirs();
 		}
-		if(foto.getSize() > 0 && foto.getSize() < 2000000) {
+		if(foto.getSize() > 0 && foto.getSize() < 5000000) {
 			
 			
 			try {
@@ -48,7 +48,7 @@ public class GestorArchivos {
 			fileRutaSubidas.mkdirs();
 		}
 		//mover el archivo a dicha ruta poniendole el nombre indicado:
-		if(archivo.getSize() > 0 && archivo.getSize() < 2000000) {
+		if(archivo.getSize() > 0 && archivo.getSize() < 5000000) {
 			try {
 				archivo.transferTo(new File(rutaSubidas, nombreArchivo));
 				System.out.println("archivo movido a: "+rutaSubidas);

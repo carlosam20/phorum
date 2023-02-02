@@ -31,6 +31,7 @@ imagen : <springform:input path="imagen" type="file"/><br>
 </springform:form>
 
 </body>
+<script src="../js/admin.js"></script>
 </html>
 
 

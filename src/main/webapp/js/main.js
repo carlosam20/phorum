@@ -18,6 +18,11 @@ let plantillaEditarUsuario = "";
 let plantillaPerfil = "";
 
 
+//URL
+const URL = window.location.href;
+
+
+
 
 //Metodos OnInit
 cargar_plantillas_del_servidor();
@@ -29,7 +34,6 @@ let numberOfEntries = window.history.length;
 function listadoInicio() {
 	
 	$.ajax("servicioWebForos/obtenerForosYPosts", {
-
 		success: function (data) {
 			$('body').removeClass('cargando');
 			console.log(numberOfEntries);
@@ -66,6 +70,7 @@ function busquedaForos() {
 function obtener_listado_foros() {
 
 	$.ajax("servicioWebForos/obtenerForos", {
+		url: URL+"/foros/",
 		success: function (data) {
 			console.log(numberOfEntries);
 			alert("recibido: " + data);
@@ -149,23 +154,23 @@ function obtener_listado_foros() {
 									formData.append('idForo', idForo);
 									formData.append('idUsuario', idUsuario);
 
-									$.ajax("identificado/servicioWebPosts/registrarPosts", {
+									$.ajax(baseUrl + "/identificado/servicioWebPosts/registrarPosts", {
 										type: "POST",
 										data: formData,
 										cache: false,
 										contentType: false,
 										processData: false,
 										success: function (res) {
-											if (res == "ok") {
-												$('#crearPostModal').modal('hide');
-												location.reload();
-												// obtener_listado_posts();
-											} else {
-												swal("Error de sintaxis en algun form del post", "Post no valido", "error");
-												alert(res);
-											}
+										  if (res == "ok") {
+											$('#crearPostModal').modal('hide');
+											location.reload();
+											// obtener_listado_posts();
+										  } else {
+											swal("Error de sintaxis en algun form del post", "Post no valido", "error");
+											alert(res);
+										  }
 										} //end Success Registrar Post
-									}); //end Registrar Post
+									  }); //end Registrar Post
 
 								}//end Success (Recogemos El id del usuario)
 							});	//end ajax ObtenerUsuario
@@ -224,8 +229,23 @@ function obtener_listado_posts() {
 			texto_html = Mustache.render(plantillaListarPostsPopulares, posts);
 			$("#contenedor").html(texto_html);
 
-			//Aqui va Ir a Foro en el que muestra los post
-			//También Va Ir al 
+			//Ver post y comentarios
+			$(".boton_ver_post").click(function (e) {
+				let idPost = $(this).attr("id");
+				alert("pedir al servidor post id:" + idPost);
+
+				$.ajax("identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" + idPost, {
+					success: function (data) {
+						alert("recibido: " + data);
+						let postYComentarios = JSON.parse(data);
+						let texto_html = "";
+						texto_html = Mustache.render(plantillaListarPostYComentarios, postYComentarios);
+						$("#contenedor").html(texto_html);
+
+					}//---end success---
+				});//--end ajax--
+
+			});
 
 
 
@@ -324,13 +344,14 @@ function mostrarIdentificacionUsuario() {
 
 	if (typeof (Cookies.get("email")) != "undefined") {
 		$("#email").val(Cookies.get("email"));
-	}
+	}	
 	if (typeof (Cookies.get("pass")) != "undefined") {
 		$("#pass").val(Cookies.get("pass"));
 	}
 
-	$("#form_login").submit(function () {
 
+	$("#form_login").submit(function () {
+		
 		email = $("#email").val();
 		pass = $("#pass").val();
 
@@ -368,7 +389,7 @@ function mostrarIdentificacionUsuario() {
 			swal("El formato del email no es valido", "Fallo", "error");
 		}
 		//endValidarEmail
-		e.preventDefault();
+		res.preventDefault();
 	});
 }
 
@@ -386,7 +407,6 @@ function logout() {
 
 function perfil() {
 
-	// if (comprobarIdentificacion() === true) {
 
 	$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
 		success: function (data) {
@@ -401,6 +421,7 @@ function perfil() {
 			$(".boton_editar_usuario").click(function (e) {
 
 				$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
+					url: URL+"/perfil/",
 					success: function (data) {
 						alert("recibido: " + data);
 						let info = JSON.parse(data);
@@ -422,10 +443,8 @@ function perfil() {
 									if (validarDescripcion(descripcion)) {
 										if (validarPass(pass)) {
 
-
 											let formulario = document.forms[0];
 											let formData = new FormData(formulario);
-
 
 											$.ajax("identificado/servicioWebUsuarios/editarUsuarioPorId", {
 												type: "POST",
@@ -435,42 +454,44 @@ function perfil() {
 												processData: false,
 												success: function (res) {
 
-													if (res == "ok") {
-														swal("La edición ha sido correcta", "Editado", "success");
-														perfil();
-													} else {
-														alert(res);
-														swal("Usuario no valido", "Error", "error");
-													}
 												}
 											});
 
+										}else{
+											swal("La contraseña  es incorrecta", "Error", "error");
 										}//end Pass
 
+									}else{
+										swal("La descripción es incorrecta",  "Error", "error");
 									}//end Descripcion
 
-								}//end Email
+								}else{
+									swal("El email es incorrecto",  "Error", "error");
+								}//end Descripcion
 
-							}//end Nombre
+							}else{
+								swal("El nombre es incorrecto",  "Error", "error");
+							}//end Descripcion
 
 						}); //end Submit Form
+						e.preventDefault();
 
 
 					}//end Success (Carga plantilla)
 
 				});	//end ajax 
-
+					e.preventDefault();
 			});//-end enlace editar
 
 
 			//Boton Borrar usuario 
 			$(".boton_borrar_usuario").click(function (e) {
-				$.ajax("identificado/servicioWebUsuarios/borrarUsuarioPorId=", {
+				$.ajax("identificado/servicioWebUsuarios/borrarUsuarioPorId", {
 					success: function (data) {
 						alert("recibido: " + data);
 						if (data.contains("ok")) {
 							logout();
-							listadoInicio();
+							// listadoInicio();
 						}
 					}//---end success---
 				});//--end ajax--
@@ -478,15 +499,10 @@ function perfil() {
 			});//end Borrar Usuario
 
 
-
 		}//end success Obtener id
 
 	});	//end ajax
 
-	// } else {
-
-	// 	//Devolver a Iniciar Sesión
-	// }
 }//end perfil
 
 

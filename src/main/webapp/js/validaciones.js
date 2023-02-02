@@ -7,12 +7,12 @@ const REGEXP_PASS = /^[a-z0-9áéíóú]{3,10}$/i;
 const REGEXP_DESCRIPCION = /^[a-z0-9áéíóú ]{3,500}$/i;
 
 //Foro
-const REGEXP_NOMBRE_FORO = /^[a-z0-9áéíóú_\.-]{2,200}$/i;
-const REGEXP_DESCRIPCION_FORO = /^[a-z0-9áéíóú ]{3,500}$/i; 
+// const REGEXP_FORO_NOMBRE = /^[a-z0-9áéíóú_\.-]{2,200}$/i;
+// const REGEXP_FORO_DESCRIPCION = /^[a-z0-9áéíóú ]{3,500}$/i; 
 
 //Post
-const REGEXP_NOMBRE_POST = /^[a-z0-9áéíóú_\.-]{2,200}$/i;
-const REGEXP_DESCRIPCION_POST = /^[a-z0-9áéíóú ]{3,500}$/i;
+// const REGEXP_POST_NOMBRE = /^[a-z0-9áéíóú_\.-]{2,200}$/i;
+// const REGEXP_POST_DESCRIPCION_ = /^[a-z0-9áéíóú ]{3,500}$/i;
 
 //Comentarios
 const REGEXP_COMENTARIO_TEXTO = /^[a-z0-9áéíóú_\.-]{2,200}$/i;
@@ -30,16 +30,7 @@ function validarNombre(nombre) {
 	}
 }
 
-function validarNombrePost(nombrePost) {
 
-	if (REGEXP_NOMBRE_POST.test(nombre)) {
-		return true;
-
-	} else {
-
-		return false;
-	}
-}
 function validarTextoComentario(textoComentario) {
 	if (REGEXP_COMENTARIO_TEXTO.test(textoComentario)) {
 		return true;
@@ -89,3 +80,16 @@ function validarComentario(comentario) {
 		return false;
 	}
 }
+
+
+
+// function validarNombrePost(nombrePost) {
+
+// 	if (REGEXP_POST_NOMBRE.test(nombre)) {
+// 		return true;
+
+// 	} else {
+
+// 		return false;
+// 	}
+// }

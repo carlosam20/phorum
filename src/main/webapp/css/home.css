@@ -1,4 +1,16 @@
 /*Home*/
+:root {
+  --primary: #003F30;
+  --primaryHover:#00140F;
+  --primaryFocus:#439F88;
+
+  --secondary: #060637;
+  --secondaryHover: #202031;
+  --secondaryFocus: #9C9CD3;
+
+  --footer-color: #002031;
+  --textLightColor: #34403A;
+}
 
 .display-4 {
   font-family: 'Roboto', sans-serif;
@@ -14,7 +26,9 @@
   text-decoration: none;
 }
 
-
+.text-secondary {
+  color: var(--secondary)!;
+}
 .btn-outline-primary:hover {
   background-color: #439F88;
   color: black;
@@ -25,5 +39,6 @@ img {
   max-width: 100%;
   height: auto;
 }
+
 
 

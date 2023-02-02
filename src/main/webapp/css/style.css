@@ -52,17 +52,16 @@ h5 {
     font-size: 1.3rem;
 }
 
-a{
+a {
     text-decoration: none;
+    color: var(--primary);
 }
 
 .text-primary {
     color: var(--primary);
 }
 
-.text-secondary {
-    color: var(--secondary);
-}
+
 
 /* Botones */
 
@@ -102,8 +101,10 @@ a{
 }
 
 
-.bg-secondary {
-    background-color: var(--secondary)!;
+.header {
+    background-color: var(--secondary);
+    color:  var(--textLightColor);
+    
 }
 
 /* Contenedor */
@@ -131,7 +132,10 @@ a{
 }
 
 /*Horizontal scroll*/
+.item > a {
+ color: var(--primary);
 
+}
 .scrollContainer {
     width: 100%;
     height: auto;
@@ -189,9 +193,9 @@ a{
     transition: all 200ms ease-in-out;
 }
 
-.card>a {
+.card > a {
     text-decoration: none;
-    color: var(--secondary);
+    color: var(--primary);
 
 }
 

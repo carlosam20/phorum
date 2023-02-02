@@ -17,6 +17,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 import modelo.Usuario;
+import servicios.ServicioComentarios;
+import servicios.ServicioForos;
+import servicios.ServicioPosts;
 import servicios.ServicioUsuarios;
 import utilidadesArchivos.GestorArchivos;
 
@@ -27,6 +30,16 @@ public class ServicioWebUsuarios {
 
 	@Autowired
 	private ServicioUsuarios servicioUsuarios;
+	
+	@Autowired
+	private ServicioComentarios servicioComentarios;
+	
+	@Autowired
+	private ServicioPosts servicioPosts;
+	
+	@Autowired
+	private ServicioForos servicioForos;
+	
 
 	@RequestMapping("obtenerUsuarioPorId")
 	public ResponseEntity<String> obtenerUsuarioPorId(HttpServletRequest request) {
@@ -65,6 +78,18 @@ public class ServicioWebUsuarios {
 	public ResponseEntity<String> borrarUsuarioPorId(HttpServletRequest request) {
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 		String respuesta = "";
+		
+		
+		
+		//Hay que eliminar todos sus comentarios
+		servicioComentarios.borrarComentariosPorIdUsuario(u.getId());
+		//Hay que eliminar todos sus post
+		servicioPosts.eliminarPostUsuarios(u.getId());
+		//Hay que eliminar todos los foros
+		
+		//El problema es que si borro el usuario y no cambio el usuario del foro hay que borrar el foro
+		//Si no no me deja cerrarlo la verdad es una putada
+		
 		servicioUsuarios.eliminarUsuario(u.getId());
 		respuesta = "ok";
 		return new ResponseEntity<String>(respuesta, HttpStatus.OK);

@@ -138,8 +138,10 @@ public class ServicioComentariosImpl implements ServicioComentarios{
 	@Override
 	public List<Map<String, Object>> obtenerComentariosPost(long id) {
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_COMENTARIOS_CON_ID_POST);
+		query.setParameter("id", id);
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 		List<Map<String, Object>> res = query.list();
+		
 		return res;
 	}
 

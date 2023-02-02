@@ -54,7 +54,7 @@
 				<bean id="interceptorAdmin" class="interceptores.InterceptorAdmin"/>
 			</mvc:interceptor>
 			
-			<!-- Quitar si no funciona -->
+			
 			<mvc:interceptor>
 				<mvc:mapping path="/identificado/**"/>
 				<bean id="interceptorIdentificado" class="interceptores.InterceptorIdentificado"/>
@@ -73,8 +73,7 @@ de dicha clase en el contenedor debo indicar lo siguiente:
 	
 	<!-- tenemos que indicar lo sigiuente para que desde una vista
 	podamos incluir archivos externos -->
-	<!-- la siguiente linea activa diferentes funcionalidades de spring
-	para poder usar entre otras cosas el mvc:resources mapping -->
+	<!-- Activa el mvc:resources mapping -->
 	<mvc:annotation-driven/>
 	<mvc:resources mapping="/librerias_javascript/**" location="/librerias_javascript/" />
 	<mvc:resources mapping="/plantillas_mustache/**" location="/plantillas_mustache/" />
