@@ -24,25 +24,19 @@
       {{#idComentario}}
       <li class="list-group-item  flex-column align-items-center">
         <div class="d-flex w-100 justify-content-between align-items-center">
-          <!-- Hay que recoger el usuario aqui -->
-      {{/idComentario}}
-      {{/.}}
-      {{#.}}
-      {{#idUsuario}}
-          <img class="s-avatar s-avatar__48 m-1" src="subidasUsuario/{{nombreUsuario}}.jpg" id="{{usuarioComentario}}"
+          <img class="s-avatar s-avatar__48 m-1"   src="subidasUsuario/{{idUsuario}}.jpg"
             alt="{{nombreUsuario}}">
-          <h5 class="m-1">{{nombreUsuario}}</h5>
-      {{/idUsuario}}
-      {{/.}}
-      {{#.}}
-      {{#idComentario}}
+          <h5 class="m-1">{{nombreUsuario}}</h5>   
+          
           <p class="m-1">{{textoComentario}}</p>
-          <button class="btn btn-secondary boton_ver_usuario " type="button" id="{{usuarioComentario}}">Ver
+          <span>{{fechaCreacionComentario}}</span>
+          <button class="btn btn-secondary boton_ver_usuario " type="button" id="{{idUsuarioComentario}}">Ver
             Perfil</button>
-      {{/idComentario}}
-      {{/.}}
+      
         </div>
       </li>
+      {{/idComentario}}
+      {{/.}}
     </ul>
   </div>
 
@@ -56,7 +50,7 @@
       <div class="row m-3">
         <div class="col-lg-11 justify-content-center d-flex m-3">
           <div class="card">
-            <img src="subidas/{{id}}.jpg" class="card-img-top" alt="subidas/{{id}}.jpg">
+            <img src="subidasPost/{{id}}.jpg" class="card-img-top" alt="{{nombre}}">
 
 
             <div class="card-body mb-3">

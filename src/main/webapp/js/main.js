@@ -32,7 +32,7 @@ let numberOfEntries = window.history.length;
 
 
 function listadoInicio() {
-	
+
 	$.ajax("servicioWebForos/obtenerForosYPosts", {
 		success: function (data) {
 			$('body').removeClass('cargando');
@@ -42,7 +42,7 @@ function listadoInicio() {
 			texto_html = Mustache.render(plantillaHome,
 				forosYPost);
 			$("#contenedor").html(texto_html);
-			
+
 
 		}//---end success ---
 	}); //---end ajax ---
@@ -70,7 +70,6 @@ function busquedaForos() {
 function obtener_listado_foros() {
 
 	$.ajax("servicioWebForos/obtenerForos", {
-		url: URL+"/foros/",
 		success: function (data) {
 			console.log(numberOfEntries);
 			alert("recibido: " + data);
@@ -79,10 +78,6 @@ function obtener_listado_foros() {
 			texto_html = Mustache.render(plantillaListarForos,
 				foros);
 			$("#contenedor").html(texto_html);
-
-
-
-
 
 			//Registro		 
 			$("#form_registro_foro").submit(function (e) {
@@ -154,23 +149,24 @@ function obtener_listado_foros() {
 									formData.append('idForo', idForo);
 									formData.append('idUsuario', idUsuario);
 
-									$.ajax(baseUrl + "/identificado/servicioWebPosts/registrarPosts", {
+
+									$.ajax("identificado/servicioWebPosts/registrarPosts", {
 										type: "POST",
 										data: formData,
 										cache: false,
 										contentType: false,
 										processData: false,
 										success: function (res) {
-										  if (res == "ok") {
-											$('#crearPostModal').modal('hide');
-											location.reload();
-											// obtener_listado_posts();
-										  } else {
-											swal("Error de sintaxis en algun form del post", "Post no valido", "error");
-											alert(res);
-										  }
+											if (res == "ok") {
+												$('#crearPostModal').modal('hide');
+												location.reload();
+												// obtener_listado_posts();
+											} else {
+												swal("Error de sintaxis en algun form del post", "Post no valido", "error");
+												alert(res);
+											}
 										} //end Success Registrar Post
-									  }); //end Registrar Post
+									}); //end Registrar Post
 
 								}//end Success (Recogemos El id del usuario)
 							});	//end ajax ObtenerUsuario
@@ -181,7 +177,7 @@ function obtener_listado_foros() {
 						//Boton Ver Post y Comentarios 
 						$(".boton_ver_post").click(function (e) {
 							let idPost = $(this).attr("id");
-							alert("pedir al servidor post id:" + idPost);
+							
 
 							$.ajax("identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" + idPost, {
 								success: function (data) {
@@ -344,14 +340,14 @@ function mostrarIdentificacionUsuario() {
 
 	if (typeof (Cookies.get("email")) != "undefined") {
 		$("#email").val(Cookies.get("email"));
-	}	
+	}
 	if (typeof (Cookies.get("pass")) != "undefined") {
 		$("#pass").val(Cookies.get("pass"));
 	}
 
 
 	$("#form_login").submit(function () {
-		
+
 		email = $("#email").val();
 		pass = $("#pass").val();
 
@@ -421,7 +417,7 @@ function perfil() {
 			$(".boton_editar_usuario").click(function (e) {
 
 				$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
-					url: URL+"/perfil/",
+					url: URL + "/perfil/",
 					success: function (data) {
 						alert("recibido: " + data);
 						let info = JSON.parse(data);
@@ -457,20 +453,20 @@ function perfil() {
 												}
 											});
 
-										}else{
+										} else {
 											swal("La contraseña  es incorrecta", "Error", "error");
 										}//end Pass
 
-									}else{
-										swal("La descripción es incorrecta",  "Error", "error");
+									} else {
+										swal("La descripción es incorrecta", "Error", "error");
 									}//end Descripcion
 
-								}else{
-									swal("El email es incorrecto",  "Error", "error");
+								} else {
+									swal("El email es incorrecto", "Error", "error");
 								}//end Descripcion
 
-							}else{
-								swal("El nombre es incorrecto",  "Error", "error");
+							} else {
+								swal("El nombre es incorrecto", "Error", "error");
 							}//end Descripcion
 
 						}); //end Submit Form
@@ -480,7 +476,7 @@ function perfil() {
 					}//end Success (Carga plantilla)
 
 				});	//end ajax 
-					e.preventDefault();
+				e.preventDefault();
 			});//-end enlace editar
 
 
