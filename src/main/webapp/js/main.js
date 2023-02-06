@@ -100,7 +100,7 @@ function obtener_listado_foros() {
 						success: function (res) {
 							if (res == "ok") {
 								alert("registrado correctamente");
-								
+
 								$('#crearForoModal').modal("hide");
 								obtener_listado_foros();
 							} else {
@@ -389,8 +389,8 @@ function logout() {
 	$.ajax("servicioWebUsuarios/logout", {
 		success: function (res) {
 			if (res == "ok") {
-				swal("Sesión cerrada", "Operacion completada", "success").then(listadoInicio());
-				
+				swal("Sesi&oacuten cerrada", "Operaci&oacuten completada", "success");
+				setTimeout(() => {  location.reload(); }, 2000);
 			}
 		}
 	});
@@ -461,7 +461,7 @@ function perfil() {
 								}//end Descripcion
 
 							} else {
-								
+
 							}//end Descripcion
 
 						}); //end Submit Form
@@ -477,15 +477,31 @@ function perfil() {
 
 			//Boton Borrar usuario 
 			$(".boton_borrar_usuario").click(function (e) {
-				$.ajax("identificado/servicioWebUsuarios/borrarUsuarioPorId", {
-					success: function (data) {
-						if (data.includes("ok")) {
-							$.when(swal("Operacion correcta", "Se ha borrado el usuario", "success").then(
-							logout(),location.reload())
-							);
+				swal({
+					title: "Est&aacutes seguro de que quieres eliminarlo?",
+					text: "No se podr&aacute recuperar el usuario",
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+				})
+					.then((eliminarUsuario) => {
+						if (eliminarUsuario) {
+							$.ajax("identificado/servicioWebUsuarios/borrarUsuarioPorId", {
+								success: function (data) {
+									if (data.includes("ok")) {
+										//Aviso de operacion
+										swal("El usuario se ha eliminado", {
+											icon: "success",
+										})
+										setTimeout(() => {  logout(); }, 2000);
+									}
+								}//---end success---
+							});//--end ajax--
+
+						} else {
+							perfil();
 						}
-					}//---end success---
-				});//--end ajax--
+					});
 
 			});//end Borrar Usuario
 
