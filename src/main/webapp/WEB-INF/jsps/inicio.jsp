@@ -37,10 +37,12 @@
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                             <ul class="navbar-nav me-auto mb-3 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="nav-link m-3" id="enlace_home" aria-current="page" href="#">Home</a>
+                                    <a class="nav-link m-3" id="enlace_home" aria-current="page" 
+                                    href="#">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link m-3" id="enlace_perfil" aria-current="page" href="#">Perfil</a>
+                                    <a class="nav-link m-3" id="enlace_perfil" aria-current="page" 
+                                    href="#">Perfil</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link m-3" id="enlace_listado_foros" aria-current="page"
@@ -61,7 +63,7 @@
 
                         <ul class="navbar-nav mb-auto mb-lg-0">
                             <li class="nav-item">
-                                <a class="btn btn-outline-primary m-3 bg-light" id="enlace_identificarme"
+                                <a class="btn btn-outline-primary m-3" id="enlace_identificarme"
                                     aria-current="page" href="#">Iniciar Sesi&oacuten</a>
                             </li>
 

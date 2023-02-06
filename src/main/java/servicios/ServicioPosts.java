@@ -12,6 +12,7 @@ public int obtenerTotalDePosts(String marca);
 List<Post> obtenerPosts(String marca, int comienzo);
 List<Map<String, Object>> obtenerPostsParaListadoAleatorio();
 List<Map<String, Object>> obtenerPostsPorId(long id);
+List<Map<String, Object>> obtenerPostsPorIdUsuario(long id);
 void registrarPost(Post p);
 void eliminarPosts(long id);
 void guardarCambiosPosts(Post p);

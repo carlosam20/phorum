@@ -119,20 +119,20 @@ public class ServicioComentariosImpl implements ServicioComentarios{
 
 	@Override
 	public void borrarComentariosPorIdUsuario(long id) {
-		System.out.println("Borrar Comentario");
+		
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_COMENTARIO);		
 		query.setParameter("id", id);
 		query.executeUpdate();
+		System.out.println("Borrar Comentario por ID usuario");
 		
 	}
 
 	@Override
 	public void borrarComentariosPoridPost(long id) {
-	
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_COMENTARIOS_DE_POST);		
 		query.setParameter("id", id);
 		query.executeUpdate();
-		
+		System.out.println("Borrar comentarios Id post");
 	}
 	
 	@Override

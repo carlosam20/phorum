@@ -98,6 +98,17 @@ public class ServicioPostsImpl implements ServicioPosts {
 		return res;
 				
 	}
+	
+	public List<Map<String, Object>> obtenerPostsPorIdUsuario(long id) {
+		
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_POST_REALIZADOR_POR_USUARIO);
+		query.setParameter("id", id);
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		List<Map<String, Object>> res = query.list();
+		System.out.println("Obtener Posts de Usuario");
+		return res;
+				
+	}
 
 	@Override
 	public Post obtenerPostPorId(long id) {
@@ -162,7 +173,6 @@ public class ServicioPostsImpl implements ServicioPosts {
 
 	@Override
 	public void eliminarPostUsuarios(long id) {
-
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_POSTS_DE_USUARIO);
 		query.setParameter("id", id);
 		query.executeUpdate();

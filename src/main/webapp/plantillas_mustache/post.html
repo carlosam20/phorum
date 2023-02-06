@@ -2,7 +2,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/post.css">
+  <link rel="stylesheet" href="css/post.css">
 
 </head>
 
@@ -10,16 +10,18 @@
 
 <body>
 
-
-  <!--Side nav-->
-  <div id="mySidenav" class="sidenav">
+  <div id="comentarios" class="comentarios">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    
+
+    {{#.}}
+    {{#idComentario}}
+    <h1>Respuestas {{.}}</h1>
+    {{/idComentario}}
+    {{/.}}
     <!--Listado de comentarios del post-->
-
-
-    <h1>Respuestas</h1>
-
     <ul class="col-lg-8 col-md-8 col-sm-8 list-group ">
+      
       {{#.}}
       {{#idComentario}}
       <li class="list-group-item  flex-column align-items-center">
@@ -27,7 +29,6 @@
           <img class="s-avatar s-avatar__48 m-1"   src="subidasUsuario/{{idUsuario}}.jpg"
             alt="{{nombreUsuario}}">
           <h5 class="m-1">{{nombreUsuario}}</h5>   
-          
           <p class="m-1">{{textoComentario}}</p>
           <span>{{fechaCreacionComentario}}</span>
           <button class="btn btn-secondary boton_ver_usuario " type="button" id="{{idUsuarioComentario}}">Ver
@@ -45,7 +46,7 @@
   <!--Contenido del post-->
   {{#.}}
   {{#id}}
-  <div id="main">
+  <div id="post">
     <div class="recomendacionesPost">
       <div class="row m-3">
         <div class="col-lg-11 justify-content-center d-flex m-3">
@@ -59,8 +60,10 @@
               <p class="card-text">{{fechaCreacion}}</p>
               <p class="card-text">{{usuario}}</p>
               <button class="btn btn-primary responder" type="button">Responder</button>
-              <i class="fa-solid fa-thumbs-up">{{likes}}</i>
-
+              <div class="likes">
+                <i class="fa-light fa-thumbs-up"></i>
+                <p>{{likes}}</p>
+              </div>
             </div>
 
 
@@ -68,7 +71,7 @@
             <span class="card-text">{{usuario}}</span>
 
 
-            <!-- Use any element to open the sidenav -->
+            
             <button class="btn btn-primary" onclick="openNav()">Ver comentarios</button>
 
           </div>
@@ -83,4 +86,4 @@
 </body>
 
 </html>
-<script src="js/comentarios.js"></script>
+<script src="js/post.js"></script>

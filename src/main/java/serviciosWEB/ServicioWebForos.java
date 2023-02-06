@@ -61,34 +61,33 @@ public class ServicioWebForos {
 		List<Map<String, Object>> postsResults = servicioPosts.obtenerPostsParaListadoAleatorio();
 		String jsonPosts = new Gson().toJson(postsResults);
 
-		// Recogemos las keys del map
-		Set<String> keys = postsResults.get(0).keySet();
+		
+		if(postsResults.size()!=0){
+			// Recogemos las keys del map
+			Set<String> keys = postsResults.get(0).keySet();
 
-		// Las parseamos a iterdor para poder remplazarlas
-		Iterator<String> keysValues = keys.iterator();
+			// Las parseamos a iterdor para poder remplazarlas
+			Iterator<String> keysValues = keys.iterator();
 
-		// Anyadimos a las keys el "Post" para diferenciarlas
-		while (keysValues.hasNext()) {
-			String key = keysValues.next();
-			jsonPosts = jsonPosts.replaceAll(key, key + "Post");
+			// Anyadimos a las keys el "Post" para diferenciarlas
+			while (keysValues.hasNext()) {
+				String key = keysValues.next();
+				jsonPosts = jsonPosts.replaceAll(key, key + "Post");
+			}
+
+			// Cambiamos el cierre de jsonForos por una coma, para unirlo a jsonPosts,
+			// Adem�s de eliminar la abertura de jsonPost
+			jsonForos = jsonForos.replaceAll("}]", ",");
+			jsonPosts = jsonPosts.replaceAll(Pattern.quote("[{"), "");
+
+			jsonForos = jsonForos + jsonPosts;
+			return new ResponseEntity<String>(jsonForos, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<String>(jsonForos, HttpStatus.OK);
 		}
 
-		// Cambiamos el cierre de jsonForos por una coma, para unirlo a jsonPosts,
-		// Adem�s de eliminar la abertura de jsonPost
-		jsonForos = jsonForos.replaceAll("}]", ",");
-		jsonPosts = jsonPosts.replaceAll(Pattern.quote("[{"), "");
-
-		jsonForos = jsonForos + jsonPosts;
-		System.out.println(jsonForos);
-		return new ResponseEntity<String>(jsonForos, HttpStatus.OK);
 	}
-//	@RequestMapping("obtenerForo")
-//	public ResponseEntity<String> obtenerForo(String id){
-//		String json = new Gson().toJson(servicioForos.obtenerForo(Long.parseLong(id)));
-//		return new ResponseEntity<String>(
-//				json,HttpStatus.OK);
-//	}
-
 	@RequestMapping("registrarForos")
 	public ResponseEntity<String> registrarForo(@RequestParam Map<String, Object> formData,
 			@RequestParam("foto") CommonsMultipartFile foto, HttpServletRequest request) {

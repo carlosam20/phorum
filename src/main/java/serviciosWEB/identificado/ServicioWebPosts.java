@@ -124,34 +124,15 @@ public class ServicioWebPosts {
 			comentariosResults.get(i).keySet().remove("id");
 		}
 		
+		if(comentariosResults.size()!=0) {
+			String jsonComentarios = new Gson().toJson(comentariosResults);
+			jsonPosts = jsonPosts.replaceAll("}]", ",");
+			jsonComentarios = jsonComentarios.replaceAll(Pattern.quote("[{"), "");
+			jsonPosts = jsonPosts + jsonComentarios;
+			return new ResponseEntity<String>(jsonPosts, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>(jsonPosts, HttpStatus.OK);
+		}
 		
-		String jsonComentarios = new Gson().toJson(comentariosResults);
-			
-		// Recogemos las keys del map
-//		Set<String> keysComentarios = comentariosResults.get(0).keySet();
-
-
-		// Las parseamos a iterador para poder remplazarlas
-//		Iterator<String> keysValuesComentarios = keysComentarios.iterator();
-
-		
-
-		// Recogemos las keys de la busqueda 
-//		while (keysValuesComentarios.hasNext()) {
-//			String key = keysValuesComentarios.next();
-//		
-//
-//		}
-//		
-		jsonPosts = jsonPosts.replaceAll("}]", ",");
-		jsonComentarios = jsonComentarios.replaceAll(Pattern.quote("[{"), "");
-		
-		System.out.println("JSON jsonComentarios: "+jsonComentarios);
-		System.out.println("JSON jsonPosts: "+jsonPosts);
-		
-		jsonPosts = jsonPosts + jsonComentarios;
-		
-		
-		return new ResponseEntity<String>(jsonPosts, HttpStatus.OK);
 	}
 }

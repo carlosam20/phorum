@@ -68,7 +68,6 @@ public class GestorArchivos {
 	
 	public static void guardarImagenForo(Foro f, String rutaReal, CommonsMultipartFile foto) {
 		String nombreArchivo = f.getId()+".jpg";
-		
 		String rutaFotos = rutaReal+"/subidas";
 		File fileCarpetaFotos = new File(rutaFotos);
 		if( ! fileCarpetaFotos.exists()) {

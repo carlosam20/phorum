@@ -36,7 +36,6 @@ function listadoInicio() {
 	$.ajax("servicioWebForos/obtenerForosYPosts", {
 		success: function (data) {
 			$('body').removeClass('cargando');
-			console.log(numberOfEntries);
 			let forosYPost = JSON.parse(data);
 			let texto_html = "";
 			texto_html = Mustache.render(plantillaHome,
@@ -101,7 +100,7 @@ function obtener_listado_foros() {
 						success: function (res) {
 							if (res == "ok") {
 								alert("registrado correctamente");
-
+								
 								$('#crearForoModal').modal("hide");
 								obtener_listado_foros();
 							} else {
@@ -177,8 +176,6 @@ function obtener_listado_foros() {
 						//Boton Ver Post y Comentarios 
 						$(".boton_ver_post").click(function (e) {
 							let idPost = $(this).attr("id");
-							
-
 							$.ajax("identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" + idPost, {
 								success: function (data) {
 									alert("recibido: " + data);
@@ -200,8 +197,6 @@ function obtener_listado_foros() {
 
 			// Buscar foros
 			busquedaForos();
-
-
 
 		}//---end success---
 	});//--end ajax--
@@ -394,8 +389,8 @@ function logout() {
 	$.ajax("servicioWebUsuarios/logout", {
 		success: function (res) {
 			if (res == "ok") {
-				swal("", "Sesi&oacuten cerrada", "info");
-				location.reload();
+				swal("Sesión cerrada", "Operacion completada", "success").then(listadoInicio());
+				
 			}
 		}
 	});
@@ -466,7 +461,7 @@ function perfil() {
 								}//end Descripcion
 
 							} else {
-								swal("El nombre es incorrecto", "Error", "error");
+								
 							}//end Descripcion
 
 						}); //end Submit Form
@@ -484,10 +479,10 @@ function perfil() {
 			$(".boton_borrar_usuario").click(function (e) {
 				$.ajax("identificado/servicioWebUsuarios/borrarUsuarioPorId", {
 					success: function (data) {
-						alert("recibido: " + data);
-						if (data.contains("ok")) {
-							logout();
-							// listadoInicio();
+						if (data.includes("ok")) {
+							$.when(swal("Operacion correcta", "Se ha borrado el usuario", "success").then(
+							logout(),location.reload())
+							);
 						}
 					}//---end success---
 				});//--end ajax--

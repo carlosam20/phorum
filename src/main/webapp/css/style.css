@@ -42,23 +42,48 @@ body {
     font-size: 1rem;
 }
 
-h1,
-h2,
-h3,
-h4,
+h1{
+    color: var(--primary);
+    font-family: 'Lato', sans-serif;
+    font-size: 2.5rem;
+    
+}
+h2{
+    color: var(--primary);
+    font-family: 'Lato', sans-serif;
+    font-size: 1.6rem;
+    
+}
+h3{
+    color: var(--primary);
+    font-family: 'Lato', sans-serif;
+    font-size: 1.5rem;
+    
+}
+h4 {
+    color: var(--primary);
+    font-family: 'Lato', sans-serif;
+    font-size: 1.4rem;
+    
+}
 h5 {
     color: var(--primary);
     font-family: 'Lato', sans-serif;
     font-size: 1.3rem;
+    
 }
 
 a {
     text-decoration: none;
     color: var(--primary);
 }
+a:hover{
+    font-size: 1rem;
+}
+
 
 .text-primary {
-    color: var(--primary);
+    color: var(--primary) !;
 }
 
 
@@ -66,6 +91,10 @@ a {
 /* Botones */
 
 /* -Primarios */
+
+.btn{
+    border: none;
+}
 .btn-primary {
     background-color: var(--primary);
     color: white;
@@ -82,7 +111,24 @@ a {
 .btn-outline-primary {
     border-color: var(--primary);
     color: var(--primary);
+    background-color: white;
+    
 }
+
+.btn-outline-primary:hover{
+    border-color: white;
+    color: white;
+    background-color: var(--primaryHover);
+    
+}
+.btn-outline-primary:focus{
+   
+    border-color: var(--primaryHover);
+    color: var(--primaryHover);
+    background-color: var(--primaryFocus);
+    
+}
+
 
 
 /* -Secundarios */
@@ -101,9 +147,15 @@ a {
 }
 
 
-.header {
-    background-color: var(--secondary);
+/* Header */
+.waves {
+    background-image: url(../images/wavesHome.png);
     color:  var(--textLightColor);
+    background-color: var(--secondary);
+    background-repeat:no-repeat;
+    background-position: 75% 50%;
+    background-size: auto;
+    image-rendering: -webkit-optimize-contrast;
     
 }
 
@@ -155,7 +207,7 @@ a {
     line-height: 6.3rem;
     text-align: center;
     border: 1px solid #ddd;
-    box-shadow: 3px 4px #ddd;
+    
     border-radius: 2%;
     transition: all 200ms ease-in-out;
 }
@@ -309,9 +361,13 @@ body.cargando .spinner { visibility:visible !important; }
 /*Pantallas*/
 
 @media only screen and (max-width: 425px) {
-
+    .imagen-footer {
+        display: none;
+    }
 }
 
 @media only screen and (max-width: 768px) {
-
+    .imagen-footer {
+        display: none;
+    }
 }

@@ -3,17 +3,17 @@
 
 <head>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/home.css">
   <title>Home</title>
 </head>
 
 
 <body>
   <!-- Header -->
+  <div class="waves">
   <div class="header row p-2">
     <div class="header-titulos col-lg-6">
-      <h1 class="display-4 text-light ">Registrate en phorum</h1>
-      <h1 class="display-4 text-light ">Para tener una mejor experiencia</h1>
+      <h1 class="display-4 text-light "><b>Registrate en phorum</b></h1>
+      <h1 class="display-4 text-light "><b>Para tener una mejor experiencia</b></h1>
     </div>
 
 
@@ -251,14 +251,15 @@
       </svg>
       <!-- Termina imagen svg -->
 
-      <button class="btn btn-outline-primary m-3 bg-light" id="enlace_registrarme">Registrate</button>
+      <button class="btn btn-outline-primary m-3" id="enlace_registrarme">Registrate</button>
     </div>
 
   </div>
+</div>
 
 
 
-  <h1 class="text-primary text-center">Explora los foros</h1>
+  <h1 class="text-center m-1"><b>Explora los foros</b></h1>
   
   
   <!--Scroll container-->
@@ -267,11 +268,11 @@
       <div class="scroll">
         {{#.}}
         {{#id}}
-        <div class="item">
+        <div class="item shadow-sm">
           <a href="boton-foro" class="link-foro">
             <img src="subidas/{{id}}.jpg" alt="{{nombre}}" id="{{id}}" class="scroll-image s-avatar s-avatar__64"
               srcset="">
-            <h5 class="text text-primary">{{nombre}}</h5>
+            <h5 class="text-center">{{nombre}}</h5>
           </a>
         </div>
         {{/id}}
@@ -283,7 +284,7 @@
   
 
 
-  <h1 class="text-primary text-center">Explora los posts</h1>
+  <h1 class="text-center m-1"><b>Explora los posts</b></h1>
 
 
   <!-- Posts -->

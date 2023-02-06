@@ -29,6 +29,7 @@ public class ConstantesSQL {
 			+ "from comentario " 
 			+ "order by id desc";
 	
+	public final static String SQL_OBTENER_POST_REALIZADOR_POR_USUARIO="select * from post where usuario = :id";
 	//DESPLEGABLES
 	public final static String SQL_OBTENER_FOROS_PARA_DESPLEGABLE = "select id, nombre from foro order by id asc";
 	public final static String SQL_OBTENER_POSTS_PARA_DESPLEGABLE = "select id, nombre from post order by id asc";

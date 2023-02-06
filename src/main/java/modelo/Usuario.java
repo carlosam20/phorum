@@ -2,21 +2,11 @@ package modelo;
 
 
 import org.hibernate.validator.constraints.Email;
-
-
-
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
-
-import java.util.ArrayList;
-
-import java.util.List;
-
 import static javax.persistence.GenerationType.IDENTITY;
 
 

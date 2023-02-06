@@ -8,16 +8,17 @@
     height: auto;
 }
 
-#undraw_small_town_re_7mcn {
-    width: 40%;
-    height: auto;
-}
+/* Imagenes  */
 
 #imagen_form {
     width: auto;
     height: 100%;
 }
 
+#registrarse {
+    width: 35%;
+    height: auto;
+}
 
 #logo_phorum {
     width: 35%;

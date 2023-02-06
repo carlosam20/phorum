@@ -1,5 +1,7 @@
 package serviciosWEB.identificado;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
+import modelo.Post;
 import modelo.Usuario;
 import servicios.ServicioComentarios;
 import servicios.ServicioForos;
@@ -80,17 +83,23 @@ public class ServicioWebUsuarios {
 		String respuesta = "";
 		
 		
-		
 		//Hay que eliminar todos sus comentarios
 		servicioComentarios.borrarComentariosPorIdUsuario(u.getId());
-		//Hay que eliminar todos sus post
+		
+		//Eliminar comentarios de post del usuario
+		
+		
+		List<Map<String, Object>> postHechosPorUsuario = servicioPosts.obtenerPostsPorIdUsuario(u.getId());
+	
+		for (int i = 0; i < postHechosPorUsuario.size(); i++) {
+			System.out.println("Post Usuario:"+Long.parseLong(String.valueOf(postHechosPorUsuario.get(i).get("id"))));
+			servicioComentarios.borrarComentariosPoridPost( Long.parseLong(String.valueOf(postHechosPorUsuario.get(i).get("id"))));
+		}
+		
+		//Eliminar post hechos por el usuario
 		servicioPosts.eliminarPostUsuarios(u.getId());
-		//Hay que eliminar todos los foros
-		
-		//El problema es que si borro el usuario y no cambio el usuario del foro hay que borrar el foro
-		//Si no no me deja cerrarlo la verdad es una putada
-		
 		servicioUsuarios.eliminarUsuario(u.getId());
+		
 		respuesta = "ok";
 		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
 	}

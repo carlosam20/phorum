@@ -12,7 +12,6 @@ import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-
 @Entity
 public class Foro {
     @Id
@@ -30,13 +29,9 @@ public class Foro {
     @Transient
     private MultipartFile imagen;
     
-    
 
-    public Foro() {
-    }
-
-    
-
+	public Foro() {}
+  
     public Foro(Long id, String nombre, String descripcion, List<Post> posts, String fechaCreacion,
 			MultipartFile imagen, List<Usuario> usuarios) {
 		super();
@@ -90,11 +85,6 @@ public class Foro {
         this.fechaCreacion = fechaCreacion;
     }
  
-
-    
-    
-
-
 	public MultipartFile getImagen() {
         return imagen;
     }

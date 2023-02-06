@@ -1,17 +1,25 @@
-.sidenav {
+
+.comentarios {
   height: 100%;
   width: 0;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
   overflow-x: hidden;
   padding-top: 60px;
   transition: 0.5s;
+
+  /* Glasmorfismo */
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(221, 221, 221, 0.75);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3);
+
 }
 
-.sidenav a {
+.comentarios a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
@@ -20,11 +28,11 @@
   transition: 0.3s;
 }
 
-.sidenav a:hover {
+.comentarios a:hover {
   color: #f1f1f1;
 }
 
-.sidenav .closebtn {
+.comentarios .closebtn {
   position: absolute;
   top: 0;
   right: 25px;
@@ -32,14 +40,14 @@
   margin-left: 50px;
 }
 
-#main {
+#post {
   transition: margin-left .5s;
   padding: 20px;
 }
 
-@media screen and (max-height: 600px) {
-  .sidenav {
-    padding-top: 15px;
-  }
 
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }
