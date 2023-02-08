@@ -30,6 +30,7 @@ public class ServicioForosImpl implements ServicioForos {
 				.createSQLQuery(ConstantesSQL.SQL_OBTENER_FOROS_PARA_LISTADO);
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 		List<Map<String, Object>> res = query.list();
+		
 		return res;
 	}
 
@@ -76,6 +77,7 @@ public class ServicioForosImpl implements ServicioForos {
 		query.setParameter("nombre", "%" + nombre + "%");
 		return Integer.parseInt(query.list().get(0).toString());
 	}
+	
 
 	@Override
 	public List<Foro> obtenerForos(String nombre, int comienzo) {

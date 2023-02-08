@@ -33,5 +33,9 @@ function cargar_plantillas_del_servidor(){
 	$.get("plantillas_mustache/perfil.html",function(data){
 		plantillaPerfil = data;
 	});
+    //TODO hacer una nueva plantilla sin los botones de editar ni borrar solo para que el usuario lo vea
+    $.get("plantillas_mustache/perfil.html",function(data){
+		plantillaPerfilUsuarioComentario = data;
+	});
 		
 }

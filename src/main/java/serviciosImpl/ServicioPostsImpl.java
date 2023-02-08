@@ -53,6 +53,13 @@ public class ServicioPostsImpl implements ServicioPosts {
 		query.setParameter("nombre", "%" + nombre + "%");
 		return Integer.parseInt(query.list().get(0).toString());
 	}
+	
+	@Override
+	public int obtenerTotalDePostsDeUsuario(long id) {
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_TOTAL_POST_USUARIO);
+		query.setParameter("id", id);
+		return Integer.parseInt(query.list().get(0).toString());
+	}
 
 	@Override
 	public List<Post> obtenerPosts(String nombre, int comienzo) {
@@ -149,8 +156,6 @@ public class ServicioPostsImpl implements ServicioPosts {
 		query.setParameter("foro", p.getForo());
 		query.setParameter("usuario", p.getUsuario());
 		query.executeUpdate();
-
-		// sessionFactory.getCurrentSession().merge(p);
 
 	}
 

@@ -3,48 +3,232 @@ html{
     margin: 0 !important;
 }
 
+/* Root */
+:root {
+    --primary: #003F30;
+    --primaryHover:#00140F;
+    --primaryFocus:#439F88;
 
-form{
-    border: 5px 5px 5px 5px #535395;
+    --secondary: #060637;
+    --secondaryHover: #202031;
+    --secondaryFocus: #9C9CD3;
+
+    --footer-color: #002031;
+    --textLightColor: #34403A;
 }
-contenedor-form{
-	height: 50% !important;
-	width:auto 
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
 }
 
 h1{
+    color: var(--primary);
     font-family: 'Lato', sans-serif;
-    font-size: 24px;
-    font-weight:800;
-    color:"#202031";
+    font-size: 2.5rem;
+    
 }
-input{
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    border:5px, solid, #202031;
+h2{
+    color: var(--primary);
+    font-family: 'Lato', sans-serif;
+    font-size: 1.6rem;
+    
+}
+h3{
+    color: var(--primary);
+    font-family: 'Lato', sans-serif;
+    font-size: 1.5rem;
+    
+}
+h4 {
+    color: var(--primary);
+    font-family: 'Lato', sans-serif;
+    font-size: 1.4rem;
+    
+}
+h5 {
+    color: var(--primary);
+    font-family: 'Lato', sans-serif;
+    font-size: 1.3rem;
+    
 }
 
-img{
-  width: 15%;
-  height: auto;
-  position: relative;
-  background: #202031;
-  border: 2px solid white;
-  border-radius: 15px;
-  
+a {
+    text-decoration: none;
+    color: var(--primary);
 }
+a:hover{
+    font-size: 1rem;
+}
+
+
+.text-primary {
+    color: var(--primary) !;
+}
+
+
+
+/* Botones */
+
+/* -Primarios */
 
 .btn{
-	color: white;
-	background:#535395;
+    border: none;
 }
-.btn:hover{
-	color: white;
-	background:#202031;	
+.btn-primary {
+    background-color: var(--secondaryFocus);
+    color: white;
 }
-.btn:active:after {
-    padding: 0;
-    margin: 0;
-    opacity: 1;
-    transition: 0s
-  }
+.btn-primary:hover {
+    background-color: var(--primaryHover);
+    color: white;
+}
+.btn-primary:focus{
+    background-color: var(--primary);
+    color: var(--textLightColor);
+}
+
+.btn-outline-primary {
+    border-color: var(--primary);
+    color: var(--primary);
+    background-color: white;
+    
+}
+
+.btn-outline-primary:hover{
+    border-color: white;
+    color: white;
+    background-color: var(--primaryHover);
+    
+}
+.btn-outline-primary:focus{
+   
+    border-color: var(--primaryHover);
+    color: var(--primaryHover);
+    background-color: var(--primaryFocus);
+    
+}
+/* -Secundarios */
+
+.btn-secondary {
+    background-color: var(--secondaryFocus);
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: var(--secondaryHover);
+    color: white;
+}
+.btn-secondary:focus {
+    background-color: var(--secondary);
+    color: var(--textLightColor);
+}
+
+
+/* Cabecera */
+img {
+    background-color: var(--secondaryHover);
+    width: 50%;
+}
+
+
+/*Navbar*/
+nav > a {
+    font-family: 'Lato', sans-serif;
+    padding: 1rem;
+}
+
+nav {
+    background-color: var(--primaryFocus);
+    text-align: center;
+}
+
+
+
+
+/*Scroll bar*/
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 1px 1px 3px #969696;
+    border-radius: 2px;}
+
+::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 2px;
+}
+
+/*Cartas*/
+.card {
+    width: 50%;
+    height: auto;
+    transition: all 200ms ease-in-out;
+}
+
+.card > a {
+    text-decoration: none;
+    color: var(--primary);
+
+}
+
+.card:hover {
+    transition: all 200ms ease-in-out;
+    box-shadow: 7px 9px 13px 0px rgba(0, 0, 0, 0.67);
+}
+
+/*Botones*/
+.material-symbols-outlined {
+    font-size: 2em;
+}
+
+.badge {
+    font-size: 1em;
+}
+
+#file-upload-button {
+    background-color: var(--secondary);
+}
+
+/*Forms*/
+::placeholder {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: black;
+}
+
+
+/*Modal Bootstrap */
+.modal-backdrop {
+    opacity: 0.8 !important;
+}
+
+.modal-dialog {
+    margin: 0rem;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+/*Modal Swal*/
+.swal {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+}
+
+.swal-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.4rem;
+}
+
+.swal-button {
+    background-color: var(--primary);
+    border: 1px solid white;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* Spinner */
+#spinner { visibility:hidden; } 
+body.cargando .spinner { visibility:visible !important; }
+
+

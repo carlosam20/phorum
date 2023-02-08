@@ -3,6 +3,7 @@
 let email = "";
 let pass = "";
 let nombre_login = "";
+let idUsuario = "";
 
 //Carga de plantillas en variables
 let plantillaHome = "";
@@ -16,13 +17,7 @@ let plantillaRegistrarUsuario = "";
 let plantillaIdentificarUsuario = "";
 let plantillaEditarUsuario = "";
 let plantillaPerfil = "";
-
-
-//URL
-const URL = window.location.href;
-
-
-
+let plantillaPerfilUsuarioComentario = "";
 
 //Metodos OnInit
 cargar_plantillas_del_servidor();
@@ -35,18 +30,16 @@ function listadoInicio() {
 
 	$.ajax("servicioWebForos/obtenerForosYPosts", {
 		success: function (data) {
-			$('body').removeClass('cargando');
+			$("body").removeClass("cargando");
 			let forosYPost = JSON.parse(data);
 			let texto_html = "";
 			texto_html = Mustache.render(plantillaHome,
 				forosYPost);
 			$("#contenedor").html(texto_html);
 
-
 		}//---end success ---
 	}); //---end ajax ---
 }
-
 
 function busquedaForos() {
 	//Buscador de Foros
@@ -58,16 +51,17 @@ function busquedaForos() {
 				let texto_html = "";
 				texto_html = Mustache.render(plantillaListarForosBusqueda, forosEncontrados);
 				$("#contenedor").html(texto_html);
-				busquedaForos();
 			}//---end success---
-
-		});//--end ajax obtenerForosBuscados--
+		}.done(busquedaForos()));//--end ajax obtenerForosBuscados--
 
 	});//--end click boton_buscar--
 }
 
-function obtener_listado_foros() {
+function obtener_post_y_comentarios(idPost) {
 
+}
+
+function obtener_listado_foros() {
 	$.ajax("servicioWebForos/obtenerForos", {
 		success: function (data) {
 			console.log(numberOfEntries);
@@ -109,102 +103,153 @@ function obtener_listado_foros() {
 							}
 						}
 					});
-
-
-
 				}//end if validaciones
 				e.preventDefault();
 			});
 
 
-			//Boton Ver Posts de Foro	
-			$(".boton_post_foro").click(function (e) {
-				let id = $(this).attr("id");
-				console.log(numberOfEntries);
+			//Boton Ver Posts de Foro
+			
 
-				$.ajax("servicioWebPosts/obtenerPostPorForoId?id=" + id, {
-					success: function (data) {
-						let posts = JSON.parse(data);
-						let texto_html = Mustache.render(plantillaListarPosts, posts);
-						$("#contenedor").html(texto_html);
+				$(".boton_post_foro").click(function (e) {
+					let id = $(this).attr("id");
+					console.log(numberOfEntries);
 
-
-						//Registrar Post
-						$("#form_registro_post").submit(function (e) {
-							let nombre = $("#nombre").val();
-							let descripcion = $("#descripcion").val();
-
-							let idUsuario = "";
-							let idForo = id;
-
-							$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
-								success: function (data) {
-									//alert("recibido: "+data);
-									let info = JSON.parse(data);
-									idUsuario = info.id;
-
-									let formulario = document.forms[0];
-									let formData = new FormData(formulario);
-									formData.append('idForo', idForo);
-									formData.append('idUsuario', idUsuario);
+					//ObtenerPostPorForoDeID
+					$.ajax("servicioWebPosts/obtenerPostPorForoId?id=" + id, {
+						success: function (data) {
+							let posts = JSON.parse(data);
+							let texto_html = Mustache.render(plantillaListarPosts, posts);
+							$("#contenedor").html(texto_html);
 
 
-									$.ajax("identificado/servicioWebPosts/registrarPosts", {
+							//Registrar Post
+							$("#form_registro_post").submit(function (e) {
+								let nombre = $("#nombre").val();
+								let descripcion = $("#descripcion").val();
+
+								idUsuario = "";
+								let idForo = id;
+
+								$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
+									success: function (data) {
+										//alert("recibido: "+data);
+										let info = JSON.parse(data);
+										idUsuario = info.id;
+
+										let formulario = document.forms[0];
+										let formData = new FormData(formulario);
+										formData.append('idForo', idForo);
+										formData.append('idUsuario', idUsuario);
+
+
+										$.ajax("identificado/servicioWebPosts/registrarPosts", {
+											type: "POST",
+											data: formData,
+											cache: false,
+											contentType: false,
+											processData: false,
+											success: function (res) {
+												if (res == "ok") {
+													$('#crearPostModal').modal("hide");
+													obtener_listado_posts();
+												} else {
+													swal("Error de sintaxis en algun form del post", "Post no valido", "error");
+													alert(res);
+												}
+											} //end Success Registrar Post
+										}); //end Registrar Post
+
+									}//end Success (Recogemos El id del usuario)
+								});	//end ajax ObtenerUsuario
+
+								e.preventDefault();
+							});
+
+
+							//Boton Ver Post y Comentarios 
+							$(".boton_ver_post").click(function (e) {
+								let idPost = $(this).attr("id");
+								$.ajax("identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" + idPost, {
+									success: function (data) {
+										alert("recibido: " + data);
+										let postYComentarios = JSON.parse(data);
+										let texto_html = "";
+										texto_html = Mustache.render(plantillaListarPostYComentarios, postYComentarios);
+										$("#contenedor").html(texto_html);
+
+									}//---end success---
+								});//--end ajax--
+
+
+								//Responder a comentario
+								$("boton_responder").click(function (e) {
+									let idPost = $(this).attr("id");
+									$("#form_registro_comentario").submit(function (e) {
+										let info = JSON.parse(data);
+										idUsuario = info.id;
+
+										let formulario = document.forms[0];
+										let formData = new FormData(formulario);
+										$.ajax("identificado/servicioWebPosts/registrarComentario", {
+											type: "POST",
+											data: formData,
+											cache: false,
+											contentType: false,
+											processData: false,
+											success: function (res) {
+												if (res == "ok") {
+													$('#crearComentarioModal').modal("hide");
+													//TODO recargar PostYcomentarios aqui
+												} else {
+													swal("Error de sintaxis en algun form del comentario", "Post no valido", "error");
+													alert(res);
+												}
+											} //end Success Registrar Post
+										}); //end Registrar Post
+									});
+
+
+								});
+
+								//Ver Perfil del usuario que comento
+								$("boton_ver_perfil").click(function (e) {
+									let idUsuarioComentario = $(this).attr("id");
+
+									$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioComentarioPorId=" + idUsuarioComentario, {
 										type: "POST",
 										data: formData,
 										cache: false,
 										contentType: false,
 										processData: false,
 										success: function (res) {
-											if (res == "ok") {
-												$('#crearPostModal').modal('hide');
-												location.reload();
-												// obtener_listado_posts();
-											} else {
-												swal("Error de sintaxis en algun form del post", "Post no valido", "error");
-												alert(res);
-											}
-										} //end Success Registrar Post
-									}); //end Registrar Post
+											alert("recibido: " + data);
+											let info = JSON.parse(data);
+											let texto_html = "";
 
-								}//end Success (Recogemos El id del usuario)
-							});	//end ajax ObtenerUsuario
+											texto_html = Mustache.render(plantillaPerfil, info);
+											$("#contenedor").html(texto_html);
+										}
+									});
 
-							e.preventDefault();
-						});
+								});
+							});
 
-						//Boton Ver Post y Comentarios 
-						$(".boton_ver_post").click(function (e) {
-							let idPost = $(this).attr("id");
-							$.ajax("identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" + idPost, {
-								success: function (data) {
-									alert("recibido: " + data);
-									let postYComentarios = JSON.parse(data);
-									let texto_html = "";
-									texto_html = Mustache.render(plantillaListarPostYComentarios, postYComentarios);
-									$("#contenedor").html(texto_html);
 
-								}//---end success---
-							});//--end ajax--
 
-						});
-					}//---end success---
-				});//--end ajax--
 
-				e.preventDefault();
+						}//---end success---
+					});//--end ajax--
 
-			});//--end obtener_listado-comentarios_post--
+					e.preventDefault();
 
-			// Buscar foros
-			busquedaForos();
+				});//--end obtener_listado-comentarios_post--
 
+				// Buscar foros
+				busquedaForos();
+			
 		}//---end success---
 	});//--end ajax--
-
-
-
-
-
 }//-end obtener_listado-
 
 
@@ -363,14 +408,14 @@ function mostrarIdentificacionUsuario() {
 								Cookies.set('email', email, { expires: 100 });
 								Cookies.set('pass', pass, { expires: 100 });
 							}
+
 							$("#mensaje_login").html(nombre_login);
-
-
 						} else {
 							alert(res);
 						}
 					}
-				});//end.ajax
+				});
+				//end.ajax
 
 			} else {
 				swal("El formato de la contraseña no es valido", "Fallo", "error");
@@ -390,15 +435,13 @@ function logout() {
 		success: function (res) {
 			if (res == "ok") {
 				swal("Sesi&oacuten cerrada", "Operaci&oacuten completada", "success");
-				setTimeout(() => {  location.reload(); }, 2000);
+				setTimeout(() => { location.reload(); }, 2000);
 			}
 		}
 	});
 }
 
 function perfil() {
-
-
 	$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
 		success: function (data) {
 			alert("recibido: " + data);
@@ -412,7 +455,6 @@ function perfil() {
 			$(".boton_editar_usuario").click(function (e) {
 
 				$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
-					url: URL + "/perfil/",
 					success: function (data) {
 						alert("recibido: " + data);
 						let info = JSON.parse(data);
@@ -423,7 +465,7 @@ function perfil() {
 						//Form
 						$("#form_editar_usuario").submit(function (e) {
 
-							//letiables form
+
 							let nombre = $("#nombre").val();
 							let email = $("#email").val();
 							let descripcion = $("#descripcion").val();
@@ -445,6 +487,12 @@ function perfil() {
 												processData: false,
 												success: function (res) {
 
+													caches.open("v1").then((cache) => {
+														cache.delete("/images/" + idUsuario + ".jpg").then((response) => {
+															someUIUpdateFunction();
+															window.location.reload();
+														});
+													});
 												}
 											});
 
@@ -463,15 +511,13 @@ function perfil() {
 							} else {
 
 							}//end Descripcion
-
 						}); //end Submit Form
-						e.preventDefault();
-
 
 					}//end Success (Carga plantilla)
 
 				});	//end ajax 
 				e.preventDefault();
+
 			});//-end enlace editar
 
 
@@ -493,7 +539,7 @@ function perfil() {
 										swal("El usuario se ha eliminado", {
 											icon: "success",
 										})
-										setTimeout(() => {  logout(); }, 2000);
+										setTimeout(() => { logout(); }, 2000);
 									}
 								}//---end success---
 							});//--end ajax--

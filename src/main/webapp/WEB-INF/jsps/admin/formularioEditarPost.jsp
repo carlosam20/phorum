@@ -42,7 +42,7 @@ usuario: <springform:select path="idUsuario">
 <input class="btn btn-primary" type="submit" value="Guardar Cambios">
 </springform:form>
 
-<script src="../js/admin.js"></script>
+<script src="../js/reloadCache.js"></script>
 </body>
 </html>
 

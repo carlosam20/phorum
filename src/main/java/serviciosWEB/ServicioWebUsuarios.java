@@ -34,12 +34,10 @@ public class ServicioWebUsuarios {
 		// devolver duplicado si ocurre
 
 		String respuesta = "";
-		System.out.println("--------" + formData);
-
 		Gson gson = new Gson();
+
 		JsonElement json = gson.toJsonTree(formData);
 
-		System.out.println("--------" + json);
 		Usuario u = gson.fromJson(json, Usuario.class);
 		System.out.println("usuario a registrar: " + u.toString());
 		servicioUsuarios.registrarUsuario(u);

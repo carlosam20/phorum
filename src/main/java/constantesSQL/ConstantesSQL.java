@@ -40,6 +40,12 @@ public class ConstantesSQL {
 	public static final String OBTENER_TOTAL_FOROS = "select count(id) from foro where nombre like :nombre ";
 	public static final String OBTENER_TOTAL_POSTS = "select count(id) from post where nombre like :nombre";
 	public static final String OBTENER_TOTAL_COMENTARIOS= "select count(id) from comentario where textoComentario like :textoComentario ";
+	
+	
+	public static final String OBTENER_TOTAL_COMENTARIOS_USUARIO= "select count(id) from comentario where usuario like :id ";
+	public static final String OBTENER_TOTAL_POST_USUARIO= "select count(id) from comentario where usuario like :id ";
+	public static final String OBTENER_TOTAL_FORO_USUARIO= "select count(id) from comentario where usuario like :id ";
+	
 	public static final String OBTENER_POST_POR_ID_USUARIO = "select count(p.id) from post as p  where usuario = :id";
 	
 	
@@ -54,7 +60,9 @@ public class ConstantesSQL {
 
 	
 	//UPDATES
-	public static final String ACTUALIZAR_POST = "UPDATE `post` SET `id`= :id,`descripcion`= :descripcion,`fechaCreacion`= :fechaCreacion,`nombre`= :nombre,`foro`= :foro ,`usuario`= :usuario,`likes`= :likes WHERE id = :id";
+	public static final String ACTUALIZAR_POST = "UPDATE post SET id= :id, descripcion= :descripcion, fechaCreacion = :fechaCreacion, nombre = :nombre, foro = :foro , usuario = :usuario, likes = :likes WHERE id = :id";
+	
+	public static final String ACTUALIZAR_USUARIO = "UPDATE usuario SET id = :id, descripcion= :descripcion, email = :email, fechaCreacion= :fechaCreacion, nombre = :nombre, pass = :pass WHERE id = :id";
 	
 		
 	//OBTENER POR ID

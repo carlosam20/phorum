@@ -37,7 +37,7 @@
 
 </body>
 
-<script src="../js/admin.js"></script>
+<script src="../js/reloadCache.js"></script>
 </html>
 
 

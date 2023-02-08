@@ -1,6 +1,5 @@
 package serviciosWEB.identificado;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +16,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
-import modelo.Post;
 import modelo.Usuario;
 import servicios.ServicioComentarios;
 import servicios.ServicioForos;
@@ -40,17 +39,47 @@ public class ServicioWebUsuarios {
 	@Autowired
 	private ServicioPosts servicioPosts;
 	
-	@Autowired
-	private ServicioForos servicioForos;
+
 	
 
 	@RequestMapping("obtenerUsuarioPorId")
 	public ResponseEntity<String> obtenerUsuarioPorId(HttpServletRequest request) {
 
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
-		System.out.println("----El id----" + u.getId());
-		String json = new Gson().toJson(servicioUsuarios.obtenerUsuarioPorId(u.getId()));
+		int numeroComentarios = servicioComentarios.obtenerTotalDeComentariosDeUsuario(Long.parseLong(String.valueOf(u.getId())));
+		int numeroPost = servicioComentarios.obtenerTotalDeComentariosDeUsuario(Long.parseLong(String.valueOf(u.getId())));
+		
+		Map<String,Object> usuario = servicioUsuarios.obtenerUsuarioPorId(u.getId());
+		
+		usuario.put("numeroComentarios", numeroComentarios);
+		usuario.put("numeroPost", numeroPost);		
+	
+		
+		String json = new Gson().toJson(usuario);
+		System.out.println("json: "+json);
+		
 		return new ResponseEntity<String>(json, HttpStatus.OK);
+	}
+	
+	@RequestMapping("obtenerUsuarioComentarioPorId")
+	public ResponseEntity<String> obtenerUsuarioComentarioPorId(String idUsuarioComentario){
+		
+		int numeroComentarios = servicioComentarios.obtenerTotalDeComentariosDeUsuario(Long.parseLong(idUsuarioComentario));
+		int numeroPost = servicioComentarios.obtenerTotalDeComentariosDeUsuario(Long.parseLong(String.valueOf(idUsuarioComentario)));
+		
+		Map<String,Object> usuario = servicioUsuarios.obtenerUsuarioPorId(Long.parseLong(idUsuarioComentario));
+		
+		usuario.put("numeroComentarios", numeroComentarios);
+		usuario.put("numeroPost", numeroPost);		
+	
+		
+		String json = new Gson().toJson(usuario);
+		System.out.println("json: "+json);
+		
+		return new ResponseEntity<String>(json, HttpStatus.OK);
+		
+		
+		
 	}
 
 	@RequestMapping("editarUsuarioPorId")

@@ -8,7 +8,8 @@ import modelo.Post;
 
 public interface ServicioPosts {
 
-public int obtenerTotalDePosts(String marca);
+int obtenerTotalDePostsDeUsuario(long id);
+int obtenerTotalDePosts(String marca);
 List<Post> obtenerPosts(String marca, int comienzo);
 List<Map<String, Object>> obtenerPostsParaListadoAleatorio();
 List<Map<String, Object>> obtenerPostsPorId(long id);

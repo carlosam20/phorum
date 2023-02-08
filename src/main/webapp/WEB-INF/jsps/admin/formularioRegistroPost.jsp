@@ -43,7 +43,7 @@ usuario: <springform:select path="idUsuario">
 </springform:form>
 
 </body>
-<script src="../js/admin.js"></script>
+<script src="../js/reloadCache.js"></script>
 </html>
 
 

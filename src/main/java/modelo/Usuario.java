@@ -32,9 +32,7 @@ public class Usuario  {
     private String fechaCreacion;
     
     
-    //@Pattern(regexp = "^[0-9a-z A-ZáéíóúÁÉÍÓÚ]{3,60}$", message="Las descripciones solo admiten letras, numeros y espacios")
-    //private String descripcion;
-    
+    //@Pattern(regexp = "^[0-9a-z A-ZáéíóúÁÉÍÓÚ]{3,60}$", message="Las descripciones solo admiten letras, numeros y espacios") 
     private String descripcion;
 
     

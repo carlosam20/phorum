@@ -47,6 +47,15 @@ public class ServicioComentariosImpl implements ServicioComentarios{
 		return Integer.parseInt(query.list().get(0).toString());
 		
 	}
+	
+	public int obtenerTotalDeComentariosDeUsuario(long id) {
+		SQLQuery query = sessionFactory.getCurrentSession().
+		createSQLQuery(ConstantesSQL.OBTENER_TOTAL_COMENTARIOS_USUARIO);
+		query.setParameter("id", id);
+		
+		return Integer.parseInt(query.list().get(0).toString());
+		
+	}
 
 	@Override
 	public List<Comentario> obtenerComentarios(String textoComentario, int comienzo) {

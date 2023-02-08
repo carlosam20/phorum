@@ -12,7 +12,8 @@ public interface ServicioComentarios {
 
 
 List<Map<String, Object>> obtenerComentariosParaListado();
-public int obtenerTotalDeComentarios(String textoComentario);
+int obtenerTotalDeComentariosDeUsuario(long id);
+int obtenerTotalDeComentarios(String textoComentario);
 List<Comentario> obtenerComentarios(String textoComentario, int comienzo);
 Comentario obtenerComentariosPorId(long id);
 List<Long>  obtenerIdComentariosDePost(long id);

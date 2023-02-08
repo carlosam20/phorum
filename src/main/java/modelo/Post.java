@@ -1,6 +1,7 @@
 package modelo;
 
 
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -40,12 +41,17 @@ public class Post {
 
     
     @Transient
+    @NumberFormat
     private long idForo;
 
     @Transient
     private long idUsuario;
    
+    @NumberFormat
     private long likes;
+    
+    @NumberFormat
+    private long dislikes;
 
 	public Post() {
     	
