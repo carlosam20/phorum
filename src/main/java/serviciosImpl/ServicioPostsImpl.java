@@ -152,7 +152,8 @@ public class ServicioPostsImpl implements ServicioPosts {
 		query.setParameter("descripcion", p.getDescripcion());
 		query.setParameter("fechaCreacion", p.getFechaCreacion());
 		query.setParameter("nombre", p.getNombre());
-		query.setParameter("likes", p.getLikes());
+		
+		query.setParameter("postValoraciones()", p.getPostValoraciones());
 		query.setParameter("foro", p.getForo());
 		query.setParameter("usuario", p.getUsuario());
 		query.executeUpdate();

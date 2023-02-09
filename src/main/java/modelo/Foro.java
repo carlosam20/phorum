@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -21,9 +22,12 @@ public class Foro {
     private String nombre;
     @NotBlank(message = "Se requiere una descripción")
     private String descripcion;
-    @OneToMany(cascade = {CascadeType.MERGE},mappedBy="foro", fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.MERGE},mappedBy="foro")
     private List<Post> posts = new ArrayList<Post>();
-
+    
+    @OneToMany(cascade = {CascadeType.MERGE},mappedBy="foro")
+    private List<Sigue> seguidores;
+    
     private String fechaCreacion;
 
     @Transient
@@ -33,7 +37,7 @@ public class Foro {
 	public Foro() {}
   
     public Foro(Long id, String nombre, String descripcion, List<Post> posts, String fechaCreacion,
-			MultipartFile imagen, List<Usuario> usuarios) {
+			MultipartFile imagen, List<Sigue> seguidores) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -41,10 +45,11 @@ public class Foro {
 		this.posts = posts;
 		this.fechaCreacion = fechaCreacion;
 		this.imagen = imagen;
+		this.seguidores =seguidores;
 		
 	}
 	
-
+    
     public Long getId() {
 		return id;
 	}
@@ -92,4 +97,13 @@ public class Foro {
     public void setImagen(MultipartFile imagen) {
         this.imagen = imagen;
     }
+
+	public List<Sigue> getSeguidores() {
+		return seguidores;
+	}
+
+	public void setSeguidores(List<Sigue> segidores) {
+		this.seguidores = segidores;
+	}
+    
 }

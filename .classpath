@@ -9,6 +9,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/kikuy/Downloads/bcrypt-0.9.0-optimized.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/bcprov-jdk15on-1.70.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

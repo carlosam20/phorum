@@ -1,6 +1,8 @@
 package serviciosWEB;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 import modelo.Post;
-
+import modelo.ValoracionesPostUsuario;
 import servicios.ServicioPosts;
 import utilidadesArchivos.GestorArchivos;
 
@@ -55,7 +57,10 @@ public class ServicioWebPosts {
 		f.setIdForo(Long.parseLong(idForo));
 		f.setIdUsuario(Long.parseLong(idUsuario));
 		System.out.println("foro a registrar: " + f.toString());
-		f.setLikes(0);
+		
+		//Post Valoraciones
+		List<ValoracionesPostUsuario> postValoraciones = new ArrayList<ValoracionesPostUsuario>();
+		f.setPostValoraciones(postValoraciones);
 		f.setFechaCreacion(LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-"
 				+ LocalDate.now().getYear());
 		servicioPosts.registrarPost(f);

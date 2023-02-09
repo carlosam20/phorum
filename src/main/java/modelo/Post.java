@@ -13,6 +13,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 public class Post {
@@ -45,13 +48,11 @@ public class Post {
     private long idForo;
 
     @Transient
+    @NumberFormat
     private long idUsuario;
    
-    @NumberFormat
-    private long likes;
-    
-    @NumberFormat
-    private long dislikes;
+    @OneToMany (cascade = {CascadeType.MERGE},mappedBy="post")
+    private  List<ValoracionesPostUsuario> postValoraciones = new ArrayList<ValoracionesPostUsuario>();
 
 	public Post() {
     	
@@ -59,7 +60,7 @@ public class Post {
 
 
 	public Post(Long id, String nombre, String descripcion, String fechaCreacion, Foro foro, MultipartFile imagen,
-			Usuario usuario, long idForo, long idUsuario, long likes) {
+			Usuario usuario, long idForo, long idUsuario, List<ValoracionesPostUsuario> postValoraciones) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -70,7 +71,7 @@ public class Post {
 		this.usuario = usuario;
 		this.idForo = idForo;
 		this.idUsuario = idUsuario;
-		this.likes = likes;
+		this.postValoraciones =postValoraciones;
 	}
 
 	
@@ -166,17 +167,16 @@ public class Post {
 	}
 
 
-	public long getLikes() {
-		return likes;
+	public List<ValoracionesPostUsuario> getPostValoraciones() {
+		return postValoraciones;
 	}
 
 
-	public void setLikes(long likes) {
-		this.likes = likes;
+	public void setPostValoraciones(List<ValoracionesPostUsuario> postValoraciones) {
+		this.postValoraciones = postValoraciones;
 	}
 
 
-
-
+	
 
 }

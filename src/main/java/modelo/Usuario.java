@@ -2,12 +2,17 @@ package modelo;
 
 
 import org.hibernate.validator.constraints.Email;
+
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -29,16 +34,22 @@ public class Usuario  {
     @NotEmpty(message = "Introduce un email")	
     private String email;
     
+    @NotBlank
     private String fechaCreacion;
-    
     
     //@Pattern(regexp = "^[0-9a-z A-Z·ÈÌÛ˙¡…Õ”⁄]{3,60}$", message="Las descripciones solo admiten letras, numeros y espacios") 
     private String descripcion;
-
+    
+    @OneToMany (cascade = {CascadeType.MERGE},mappedBy="usuario")
+    private  List<ValoracionesPostUsuario> usuariosValoraciones = new ArrayList<ValoracionesPostUsuario>();
+    
+    
+    @OneToMany (cascade = {CascadeType.MERGE},mappedBy="usuario")
+    private  List<Sigue> forosSeguidos = new ArrayList<Sigue>();
+    
+    
     
    
-    
-
     @Transient
     private MultipartFile imagen;
 
@@ -46,9 +57,8 @@ public class Usuario  {
     public Usuario(){}
 
 
-
-
-	public Usuario(Long id, String nombre, String pass, String email, String fechaCreacion, String descripcion, MultipartFile imagen) {
+	public Usuario(Long id, String nombre, String pass, String email, String fechaCreacion, String descripcion,
+			List<ValoracionesPostUsuario> usuariosValoraciones, List<Sigue> forosSeguidos, MultipartFile imagen) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -56,16 +66,15 @@ public class Usuario  {
 		this.email = email;
 		this.fechaCreacion = fechaCreacion;
 		this.descripcion = descripcion;
+		this.usuariosValoraciones = usuariosValoraciones;
+		this.forosSeguidos = forosSeguidos;
 		this.imagen = imagen;
 	}
-
-
 
 
 	public Long getId() {
 		return id;
 	}
-
 
 
 
@@ -157,7 +166,27 @@ public class Usuario  {
 
 
 
+	public List<ValoracionesPostUsuario> getUsuariosValoraciones() {
+		return usuariosValoraciones;
+	}
 
+
+
+	public void setUsuariosValoraciones(List<ValoracionesPostUsuario> usuariosValoraciones) {
+		this.usuariosValoraciones = usuariosValoraciones;
+	}
+
+
+
+	public List<Sigue> getForosSeguidos() {
+		return forosSeguidos;
+	}
+
+
+
+	public void setForosSeguidos(List<Sigue> forosSeguidos) {
+		this.forosSeguidos = forosSeguidos;
+	}
 
     
 

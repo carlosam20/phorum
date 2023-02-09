@@ -6,13 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
-    <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="stylesheet" href="css/perfil.css">
     <link rel="stylesheet"
         href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Perfil</title>
 </head>
-
-
 
 <div class="perfil m-1">
 
@@ -24,18 +22,28 @@
             <h1 class="text-center">{{nombre}}</h1>
         </div>
     </div>
-    <div class="row conexion">
-        <div class="col-lg-5 col-md-5 col-sm-5 p-2">
-            <div class="row info-creacion-perfil m-3">
-                <span class="material-symbols-outlined m-3">
-                    timer
-                </span>
-                <p class="creacionPerfil m-3">{{fechaCreacion}}</p>
-            </div>
+
+    <div class="row info-creacion-perfil m-3">
+        <div class=" col-lg-2 col-md-2 col-sm-2 p-2">
+            <span class="material-symbols-outlined m-3">
+                timer
+            </span>
         </div>
+        <h2 class="creacionPerfil m-3">{{fechaCreacion}}</h2>
     </div>
 
-    <div class="row botones justify-content-center d-flex m-3">
+    <div class="row descripcion m-3 justify-content-center">
+        <div class="row">
+            <h2>Descripcion</h2>
+        </div>
+        {{#.}}
+        <div class="col-lg-11 col-sm-11">
+            <h2>{{descripcion}}</h2>
+        </div>
+        {{/.}}
+    </div>
+
+    <div class="row botones justify-content-left d-flex m-3">
         <div class="col-lg-2 col-md-2 col-sm-2">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-danger boton_borrar_usuario" id="{{id}}">Borrar</button>
@@ -48,11 +56,8 @@
         <div class="row titulo">
             <h2>Estadísticas</h2>
         </div>
-        <div class="col-lg-3 col-sm-3">
-            <div>
-                <h2>Foros Creados</h2>
-            </div>
-
+        <div class="row chartTotal">
+            <canvas id="charTotal"></canvas>
         </div>
         <div class="col-lg-3 col-sm-3">
             <div>
@@ -77,16 +82,6 @@
 
     </div>
 
-    <div class="row descripcion m-3 justify-content-center">
-        <div class="row">
-            <h2>Descripcion</h2>
-        </div>
-        {{#.}}
-        <div class="col-lg-11 col-sm-11">
-            <h5>{{descripcion}}</h5>
-        </div>
-        {{/.}}
-    </div>
 
 </div>
 
@@ -98,9 +93,7 @@
 <script type="text/javascript" src="librerias_javascript/jquery.js"></script>
 <script type="text/javascript" src="librerias_javascript/mustache.js"></script>
 <script type="text/javascript" src="librerias_javascript/js.cookie.min.js"></script>
-<script src="https://unpkg.com/@stackoverflow/stacks/dist/js/stacks.min.js"></script>
 <script type="text/javascript" src="js/carga_plantilla.js"></script>
-<script src="https://unpkg.com/@stackoverflow/stacks/dist/js/stacks.min.js"></script>
-<script src="anime-master/lib/anime.min.js"></script>
+<script src="//d3js.org/d3.v7.js"></script>
 
 </html>
