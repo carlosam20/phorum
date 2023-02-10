@@ -2,9 +2,6 @@ package controladores.admin;
 
 
 
-
-
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -97,8 +94,6 @@ public class ControladoresUsuarios {
 		}else {
 			return "admin/formularioEditarUsuario";	
 		}
-	
-		
 		
 	}
 	@RequestMapping("editarUsuario")

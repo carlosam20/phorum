@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 import modelo.Post;
-import modelo.ValoracionesPostUsuario;
+import modelo.Valoracion;
 import servicios.ServicioPosts;
 import utilidadesArchivos.GestorArchivos;
 
@@ -59,7 +59,7 @@ public class ServicioWebPosts {
 		System.out.println("foro a registrar: " + f.toString());
 		
 		//Post Valoraciones
-		List<ValoracionesPostUsuario> postValoraciones = new ArrayList<ValoracionesPostUsuario>();
+		List<Valoracion> postValoraciones = new ArrayList<Valoracion>();
 		f.setPostValoraciones(postValoraciones);
 		f.setFechaCreacion(LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-"
 				+ LocalDate.now().getYear());

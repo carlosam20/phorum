@@ -36,7 +36,7 @@
 	
 		
 	<c:if test="${siguiente < total}">
-		<a href="listarUsuarios?comienzo=${siguiente}&marca=${nombre}" class="btn btn-outline-primary">siguiente</a>
+		<a href="listarUsuarios?comienzo=${siguiente}&nombre=${nombre}" class="btn btn-outline-primary">siguiente</a>
 	</c:if>
 	
 </div>

@@ -1,10 +1,6 @@
 package controladores.admin;
 
-
-
-
 import java.util.Map;
-
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -17,71 +13,65 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import modelo.Follow;
 import modelo.Post;
-import servicios.ServicioComentarios;
+import modelo.Usuario;
 import servicios.ServicioForos;
-import servicios.ServicioPosts;
+import servicios.ServicioFollow;
 import servicios.ServicioUsuarios;
 import utilidadesArchivos.GestorArchivos;
 
-
-
 @Controller
 @RequestMapping("admin/")
-public class ControladoresPost {
-
+public class ControladoresFollow {
+	
+	
 	@Autowired
-	private ServicioPosts servicioPosts;
+	private ServicioFollow servicioFollow;
 	@Autowired
 	private ServicioForos servicioForos;
 	@Autowired
 	private ServicioUsuarios servicioUsuarios;
-	@Autowired
-	private ServicioComentarios servicioComentarios;
+
 	
-	
-	@RequestMapping("listarPosts")
-	public String listarPosts(@RequestParam(defaultValue = "")String nombre, Integer comienzo, Model model) {
+	@RequestMapping("listarFollows")
+	public String listarFollows(@RequestParam(defaultValue = "0")String id, Integer comienzo, Model model) {
 		
 		int comienzo_int = 0;
 		if (comienzo != null) {
 			comienzo_int = comienzo.intValue();
 		}
+		if(id =="") {
+			id = "-1";
+		}
+		model.addAttribute("info", servicioFollow.obtenerFollows(Long.parseLong(id), comienzo_int));
 		
-		model.addAttribute("info", servicioPosts.obtenerPosts(nombre, comienzo_int));
 		model.addAttribute("siguiente", comienzo_int+10);
 		model.addAttribute("anterior", comienzo_int-10);
-		model.addAttribute("total", servicioPosts.obtenerTotalDePosts(nombre));
-		model.addAttribute("nombre", nombre);
+		model.addAttribute("total", servicioFollow.obtenerTotalDeFollows(Long.parseLong(id)));
+		model.addAttribute("id", id);
 		
-		return "admin/posts";
+		return "admin/follows";
 	}
 	
-	@RequestMapping("registrarPost")
-	public String registrarPost(Model model) {
-		Post nuevo = new Post();
+	@RequestMapping("registrarFollow")
+	public String registrarFollow(Model model) {
+		Follow nuevo = new Follow();
 		
 		Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
 		Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
 		model.addAttribute("foros", mapForos);
 		model.addAttribute("usuarios", mapUsuarios);
-		model.addAttribute("nuevoPost", nuevo);
+		model.addAttribute("nuevoFollow", nuevo);
 		
-		return "admin/formularioRegistroPost";
+		return "admin/formularioRegistroFollow";
 	}
-	
-	@RequestMapping("guardarNuevoPost")
-	public String guardarNuevoPost(@ModelAttribute("nuevoPost") @Valid Post nuevoPost, BindingResult br, Model model,
+	@RequestMapping("guardarNuevoFollow")
+	public String guardarNuevoFollow(@ModelAttribute("nuevoFollow") @Valid Follow nuevoFollow, BindingResult br, Model model,
 			HttpServletRequest request) {
-		
 		if (!br.hasErrors()) {		
-			servicioPosts.registrarPost(nuevoPost);
-			
-			
-			String rutaRealDelProyecto =
-			request.getServletContext().getRealPath("");
-			GestorArchivos.guardarImagenPostAdmin(nuevoPost, rutaRealDelProyecto);
-			return "admin/registroPostOk";
+			servicioFollow.registrarFollow(nuevoFollow);
+			return "admin/registroFollowOk";
 			
 		} else {
 			
@@ -91,57 +81,51 @@ public class ControladoresPost {
 			model.addAttribute("foros", mapForos);
 			model.addAttribute("usuarios", mapUsuarios);
 			
-			model.addAttribute("nuevoPost", nuevoPost);
+			model.addAttribute("nuevoFollow", nuevoFollow);
 			return "admin/formularioRegistroPost";
 		}
 		
 	}
-	
-	@RequestMapping("guardarCambiosPost")
-	public String guardarCambiosPost(@ModelAttribute("post") @Valid Post post, BindingResult br,  Model model,
+	@RequestMapping("guardarCambiosFollow")
+	public String guardarCambiosFollow(@ModelAttribute("follow") @Valid Follow follow, BindingResult br,  Model model,
 			HttpServletRequest request) {
-		
-		servicioPosts.guardarCambiosPosts(post);
-		
+	
 		if(!br.hasErrors()) {
+
+			servicioFollow.guardarCambiosFollow(follow);
+			return listarFollows("",0,model);
 			
-			String rutaRealDelProyecto = 
-					request.getServletContext().getRealPath("");
-			GestorArchivos.guardarImagenPostAdmin(post, rutaRealDelProyecto);
-			
-			return listarPosts("",0,model);
 		}else {
 			Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
 			model.addAttribute("foros", mapForos);
 			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
 			model.addAttribute("usuarios", mapUsuarios);
-			model.addAttribute("post",post);
-			return "admin/formularioEditarPost";
+			model.addAttribute("follow",follow);
+			return "admin/formularioEditarFollow";
 		}		
+	
+		
 		
 	}
-	@RequestMapping("editarPost")
-	public String editarPost(String id, Model model) {
-		
-		
+	@RequestMapping("editarFollow")
+	public String editarFollow(String id, Model model) {
+
 		Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
 		Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
 		model.addAttribute("foros", mapForos);
 		model.addAttribute("usuarios", mapUsuarios);
 		
-		Post p =  servicioPosts.obtenerPostPorId(Long.parseLong(id));
-		model.addAttribute("post",p);
+		Follow f =  servicioFollow.obtenerFollow(Long.parseLong(id));
+		model.addAttribute("follow",f);
 		return "admin/formularioEditarPost";
 			
 	}
-	@RequestMapping("borrarPost")
-	public String borrarPost(String id, Model model) {
-		
-		servicioComentarios.borrarComentariosPoridPost(Long.parseLong(id));
-		servicioPosts.eliminarPosts(Long.parseLong(id));
-		
-		return listarPosts("",0,model);
+	@RequestMapping("borrarFollow")
+	public String borrarFollow(String id, Model model) {
+		servicioFollow.eliminarFollow(Long.parseLong(id));
+		return listarFollows("", null, model);
+			
 	}
 	
-	
+
 }

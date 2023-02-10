@@ -4,6 +4,7 @@ package modelo;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,10 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import enums.Valoracion;
+
 
 @Entity
-public class ValoracionesPostUsuario {
+public class Valoracion {
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -29,22 +30,26 @@ public class ValoracionesPostUsuario {
     @JoinColumn(name = "postValoraciones")
     private Post post;
     
-    //es un enum que nos da los posibles valores que puede tener que son: LIKE, DISLIKE y NO_VALUE
-    Valoracion valoracion;
+    //LIKE = true, DISLIKE = false
+    private boolean valor;
 	
 	
-	public ValoracionesPostUsuario() {
+	public Valoracion() {
 		
 	}
 
 
-	public ValoracionesPostUsuario(long id, Usuario usuario, Post post, Valoracion valoracion) {
+	
+
+
+	public Valoracion(Long id, Usuario usuario, Post post, boolean valor) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.post = post;
-		this.valoracion = valoracion;
+		this.valor = valor;
 	}
+
 
 
 	public long getId() {

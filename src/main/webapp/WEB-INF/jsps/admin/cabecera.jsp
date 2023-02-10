@@ -24,6 +24,9 @@
           <a class="nav-link" href="listarPosts">Gestionar Posts</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="listarFollows">Gestionar Follows</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="listarComentarios">Gestionar Comentarios</a>
         </li>
         <li class="nav-item">

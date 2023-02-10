@@ -26,7 +26,7 @@ public class Foro {
     private List<Post> posts = new ArrayList<Post>();
     
     @OneToMany(cascade = {CascadeType.MERGE},mappedBy="foro")
-    private List<Sigue> seguidores;
+    private List<Follow> seguidores;
     
     private String fechaCreacion;
 
@@ -37,7 +37,7 @@ public class Foro {
 	public Foro() {}
   
     public Foro(Long id, String nombre, String descripcion, List<Post> posts, String fechaCreacion,
-			MultipartFile imagen, List<Sigue> seguidores) {
+			MultipartFile imagen, List<Follow> seguidores) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -98,11 +98,11 @@ public class Foro {
         this.imagen = imagen;
     }
 
-	public List<Sigue> getSeguidores() {
+	public List<Follow> getSeguidores() {
 		return seguidores;
 	}
 
-	public void setSeguidores(List<Sigue> segidores) {
+	public void setSeguidores(List<Follow> segidores) {
 		this.seguidores = segidores;
 	}
     

@@ -41,11 +41,11 @@ public class Usuario  {
     private String descripcion;
     
     @OneToMany (cascade = {CascadeType.MERGE},mappedBy="usuario")
-    private  List<ValoracionesPostUsuario> usuariosValoraciones = new ArrayList<ValoracionesPostUsuario>();
+    private  List<Valoracion> usuariosValoraciones = new ArrayList<Valoracion>();
     
     
     @OneToMany (cascade = {CascadeType.MERGE},mappedBy="usuario")
-    private  List<Sigue> forosSeguidos = new ArrayList<Sigue>();
+    private  List<Follow> forosSeguidos = new ArrayList<Follow>();
     
     
     
@@ -58,7 +58,7 @@ public class Usuario  {
 
 
 	public Usuario(Long id, String nombre, String pass, String email, String fechaCreacion, String descripcion,
-			List<ValoracionesPostUsuario> usuariosValoraciones, List<Sigue> forosSeguidos, MultipartFile imagen) {
+			List<Valoracion> usuariosValoraciones, List<Follow> forosSeguidos, MultipartFile imagen) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -166,25 +166,25 @@ public class Usuario  {
 
 
 
-	public List<ValoracionesPostUsuario> getUsuariosValoraciones() {
+	public List<Valoracion> getUsuariosValoraciones() {
 		return usuariosValoraciones;
 	}
 
 
 
-	public void setUsuariosValoraciones(List<ValoracionesPostUsuario> usuariosValoraciones) {
+	public void setUsuariosValoraciones(List<Valoracion> usuariosValoraciones) {
 		this.usuariosValoraciones = usuariosValoraciones;
 	}
 
 
 
-	public List<Sigue> getForosSeguidos() {
+	public List<Follow> getForosSeguidos() {
 		return forosSeguidos;
 	}
 
 
 
-	public void setForosSeguidos(List<Sigue> forosSeguidos) {
+	public void setForosSeguidos(List<Follow> forosSeguidos) {
 		this.forosSeguidos = forosSeguidos;
 	}
 

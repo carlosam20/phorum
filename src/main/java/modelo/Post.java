@@ -52,7 +52,7 @@ public class Post {
     private long idUsuario;
    
     @OneToMany (cascade = {CascadeType.MERGE},mappedBy="post")
-    private  List<ValoracionesPostUsuario> postValoraciones = new ArrayList<ValoracionesPostUsuario>();
+    private  List<Valoracion> postValoraciones = new ArrayList<Valoracion>();
 
 	public Post() {
     	
@@ -60,7 +60,7 @@ public class Post {
 
 
 	public Post(Long id, String nombre, String descripcion, String fechaCreacion, Foro foro, MultipartFile imagen,
-			Usuario usuario, long idForo, long idUsuario, List<ValoracionesPostUsuario> postValoraciones) {
+			Usuario usuario, long idForo, long idUsuario, List<Valoracion> postValoraciones) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -167,12 +167,12 @@ public class Post {
 	}
 
 
-	public List<ValoracionesPostUsuario> getPostValoraciones() {
+	public List<Valoracion> getPostValoraciones() {
 		return postValoraciones;
 	}
 
 
-	public void setPostValoraciones(List<ValoracionesPostUsuario> postValoraciones) {
+	public void setPostValoraciones(List<Valoracion> postValoraciones) {
 		this.postValoraciones = postValoraciones;
 	}
 

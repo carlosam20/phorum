@@ -5,41 +5,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>formulario Editar Post</title>
-
+<title>formularioRegistroPost</title>
+<link rel="stylesheet" href="css/formulario_admin.css">
 </head>
 <body>
 
 
-<springform:form modelAttribute="post" action="guardarCambiosPost" enctype="multipart/form-data">
+<springform:form modelAttribute="nuevoFollow" action="guardarNuevoFollow" enctype="multipart/form-data">
 
 <div class="mb-3">
-nombre: <springform:input path="nombre"/>
-</div>
-<div class="mb-3">
-descripcion: <springform:input path="descripcion"/>
-</div>
-<div class="mb-3">
-fechaCreacion: <springform:input type="date" pattern="dd/MM/yyyy" path="fechaCreacion"/>
-</div>
-<div class="mb-3">
-imagen : <springform:input path="imagen" type="file"/><br>
+id: <springform:input path="id"/>
 </div>
 foro: <springform:select path="idForo">
 		<springform:options items="${foros}"/>
 </springform:select><br>
-
 usuario: <springform:select path="idUsuario">
 		<springform:options items="${usuarios}"/>
 </springform:select><br>
 
 <springform:hidden path="id"/>
 <!-- Imagen que introducimos -->
-<input class="btn btn-primary" type="submit" value="Guardar Cambios">
+<input type="submit" value="Registrar Follow">
 </springform:form>
 
-<script src="../js/reloadCache.js"></script>
 </body>
+<script src="../js/reloadCache.js"></script>
 </html>
 
 
