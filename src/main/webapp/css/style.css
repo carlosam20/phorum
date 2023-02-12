@@ -175,12 +175,15 @@ a:hover{
 
 .navbar>a {
     font-family: 'Lato', sans-serif;
-    padding: 1rem;
+    padding: 0.1rem;
 }
 
 .navbar {
     background-color: var(--primary);
     text-align: center;
+}
+.nav-item > a{
+    text-decoration: none;
 }
 
 /*Horizontal scroll*/
@@ -357,6 +360,18 @@ body.cargando .spinner { visibility:visible !important; }
 .phorum-tag {
     font-size: 1rem;
 }
+
+
+
+
+/* Cabecera */
+#phorum-icon{
+    width: 10%;
+    height: auto;
+    background-color: #202031;
+}
+
+
 
 /*Pantallas*/
 

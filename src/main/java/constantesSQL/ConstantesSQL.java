@@ -76,7 +76,7 @@ public class ConstantesSQL {
 
 	
 	//UPDATES
-	public static final String ACTUALIZAR_POST = "update post SET id= :id, descripcion= :descripcion, fechaCreacion = :fechaCreacion, nombre = :nombre, foro = :foro , usuario = :usuario, likes = :likes WHERE id = :id";
+	public static final String ACTUALIZAR_POST = "update post SET id= :id, descripcion= :descripcion, fechaCreacion = :fechaCreacion, nombre = :nombre, foro = :foro , usuario = :usuario WHERE id = :id";
 	public static final String ACTUALIZAR_USUARIO = "update usuario SET id = :id, descripcion= :descripcion, email = :email, fechaCreacion= :fechaCreacion, nombre = :nombre, pass = :pass,  WHERE id = :id";
 	
 	

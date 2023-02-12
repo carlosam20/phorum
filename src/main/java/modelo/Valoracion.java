@@ -12,6 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
+import org.springframework.format.annotation.NumberFormat;
 
 
 
@@ -33,31 +36,37 @@ public class Valoracion {
     //LIKE = true, DISLIKE = false
     private boolean valor;
 	
+    
+    @Transient
+    @NumberFormat
+    private long idPost;
+
+    @Transient
+    @NumberFormat
+    private long idUsuario;
 	
 	public Valoracion() {
 		
 	}
 
 
-	
-
-
-	public Valoracion(Long id, Usuario usuario, Post post, boolean valor) {
+	public Valoracion(Long id, Usuario usuario, Post post, boolean valor, long idPost, long idUsuario) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.post = post;
 		this.valor = valor;
+		this.idPost = idPost;
+		this.idUsuario = idUsuario;
 	}
 
 
-
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -80,6 +89,37 @@ public class Valoracion {
 	public void setPost(Post post) {
 		this.post = post;
 	}
+
+
+	public boolean isValor() {
+		return valor;
+	}
+
+
+	public void setValor(boolean valor) {
+		this.valor = valor;
+	}
+
+
+	public long getIdPost() {
+		return idPost;
+	}
+
+
+	public void setIdPost(long idPost) {
+		this.idPost = idPost;
+	}
+
+
+	public long getIdUsuario() {
+		return idUsuario;
+	}
+
+
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
 
 	
 

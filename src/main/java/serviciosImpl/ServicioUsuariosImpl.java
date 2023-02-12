@@ -1,6 +1,5 @@
 package serviciosImpl;
 
-import java.time.LocalDate;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,9 +28,7 @@ public class ServicioUsuariosImpl implements ServicioUsuarios {
 	@Override
 	public void registrarUsuario(Usuario u) {
 		// Esto ha estado comentado
-		u.setFechaCreacion(LocalDate.now().getDayOfMonth() + "/" + LocalDate.now().getMonthValue() + "/"
-				+ LocalDate.now().getYear());
-		u.setDescripcion("");
+		
 		sessionFactory.getCurrentSession().save(u);
 
 	}

@@ -34,7 +34,7 @@ public class Usuario  {
     @NotEmpty(message = "Introduce un email")	
     private String email;
     
-    @NotBlank
+    
     private String fechaCreacion;
     
     //@Pattern(regexp = "^[0-9a-z A-ZáéíóúÁÉÍÓÚ]{3,60}$", message="Las descripciones solo admiten letras, numeros y espacios") 

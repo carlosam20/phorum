@@ -38,7 +38,7 @@ public class ControladoresForos {
 		}
 		
 		model.addAttribute("info", servicioForos.obtenerForos(nombre, comienzo_int));
-		//model.addAttribute("fecha_hora_actual", new Date().getTime());
+		
 		
 		model.addAttribute("siguiente", comienzo_int+10);
 		model.addAttribute("anterior", comienzo_int-10);

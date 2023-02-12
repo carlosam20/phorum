@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import modelo.Follow;
-import modelo.Post;
+
 import modelo.Usuario;
 import servicios.ServicioForos;
 import servicios.ServicioFollow;
@@ -40,9 +40,6 @@ public class ControladoresFollow {
 		int comienzo_int = 0;
 		if (comienzo != null) {
 			comienzo_int = comienzo.intValue();
-		}
-		if(id =="") {
-			id = "-1";
 		}
 		model.addAttribute("info", servicioFollow.obtenerFollows(Long.parseLong(id), comienzo_int));
 		
@@ -82,7 +79,7 @@ public class ControladoresFollow {
 			model.addAttribute("usuarios", mapUsuarios);
 			
 			model.addAttribute("nuevoFollow", nuevoFollow);
-			return "admin/formularioRegistroPost";
+			return "admin/formularioRegistroFollow";
 		}
 		
 	}
@@ -93,7 +90,7 @@ public class ControladoresFollow {
 		if(!br.hasErrors()) {
 
 			servicioFollow.guardarCambiosFollow(follow);
-			return listarFollows("",0,model);
+			return listarFollows("0",0,model);
 			
 		}else {
 			Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
@@ -117,13 +114,13 @@ public class ControladoresFollow {
 		
 		Follow f =  servicioFollow.obtenerFollow(Long.parseLong(id));
 		model.addAttribute("follow",f);
-		return "admin/formularioEditarPost";
+		return "admin/formularioEditarFollow";
 			
 	}
 	@RequestMapping("borrarFollow")
 	public String borrarFollow(String id, Model model) {
 		servicioFollow.eliminarFollow(Long.parseLong(id));
-		return listarFollows("", null, model);
+		return listarFollows("0", null, model);
 			
 	}
 	

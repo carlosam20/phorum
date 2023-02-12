@@ -27,6 +27,9 @@
           <a class="nav-link" href="listarFollows">Gestionar Follows</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="listarValoraciones">Gestionar Valoraciones</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="listarComentarios">Gestionar Comentarios</a>
         </li>
         <li class="nav-item">

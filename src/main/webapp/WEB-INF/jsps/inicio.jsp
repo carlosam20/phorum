@@ -4,7 +4,7 @@
         <html>
 
         <head>
-            <meta charset="UTF-8">
+            <meta charset="ISO-8859-1">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
@@ -23,10 +23,10 @@
                 <nav class="navbar navbar-expand-lg navbar-dark">
                     <div class="container-fluid">
 
-                        <a class="navbar-brand" href="#">
+                        <div class="navbar-brand" href="#">
                             <img src=<c:url value="images/logo-phorum.svg"></c:url> alt="Foto" width="60" height="60"
                             class="d-inline-block align-text-top"/>
-                        </a>
+                        </div>
 
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
@@ -63,8 +63,8 @@
 
                         <ul class="navbar-nav mb-auto mb-lg-0">
                             <li class="nav-item">
-                                <a class="btn btn-outline-primary m-3" id="enlace_identificarme"
-                                    aria-current="page" href="#">Iniciar Sesi&oacuten</a>
+                                <button class="btn btn-outline-primary m-3" id="enlace_identificarme"
+                                    aria-current="page" href="#">Iniciar Sesi&oacuten</button>
                             </li>
 
                             <li class="nav-item">

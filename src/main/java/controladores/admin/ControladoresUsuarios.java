@@ -44,8 +44,6 @@ public class ControladoresUsuarios {
 		}
 		
 		model.addAttribute("info", servicioUsuarios.obtenerUsuarios(nombre, comienzo_int));
-		//model.addAttribute("fecha_hora_actual", new Date().getTime());
-		
 		model.addAttribute("siguiente", comienzo_int+10);
 		model.addAttribute("anterior", comienzo_int-10);
 		model.addAttribute("total", servicioUsuarios.obtenerTotalDeUsuarios(nombre));
@@ -66,6 +64,8 @@ public class ControladoresUsuarios {
 	public String guardarNuevoUsuario(@ModelAttribute("nuevoUsuario") @Valid Usuario nuevoUsuario, BindingResult br, Model model,
 			HttpServletRequest request) {
 		if (!br.hasErrors()) {		
+			//model.addAttribute("fecha_hora_actual", new Date().getTime());
+			
 			servicioUsuarios.registrarUsuario(nuevoUsuario);
 			String rutaRealDelProyecto =
 			request.getServletContext().getRealPath("");

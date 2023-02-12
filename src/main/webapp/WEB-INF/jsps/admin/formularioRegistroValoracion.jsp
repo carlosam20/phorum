@@ -5,24 +5,30 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>formularioRegistroPost</title>
+<title>formulario Registro Valoracion</title>
 <link rel="stylesheet" href="css/formulario_admin.css">
 </head>
 <body>
 
 
-<springform:form modelAttribute="nuevoFollow" action="guardarNuevoFollow" enctype="multipart/form-data">
+<springform:form modelAttribute="nuevoValoracion" action="guardarNuevoValoracion" enctype="multipart/form-data">
 
-foro: <springform:select path="idForo">
-		<springform:options items="${foros}"/>
+post: <springform:select path="idPost">
+		<springform:options items="${posts}"/>
 </springform:select><br>
 usuario: <springform:select path="idUsuario">
 		<springform:options items="${usuarios}"/>
 </springform:select><br>
 
+Valoracion:  <springform:select path="valor">
+		<springform:options items="${valoraciones}"/>
+</springform:select><br>
+
+
+
 <springform:hidden path="id"/>
 <!-- Imagen que introducimos -->
-<input type="submit" value="Registrar Follow">
+<input type="submit" value="Registrar Valoracion">
 </springform:form>
 
 </body>

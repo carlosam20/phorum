@@ -1,5 +1,6 @@
 package serviciosWEB;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +40,9 @@ public class ServicioWebUsuarios {
 		JsonElement json = gson.toJsonTree(formData);
 
 		Usuario u = gson.fromJson(json, Usuario.class);
+		u.setFechaCreacion(LocalDate.now().getDayOfMonth() + "/" + LocalDate.now().getMonthValue() + "/"
+				+ LocalDate.now().getYear());
+		u.setDescripcion("");
 		System.out.println("usuario a registrar: " + u.toString());
 		servicioUsuarios.registrarUsuario(u);
 		// tras hacer un registro con hibernate, hibernate asigna a este usuario la id

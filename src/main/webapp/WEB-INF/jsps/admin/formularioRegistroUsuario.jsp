@@ -19,6 +19,8 @@
 nombre: <springform:input path="nombre"/>
 pass: <springform:input path="pass"/>
 email: <springform:input path="email"/>
+fechaCreacion: <springform:input type="date" pattern="dd/MM/yyyy" path="fechaCreacion"/>
+</div>
 imagen : <springform:input path="imagen" type="file"/><br>
 <springform:hidden path="id"/>
 <!-- Imagen que introducimos -->

@@ -5,20 +5,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>formulario Editar Follow</title>
+<title>formulario Editar Valoracion</title>
 
 </head>
 <body>
 
 
-<springform:form modelAttribute="follow" action="guardarCambiosFollow" enctype="multipart/form-data">
+<springform:form modelAttribute="valoracion" action="guardarCambiosValoracion" enctype="multipart/form-data">
 
-foro: <springform:select path="idForo">
-		<springform:options items="${foros}"/>
+post: <springform:select path="idPost">
+		<springform:options items="${posts}"/>
 </springform:select><br>
 usuario: <springform:select path="idUsuario">
 		<springform:options items="${usuarios}"/>
 </springform:select><br>
+Valor del post:<springform:checkbox path="valoracion" />
+
 
 <springform:hidden path="id"/>
 <!-- Imagen que introducimos -->

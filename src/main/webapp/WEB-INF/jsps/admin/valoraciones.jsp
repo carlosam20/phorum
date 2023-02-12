@@ -5,16 +5,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Follows</title>
+<title>Valoraciones</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 
 <jsp:include page="cabecera.jsp"></jsp:include>
-<a class="btn btn-outline-secondary m-3" href="registrarFollow">Nuevo Follow</a><br>
+<a class="btn btn-outline-secondary m-3" href="registrarValoracion">Nuevo Valoracion</a><br>
 
 
-<form action="listarFollows">
+<form action="listarValoraciones">
 
 <div class="input-group mb-3">
   <span class="input-group-text" id="basic-addon1">id:</span>
@@ -27,36 +27,36 @@
 
 <div class="mx-auto">
 	paginacion: <br>
-	total de follows: ${total} <br>
+	total de valoracions: ${total} <br>
 	
 	<c:if test="${ anterior >= 0 }">
-		<a href="listarFollows?comienzo=${anterior}&id=${id}" class="btn btn-outline-primary">anterior</a>
+		<a href="listarValoraciones?comienzo=${anterior}&id=${id}" class="btn btn-outline-primary">anterior</a>
 	</c:if>
 	
 		
 	<c:if test="${siguiente < total}">
-		<a href="listarFollows?comienzo=${siguiente}&id=${id}" class="btn btn-outline-primary">siguiente</a>
+		<a href="listarValoraciones?comienzo=${siguiente}&id=${id}" class="btn btn-outline-primary">siguiente</a>
 	</c:if>
 	
 </div>
 
-<c:forEach var="follow" items="${info}" >
+<c:forEach var="valoracion" items="${info}" >
 
 <div class="card mx-auto " style="width: 32rem;" >
 	
 	<ul class="list-group list-group-flush">
-    <li class="list-group-item">Id: ${follow.id} </li>
-    <li class="list-group-item">Id usuario: ${follow.usuario.id} </li>
-    <li class="list-group-item">Nombre de usuario: ${follow.usuario.nombre} </li>
-    <li class="list-group-item">Id foro: ${follow.foro.id} </li>
-    <li class="list-group-item">Nombre foro: ${follow.foro.nombre} </li>
+    <li class="list-group-item">Id: ${valoracion.id} </li>
+    <li class="list-group-item">Id usuario: ${valoracion.usuario.id} </li>
+    <li class="list-group-item">Nombre de usuario: ${valoracion.usuario.nombre} </li>
+    <li class="list-group-item">Id post: ${valoracion.post.id} </li>
+    <li class="list-group-item">Nombre post: ${valoracion.post.nombre} </li>
     </ul>
     
     <div class="card-body">
-	<a href="editarFollow?id=${follow.id}" class="card-link" >Editar</a>
+	<a href="editarValoracion?id=${valoracion.id}" class="card-link" >Editar</a>
 	</div>
 	 <div class="card-body">
-	<a href="borrarFollow?id=${follow.id}" class="card-link" >Borrar</a>
+	<a href="borrarValoracion?id=${valoracion.id}" class="card-link" >Borrar</a>
 	</div>	
 </div>
 </c:forEach>

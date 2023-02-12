@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import constantesSQL.ConstantesSQL;
 import modelo.Follow;
+import modelo.Foro;
+import modelo.Usuario;
 import servicios.ServicioFollow;
 
 @Service
@@ -37,9 +39,15 @@ public class ServicioFollowsImpl implements ServicioFollow {
 	}
 
 	@Override
-	public void registrarFollow(Follow s) {
+	public void registrarFollow(Follow fl) {
 		
-		sessionFactory.getCurrentSession().save(s);
+		Foro f = (Foro) sessionFactory.getCurrentSession().get(Foro.class, fl.getIdForo());
+		fl.setForo(f);
+
+		Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class, fl.getIdUsuario());
+		fl.setUsuario(u);
+		
+		sessionFactory.getCurrentSession().save(fl);
 		
 	}
 
@@ -83,9 +91,15 @@ public class ServicioFollowsImpl implements ServicioFollow {
 	}
 
 	@Override
-	public void guardarCambiosFollow(Follow s) {
+	public void guardarCambiosFollow(Follow fl) {
 		
-		sessionFactory.getCurrentSession().merge(s);
+		Foro f = (Foro) sessionFactory.getCurrentSession().get(Foro.class, fl.getIdForo());
+		fl.setForo(f);
+
+		Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class, fl.getIdUsuario());
+		fl.setUsuario(u);
+		
+		sessionFactory.getCurrentSession().merge(fl);
 		
 	}
 
