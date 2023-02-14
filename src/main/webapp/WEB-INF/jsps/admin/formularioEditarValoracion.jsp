@@ -13,13 +13,18 @@
 
 <springform:form modelAttribute="valoracion" action="guardarCambiosValoracion" enctype="multipart/form-data">
 
-post: <springform:select path="idPost">
+Post: <springform:select path="idPost">
 		<springform:options items="${posts}"/>
 </springform:select><br>
-usuario: <springform:select path="idUsuario">
+
+Usuario: <springform:select path="idUsuario">
 		<springform:options items="${usuarios}"/>
 </springform:select><br>
-Valor del post:<springform:checkbox path="valoracion" />
+
+Valoracion: <springform:select path="valor">
+		<springform:options items="${valoraciones}"/>
+</springform:select><br>
+
 
 
 <springform:hidden path="id"/>

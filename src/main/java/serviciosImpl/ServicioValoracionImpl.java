@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import constantesSQL.ConstantesSQL;
+import modelo.Foro;
+import modelo.Post;
+import modelo.Usuario;
 import modelo.Valoracion;
 import servicios.ServicioValoracion;
 
@@ -30,6 +33,12 @@ public class ServicioValoracionImpl implements ServicioValoracion {
 		@Override
 		public void registrarValoracion(Valoracion v) {
 			// Esto ha estado comentado
+			
+			Post p = (Post) sessionFactory.getCurrentSession().get(Post.class, v.getIdPost());
+			v.setPost(p);
+
+			Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class, v.getIdUsuario());
+			v.setUsuario(u);
 			sessionFactory.getCurrentSession().save(v);
 
 		}
@@ -61,8 +70,11 @@ public class ServicioValoracionImpl implements ServicioValoracion {
 		public List<Valoracion> obtenerValoraciones(long id, int comienzo) {
 
 			Criteria c = sessionFactory.getCurrentSession().createCriteria(Valoracion.class);
-			c.add(Restrictions.like("id", id));
-			c.addOrder(Order.desc("id"));
+			if(id != 0){
+				c.add(Restrictions.like("id", id));
+				c.addOrder(Order.desc("id"));
+			}
+			
 			c.setFirstResult(comienzo);
 			c.setMaxResults(10);
 			return c.list();
@@ -86,6 +98,13 @@ public class ServicioValoracionImpl implements ServicioValoracion {
 
 		@Override
 		public void guardarCambiosValoraciones(Valoracion v) {
+			
+			Post p = (Post) sessionFactory.getCurrentSession().get(Post.class, v.getIdPost());
+			v.setPost(p);
+
+			Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class, v.getIdUsuario());
+			v.setUsuario(u);
+			
 			sessionFactory.getCurrentSession().merge(v);
 			
 		}

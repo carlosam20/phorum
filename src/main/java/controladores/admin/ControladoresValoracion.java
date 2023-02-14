@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import modelo.Valoracion;
-
+import modelo.Follow;
 import modelo.Usuario;
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
@@ -67,6 +67,7 @@ public class ControladoresValoracion {
 		model.addAttribute("posts", mapPosts);
 		model.addAttribute("usuarios", mapUsuarios);
 		model.addAttribute("valoraciones", mapValoraciones);
+		
 		model.addAttribute("nuevoValoracion", nuevo);
 		
 		return "admin/formularioRegistroValoracion";
@@ -89,6 +90,7 @@ public class ControladoresValoracion {
 			model.addAttribute("posts", mapPosts);
 			model.addAttribute("usuarios", mapUsuarios);
 			model.addAttribute("valoraciones", mapValoraciones);
+			
 			model.addAttribute("nuevoValoracion", nuevoValoracion);
 			return "admin/formularioRegistroValoracion";
 		}
@@ -124,11 +126,16 @@ public class ControladoresValoracion {
 
 		Map<String, String> mapPosts = servicioPost.obtenerPostsParaDesplegable();
 		Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+		Map<Boolean, String> mapValoraciones = new HashMap<Boolean, String>();
 		model.addAttribute("posts", mapPosts);
 		model.addAttribute("usuarios", mapUsuarios);
-	
-		Valoracion f =  servicioValoracion.obtenerValoracion(Long.parseLong(id));
-		model.addAttribute("valoracion",f);
+		mapValoraciones.put(true,"Like" );
+		mapValoraciones.put(false,"Dislike");
+		model.addAttribute("valoraciones", mapValoraciones);
+		
+		Valoracion v =  servicioValoracion.obtenerValoracion(Long.parseLong(id));
+		model.addAttribute("valoracion",v);
+		
 		return "admin/formularioEditarValoracion";
 			
 	}

@@ -25,9 +25,6 @@ fechaCreacion: <springform:input type="date" pattern="dd/MM/yyyy" path="fechaCre
 <div class="mb-3">
 imagen : <springform:input path="imagen" type="file"/><br>
 </div>
-<div class="mb-3">
-likes: <springform:input type="number" path="likes"/>
-</div>
 
 foro: <springform:select path="idForo">
 		<springform:options items="${foros}"/>

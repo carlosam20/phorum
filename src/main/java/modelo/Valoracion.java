@@ -26,11 +26,11 @@ public class Valoracion {
 	private Long id;
 	
     @ManyToOne(cascade = {CascadeType.MERGE}, targetEntity = Usuario.class, optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuariosValoraciones")
+    @JoinColumn(name = "usuario")
     private Usuario usuario;
 
     @ManyToOne(cascade = {CascadeType.MERGE}, targetEntity = Post.class, optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "postValoraciones")
+    @JoinColumn(name = "post")
     private Post post;
     
     //LIKE = true, DISLIKE = false

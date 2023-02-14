@@ -50,6 +50,7 @@
     <li class="list-group-item">Nombre de usuario: ${valoracion.usuario.nombre} </li>
     <li class="list-group-item">Id post: ${valoracion.post.id} </li>
     <li class="list-group-item">Nombre post: ${valoracion.post.nombre} </li>
+	<li class="list-group-item">Valor ${valoracion.valor} </li>
     </ul>
     
     <div class="card-body">

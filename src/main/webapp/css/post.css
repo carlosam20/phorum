@@ -46,6 +46,21 @@
 }
 
 
+/* iconos */
+i{
+  color: var(#003F30);
+  width: 50px;
+  height: auto;
+}
+
+
+/* Enlace iconos */
+.like:hover, .like{
+  text-decoration: none;
+}
+.dislike:hover .like{
+  text-decoration: none;
+}
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}

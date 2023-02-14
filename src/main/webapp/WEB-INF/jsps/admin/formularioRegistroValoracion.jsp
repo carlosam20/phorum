@@ -13,10 +13,10 @@
 
 <springform:form modelAttribute="nuevoValoracion" action="guardarNuevoValoracion" enctype="multipart/form-data">
 
-post: <springform:select path="idPost">
+Post: <springform:select path="idPost">
 		<springform:options items="${posts}"/>
 </springform:select><br>
-usuario: <springform:select path="idUsuario">
+Usuario: <springform:select path="idUsuario">
 		<springform:options items="${usuarios}"/>
 </springform:select><br>
 

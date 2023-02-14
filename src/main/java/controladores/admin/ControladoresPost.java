@@ -101,10 +101,8 @@ public class ControladoresPost {
 	public String guardarCambiosPost(@ModelAttribute("post") @Valid Post post, BindingResult br,  Model model,
 			HttpServletRequest request) {
 		
-		servicioPosts.guardarCambiosPosts(post);
-		
 		if(!br.hasErrors()) {
-			
+			servicioPosts.guardarCambiosPosts(post);
 			String rutaRealDelProyecto = 
 					request.getServletContext().getRealPath("");
 			GestorArchivos.guardarImagenPostAdmin(post, rutaRealDelProyecto);

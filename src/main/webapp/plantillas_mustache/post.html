@@ -12,7 +12,7 @@
 
   <div id="comentarios" class="comentarios">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    
+
 
     {{#.}}
     {{#idComentario}}
@@ -20,20 +20,19 @@
     {{/idComentario}}
     {{/.}}
     <!--Listado de comentarios del post-->
-    <ul class="col-lg-8 col-md-8 col-sm-8 list-group ">
-      
+    <ul class="col-lg-11 col-md-11 col-sm-11 list-group ">
+
       {{#.}}
       {{#idComentario}}
       <li class="list-group-item  flex-column align-items-center">
         <div class="d-flex w-100 justify-content-between align-items-center">
-          <img class="s-avatar s-avatar__48 m-1"   src="subidasUsuario/{{idUsuario}}.jpg"
-            alt="{{nombreUsuario}}">
-          <h5 class="m-1">{{nombreUsuario}}</h5>   
+          <img class="s-avatar s-avatar__48 m-1" src="subidasUsuario/{{idUsuario}}.jpg" alt="{{nombreUsuario}}">
+          <h5 class="m-1">{{nombreUsuario}}</h5>
           <p class="m-1">{{textoComentario}}</p>
           <span>{{fechaCreacionComentario}}</span>
           <button class="btn btn-secondary boton_ver_perfil " type="button" id="{{idUsuarioComentario}}">Ver
             Perfil</button>
-      
+
         </div>
       </li>
       {{/idComentario}}
@@ -42,7 +41,8 @@
   </div>
 
 
-
+  <button class="btn btn-primary boton_responder" type="button" id="{{id}}">Comentar</button>
+  
   <!--Contenido del post-->
   {{#.}}
   {{#id}}
@@ -58,20 +58,28 @@
               <h5 class="card-title">{{nombre}}</h5>
               <p class="card-text">{{descripcion}}</p>
               <p class="card-text">{{fechaCreacion}}</p>
-              <p class="card-text">{{usuario}}</p>
-              <button class="btn btn-primary boton_responder" type="button">Responder</button>
-              <div class="likes">
-                <i class="fa-light fa-thumbs-up"></i>
-                <p>{{likes}}</p>
+              <p class="card-text">{{usuario.nombre}}</p>
+             
+              <div class="row">
+                <a class="like col-sm-3 col-md-3 col-lg-3" id="like">
+                  <span id="like-container">
+                    <i class="fa-regular fa-thumbs-up fa-xl" id="like-icon"></i>
+                  </span>
+                  <p>{{likes}}</p>
+                </a>
+                <a class="dislike col-sm-3 col-md-3 col-lg-3" id="dislike">
+                  <span id="dislike-container">
+                    <i class="fa-regular fa-thumbs-down fa-xl" id="dislike-icon"></i>
+                  </span>
+                  <p>{{dislikes}}</p>
+                </a>
               </div>
+              
             </div>
 
-
             <p class="card-text">{{fechaCreacion}}</p>
-            <span class="card-text">{{usuario}}</span>
+            <span class="card-text">{{usuario.nombre}}</span>
 
-
-            
             <button class="btn btn-primary" onclick="openNav()">Ver comentarios</button>
 
           </div>
@@ -87,3 +95,4 @@
 
 </html>
 <script src="js/post.js"></script>
+<script src="js/valoracion-animacion.js"></script>
