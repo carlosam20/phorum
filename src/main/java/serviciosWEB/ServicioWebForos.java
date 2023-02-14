@@ -40,7 +40,7 @@ public class ServicioWebForos {
 	public ResponseEntity<String> obtenerForosDeNombreIntroducido(String nombreForo, HttpServletRequest request) {
 		String json = new Gson().toJson(servicioForos.obtenerForosParaListadoBusquedaForo(nombreForo));
 		return new ResponseEntity<String>(json, HttpStatus.OK);
-		
+
 	}
 
 	@RequestMapping("obtenerForos")
@@ -61,8 +61,7 @@ public class ServicioWebForos {
 		List<Map<String, Object>> postsResults = servicioPosts.obtenerPostsParaListadoAleatorio();
 		String jsonPosts = new Gson().toJson(postsResults);
 
-		
-		if(postsResults.size()!=0){
+		if (postsResults.size() != 0) {
 			// Recogemos las keys del map
 			Set<String> keys = postsResults.get(0).keySet();
 
@@ -82,12 +81,12 @@ public class ServicioWebForos {
 
 			jsonForos = jsonForos + jsonPosts;
 			return new ResponseEntity<String>(jsonForos, HttpStatus.OK);
-		}
-		else {
+		} else {
 			return new ResponseEntity<String>(jsonForos, HttpStatus.OK);
 		}
 
 	}
+
 	@RequestMapping("registrarForos")
 	public ResponseEntity<String> registrarForo(@RequestParam Map<String, Object> formData,
 			@RequestParam("foto") CommonsMultipartFile foto, HttpServletRequest request) {

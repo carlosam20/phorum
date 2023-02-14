@@ -73,16 +73,6 @@ public class ServicioWebForos {
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 		String respuesta = "";
 
-		// Eliminar los servicioPosts y servicioComentarios antes
-		// for(int i =0; i <
-		// servicioComentarios.obtenerComentariosPorId(u.getId()).size(); i++) {}
-
-		for (int i = 0; i < servicioPosts.obtenerIdPostPorForoId(u.getId()).size(); i++) {
-
-			// long j=servicioPosts.obtenerIdPostPorForoId(u.getId()).get(i);
-			// servicioComentarios.eliminarComentariosPost(j);
-		}
-
 		for (int i = 0; i < servicioForos.obtenerIdPostDeForo(u.getId()).size(); i++) {
 
 			long z = servicioForos.obtenerIdPostDeForo(u.getId()).get(i);

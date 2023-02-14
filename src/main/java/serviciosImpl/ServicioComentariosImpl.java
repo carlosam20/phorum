@@ -48,6 +48,7 @@ public class ServicioComentariosImpl implements ServicioComentarios{
 		
 	}
 	
+	@Override
 	public int obtenerTotalDeComentariosDeUsuario(long id) {
 		SQLQuery query = sessionFactory.getCurrentSession().
 		createSQLQuery(ConstantesSQL.OBTENER_TOTAL_COMENTARIOS_USUARIO);
@@ -73,11 +74,12 @@ public class ServicioComentariosImpl implements ServicioComentarios{
 	}
 
 	@Override
-	public List<Long> obtenerIdComentariosDePost(long id) {
-		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_POST_CON_FORO);
-		query.setParameter("id", id);
-		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
-		return query.list();
+	public int obtenerTotalComentariosDePost(long postComentario){
+		SQLQuery query = sessionFactory.getCurrentSession().
+				createSQLQuery(ConstantesSQL.OBTENER_TOTAL_COMENTARIOS_DE_POST);
+				query.setParameter("postComentario", postComentario);
+				
+				return Integer.parseInt(query.list().get(0).toString());
 	}
 
 	@Override

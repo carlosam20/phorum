@@ -52,9 +52,13 @@ public class ConstantesSQL {
 	public static final String OBTENER_TOTAL_FOROS = "select count(id) from foro where nombre like :nombre ";
 	public static final String OBTENER_TOTAL_POSTS = "select count(id) from post where nombre like :nombre";
 	public static final String OBTENER_TOTAL_COMENTARIOS= "select count(id) from comentario where textoComentario like :textoComentario ";
+	public static final String OBTENER_TOTAL_COMENTARIOS_DE_POST= "select count(id) from comentario where postComentario like :postComentario";
+	
 	public static final String OBTENER_TOTAL_VALORACIONES = "select count(id) from valoracion where id like :id";
 	public static final String OBTENER_TOTAL_FOLLOWS = "select count(id) from follow where id like :id";
 	
+	public static final String OBTENER_TOTAL_VALORACIONES_POST_LIKE = "select count(id) from valoracion where post =:idPost AND valor = 1";
+	public static final String OBTENER_TOTAL_VALORACIONES_POST_DISLIKE = "select count(id) from valoracion where post =:idPost AND valor = 0";
 	
 	public static final String OBTENER_TOTAL_COMENTARIOS_USUARIO= "select count(id) from comentario where usuario like :id ";
 	public static final String OBTENER_TOTAL_POST_USUARIO= "select count(id) from comentario where usuario like :id ";
@@ -87,12 +91,13 @@ public class ConstantesSQL {
 	public static final String OBTENER_FOLLOW_POR_ID = "select * from follow where id = :id";
 	public static final String OBTENER_COMENTARIOS_POR_ID_USUARIO = "select count(c.id) from foro as c  where usuario = :id";
 	public final static String OBTENER_COMENTARIOS_CON_ID_POST="select * from comentario where postComentario = :id";
+	public final static String OBTENER_VALORACION_POR_ID_POST ="select * from valoracion where post = :id";
 	
 	
 	public static final String SQL_OBTENER_DATOS_COMENTARIO = "select * from comentario where id = :id"; 
 	public static final String SQL_OBTENER_DATOS_FORO = "select * from foro where id = :id"; 
 	public static final String SQL_OBTENER_DATOS_POST = "select * from post where id = :id"; 
-	public final static String SQL_OBTENER_DATOS_USUARIO="SELECT * from usuario where id = :id ";
+	public static final String SQL_OBTENER_DATOS_USUARIO="SELECT * from usuario where id = :id ";
 			
 	
 	//OBTENER ID A PARTIR DE ID

@@ -40,14 +40,15 @@ public class ServicioWebUsuarios {
 		JsonElement json = gson.toJsonTree(formData);
 
 		Usuario u = gson.fromJson(json, Usuario.class);
+		//Creamos una fecha y la guardamos en fechaCreacion
 		u.setFechaCreacion(LocalDate.now().getDayOfMonth() + "/" + LocalDate.now().getMonthValue() + "/"
 				+ LocalDate.now().getYear());
+		//Se inserta una descripcion vacia que posteriormente se podrá editar
 		u.setDescripcion("");
 		System.out.println("usuario a registrar: " + u.toString());
 		servicioUsuarios.registrarUsuario(u);
-		// tras hacer un registro con hibernate, hibernate asigna a este usuario la id
-		// del
-		// registro en la tabla de la base de datos
+		
+		//Guardado de imagen
 		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
 		GestorArchivos.guardarFotoUsuario(u, rutaRealDelProyecto, foto);
 		respuesta = "ok";

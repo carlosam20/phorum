@@ -94,6 +94,7 @@ a:hover{
 
 .btn{
     border: none;
+    box-shadow: none;
 }
 .btn-primary {
     background-color: var(--primary);
@@ -169,7 +170,9 @@ a:hover{
     width: 98vw;
 }
 
-
+.text-secondary{
+color: var(--primary);
+}
 
 /*Navbar*/
 

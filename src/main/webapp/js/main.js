@@ -28,7 +28,8 @@ let numberOfEntries = window.history.length;
 
 function listadoInicio() {
 
-	$.ajax("servicioWebForos/obtenerForosYPosts", {
+	$.ajax("servicioWebForos/obtenerForosYPosts",{
+		
 		success: function (data) {
 			$("body").removeClass("cargando");
 			let forosYPost = JSON.parse(data);
@@ -569,9 +570,7 @@ function perfil() {
 }//end perfil
 
 
-$(document).ready(function () {
-	$('body').addClass('cargando');
-});
+
 
 
 $("#enlace_home").click(listadoInicio);
