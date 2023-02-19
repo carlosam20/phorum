@@ -1,40 +1,66 @@
+//Variables de la página de post
+let likeDOM = document.getElementById("like-icon");
+let dislikeDOM = document.getElementById("dislike-icon");
+
+let contadorLikes = document.getElementById("like-contador");
+let contadorDislikes = document.getElementById("dislike-contador");
+
+
+//Funciones comentarios
 function abrirComents() {
-    document.getElementById("comentarios").style.width = "800px";
-    document.getElementById("post").style.marginLeft = "800px";
+	document.getElementById("comentarios").style.width = "50%";
+	document.getElementById("post").style.marginLeft = "50%";
+	// document.getElementById("fechaCreacion").style.display = "none";
+	
 }
 
 function cerrarComents() {
-    document.getElementById("comentarios").style.width = "0";
-    document.getElementById("post").style.marginLeft = "0";
+	document.getElementById("comentarios").style.width = "0";
+	document.getElementById("post").style.marginLeft = "0";
+	// document.getElementById("fechaCreacion").style.display = "inheret";
+	
 }
 
-
-//Variables de la página de post
-
-let likeButton = document.getElementById("like").className;
-let dislikeButton = document.getElementById("dislike").className;
-
-let likeDOM = document.getElementById("like-icon").className;
-let dislikeDOM = document.getElementById("dislike-icon").className;
-
-let contadorLikes = document.getElementById("like-contador").className;
-let contadorDislikes = document.getElementById("dislike-contador").className;
-
-
-
-//Poner condición para ver si ha sido checkeado o no (fa-solid o fa-regular)
-
+// Clicks de likes y dislikes
 likeDOM.addEventListener("click", function () {
-	if(likeDOM.classList.contains("fa-regular fa-thumbs-up fa-xl")){
-        likeDOM.classList.add("fa-beat");
+	if (likeDOM.classList.contains("fa-regular")) {
+		darLike();
+		let likeActivado = true;
+		quitarDislike(likeActivado);
+		
+	} else {
+		quitarLike();
+		likeActivado = false;
+	}
+});
+dislikeDOM.addEventListener("click", function () {
+	if (dislikeDOM.classList.contains("fa-regular")) {
+		darDislike();
+		let disLikeActivado = true;
+		quitarLike(disLikeActivado);
+		
+	} else {
+		quitarDislike();
+		disLikeActivado = false;
+	}
+});
+
+
+//funciones likes y dislikes
+function darLike() {
+	likeDOM.classList.add("fa-beat");
 	setTimeout(() => {
 		likeDOM.classList.remove("fa-beat");
 		likeDOM.classList.remove("fa-regular");
 		likeDOM.classList.add("fa-solid");
-		contadorLikes++;
+		contadorLikes.innerElement = parseInt(contadorLikes.valueOf(contadorLikes.innerElement)) + 1;
 	}, 999);
-}else{
-	likeDOM.classList.add("fa-beat");
+}
+
+function quitarLike(disLikeActivado) {
+	if (dislikeDOM.classList.contains("fa-solid") && disLikeActivado === false) {
+		likeDOM.classList.add("fa-beat");
+	}
 	setTimeout(() => {
 		likeDOM.classList.remove("fa-beat");
 		likeDOM.classList.remove("fa-solid");
@@ -42,10 +68,8 @@ likeDOM.addEventListener("click", function () {
 		--contadorLikes;
 	}, 999);
 }
-});
 
-dislikeDOM.addEventListener("click", function () {
-if(dislikeDOM.classList.contains("fa-regular fa-thumbs-down fa-xl")){
+function darDislike() {
 	dislikeDOM.classList.add("fa-beat");
 	setTimeout(() => {
 		dislikeDOM.classList.remove("fa-beat");
@@ -53,15 +77,19 @@ if(dislikeDOM.classList.contains("fa-regular fa-thumbs-down fa-xl")){
 		dislikeDOM.classList.add("fa-solid");
 		contadorDislikes++;
 	}, 999);
-}else{
-	dislikeDOM.classList.add("fa-beat");
+}
+function quitarDislike(likeActivado) {
+	if (likeDOM.classList.contains("fa-solid") && likeActivado === false) {
+		dislikeDOM.classList.add("fa-beat");
+	}
 	setTimeout(() => {
 		dislikeDOM.classList.remove("fa-beat");
-		dislikeDOM.classList.remove("fa-regular");
-		dislikeDOM.classList.add("fa-solid");
+		dislikeDOM.classList.remove("fa-solid");
+		dislikeDOM.classList.add("fa-regular");
 		--contadorDislikes;
 	}, 999);
 }
-});
+
+
 
 

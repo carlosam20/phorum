@@ -12,13 +12,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.format.annotation.NumberFormat;
 
 
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"usuario", "post"}))
 public class Valoracion {
 	
 	@Id

@@ -146,7 +146,6 @@
             <script type="text/javascript" src="librerias_javascript/mustache.js"></script>
             <script type="text/javascript" src="librerias_javascript/js.cookie.min.js"></script>
             <script type="text/javascript" src="js/carga_plantilla.js"></script>
-            <script src="https://unpkg.com/@stackoverflow/stacks/dist/js/stacks.min.js"></script>
             <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
             <script type="text/javascript" src="js/validaciones.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>

@@ -1,4 +1,6 @@
 
+
+
 //Variables
 let email = "";
 let pass = "";
@@ -28,8 +30,8 @@ let numberOfEntries = window.history.length;
 
 function listadoInicio() {
 
-	$.ajax("servicioWebForos/obtenerForosYPosts",{
-		
+	$.ajax("servicioWebForos/obtenerForosYPosts", {
+
 		success: function (data) {
 			$("body").removeClass("cargando");
 			let forosYPost = JSON.parse(data);
@@ -65,7 +67,7 @@ function obtener_post_y_comentarios(idPost) {
 function obtener_listado_foros() {
 	$.ajax("servicioWebForos/obtenerForos", {
 		success: function (data) {
-			console.log(numberOfEntries);
+
 			alert("recibido: " + data);
 			let foros = JSON.parse(data);
 			let texto_html = "";
@@ -112,7 +114,7 @@ function obtener_listado_foros() {
 			//Boton Ver Posts de Foro
 			$(".boton_post_foro").click(function (e) {
 				let id = $(this).attr("id");
-				console.log(numberOfEntries);
+
 
 				//ObtenerPostPorForoDeID
 				$.ajax("servicioWebPosts/obtenerPostPorForoId?id=" + id, {
@@ -171,49 +173,63 @@ function obtener_listado_foros() {
 							let idPost = $(this).attr("id");
 							$.ajax("identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" + idPost, {
 								success: function (data) {
+
 									alert("recibido: " + data);
 									let postYComentarios = JSON.parse(data);
 									let texto_html = "";
 									texto_html = Mustache.render(plantillaListarPostYComentarios, postYComentarios);
 									$("#contenedor").html(texto_html);
 
-									//Responder a comentario
-									$(".boton_responder").click(function (e) {
-										let idPost = $(this).attr("id");
-										$("#form_registro_comentario").submit(function (e) {
-											let info = JSON.parse(data);
-											idUsuario = info.id;
+									//Cambiar iconos según la valoración del usuario
+									let valor = postYComentarios.valoracion_usuario_sesion.valorUsuarioSesion;
+									alert("El valor: " + valor);
 
-											let formulario = document.forms[0];
-											let formData = new FormData(formulario);
-											$.ajax("identificado/servicioWebPosts/registrarComentario", {
-												type: "POST",
-												data: formData,
-												cache: false,
-												contentType: false,
-												processData: false,
-												success: function (res) {
-													if (res == "ok") {
-														$('#crearComentarioModal').modal("hide");
-														//TODO recargar PostYcomentarios aqui
-													} else {
-														swal("Error de sintaxis en algun form del comentario", "Post no valido", "error");
-														alert(res);
-													}
-												} //end Success Registrar Post
-											}); //end Registrar Post
-										});
+									if (valor === "true") {
+										$("#like-icon").removeClass("fa-regular fa-thumbs-up fa-xl").addClass("fa-solid fa-thumbs-up fa-xl");
+									} else if (valor === "false") {
+										$("#dislike-icon").removeClass("fa-regular fa-thumbs-down fa-xl").addClass("fa-solid fa-thumbs-down fa-xl");
+									}
+
+												
 
 
+									//Realizar comentario en post										
+									$("#form_registro_comentario").submit(function (e) {
+										let textoComentario = $("#textoComentario").val();
+
+										let formulario = document.forms[0];
+										let formData = new FormData(formulario);
+
+										$.ajax("identificado/servicioWebComentarios/registrarComentario?idPost=" + idPost, {
+											type: "POST",
+											data: formData,
+											cache: false,
+											contentType: false,
+											processData: false,
+											success: function (res) {
+												if (res == "ok") {
+													alert(res);
+													//TODO recargar PostYcomentarios aqui
+												}
+												else {
+													alert(res);
+												}
+											}
+											//end Success Registrar Comentario
+										}); //end Registrar Comentarios
+										e.preventDefault()
 									});
+
+
 
 
 									//Ver Perfil del usuario que comento
 									$(".boton_ver_perfil").click(function (e) {
+
 										let idUsuarioComentario = $(this).attr("id");
 
-										$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioComentarioPorId=" + idUsuarioComentario, {
-											type: "POST",
+										$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioComentarioPorId?idUsuarioComentario=" + idUsuarioComentario, {
+											type: "GET",
 											data: formData,
 											cache: false,
 											contentType: false,
@@ -230,6 +246,131 @@ function obtener_listado_foros() {
 
 									});
 
+
+									//Crear valoración y poner like
+
+									$(".like").click(function (e) {
+										e.preventDefault();
+
+										comprobarExisteValoracion(idPost)
+											.then((valoracionExiste) => {
+												if (!valoracionExiste) {
+													/*Eliminar valoracion del dislike para crear un like*/
+													//Aqui se comprueba si existe una valoracion previa con valoracion = false
+													//En el caso de que haya será eliminada previamente
+													eliminarValoracionFalse(idPost);
+													let formData = new FormData();
+													formData.append("idPost", idPost);
+													formData.append("valor", true);
+
+													$.ajax("identificado/servicioWebValoracion/registrarValoracion", {
+														type: "POST",
+														data: formData,
+														cache: false,
+														contentType: false,
+														processData: false,
+														success: function (res) {
+															console.log("Like registrado");
+														},
+													});
+												} else {
+													eliminarValoracionTrue(idPost);
+												}
+											})
+											.catch((error) => {
+												console.error(error);
+											});
+									});
+
+
+									//Crear valoración y poner dislike
+									$(".dislike").click(function (e) {
+
+										e.preventDefault();
+										
+										comprobarExisteValoracion(idPost).then(
+											(valoracionExiste) => {
+												if (!valoracionExiste) {
+													eliminarValoracionTrue(idPost);
+													let idPost = $(this).attr("id");
+													let formData = new FormData();
+													formData.append("idPost", idPost);
+													formData.append("valor", false);
+													$.ajax("identificado/servicioWebValoracion/registrarValoracion", {
+														type: "POST",
+														data: formData,
+														cache: false,
+														contentType: false,
+														processData: false,
+														success: function (res) {
+														}
+													});
+
+												} else {
+													eliminarValoracionFalse(idPost);
+												}
+
+											}).catch((error) => {
+												console.error(error);
+											});
+									});
+
+									//Funciones de eliminacion de valoraciones
+
+									function eliminarValoracionFalse(idPost) {
+										//Eliminar valoración
+										//Se le llama y se le pasa la valoración previa realizada
+										$(".like").click(
+
+											$.ajax("identificado/servicioWebValoracion/eliminarValoracion?idPost=" + idPost, {
+												success: function (data) {
+													if (data.includes("ok")) {
+
+													}
+												}//---end success---
+											}).fail(function () {
+												swal("Ha fallado la funcion de quitar dislike", {
+													icon: "error",
+												});
+											})//--end ajax--
+										);
+									}
+
+									function eliminarValoracionTrue(idPost) {
+										//Eliminar valoración
+										//Se le llama y se le pasa la valoración previa realizada
+										$(".dislike").click(
+											$.ajax("identificado/servicioWebValoracion/eliminarValoracion?idPost=" + idPost, {
+												success: function (data) {
+													if (data.includes("ok")) {
+													}
+												}//---end success---
+											}).fail(function () {
+												swal("Ha fallado la funcion de quitar like", {
+													icon: "error",
+												});
+											})//--end ajax--
+										);
+									}
+
+
+									function comprobarExisteValoracion(idPost) {
+										return new Promise(function (resolve, reject) {
+											$.ajax("identificado/servicioWebValoracion/comprobarValoracion?idPost=" + idPost, {
+												success: function (data) {
+													if (data.includes("ok, true")) {
+														resolve(true);
+													} else if (data.includes("ok, false")) {
+														resolve(false);
+													}
+												},
+												error: function () {
+													reject(new Error("No se pudo obtener la valoración"));
+												}
+											});
+										});
+									}
+
 								}//---end success---
 
 
@@ -237,9 +378,6 @@ function obtener_listado_foros() {
 
 
 						});
-
-
-
 
 					}//---end success---
 				});//--end ajax--
@@ -293,36 +431,7 @@ function obtener_listado_posts() {
 }//-end obtener_listado-
 
 
-function mostrarRegistroComentario() {
 
-	$("#contenedor").html(plantillaRegistrarPost);
-	$("#form_registro_comentarios").submit(function (e) {
-		let comentario = $("#textoComentario").val();
-
-		if (validarNombre(nombre)) {
-			//vamos a usar FormData para mandar el form al servicio web
-			let formulario = document.forms[0];
-			let formData = new FormData(formulario);
-			$.ajax("identificado/servicioWebComentarios/registroComentario", {
-				type: "POST",
-				data: formData,
-				cache: false,
-				contentType: false,
-				processData: false,
-				success: function (res) {
-					if (res == "ok") {
-						obtenerPostsForo();
-					} else {
-						alert(res);
-						swal("Error en el registro de comentario", "Comentario no valido", "error");
-					}
-				}
-			});
-
-		}//end if validaciones
-		e.preventDefault();
-	});
-}
 
 
 function mostrarRegistroUsuario() {
@@ -433,11 +542,10 @@ function mostrarIdentificacionUsuario() {
 }
 
 function logout() {
-
 	$.ajax("servicioWebUsuarios/logout", {
 		success: function (res) {
 			if (res == "ok") {
-				swal("Sesi&oacuten cerrada", "Operaci&oacuten completada", "success");
+				swal("Sesión cerrada", "Operación completada", "success");
 				$("#mensaje_login").html("Sesión no iniciada");
 				setTimeout(() => { location.reload(); }, 2000);
 			}
@@ -568,8 +676,6 @@ function perfil() {
 	});	//end ajax
 
 }//end perfil
-
-
 
 
 

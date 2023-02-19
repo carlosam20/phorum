@@ -38,6 +38,8 @@ public class ServicioValoracionImpl implements ServicioValoracion {
 
 		Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class, v.getIdUsuario());
 		v.setUsuario(u);
+		
+		
 		sessionFactory.getCurrentSession().save(v);
 
 	}
@@ -45,9 +47,9 @@ public class ServicioValoracionImpl implements ServicioValoracion {
 	public Map<String, String> obtenerValoracionesParaDesplegable() {
 		SQLQuery query = sessionFactory.getCurrentSession()
 				.createSQLQuery(ConstantesSQL.SQL_OBTENER_USUARIOS_PARA_DESPLEGABLE);
-		// TODO cambiar query y queda pensar como habria que hacerlo
+		// TODO Sacar el valor previamente seleccionado de alguna forma puede que se haga en el controlador
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
-
+		
 		List<Map<String, Object>> res = query.list();
 		Map<String, String> valoresDesplegable = new HashMap<String, String>();
 
@@ -142,5 +144,26 @@ public class ServicioValoracionImpl implements ServicioValoracion {
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 		List<Map<String, Object>> res = query.list();
 		return res;
+	}
+	
+	@Override
+	public Map<String, Object>obtenerValoracionPorPostIdYPorUsuarioId(long id, long idPost) {
+		SQLQuery query = sessionFactory.getCurrentSession()
+				.createSQLQuery(ConstantesSQL.OBTENER_VALORACION_POR_ID_POST_Y_POR_ID_USUARIO);
+		query.setParameter("id", id);
+		query.setParameter("idPost", idPost);
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		return (Map<String, Object>) query.uniqueResult();
+	}
+	
+	
+
+	@Override
+	public boolean comprobarExisteValoracion(long idPost, long idUsuario) {
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.COMPROBAR_EXISTE_VALORACION);
+		query.setParameter("idUsuario", idUsuario);
+		query.setParameter("idPost", idPost);
+		boolean exists = Boolean.parseBoolean(String.valueOf(query.uniqueResult()));
+		return exists;
 	}
 }

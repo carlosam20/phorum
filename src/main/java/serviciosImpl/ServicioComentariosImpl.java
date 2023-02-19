@@ -90,8 +90,6 @@ public class ServicioComentariosImpl implements ServicioComentarios{
 		
 		Post p = (Post) sessionFactory.getCurrentSession().get(Post.class, c.getIdPostComentario());
 		c.setPostComentario(p);
-		
-		
 		sessionFactory.getCurrentSession().save(c);
 		
 	}

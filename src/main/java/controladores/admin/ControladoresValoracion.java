@@ -75,7 +75,12 @@ public class ControladoresValoracion {
 	@RequestMapping("guardarNuevoValoracion")
 	public String guardarNuevoValoracion(@ModelAttribute("nuevoValoracion") @Valid Valoracion nuevoValoracion, BindingResult br, Model model,
 			HttpServletRequest request) {
-		if (!br.hasErrors()) {		
+	
+		//TODO se ha cambiado hace poco a lo mejor no funciona
+		Map<String, Object> valoraciones = servicioValoracion.obtenerValoracionPorPostIdYPorUsuarioId(nuevoValoracion.getIdPost(), nuevoValoracion.getIdUsuario());
+		
+		
+		if (!br.hasErrors() && valoraciones.isEmpty()) {
 			servicioValoracion.registrarValoracion(nuevoValoracion);
 			return "admin/registroValoracionOk";
 			

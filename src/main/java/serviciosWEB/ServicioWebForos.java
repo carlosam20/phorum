@@ -87,7 +87,7 @@ public class ServicioWebForos {
 
 	}
 
-	@RequestMapping("registrarForos")
+	@RequestMapping("registrarForo")
 	public ResponseEntity<String> registrarForo(@RequestParam Map<String, Object> formData,
 			@RequestParam("foto") CommonsMultipartFile foto, HttpServletRequest request) {
 		String respuesta = "";

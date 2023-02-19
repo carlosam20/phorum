@@ -11,16 +11,20 @@
 <body>
 
   <div id="comentarios" class="comentarios">
-    <a href="javascript:void(0)" class="closebtn float-left" onclick="cerrarComents()">&times;</a>
-
+    <div>
+      <a href="javascript:void(0)" class="closebtn align-items-left" onclick="cerrarComents()">&times;</a>
+    </div>
+  
     {{#.}}
     {{#post}}
     <div class="row align-items-center text-center">
       <div class="col-lg-4 col-md-4 col-sm-4">
         <h1 >Respuestas {{totalComentarios}}</h1>
       </div>
+      <!--Crear comentario abrir modal-->
       <div class="col-lg-4 col-md-4 col-sm-4">
-        <button class="btn btn-primary boton_responder" type="button" id="{{id}}">Comentar</button>
+        <button class="btn btn-primary" type="button" id="{{id}}" data-bs-toggle="modal"
+        data-bs-target="#crearComentarioModal">Comentar</button>
       </div>
     </div>
     
@@ -37,18 +41,18 @@
           <h5 class="m-1">{{nombreUsuario}}</h5>
           <div>
             <p class="m-1">{{textoComentario}}</p>
-            <div class="row">
-              <div class="col-lg-2 col-md-2 col-sm-2">
+            <div class="row m-1">
+              <div class="col-lg-1 col-md-1 col-sm-1">
                 <span class="calendarContainer">
                   <i class="fa-regular fa-calendar-days fa-xl"></i>
                 </span>
               </div>
-              <div class="col-lg-10 col-md-10 col-sm-10">
-                <p class="m-1">{{fechaCreacionComentario}}</p>
+              <div class="col-lg-11 col-md-11 col-sm-11">
+                <p class="">{{fechaCreacionComentario}}</p>
               </div>
             </div>
           </div>
-          <button class="btn btn-secondary boton_ver_perfil " type="button" id="{{idUsuarioComentario}}">Ver
+          <button class="btn btn-secondary boton_ver_perfil " type="button" id="{{idUsuario}}">Ver
             Perfil</button>
 
         </div>
@@ -58,7 +62,38 @@
     </ul>
   </div>
 
+  <!-- Modal Crear comentario -->
+  <div class="modal " id="crearComentarioModal" tabindex="-1" aria-labelledby="crearComentarioModal" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+      
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Crear comentario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
 
+          <form id="form_registro_comentario">
+
+            <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1 ">
+              <div class="col-lg-8 col-md-8 col-sm-8">
+                <input type="text" name="textoComentario" class="form-control form-control-lg" placeholder="Escribe tu comentario"
+                  id="textoComentario" maxlength="200"/><br>
+              </div>
+
+              <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                  <input class="btn btn-primary" type="submit" value="Comentar" />
+                </div>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
  
 
   <!--Contenido del post-->
@@ -80,7 +115,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-3">
                   <h4 class="card-text">{{nombreUsuarioPost}}</h4>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="col-lg-3 col-md-3 col-sm-3" id="fechaCreacionPost">
                   <p class="card-text">{{fechaCreacion}}</p>
                 </div>
               </div>
@@ -92,7 +127,7 @@
               <p class="card-text">{{descripcion}}</p>
               <div class="valoracionContainer">
                 <div class="row ">
-                  <a class="like col-sm-3 col-md-3 col-lg-3" id="like">
+                  <a class="like col-sm-3 col-md-3 col-lg-3" id="{{id}}">
                     <span id="like-container">
                       <i class="fa-regular fa-thumbs-up fa-xl" id="like-icon"></i>
                     </span>
@@ -100,7 +135,7 @@
                     <h5 id="like-contador">{{like}}</h5>
                     {{/post_valoraciones}}
                   </a>
-                  <a class="dislike col-sm-3 col-md-3 col-lg-3" id="dislike">
+                  <a class="dislike col-sm-3 col-md-3 col-lg-3" id="{{id}}">
                     <span id="dislike-container">
                       <i class="fa-regular fa-thumbs-down fa-xl" id="dislike-icon"></i>
                     </span>

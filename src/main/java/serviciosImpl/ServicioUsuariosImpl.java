@@ -104,14 +104,8 @@ public class ServicioUsuariosImpl implements ServicioUsuarios {
 	@Override
 	public void guardarCambiosUsuario(Usuario u) {
 		
-		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.ACTUALIZAR_USUARIO);
-		query.setParameter("id", u.getId());
-		query.setParameter("descripcion", u.getDescripcion());
-		query.setParameter("fechaCreacion", u.getFechaCreacion());
-		query.setParameter("nombre", u.getNombre());
-		query.setParameter("pass", u.getPass());
-		query.setParameter("email", u.getEmail());
-		query.executeUpdate();
+		
+		sessionFactory.getCurrentSession().merge(u);
 		
 	}
 

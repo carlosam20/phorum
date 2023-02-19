@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
   <link rel="stylesheet"
     href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <link rel="stylesheet" href="../css/home.css">
+  <link rel="stylesheet" href="css/style.css">
 
   <title>Listado Posts</title>
 
@@ -14,89 +14,91 @@
 <body>
   <h1 class="text-center m-1">Posts</h1>
 
-<!-- Botón del Modal -->
-<button type="button" class="enlace_crear_post btn btn-primary " data-bs-toggle="modal"
-  data-bs-target="#crearPostModal">
-  Crear Post
-</button>
+  <!-- Botón del Modal -->
+  <button type="button" class="enlace_crear_post btn btn-primary " data-bs-toggle="modal"
+    data-bs-target="#crearPostModal">
+    Crear Post
+  </button>
 
 
-<!-- Modal -->
-<div class="modal " id="crearPostModal" tabindex="-1" aria-labelledby="crearPostModal" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Crear Post</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+  <!-- Modal -->
+  <div class="modal " id="crearPostModal" tabindex="-1" aria-labelledby="crearPostModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Crear Post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
 
-      <div class="modal-body">
+        <div class="modal-body">
 
-        <form id="form_registro_post">
+          <form id="form_registro_post">
 
-          <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1 ">
-            <div class="col-lg-8 col-md-8 col-sm-8">
-              <input type="text" name="nombre" class="form-control form-control-lg" placeholder="Nombre del post"
-                id="nombre"/><br>
+            <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1 ">
+              <div class="col-lg-8 col-md-8 col-sm-8">
+                <input type="text" name="nombre" class="form-control form-control-lg" placeholder="Nombre del post"
+                  id="nombre" /><br>
+              </div>
             </div>
-          </div>
-          <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-            <div class="col-lg-8 col-md-8 col-sm-8">
-              <input type="text" name="descripcion" class="form-control form-control-lg" placeholder="Descripcion"
-                id="descripcion"/></input><br>
+            <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
+              <div class="col-lg-8 col-md-8 col-sm-8">
+                <input type="text" name="descripcion" class="form-control form-control-lg" placeholder="Descripcion"
+                  id="descripcion" /></input><br>
+              </div>
             </div>
-          </div>
-          <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-            <div class="col-lg-8 col-md-8 col-sm-8">
-              <input type="file" name="foto" id="foto" /> <br>
+            <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
+              <div class="col-lg-8 col-md-8 col-sm-8">
+                <input type="file" name="foto" id="foto" /> <br>
+              </div>
             </div>
-          </div>
-          <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-            <div class="col-lg-8 col-md-8 col-sm-8">
-              <input class="btn btn-primary" type="submit" value="Subir Post" />
+            <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
+              <div class="col-lg-8 col-md-8 col-sm-8">
+                <input class="btn btn-primary" type="submit" value="Subir Post" />
+              </div>
             </div>
-          </div>
 
-        </form>
+          </form>
 
-      </div>
+        </div>
 
-    </div>
-  </div>
-</div>
-
-
-{{#.}}
-<!--Listado posts-->
-<div class="recomendacionesPosts">
-  <div class="row m-3 justify-content-center">
-    <div class="col-lg-6 col-md-6 col-sm-11  m-3">
-      <div class="card mb-2">
-        <a class="boton_ver_post" type="button" id="{{id}}">
-          <div class="card-header">
-            {{#foro}}
-            <img src="subidas/{{foro.id}}.jpg" id="{{foro.id}}" class="img-fluid" alt="{{foro.nombre}}">
-            <p class="card-text">{{foro.nombre}}</p>
-            <p class="card-text">{{foro}}</p>
-            {{/foro}}
-          </div>
-
-          <img src="subidasPost/{{id}}.jpg" id="{{id}}" class="img-fluid m-2" alt="{{nombre}}">
-          <img hidden="true" src="" class="card-img-top" />
-
-          <div class="card-body">
-            <h5 class="card-title">{{nombre}}</h5>
-            <p class="card-text">{{descripcion}}</p>
-            <button class="btn btn-primary" type="button" id="{{id}}">Ver Post</button>
-          </div>
-        </a>
       </div>
     </div>
   </div>
 
-</div>
 
-{{/.}}
+
+  <!--Listado posts-->
+  <div class="recomendacionesPosts">
+    <div class="row m-3 justify-content-center">
+      <div class="col-lg-6 col-md-6 col-sm-11  m-3">
+        {{#.}}
+        <div class="card mb-2">
+          <a class="boton_ver_post" type="button" id="{{id}}">
+            <div class="card-header">
+              {{#foro}}
+              <img src="subidas/{{foro.id}}.jpg" id="{{foro.id}}" class="img-fluid" alt="{{foro.nombre}}">
+              <p class="card-text">{{foro.nombre}}</p>
+              <p class="card-text">{{foro}}</p>
+              {{/foro}}
+            </div>
+
+            <img src="subidasPost/{{id}}.jpg" id="{{id}}" class="img-fluid m-2" alt="{{nombre}}">
+            <img hidden="true" src="" class="card-img-top" />
+
+            <div class="card-body">
+              <h5 class="card-title">{{nombre}}</h5>
+              <p class="card-text">{{descripcion}}</p>
+              <button class="btn btn-primary" type="button" id="{{id}}">Ver Post</button>
+            </div>
+          </a>
+        </div>
+        {{/.}}
+      </div>
+    </div>
+
+  </div>
+
+
 </body>
 
 

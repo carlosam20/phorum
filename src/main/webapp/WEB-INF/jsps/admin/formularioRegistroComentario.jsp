@@ -17,7 +17,7 @@
 Texto del comentario: <springform:input path="textoComentario"/>
 </div>
 <div class="mb-3">
-fechaCreacion: <springform:input type="date" pattern="dd/MM/yyyy" path="fechaCreacion"/>
+fechaCreacion: <springform:input type="date" pattern="dd/MM/yyyy"  path="fechaCreacion"/>
 </div>
 
 post: <springform:select path="idPostComentario">
