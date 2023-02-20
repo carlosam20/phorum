@@ -17,18 +17,6 @@
 
 }
 
-.enlace-foro,
-.enlace-post {
-  font-weight: 500;
-}
-
-.link-foro {
-  text-decoration: none;
-}
-
-.text-secondary {
-  color: var(--secondary)!;
-}
 .btn-outline-primary:hover {
   background-color: #439F88;
   color: black;
@@ -36,9 +24,20 @@
 }
 
 img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
 }
+
+.fotoForoPost{
+  max-width: 10px;
+  height: auto;
+}
+.contenedorfotoForo{
+  max-width: 50px;
+  height: auto;
+}
+
+
 
 
 

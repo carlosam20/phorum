@@ -144,12 +144,11 @@ public class ServicioWebPosts {
 			comentariosResults.get(i).keySet().remove("id");
 		}
 		
-		
+	
+		if(!valoracionUsuarioSesion.isEmpty()) {
 			valoracionUsuarioSesion.remove("id");
 			valoracionUsuarioSesion.remove("post");
-			
-			
-		//TODO contemplar que no haya valoraciones previas hechas por el usuario
+		}
 
 		if (comentariosResults.size() != 0) {
 
@@ -159,8 +158,10 @@ public class ServicioWebPosts {
 			valoracionesPostResults.addProperty("like", like);
 			valoracionesPostResults.addProperty("dislike", dislike);
 			
-			valoracionUsuario.addProperty("idUsuarioSesion", String.valueOf( valoracionUsuarioSesion.get("usuario")));
-			valoracionUsuario.addProperty("valorUsuarioSesion", String.valueOf( valoracionUsuarioSesion.get("valor")));
+			if(valoracionUsuario.size() != 0) {
+				valoracionUsuario.addProperty("idUsuarioSesion", String.valueOf( valoracionUsuarioSesion.get("usuario")));
+				valoracionUsuario.addProperty("valorUsuarioSesion", String.valueOf( valoracionUsuarioSesion.get("valor")));
+			}
 
 			// Combinamos las consultas modificadas en un objeto json
 			JsonObject combinacionDatos = new JsonObject();
@@ -175,8 +176,13 @@ public class ServicioWebPosts {
 
 			return new ResponseEntity<String>(jsonPostComentarios, HttpStatus.OK);
 		} else {
-
+			JsonObject valoracionUsuario = new JsonObject();
 			JsonObject valoracionesPostResults = new JsonObject();
+			
+			if(valoracionUsuario.size() != 0) {
+				valoracionUsuario.addProperty("idUsuarioSesion", String.valueOf( valoracionUsuarioSesion.get("usuario")));
+				valoracionUsuario.addProperty("valorUsuarioSesion", String.valueOf( valoracionUsuarioSesion.get("valor")));
+			}
 
 			valoracionesPostResults.addProperty("like", like);
 			valoracionesPostResults.addProperty("dislike", dislike);
@@ -184,6 +190,7 @@ public class ServicioWebPosts {
 			JsonObject combinacionDatos = new JsonObject();
 			combinacionDatos.add("post", new Gson().toJsonTree(postResults));
 			combinacionDatos.add("post_valoraciones", new Gson().toJsonTree(valoracionesPostResults));
+			combinacionDatos.add("valoracion_usuario_sesion", valoracionUsuario);
 			
 			String jsonPostComentarios = combinacionDatos.toString();
 			return new ResponseEntity<String>(jsonPostComentarios, HttpStatus.OK);

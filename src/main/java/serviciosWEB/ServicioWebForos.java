@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import modelo.Foro;
 import servicios.ServicioForos;
@@ -53,38 +55,31 @@ public class ServicioWebForos {
 
 	@RequestMapping("obtenerForosYPosts")
 	public ResponseEntity<String> obtenerForosYPosts() {
-
 		List<Map<String, Object>> forosResults = servicioForos.obtenerForosParaListadoAleatorios();
-
-		String jsonForos = new Gson().toJson(forosResults);
-
 		List<Map<String, Object>> postsResults = servicioPosts.obtenerPostsParaListadoAleatorio();
-		String jsonPosts = new Gson().toJson(postsResults);
+		Gson gson = new Gson();
 
-		if (postsResults.size() != 0) {
-			// Recogemos las keys del map
-			Set<String> keys = postsResults.get(0).keySet();
-
-			// Las parseamos a iterdor para poder remplazarlas
-			Iterator<String> keysValues = keys.iterator();
-
-			// Anyadimos a las keys el "Post" para diferenciarlas
-			while (keysValues.hasNext()) {
-				String key = keysValues.next();
-				jsonPosts = jsonPosts.replaceAll(key, key + "Post");
+		// Convierte el resultado en un array de foros
+		JsonArray forosArray = gson.toJsonTree(forosResults).getAsJsonArray();
+		JsonArray postsArray = gson.toJsonTree(postsResults).getAsJsonArray();
+			
+		if(postsArray.size() != 0 || !postsArray.isJsonNull()) {
+			for(int i =0 ; i < postsArray.size(); i++) {
+				Map<String, Object> postForo = servicioForos.obtenerForo(Long.parseLong(String.valueOf(postsResults.get(i).get("id"))));	
+				postsArray.get(i).getAsJsonObject().addProperty("foroNombre", String.valueOf(postForo.get("nombre")));
 			}
-
-			// Cambiamos el cierre de jsonForos por una coma, para unirlo a jsonPosts,
-			// Adem�s de eliminar la abertura de jsonPost
-			jsonForos = jsonForos.replaceAll("}]", ",");
-			jsonPosts = jsonPosts.replaceAll(Pattern.quote("[{"), "");
-
-			jsonForos = jsonForos + jsonPosts;
-			return new ResponseEntity<String>(jsonForos, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<String>(jsonForos, HttpStatus.OK);
 		}
-
+		
+	
+		
+		JsonObject combinacionDatos = new JsonObject();
+		combinacionDatos.add("foros", forosArray);
+		combinacionDatos.add("posts", postsArray);
+		
+		String json = combinacionDatos.toString();
+		
+		System.out.println(json);
+		return new ResponseEntity<String>(json, HttpStatus.OK);
 	}
 
 	@RequestMapping("registrarForo")
