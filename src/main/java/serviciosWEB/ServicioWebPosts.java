@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import modelo.Post;
 import modelo.Valoracion;
+import servicios.ServicioForos;
 import servicios.ServicioPosts;
 import utilidadesArchivos.GestorArchivos;
 
@@ -30,6 +33,10 @@ public class ServicioWebPosts {
 
 	@Autowired
 	private ServicioPosts servicioPosts;
+	
+	@Autowired
+	private ServicioForos servicioForos;
+
 
 	@RequestMapping("obtenerPosts")
 	public ResponseEntity<String> obtenerPosts() {
@@ -39,8 +46,19 @@ public class ServicioWebPosts {
 
 	@RequestMapping("obtenerPostPorForoId")
 	public ResponseEntity<String> obtenerPost(String id, HttpServletRequest request) {
-		String json = new Gson().toJson(servicioPosts.obtenerIdPostPorForoId(Long.parseLong(id)));
-		return new ResponseEntity<String>(json, HttpStatus.OK);
+		List<Map<String,Object>> postsForo = servicioPosts.obtenerIdPostPorForoId(Long.parseLong(id));
+		
+		for(int i=0; i<postsForo.size();i++) {
+			Map<String, Object> obtenerForo = servicioForos.obtenerForo(Long.parseLong(id));
+			postsForo.get(i).put("nombreForo", obtenerForo.get("nombre"));
+		}
+		
+		JsonObject json = new JsonObject();
+		json.add("posts", new Gson().toJsonTree(postsForo));
+		
+		String datos = json.toString();
+		
+		return new ResponseEntity<String>(datos, HttpStatus.OK);
 	}
 
 	@RequestMapping("registrarPosts")

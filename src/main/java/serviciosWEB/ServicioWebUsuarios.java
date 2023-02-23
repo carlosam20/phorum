@@ -73,6 +73,7 @@ public class ServicioWebUsuarios {
 	@RequestMapping("comprobarLogin")
 	public ResponseEntity<String> comprobarLogin(HttpServletRequest request) {
 		String respuesta = "";
+		
 		if (request.getSession().getAttribute("usuario") != null) {
 			respuesta = "ok";
 		} else {
@@ -80,6 +81,7 @@ public class ServicioWebUsuarios {
 		}
 		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
 	}
+	
 
 	@RequestMapping("logout")
 	public ResponseEntity<String> logout(HttpServletRequest request) {

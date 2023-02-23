@@ -1,21 +1,45 @@
 {
-    "foros": [
-        {
-            "descripcion": "Este es un foro en el que se habla de ballenas",
-            "fechaCreacion": "2023-02-16",
-            "id": 1,
-            "nombre": "Foro de ballenas"
-        }
-    ],
-    "posts": [
+    "post": [
         {
             "descripcion": "En el los usuarios comentan cosas sobre ballenas y sobre lo que hacen",
+            "totalComentarios": 3,
+            "foro": 1,
             "fechaCreacion": "2023-02-16",
-            "usuario": 1,
             "id": 1,
             "nombre": "Este es un post de ballena",
-            "foro": 1,
-            "foroNombre": "Foro de ballenas"
+            "idUsuarioPost": 1,
+            "nombreUsuarioPost": "carlos"
         }
-    ]
+    ],
+    "post_valoraciones": {
+        "like": 2,
+        "dislike": 0
+    },
+    "post_comentarios": [
+        {
+            "fechaCreacionComentario": "16/2/2023",
+            "postComentario": 1,
+            "idUsuario": 1,
+            "nombreUsuario": "carlos",
+            "textoComentario": "Esto es un comentario que he puesto en ballenas",
+            "idComentario": 3
+        },
+        {
+            "fechaCreacionComentario": "2023-02-15",
+            "postComentario": 1,
+            "idUsuario": 2,
+            "nombreUsuario": "ana",
+            "textoComentario": "Esto es un comentario que he puesto en ballenas 2 ",
+            "idComentario": 4
+        },
+        {
+            "fechaCreacionComentario": "16/2/2023",
+            "postComentario": 1,
+            "idUsuario": 2,
+            "nombreUsuario": "ana",
+            "textoComentario": "Esto es un comentario que he puesto 3",
+            "idComentario": 5
+        }
+    ],
+    "valoracion_usuario_sesion": {}
 }

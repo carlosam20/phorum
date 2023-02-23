@@ -1,5 +1,6 @@
 package serviciosWEB.identificado;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -89,8 +90,9 @@ public class ServicioWebPosts {
 
 	@RequestMapping("obtenerPostYComentariosPorId")
 	public ResponseEntity<String> obtenerPostYComentariosPorId(String idPost, HttpServletRequest request) {
-		
+
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+		
 
 		List<Map<String, Object>> postResults = servicioPosts.obtenerPostsPorId(Long.parseLong(idPost));
 
@@ -99,10 +101,17 @@ public class ServicioWebPosts {
 
 		int like = servicioValoraciones.obtenerTotalValoracionesPostLike(Long.parseLong(idPost));
 		int dislike = servicioValoraciones.obtenerTotalValoracionesPostDislike(Long.parseLong(idPost));
+
+		Map<String, Object> valoracionUsuarioSesion =  servicioValoraciones.obtenerValoracionPorPostIdYPorUsuarioId(
+				Long.parseLong(String.valueOf(u.getId())), Long.parseLong(idPost));
+		System.out.println("--Usuario "+u.getId());
+		System.out.println("--Post "+idPost);
 		
-		Map<String, Object> valoracionUsuarioSesion = servicioValoraciones.obtenerValoracionPorPostIdYPorUsuarioId(Long.parseLong(  String.valueOf(u.getId())) , Long.parseLong(idPost));
+		boolean hayValor = servicioValoraciones.comprobarExisteValoracion( Long.parseLong(idPost), u.getId());
 		
-		//Necesito obtener la valoracion del post con el usuario actual
+		System.out.println("hayValor:"+hayValor);
+
+		// Necesito obtener la valoracion del post con el usuario actual
 
 		// Eliminamos todos los datos del usuario que no nos interesen
 
@@ -123,9 +132,6 @@ public class ServicioWebPosts {
 
 		}
 
-	
-		//TODO revisar
-
 		// Añadimos los datos del usuario en concreto al comentario realizado por él
 		// mismo
 		for (int i = 0; i < comentariosResults.size(); i++) {
@@ -144,23 +150,24 @@ public class ServicioWebPosts {
 			comentariosResults.get(i).keySet().remove("id");
 		}
 		
-	
-		if(!valoracionUsuarioSesion.isEmpty()) {
+		//Eliminamos datos de la valoracion del usuario
+		if (hayValor) {
 			valoracionUsuarioSesion.remove("id");
 			valoracionUsuarioSesion.remove("post");
 		}
 
 		if (comentariosResults.size() != 0) {
-
 			JsonObject valoracionesPostResults = new JsonObject();
 			JsonObject valoracionUsuario = new JsonObject();
 
 			valoracionesPostResults.addProperty("like", like);
 			valoracionesPostResults.addProperty("dislike", dislike);
-			
-			if(valoracionUsuario.size() != 0) {
-				valoracionUsuario.addProperty("idUsuarioSesion", String.valueOf( valoracionUsuarioSesion.get("usuario")));
-				valoracionUsuario.addProperty("valorUsuarioSesion", String.valueOf( valoracionUsuarioSesion.get("valor")));
+
+			if (hayValor) {
+				valoracionUsuario.addProperty("idUsuarioSesion",
+						String.valueOf(valoracionUsuarioSesion.get("usuario")));
+				valoracionUsuario.addProperty("valorUsuarioSesion",
+						String.valueOf(valoracionUsuarioSesion.get("valor")));
 			}
 
 			// Combinamos las consultas modificadas en un objeto json
@@ -176,12 +183,15 @@ public class ServicioWebPosts {
 
 			return new ResponseEntity<String>(jsonPostComentarios, HttpStatus.OK);
 		} else {
+
 			JsonObject valoracionUsuario = new JsonObject();
 			JsonObject valoracionesPostResults = new JsonObject();
-			
-			if(valoracionUsuario.size() != 0) {
-				valoracionUsuario.addProperty("idUsuarioSesion", String.valueOf( valoracionUsuarioSesion.get("usuario")));
-				valoracionUsuario.addProperty("valorUsuarioSesion", String.valueOf( valoracionUsuarioSesion.get("valor")));
+
+			if (hayValor) {
+				valoracionUsuario.addProperty("idUsuarioSesion",
+						String.valueOf(valoracionUsuarioSesion.get("usuario")));
+				valoracionUsuario.addProperty("valorUsuarioSesion",
+						String.valueOf(valoracionUsuarioSesion.get("valor")));
 			}
 
 			valoracionesPostResults.addProperty("like", like);
@@ -191,7 +201,7 @@ public class ServicioWebPosts {
 			combinacionDatos.add("post", new Gson().toJsonTree(postResults));
 			combinacionDatos.add("post_valoraciones", new Gson().toJsonTree(valoracionesPostResults));
 			combinacionDatos.add("valoracion_usuario_sesion", valoracionUsuario);
-			
+
 			String jsonPostComentarios = combinacionDatos.toString();
 			return new ResponseEntity<String>(jsonPostComentarios, HttpStatus.OK);
 		}

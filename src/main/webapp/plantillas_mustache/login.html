@@ -23,7 +23,7 @@
 
       <div class="row justify-content-center">
         <div class="d-flex justify-content-center">
-          <div class="col-lg-12 col-md-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
             <h1 class="titulo text-center">
               Iniciar Sesión
             </h1>
@@ -39,14 +39,24 @@
 
         <div class="row justify-content-center m-3">
 
-          <div class="col-lg-6 col-md-6 col-sm-6 justify-content-center">
+          <div class="col-lg-8 col-md-8 col-sm-8 justify-content-center">
 
             <input id="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email"
               pattern="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})"
               title="Se tiene que incluir un @ y una dirección de dominio ejemplo: .com">
 
-            <input id="pass" type="password" class="form-control" placeholder="Contraseña" pattern="[a-z0-9áéíóú]{3,10}"
-              title="La contraseña tiene que tener entre 3 y 10 caracteteres">
+
+            <div class="row m-1">
+              <div class="col-lg 7 col-md-7 col-sm-7">
+                <input id="pass" type="password" class="form-control" placeholder="Contraseña"
+                pattern="[a-z0-9áéíóú]{3,10}" title="La contraseña tiene que tener entre 3 y 10 caracteteres">
+              </div>
+              <div class="col-lg-5 col-md-5 col-sm-5">
+                <i class="fa-solid fa-eye" id="ojo-icon"></i>
+              </div>
+
+            </div>
+
 
             <div class="row m-1">
               <div class="col-lg-10 col-md-10 col-sm-10">
@@ -68,5 +78,6 @@
     </div>
   </div>
 </body>
+<script src="js/togglePass.js"></script>
 
 </html>

@@ -2,7 +2,7 @@
 //Variables globales de usuario
 let email = "";
 let pass = "";
-let nombre_login = "Sesión no iniciada";
+let nombre_login = "Sesi&oacute no iniciada";
 let idUsuario = "";
 
 //Carga de plantillas en variables
@@ -25,237 +25,221 @@ listadoInicio();
 
 function registrarPost() {
 	$("#form_registro_post").submit(function (e) {
-		if (comprobarIdentificacion) {
-			let nombre = $("#nombre").val();
-			let descripcion = $("#descripcion").val();
 
-			idUsuario = "";
-			let idForo = id;
+		let nombre = $("#nombre").val();
+		let descripcion = $("#descripcion").val();
 
-			$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
-				success: function (data) {
-					//alert("recibido: "+data);
-					let info = JSON.parse(data);
-					idUsuario = info.id;
+		idUsuario = "";
+		let idForo = id;
 
-					let formulario = document.forms[0];
-					let formData = new FormData(formulario);
-					formData.append('idForo', idForo);
-					formData.append('idUsuario', idUsuario);
+		$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
+			success: function (data) {
+				//alert("recibido: "+data);
+				let info = JSON.parse(data);
+				idUsuario = info.id;
+
+				let formulario = document.forms[0];
+				let formData = new FormData(formulario);
+				formData.append('idForo', idForo);
+				formData.append('idUsuario', idUsuario);
 
 
-					$.ajax("identificado/servicioWebPosts/registrarPosts", {
-						type: "POST",
-						data: formData,
-						cache: false,
-						contentType: false,
-						processData: false,
-						success: function (res) {
-							if (res == "ok") {
-								$('#crearPostModal').modal("hide");
-								obtener_listado_posts();
-							} else {
-								swal("Error de sintaxis en algun form del post", "Post no valido", "error");
-								alert(res);
-							}
-						} //end Success Registrar Post
-					}); //end Registrar Post
+				$.ajax("identificado/servicioWebPosts/registrarPosts", {
+					type: "POST",
+					data: formData,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function (res) {
+						if (res == "ok") {
+							$('#crearPostModal').modal("hide");
+							obtener_listado_posts();
+						} else {
+							swal("Error de sintaxis en algun form del post", "Post no valido", "error");
+							alert(res);
+						}
+					} //end Success Registrar Post
+				}); //end Registrar Post
 
-				}//end Success (Recogemos El id del usuario)
-			});	//end ajax ObtenerUsuario
+			}//end Success (Recogemos El id del usuario)
+		});	//end ajax ObtenerUsuario
 
-			e.preventDefault();
-		} else if (!comprobarIdentificacion()) {
-			swal("Requiere una cuenta", "Te tienes que identificar antes para acceder al post", "info");
-		}
+		e.preventDefault();
+
 	});
 }//-end registrar post-
 
 function registrarComentarioPost() {
 	//Realizar comentario en post										
 	$("#form_registro_comentario").submit(function (e) {
-		if (comprobarIdentificacion) {
 
-			let textoComentario = $("#textoComentario").val();
 
-			let formulario = document.forms[0];
-			let formData = new FormData(formulario);
+		let textoComentario = $("#textoComentario").val();
 
-			$.ajax("identificado/servicioWebComentarios/registrarComentario?idPost=" + idPost, {
-				type: "POST",
-				data: formData,
-				cache: false,
-				contentType: false,
-				processData: false,
-				success: function (res) {
-					if (res == "ok") {
-						alert(res);
-						//TODO recargar PostYcomentarios aqui
-					}
-					else {
-						alert(res);
-					}
+		let formulario = document.forms[0];
+		let formData = new FormData(formulario);
+
+		$.ajax("identificado/servicioWebComentarios/registrarComentario?idPost=" + idPost, {
+			type: "POST",
+			data: formData,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function (res) {
+				if (res == "ok") {
+					alert(res);
+					//TODO recargar PostYcomentarios aqui
 				}
-				//end Success Registrar Comentario
-			}); //end Registrar Comentarios
-			e.preventDefault();
-		} else if (!comprobarIdentificacion()) {
-			swal("Requiere una cuenta", "Te tienes que identificar antes para acceder al post", "info");
-		}
+				else {
+					alert(res);
+				}
+			}
+			//end Success Registrar Comentario
+		}); //end Registrar Comentarios
+		e.preventDefault();
+
 	});
 }//-end registrar comentario post-
 
 function verPerfilDeComentario() {
 	//Ver Perfil del usuario que comento
 	$(".boton_ver_perfil").click(function (e) {
-		if (comprobarIdentificacion) {
-			let idUsuarioComentario = $(this).attr("id");
 
-			$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioComentarioPorId?idUsuarioComentario=" + idUsuarioComentario, {
-				type: "GET",
-				data: formData,
-				cache: false,
-				contentType: false,
-				processData: false,
-				success: function (res) {
-					alert("recibido: " + data);
-					let info = JSON.parse(data);
-					let texto_html = "";
+		let idUsuarioComentario = $(this).attr("id");
 
-					texto_html = Mustache.render(plantillaPerfil, info);
-					$("#contenedor").html(texto_html);
-				}
-			});
-		} else if (!comprobarIdentificacion()) {
-			swal("Requiere una cuenta", "Te tienes que identificar antes para acceder al post", "info");
-		}
+		$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioComentarioPorId?idUsuarioComentario=" + idUsuarioComentario, {
+			type: "GET",
+			success: function (res) {
+				alert("recibido: " + res);
+				let info = JSON.parse(res);
+				let texto_html = "";
+
+				texto_html = Mustache.render(plantillaPerfil, info);
+				$("#contenedor").html(texto_html);
+			}
+		});
+
 	});
 }//-end ver perfil de comentario-
 
-function valoracionLike() {
+function valoracionLike(idPost) {
 	$(".like").click(function (e) {
-		if (comprobarIdentificacion) {
-			e.preventDefault();
+		e.preventDefault();
+		comprobarExisteValoracion(idPost)
+			.then((valoracionExiste) => {
+				alert(valoracionExiste);
+				if (!valoracionExiste) {
+					/*Eliminar valoracion del dislike para crear un like*/
+					//Aqui se comprueba si existe una valoracion previa con valoracion = false
+					//En el caso de que haya será eliminada previamente
+					
+					// eliminarValoracionFalse(idPost);
+					let formData = new FormData();
+					formData.append("idPost", idPost);
+					formData.append("valor", true);
 
-			comprobarExisteValoracion(idPost)
-				.then((valoracionExiste) => {
-					if (!valoracionExiste) {
-						/*Eliminar valoracion del dislike para crear un like*/
-						//Aqui se comprueba si existe una valoracion previa con valoracion = false
-						//En el caso de que haya será eliminada previamente
-						eliminarValoracionFalse(idPost);
-						let formData = new FormData();
-						formData.append("idPost", idPost);
-						formData.append("valor", true);
+					$.ajax("identificado/servicioWebValoracion/registrarValoracion", {
+						type: "POST",
+						data: formData,
+						cache: false,
+						contentType: false,
+						processData: false,
+						success: function (res) {
+							console.log("Like registrado");
+						},
+					});
+				} else if(valoracionExiste) {
+					eliminarValoracionTrue(idPost);
+				}
+			})
+			.catch((error) => {
+				console.error(error);
+			});
 
-						$.ajax("identificado/servicioWebValoracion/registrarValoracion", {
-							type: "POST",
-							data: formData,
-							cache: false,
-							contentType: false,
-							processData: false,
-							success: function (res) {
-								console.log("Like registrado");
-							},
-						});
-					} else {
-						eliminarValoracionTrue(idPost);
-					}
-				})
-				.catch((error) => {
-					console.error(error);
-				});
-		} else if (!comprobarIdentificacion()) {
-			swal("Requiere una cuenta", "Te tienes que identificar antes para acceder al post", "info");
-		}
 	});
 
 }//-end valoracion like-
 
-function valoracionDislike() {
+function valoracionDislike(idPost) {
 	$(".dislike").click(function (e) {
-		if (comprobarIdentificacion) {
-			e.preventDefault();
 
-			comprobarExisteValoracion(idPost).then(
-				(valoracionExiste) => {
-					if (!valoracionExiste) {
-						eliminarValoracionTrue(idPost);
-						let idPost = $(this).attr("id");
-						let formData = new FormData();
-						formData.append("idPost", idPost);
-						formData.append("valor", false);
-						$.ajax("identificado/servicioWebValoracion/registrarValoracion", {
-							type: "POST",
-							data: formData,
-							cache: false,
-							contentType: false,
-							processData: false,
-							success: function (res) {
-							}
-						});
+		e.preventDefault();
 
-					} else {
-						eliminarValoracionFalse(idPost);
-					}
+		comprobarExisteValoracion(idPost).then(
+			(valoracionExiste) => {
+				if (!valoracionExiste) {
+					eliminarValoracionTrue(idPost);
+					let idPost = $(this).attr("id");
+					let formData = new FormData();
+					formData.append("idPost", idPost);
+					formData.append("valor", false);
+					$.ajax("identificado/servicioWebValoracion/registrarValoracion", {
+						type: "POST",
+						data: formData,
+						cache: false,
+						contentType: false,
+						processData: false,
+						success: function (res) {
+						}
+					});
 
-				}).catch((error) => {
-					console.error(error);
-				});
-		} else if (!comprobarIdentificacion()) {
-			swal("Requiere una cuenta", "Te tienes que identificar antes para acceder al post", "info");
-		}
+				} else {
+					eliminarValoracionFalse(idPost);
+				}
+
+			}).catch((error) => {
+				console.error(error);
+			});
+
 	});
 }//-end valoracion dislike-
 
 function verPostYComentarios() {
 
 	$(".boton_ver_post").click(function (e) {
-		if (comprobarIdentificacion()) {
-			let idPost = $(this).attr("id");
-			$.ajax("identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" + idPost, {
-				success: function (data) {
 
-					alert("recibido: " + data);
-					let postYComentarios = JSON.parse(data);
-					let texto_html = "";
-					texto_html = Mustache.render(plantillaListarPostYComentarios, postYComentarios);
-					$("#contenedor").html(texto_html);
+		let idPost = $(this).attr("id");
+		$.ajax("identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" + idPost, {
+			success: function (data) {
 
-					//Cambiar iconos según la valoración del usuario
-					let valor = postYComentarios.valoracion_usuario_sesion.valorUsuarioSesion;
-					alert("El valor: " + valor);
+				alert("recibido: " + data);
+				let postYComentarios = JSON.parse(data);
+				let texto_html = "";
+				texto_html = Mustache.render(plantillaListarPostYComentarios, postYComentarios);
+				$("#contenedor").html(texto_html);
 
-					if (valor === "true") {
-						$("#like-icon").removeClass("fa-regular fa-thumbs-up fa-xl").addClass("fa-solid fa-thumbs-up fa-xl");
-					} else if (valor === "false") {
-						$("#dislike-icon").removeClass("fa-regular fa-thumbs-down fa-xl").addClass("fa-solid fa-thumbs-down fa-xl");
-					}
+				//Cambiar iconos según la valoración del usuario
+				let valor = postYComentarios.valoracion_usuario_sesion.valorUsuarioSesion;
+				alert("El valor: " + valor);
 
-					//Comentario en post
-					registrarComentarioPost();
+				if (valor === "true") {
+					$("#like-icon").removeClass("fa-regular fa-thumbs-up fa-xl").addClass("fa-solid fa-thumbs-up fa-xl");
+				} else if (valor === "false") {
+					$("#dislike-icon").removeClass("fa-regular fa-thumbs-down fa-xl").addClass("fa-solid fa-thumbs-down fa-xl");
+				}
 
-
-					//Ver perfil de comentario
-					verPerfilDeComentario();
+				//Comentario en post
+				registrarComentarioPost();
 
 
-					//Crear valoración y poner like
-					valoracionLike();
+				//Ver perfil de comentario
+				verPerfilDeComentario();
 
 
-					//Crear valoración y poner dislike
-					valoracionDislike();
+				//Crear valoración y poner like
+				valoracionLike(idPost);
+
+
+				//Crear valoración y poner dislike
+				valoracionDislike(idPost);
 
 
 
-				}//---end success---
+			}//---end success---
 
 
-			});//--end ajax--
-		} else if (!comprobarIdentificacion()) {
-			swal("Requiere una cuenta", "Te tienes que identificar antes para acceder al post", "info");
-		}
+		});//--end ajax--
+
 
 	});
 }//-end ver Post y comentarios-
@@ -295,7 +279,6 @@ function listadoInicio() {
 				forosYPost);
 			$("#contenedor").html(texto_html);
 
-			alert(data);
 			//Ver post de foro
 			verPostsDeForo();
 
@@ -318,41 +301,39 @@ function registrarForo() {
 	//Registro		 
 	$("#form_registro_foro").submit(function (e) {
 
-		if (comprobarIdentificacion) {
-			let nombre = $("#nombre").val();
-			let descripcion = $("#descripcion").val();
 
-			if (validarNombreForo(nombre) && validarDescripcionForo(descripcion)) {
+		let nombre = $("#nombre").val();
+		let descripcion = $("#descripcion").val();
 
-				alert("todo ok, mandando informacion al servicio web...");
+		if (validarNombreForo(nombre) && validarDescripcionForo(descripcion)) {
 
-				//vamos a usar FormData para mandar el form al servicio web
-				let formulario = document.forms[0];
-				let formData = new FormData(formulario);
+			alert("todo ok, mandando informacion al servicio web...");
 
-				$.ajax("identificado/servicioWebForos/registroForo", {
-					type: "POST",
-					data: formData,
-					cache: false,
-					contentType: false,
-					processData: false,
-					success: function (res) {
-						if (res == "ok") {
-							alert("registrado correctamente");
+			//vamos a usar FormData para mandar el form al servicio web
+			let formulario = document.forms[0];
+			let formData = new FormData(formulario);
 
-							$('#crearForoModal').modal("hide");
-							obtener_listado_foros();
-						} else {
-							swal(res, "Foro no valido", "error");
-							alert("Foro no valido");
-						}
+			$.ajax("identificado/servicioWebForos/registroForo", {
+				type: "POST",
+				data: formData,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function (res) {
+					if (res == "ok") {
+						alert("registrado correctamente");
+
+						$('#crearForoModal').modal("hide");
+						obtener_listado_foros();
+					} else {
+						swal(res, "Foro no valido", "error");
+						alert("Foro no valido");
 					}
-				});
-			}//end if validaciones
-			e.preventDefault();
-		} else if (!comprobarIdentificacion()) {
-			swal("Requiere una cuenta", "Te tienes que identificar antes para acceder al post", "info");
-		}
+				}
+			});
+		}//end if validaciones
+		e.preventDefault();
+
 	});
 
 }//-end registrar foro-
@@ -360,49 +341,47 @@ function registrarForo() {
 function registrarPost() {
 	//Registrar Post
 	$("#form_registro_post").submit(function (e) {
-		if (comprobarIdentificacion) {
-			let nombre = $("#nombre").val();
-			let descripcion = $("#descripcion").val();
 
-			idUsuario = "";
-			let idForo = id;
+		let nombre = $("#nombre").val();
+		let descripcion = $("#descripcion").val();
 
-			$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
-				success: function (data) {
-					//alert("recibido: "+data);
-					let info = JSON.parse(data);
-					idUsuario = info.id;
+		idUsuario = "";
+		let idForo = id;
 
-					let formulario = document.forms[0];
-					let formData = new FormData(formulario);
-					formData.append('idForo', idForo);
-					formData.append('idUsuario', idUsuario);
+		$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
+			success: function (data) {
+				//alert("recibido: "+data);
+				let info = JSON.parse(data);
+				idUsuario = info.id;
+
+				let formulario = document.forms[0];
+				let formData = new FormData(formulario);
+				formData.append('idForo', idForo);
+				formData.append('idUsuario', idUsuario);
 
 
-					$.ajax("identificado/servicioWebPosts/registrarPosts", {
-						type: "POST",
-						data: formData,
-						cache: false,
-						contentType: false,
-						processData: false,
-						success: function (res) {
-							if (res == "ok") {
-								$('#crearPostModal').modal("hide");
-								obtener_listado_posts();
-							} else {
-								swal("Error de sintaxis en algun form del post", "Post no valido", "error");
-								alert(res);
-							}
-						} //end Success Registrar Post
-					}); //end Registrar Post
+				$.ajax("identificado/servicioWebPosts/registrarPosts", {
+					type: "POST",
+					data: formData,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function (res) {
+						if (res == "ok") {
+							$('#crearPostModal').modal("hide");
+							obtener_listado_posts();
+						} else {
+							swal("Error de sintaxis en algun form del post", "Post no valido", "error");
+							alert(res);
+						}
+					} //end Success Registrar Post
+				}); //end Registrar Post
 
-				}//end Success (Recogemos El id del usuario)
-			});	//end ajax ObtenerUsuario
+			}//end Success (Recogemos El id del usuario)
+		});	//end ajax ObtenerUsuario
 
-			e.preventDefault();
-		} else if (!comprobarIdentificacion()) {
-			swal("Requiere una cuenta", "Te tienes que identificar antes para acceder al post", "info");
-		}
+		e.preventDefault();
+
 	});
 }//-end registrar post-
 
@@ -537,31 +516,30 @@ function mostrarIdentificacionUsuario() {
 		$("#pass").val(Cookies.get("pass"));
 	}
 
-
 	$("#form_login").submit(function () {
 
 		email = $("#email").val();
 		pass = $("#pass").val();
 
 		if (validarEmail(email)) {
-
 			if (validarPass(pass)) {
 
 				$.ajax("servicioWebUsuarios/loginUsuario", {
 					data: "email=" + email + "&pass=" + pass,
 					success: function (res) {
 						if (res.split(",")[0] == "ok") {
+							$("#mensaje_login").text(res.split(",")[1]);
 							nombre_login = res.split(",")[1];
 							id_login = res.split(",")[2];
-
+							swal("", "Sesión iniciada", "success");
 
 							if ($("#recordar_datos").prop('checked')) {
-								alert("guardar datos en cookie");
+								swal("Cookies sesion", "Datos guardados", "success");
 								Cookies.set('email', email, { expires: 100 });
 								Cookies.set('pass', pass, { expires: 100 });
+								nombre_login = res.split(",")[1];
 							}
 
-							obtenerUsuario();
 						} else {
 							alert(res);
 						}
@@ -584,8 +562,8 @@ function logout() {
 	$.ajax("servicioWebUsuarios/logout", {
 		success: function (res) {
 			if (res == "ok") {
-				swal("Sesión cerrada", "Operación completada", "success");
-				$("#mensaje_login").html("Sesión no iniciada");
+				swal("Sesi&aocuten cerrada", "Operaci&aocuten completada", "success");
+				$("#mensaje_login").html("");
 				setTimeout(() => { location.reload(); }, 2000);
 			}
 		}
@@ -666,8 +644,6 @@ function editarUsuario() {
 
 			});	//end ajax 
 			e.preventDefault();
-		} else if (!comprobarIdentificacion()) {
-			swal("Requiere una cuenta", "Te tienes que identificar antes para acceder al post", "info");
 		}
 
 	});//-end enlace editar
@@ -676,7 +652,7 @@ function editarUsuario() {
 function borrarUsuario() {
 	//Boton Borrar usuario 
 	$(".boton_borrar_usuario").click(function (e) {
-		if(comprobarIdentificacion){
+
 		swal({
 			title: "Est&aacutes seguro de que quieres eliminarlo?",
 			text: "No se podr&aacute recuperar el usuario",
@@ -693,7 +669,7 @@ function borrarUsuario() {
 								swal("El usuario se ha eliminado", {
 									icon: "success",
 								})
-								setTimeout(() => { logout(); }, 2000);
+								setTimeout(() => { mostrarIdentificacionUsuario(); }, 2000);
 							}
 						}//---end success---
 					});//--end ajax--
@@ -702,15 +678,12 @@ function borrarUsuario() {
 					perfil();
 				}
 			});
-		}else if (!comprobarIdentificacion()) {
-			swal("Requiere una cuenta", "Te tienes que identificar antes para acceder al post", "info");
-		  }
+
 
 	});//end Borrar Usuario
 } //-end borrar usuario-
 
 function perfil() {
-	if(comprobarIdentificacion){
 	$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
 		success: function (data) {
 			alert("recibido: " + data);
@@ -729,9 +702,6 @@ function perfil() {
 		}//end success Obtener id
 
 	});	//end ajax
-}else if (!comprobarIdentificacion()) {
-	swal("Requiere una cuenta", "Te tienes que identificar antes para acceder al post", "info");
-  }
 }//-end perfil-
 
 function eliminarValoracionFalse(idPost) {
@@ -782,7 +752,7 @@ function comprobarExisteValoracion(idPost) {
 				console.log(data);
 			},
 			error: function () {
-				reject(new Error("No se pudo obtener la valoración"));
+				// reject(new Error("No se pudo obtener la valoración"));
 			}
 		});
 	});
@@ -791,7 +761,7 @@ function comprobarExisteValoracion(idPost) {
 function comprobarIdentificacion() {
 	$.ajax("servicioWebUsuarios/comprobarLogin", {
 		success: function (res) {
-			if (res.includes('ok')) {
+			if (res == "ok") {
 				return true;
 			} else {
 				return false;
@@ -800,18 +770,7 @@ function comprobarIdentificacion() {
 	});
 } // -end comprobar identificacion-
 
-function obtenerUsuario() {
-	$.ajax("servicioWebUsuarios/obtenerUsuario", {
-		success: function (res) {
-			if (res.split(",")[0] == "ok") {
-				nombre_login = res.split(",")[1];
-				$("#mensaje_login").html(" Perfil: " + nombre_login + " ");
-			} else {
-				$("#mensaje_login").html("( no estas identificado )");
-			}
-		}
-	});
-}// -end obtener usuario-
+
 
 //Enlaces del navbar
 $("#enlace_home").click(listadoInicio);

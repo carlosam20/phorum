@@ -125,6 +125,9 @@ public class ServicioWebUsuarios {
 		servicioPosts.eliminarPostUsuarios(u.getId());
 		servicioUsuarios.eliminarUsuario(u.getId());
 		
+		//Elimina la sesión del usuario
+		request.getSession().invalidate();
+		
 		respuesta = "ok";
 		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
 	}
@@ -133,7 +136,7 @@ public class ServicioWebUsuarios {
 	public ResponseEntity<String> comprobarIdentificacion(HttpServletRequest request) {
 		String respuesta = "";
 		if (request.getSession().getAttribute("usuario") != null) {
-			respuesta = "ok," + ((Usuario) request.getSession().getAttribute("usuario")).getNombre();
+			respuesta = "ok";
 		} else {
 			respuesta = "no identificado";
 		}

@@ -60,9 +60,7 @@ public class GestorArchivos {
 		else {
 			
 		}
-		
-		
-	}// end guardarImagenForoz
+	}// end guardarImagenForo
 	
 	
 	

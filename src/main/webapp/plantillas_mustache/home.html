@@ -16,7 +16,6 @@
         <h1 class="display-4 text-light "><b>Para tener una mejor experiencia</b></h1>
       </div>
 
-
       <div class="header-titulos col-lg-6 col-md-6 col-sm-6 ">
 
         <!-- Comienza imagen svg -->
@@ -266,23 +265,24 @@
   <!--Scroll container-->
   <div class="row m-2">
     <div class="col-lg-12 col-md-12 col-sm-12 scrollContainer">
+
       <div class="scroll">
         {{#.}}
         {{#foros}}
-        <div class="item shadow-sm">
-          <a class="boton_post_foro link-foro" id="{{id}}">
-            <div class="contenedorfotoForo">
-              <img src="subidas/{{id}}.jpg" alt="{{nombre}}" id="{{id}}" class="card-img-top rounded">
-            </div>
+        <a class="boton_post_foro" id="{{id}}">
+        <div class="item">
+          <div class="contenedorfotoForo">
+              <img src="subidas/{{id}}.jpg" alt="{{nombre}}" id="{{id}}" class="fotoForo rounded">
+          </div>
             <h5 class="text-center">{{nombre}}</h5>
-          </a>
         </div>
+      </a>
         {{/foros}}
         {{/.}}
       </div>
+
     </div>
   </div>
-
 
 
 
@@ -294,20 +294,23 @@
 
     <!--Listado de Post-->
     <div class="col-lg-5 col-md-5 col-sm-11 m-1">
+      
+      <div class="row m-1">
       {{#.}}
       {{#posts}}
-      <div class="row m-1">
-        <div class=" col-lg-5 col-md-5 col-sm-11 card">
+        <div class=" col-lg-6 col-md-6 col-sm-11 m-2 card">
+
           <div class="card-header">
+
             <div class="row  text-start align-items-center">
-              <div class="col-lg-4 col-md-4 col-sm-4">
+
+              <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="contenedorfotoForoPost">
                   <img src="subidas/{{foro}}.jpg" alt="{{foro}}" id="{{foro}}" class="rounded">
                 </div>
-              </div>
-              <div class="col-lg-8 col-md-8 col-sm-8">
                 <p class="card-text text-start m-2 align-middle ">{{foroNombre}}</p>
               </div>
+              
             </div>
           </div>
           <img src="subidasPost/{{id}}.jpg" id="{{id}}" class="card-img-top" alt="{{id}}" class="rounded">
@@ -325,10 +328,9 @@
           </div>
 
         </div>
-      </div>
-      {{/posts}}
+        {{/posts}}
       {{/.}}
-
+      </div>
     </div>
 
 </body>

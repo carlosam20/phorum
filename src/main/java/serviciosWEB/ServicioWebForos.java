@@ -59,18 +59,21 @@ public class ServicioWebForos {
 		List<Map<String, Object>> postsResults = servicioPosts.obtenerPostsParaListadoAleatorio();
 		Gson gson = new Gson();
 
-		// Convierte el resultado en un array de foros
-		JsonArray forosArray = gson.toJsonTree(forosResults).getAsJsonArray();
-		JsonArray postsArray = gson.toJsonTree(postsResults).getAsJsonArray();
-			
-		if(postsArray.size() != 0 || !postsArray.isJsonNull()) {
-			for(int i =0 ; i < postsArray.size(); i++) {
-				Map<String, Object> postForo = servicioForos.obtenerForo(Long.parseLong(String.valueOf(postsResults.get(i).get("id"))));	
-				postsArray.get(i).getAsJsonObject().addProperty("foroNombre", String.valueOf(postForo.get("nombre")));
+		
+		
+		
+			//Añadimos el nombre del foro a los resultados de los posts
+		if(postsResults.size() != 0 || !postsResults.isEmpty()) {
+			for(int i =0 ; i < postsResults.size(); i++) {
+				Map<String, Object> postForo = servicioForos.obtenerForo(Long.parseLong(String.valueOf(postsResults.get(i).get("foro"))));	
+				postsResults.get(i).put("foroNombre", String.valueOf(postForo.get("nombre")));
 			}
 		}
 		
-	
+		
+		JsonArray forosArray = gson.toJsonTree(forosResults).getAsJsonArray();
+		JsonArray postsArray = gson.toJsonTree(postsResults).getAsJsonArray();
+		
 		
 		JsonObject combinacionDatos = new JsonObject();
 		combinacionDatos.add("foros", forosArray);

@@ -24,8 +24,7 @@
                     <div class="container-fluid">
 
                         <div class="navbar-brand" href="#">
-                            <img src=<c:url value="images/logo-phorum.svg"></c:url> alt="Foto" width="60" height="60"
-                            class="d-inline-block align-text-top"/>
+                            <img src="images/logo-phorum.svg" id="logo-nav">
                         </div>
 
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

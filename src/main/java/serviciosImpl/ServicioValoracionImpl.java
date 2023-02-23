@@ -1,5 +1,6 @@
 package serviciosImpl;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,7 +164,18 @@ public class ServicioValoracionImpl implements ServicioValoracion {
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.COMPROBAR_EXISTE_VALORACION);
 		query.setParameter("idUsuario", idUsuario);
 		query.setParameter("idPost", idPost);
-		boolean exists = Boolean.parseBoolean(String.valueOf(query.uniqueResult()));
-		return exists;
+		Object result = query.uniqueResult();
+		boolean valoracionExists = false;
+		if (result != null) {
+		    if (result instanceof BigInteger) {
+		        valoracionExists = ((BigInteger) result).intValue() > 0;
+		    } else if (result instanceof Integer) {
+		        valoracionExists = ((Integer) result).intValue() > 0;
+		    } else {
+		        throw new IllegalStateException("Unexpected query result type: " + result.getClass().getName());
+		    }
+		}
+
+		return valoracionExists;
 	}
 }

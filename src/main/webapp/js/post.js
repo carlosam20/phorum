@@ -48,9 +48,9 @@ dislikeDOM.addEventListener("click", function () {
 
 //funciones likes y dislikes
 function darLike() {
-	likeDOM.classList.add("fa-beat");
+	likeDOM.classList.add("fa-bounce");
 	setTimeout(() => {
-		likeDOM.classList.remove("fa-beat");
+		likeDOM.classList.remove("fa-bounce");
 		likeDOM.classList.remove("fa-regular");
 		likeDOM.classList.add("fa-solid");
 		contadorLikes.innerElement = parseInt(contadorLikes.valueOf(contadorLikes.innerElement)) + 1;
@@ -59,10 +59,10 @@ function darLike() {
 
 function quitarLike(disLikeActivado) {
 	if (dislikeDOM.classList.contains("fa-solid") && disLikeActivado === false) {
-		likeDOM.classList.add("fa-beat");
+		likeDOM.classList.add("fa-bounce");
 	}
 	setTimeout(() => {
-		likeDOM.classList.remove("fa-beat");
+		likeDOM.classList.remove("fa-bounce");
 		likeDOM.classList.remove("fa-solid");
 		likeDOM.classList.add("fa-regular");
 		--contadorLikes;
@@ -70,9 +70,9 @@ function quitarLike(disLikeActivado) {
 }
 
 function darDislike() {
-	dislikeDOM.classList.add("fa-beat");
+	dislikeDOM.classList.add("fa-bounce");
 	setTimeout(() => {
-		dislikeDOM.classList.remove("fa-beat");
+		dislikeDOM.classList.remove("fa-bounce");
 		dislikeDOM.classList.remove("fa-regular");
 		dislikeDOM.classList.add("fa-solid");
 		contadorDislikes++;
@@ -80,10 +80,10 @@ function darDislike() {
 }
 function quitarDislike(likeActivado) {
 	if (likeDOM.classList.contains("fa-solid") && likeActivado === false) {
-		dislikeDOM.classList.add("fa-beat");
+		dislikeDOM.classList.add("fa-bounce");
 	}
 	setTimeout(() => {
-		dislikeDOM.classList.remove("fa-beat");
+		dislikeDOM.classList.remove("fa-bounce");
 		dislikeDOM.classList.remove("fa-solid");
 		dislikeDOM.classList.add("fa-regular");
 		--contadorDislikes;
