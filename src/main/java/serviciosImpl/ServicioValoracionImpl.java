@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import constantesSQL.ConstantesSQL;
-import modelo.Foro;
 import modelo.Post;
 import modelo.Usuario;
 import modelo.Valoracion;
@@ -160,22 +159,37 @@ public class ServicioValoracionImpl implements ServicioValoracion {
 	
 
 	@Override
-	public boolean comprobarExisteValoracion(long idPost, long idUsuario) {
+	public boolean[] comprobarExisteValoracion(long idPost, long idUsuario) {
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.COMPROBAR_EXISTE_VALORACION);
 		query.setParameter("idUsuario", idUsuario);
 		query.setParameter("idPost", idPost);
 		Object result = query.uniqueResult();
-		boolean valoracionExists = false;
+		
+		
+		
+		boolean[]existeYValor = new boolean[2];
+		
 		if (result != null) {
 		    if (result instanceof BigInteger) {
-		        valoracionExists = ((BigInteger) result).intValue() > 0;
+		    	existeYValor[0] = ((BigInteger) result).intValue() > 0;
 		    } else if (result instanceof Integer) {
-		        valoracionExists = ((Integer) result).intValue() > 0;
+		    	existeYValor[0] = ((Integer) result).intValue() > 0;
 		    } else {
-		        throw new IllegalStateException("Unexpected query result type: " + result.getClass().getName());
+		        throw new IllegalStateException("fallo en query " + result.getClass().getName());
 		    }
 		}
+		
+		if(existeYValor[0]) {
+			SQLQuery queryValor = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_VALORACION_POR_ID_POST_Y_POR_ID_USUARIO);
+			queryValor.setParameter("id", idUsuario);
+			queryValor.setParameter("idPost", idPost);
+			queryValor.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+			Map<String, Object> valorMap = (Map<String, Object>) queryValor.uniqueResult();
+			existeYValor[1] = (boolean) valorMap.get("valor");
+			
+			System.out.println((boolean) valorMap.get("valor"));
+		}
 
-		return valoracionExists;
+		return existeYValor;
 	}
 }

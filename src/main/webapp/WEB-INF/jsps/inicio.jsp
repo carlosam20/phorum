@@ -7,7 +7,6 @@
             <meta charset="ISO-8859-1">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
             <link rel="icon" type="image/svg" href="images/logo-phorum.svg">
             <link rel="stylesheet"
                 href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -36,12 +35,10 @@
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                             <ul class="navbar-nav me-auto mb-3 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="nav-link m-3" id="enlace_home" aria-current="page" 
-                                    href="#">Home</a>
+                                    <a class="nav-link m-3" id="enlace_home" aria-current="page" href="#">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link m-3" id="enlace_perfil" aria-current="page" 
-                                    href="#">Perfil</a>
+                                    <a class="nav-link m-3" id="enlace_perfil" aria-current="page" href="#">Perfil</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link m-3" id="enlace_listado_foros" aria-current="page"
@@ -55,39 +52,37 @@
                                     <a class="nav-link m-3" id="enlace_logout" aria-current="page" href="#">Cerrar
                                         Sesi&oacuten</a>
                                 </li>
+                            </ul>
 
+                            <ul class="navbar-nav mb-auto mb-lg-0">
+                                <li class="nav-item">
+                                    <button class="btn btn-outline-primary m-3" id="enlace_identificarme"
+                                        aria-current="page" href="#">Iniciar Sesi&oacuten</button>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link m-3" id="enlace_registrarme" aria-current="page"
+                                        href="#">Registrar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <p id="mensaje_login" class="nav-link m-3" aria-current="page">Sesi&oacuten no
+                                        iniciada</p>
+                                </li>
                             </ul>
                         </div>
 
-
-                        <ul class="navbar-nav mb-auto mb-lg-0">
-                            <li class="nav-item">
-                                <button class="btn btn-outline-primary m-3" id="enlace_identificarme"
-                                    aria-current="page" href="#">Iniciar Sesi&oacuten</button>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link m-3" id="enlace_registrarme" aria-current="page"
-                                    href="#">Registrar</a>
-                            </li>
-                            <li class="nav-item">
-                                <p id="mensaje_login" class="nav-link m-3" aria-current="page"></p>
-                            </li>
-                        </ul>
-
+                        
+                           
+                        
                     </div>
                 </nav>
             </div>
 
 
-
+        <!-- Contenedor donde cargan las vistas -->
             <div class="" id="contenedor"></div>
 
-            <!-- Contenedor donde cargan las vistas -->
-
-            <div class="d-flex justify-content-center spinner-grow text-primary col-11" role="status" id="#loadingDiv">
-                <span class="sr-only">Loading...</span>
-            </div>
+            
 
             <!-- Foooter -->
             <div class="footer-menu">
@@ -147,9 +142,9 @@
             <script type="text/javascript" src="js/carga_plantilla.js"></script>
             <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
             <script type="text/javascript" src="js/validaciones.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-            <script type="text/javascript" src="js/main.js"></script>
             <script src="https://kit.fontawesome.com/485aa9f350.js" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="js/main.js"></script>
+
 
         </body>
 

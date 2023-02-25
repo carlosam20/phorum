@@ -18,5 +18,5 @@ public interface ServicioValoracion {
 	Map<String, Object> obtenerValoracionesPorId(long id);
 	List<Map<String,Object>> obtenerValoracionPorPostId(long id);
 	Map<String, Object> obtenerValoracionPorPostIdYPorUsuarioId(long id, long idPost);
-	boolean comprobarExisteValoracion(long idPost, long idUsuario);
+	boolean []comprobarExisteValoracion(long idPost, long idUsuario);
 }

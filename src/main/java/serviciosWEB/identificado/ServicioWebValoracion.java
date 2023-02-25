@@ -44,7 +44,7 @@ public class ServicioWebValoracion {
 		
 	
 		v.setIdUsuario(u.getId());
-		
+		System.out.println("---Registrar Valoracion");
 		servicioValoracion.registrarValoracion(v);
 		respuesta = "ok";
 
@@ -73,14 +73,37 @@ public class ServicioWebValoracion {
 	@RequestMapping("comprobarValoracion")
 	public ResponseEntity<String>comprobarValoracion(HttpServletRequest request, String idPost){
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
-		boolean existe = servicioValoracion.comprobarExisteValoracion(Long.parseLong(idPost), Long.parseLong(String.valueOf(u.getId())));
+		boolean[] existeYValor = servicioValoracion.comprobarExisteValoracion(Long.parseLong(idPost), Long.parseLong(String.valueOf(u.getId())));
 		 
-		if(existe) {
-			return new ResponseEntity<String>("ok, true", HttpStatus.OK);
+		if(existeYValor[0]) {
+			return new ResponseEntity<String>("ok, true, "+existeYValor[1], HttpStatus.OK);
 		}else {
 			return new ResponseEntity<String>("ok, false", HttpStatus.OK);
 		}
 		
+	}
+	@RequestMapping("editarValoracion")
+	public ResponseEntity<String>editarValoracion(HttpServletRequest request, @RequestParam Map<String, Object> formData){
+		
+		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+		
+		String respuesta = "";
+		Gson gson = new Gson();
+		JsonElement json = gson.toJsonTree(formData);
+		
+		Valoracion vu = gson.fromJson(json, Valoracion.class);
+	
+		Map<String, Object> v = servicioValoracion.obtenerValoracionPorPostIdYPorUsuarioId(u.getId(), vu.getIdPost());
+		
+		vu.setId(Long.parseLong( String.valueOf(v.get("id"))));
+		vu.setIdUsuario(Long.parseLong(String.valueOf(u.getId())));
+		
+		servicioValoracion.guardarCambiosValoraciones(vu);
+		
+		respuesta = "ok";
+
+		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
+
 	}
 
 

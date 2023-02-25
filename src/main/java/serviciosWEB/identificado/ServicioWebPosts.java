@@ -1,11 +1,10 @@
 package serviciosWEB.identificado;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
+
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -107,9 +106,9 @@ public class ServicioWebPosts {
 		System.out.println("--Usuario "+u.getId());
 		System.out.println("--Post "+idPost);
 		
-		boolean hayValor = servicioValoraciones.comprobarExisteValoracion( Long.parseLong(idPost), u.getId());
+		boolean hayValor[] = servicioValoraciones.comprobarExisteValoracion( Long.parseLong(idPost), u.getId());
 		
-		System.out.println("hayValor:"+hayValor);
+		System.out.println("hayValor:"+hayValor[0]+hayValor[1]);
 
 		// Necesito obtener la valoracion del post con el usuario actual
 
@@ -151,7 +150,7 @@ public class ServicioWebPosts {
 		}
 		
 		//Eliminamos datos de la valoracion del usuario
-		if (hayValor) {
+		if (hayValor[0]) {
 			valoracionUsuarioSesion.remove("id");
 			valoracionUsuarioSesion.remove("post");
 		}
@@ -163,7 +162,7 @@ public class ServicioWebPosts {
 			valoracionesPostResults.addProperty("like", like);
 			valoracionesPostResults.addProperty("dislike", dislike);
 
-			if (hayValor) {
+			if (hayValor[0]) {
 				valoracionUsuario.addProperty("idUsuarioSesion",
 						String.valueOf(valoracionUsuarioSesion.get("usuario")));
 				valoracionUsuario.addProperty("valorUsuarioSesion",
@@ -187,7 +186,7 @@ public class ServicioWebPosts {
 			JsonObject valoracionUsuario = new JsonObject();
 			JsonObject valoracionesPostResults = new JsonObject();
 
-			if (hayValor) {
+			if (hayValor[0]) {
 				valoracionUsuario.addProperty("idUsuarioSesion",
 						String.valueOf(valoracionUsuarioSesion.get("usuario")));
 				valoracionUsuario.addProperty("valorUsuarioSesion",

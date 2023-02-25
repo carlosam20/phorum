@@ -2,78 +2,81 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet"
-    href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
+  <link rel="stylesheet" href="css/listado_populares.css">
+  
   <title>Listado Posts Populares</title>
 
 </head>
 
-<h1 class="text-center m-1">Posts</h1>
+ <html>
+<body>
 
 
-<button class="btn btn-primary">Ver los 3 más populares</button>
-
-<!-- Listado los 3 post más populares por respuestas -->
-<div id="comentarios" class="comentarios">
-  <div>
-    <a href="javascript:void(0)" class="closebtn align-items-left" onclick="cerrarComents()">&times;</a>
-  </div>
+  <h1 class="text-center m-1">Posts</h1>
 
 
-  <ul class="col-lg-11 col-md-11 col-sm-11 list-group ">
+  <button class="btn btn-primary" onclick="abrirPostsTop3()">Ver los 3 más populares</button>
 
-    {{#.}}
-    {{#post_comentarios}}
-    <li class="list-group-item  flex-column align-items-center">
-      <div class="d-flex w-100 justify-content-between align-items-center">
-        <img class="s-avatar s-avatar__48 m-1" src="subidasUsuario/{{idUsuario}}.jpg" alt="{{nombreUsuario}}">
-        <h5 class="m-1">{{nombreUsuario}}</h5>
-        <div>
-          <p class="m-1">{{textoComentario}}</p>
-          <div class="row m-1">
-            <div class="col-lg-1 col-md-1 col-sm-1">
-              <span class="calendarContainer">
-                <i class="fa-regular fa-calendar-days fa-xl"></i>
-              </span>
-            </div>
-            <div class="col-lg-11 col-md-11 col-sm-11">
-              <p class="">{{fechaCreacionComentario}}</p>
-            </div>
-          </div>
-        </div>
-        <button class="btn btn-secondary boton_ver_perfil " type="button" id="{{idUsuarioComentario}}">Ver
-          Ver post
-        </button>
-
-      </div>
-    </li>
-    {{/post_comentarios}}
-    {{/.}}
-  </ul>
-</div>
-
-
-<!--Listado posts-->
-<div class="recomendacionesPostsPopulares">
-  <div class="row m-2 justify-content-center">
-
-    <div class="col-lg-6 col-md-6 col-sm-11 m-1">
-      {{#.}}
-      <div class="card mb-2">
-        <img src="subidasPost/{{id}}.jpg" id="{{id}}" class="card-img-top" alt="{{nombre}}">
-        <img hidden="true" src="" class="card-img-top" />
-        <div class="card-body">
-          <h5 class="card-title">{{nombre}}</h5>
-          <p class="card-text">{{descripcion}}</p>
-          <button class="btn btn-primary boton_ver_post " type="button" id="{{id}}">Ver Post</button>
-        </div>
-      </div>
-      {{/.}}
+  <!-- Listado los 3 post más populares por respuestas -->
+  <div id="postsTop3" class="postsTop3">
+    <div>
+      <a href="javascript:void(0)" class="closebtn align-items-left" onclick="cerrarPostsTop3()">&times;</a>
     </div>
 
+
+    <!--Titulo posts top 3-->
+    <div class="row text-center align-items-center">
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <i class="fa-sharp fa-solid fa-trophy-star"></i>
+      </div>
+       <div class="col-lg-10 col-md-10 col-sm-10">
+        <h1 class="mb-1 mu-1">Top 3 posts</h1>
+       </div>
+    </div>
+    
+
+    <ul class="col-lg-11 col-md-11 col-sm-11 list-group ">
+
+      {{#.}}
+      {{#postsTop3}}
+      <li class="list-group-item  flex-column align-items-center">
+        <div class="d-flex w-100 justify-content-between align-items-center">
+          <img class="s-avatar s-avatar__48 m-1" src="subidasUsuario/{{id}}.jpg" alt="{{nombre}}">
+          <h5 class="m-1">{{nombre}}</h5>
+          <button class="btn btn-secondary boton_ver_post" type="button" id="{{id}}">
+            Ver post
+          </button>
+        </div>
+      </li>
+      {{/postsTop3}}
+      {{/.}}
+    </ul>
   </div>
-</div>
 
 
 
+  <!--Listado posts-->
+  <div class="recomendacionesPostsPopulares" id="recomendacionesPostsPopulares">
+    <div class="row m-2 justify-content-center">
+
+      <div class="col-lg-6 col-md-6 col-sm-11 m-1">
+        {{#.}}
+        {{#postsListado}}
+        <div class="card mb-2">
+          <img src="subidasPost/{{id}}.jpg" id="{{id}}" class="card-img-top" alt="{{nombre}}">
+          <img hidden="true" src="" class="card-img-top" />
+          <div class="card-body">
+            <h5 class="card-title">{{nombre}}</h5>
+            <p class="card-text">{{descripcion}}</p>
+            <button class="btn btn-primary boton_ver_post " type="button" id="{{id}}">Ver Post</button>
+          </div>
+        </div>
+        {{/postsListado}}
+        {{/.}}
+      </div>
+
+    </div>
+  </div>
+</body>
+<script src="js/postsPopulares.js"></script>
+</html>

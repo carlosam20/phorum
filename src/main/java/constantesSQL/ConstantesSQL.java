@@ -32,6 +32,7 @@ public class ConstantesSQL {
 	
 	public final static String SQL_OBTENER_POSTS_PARA_LISTADO_RANDOM="select * from post order by rand(id) ";
 			
+	public final static String SQL_OBTENER_TOP3_VALORACIONES_DE_POST="select * from valoracion group by post order by sum(post) asc LIMIT 3";
 	
 	public final static String SQL_OBTENER_COMENTARIOS_PARA_LISTADO="select * "
 			+ "from comentario " 

@@ -2,6 +2,7 @@ package serviciosWEB;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,31 +34,51 @@ public class ServicioWebPosts {
 
 	@Autowired
 	private ServicioPosts servicioPosts;
-	
+
 	@Autowired
 	private ServicioForos servicioForos;
 
-
 	@RequestMapping("obtenerPosts")
 	public ResponseEntity<String> obtenerPosts() {
-		String json = new Gson().toJson(servicioPosts.obtenerPostsParaListado());
+
+		List<Map<String, Object>> idsPostsTop3 = servicioPosts.obtenerPostsConMasValoraciones();
+		List<Map<String, Object>> infoPostsTop3 = new ArrayList<Map<String, Object>>();
+
+		for (int i = 0; i < idsPostsTop3.size(); i++) {
+			
+			Post post = servicioPosts.obtenerPostPorId(Long.parseLong(String.valueOf(idsPostsTop3.get(i).get("post"))));
+			Map<String, Object> postMap = new HashMap<String, Object>();
+			postMap.put("id", post.getId());
+			postMap.put("nombre", post.getNombre());
+			infoPostsTop3.add(postMap);
+			
+
+		}
+
+		JsonObject combinacionDatos = new JsonObject();
+		combinacionDatos.add("postsListado", new Gson().toJsonTree(servicioPosts.obtenerPostsParaListado()));
+		combinacionDatos.add("postsTop3", new Gson().toJsonTree(infoPostsTop3));
+
+		String json = combinacionDatos.toString();
+		System.out.println(json);
+
 		return new ResponseEntity<String>(json, HttpStatus.OK);
 	}
 
 	@RequestMapping("obtenerPostPorForoId")
 	public ResponseEntity<String> obtenerPost(String id, HttpServletRequest request) {
-		List<Map<String,Object>> postsForo = servicioPosts.obtenerIdPostPorForoId(Long.parseLong(id));
-		
-		for(int i=0; i<postsForo.size();i++) {
+		List<Map<String, Object>> postsForo = servicioPosts.obtenerIdPostPorForoId(Long.parseLong(id));
+
+		for (int i = 0; i < postsForo.size(); i++) {
 			Map<String, Object> obtenerForo = servicioForos.obtenerForo(Long.parseLong(id));
 			postsForo.get(i).put("nombreForo", obtenerForo.get("nombre"));
 		}
-		
+
 		JsonObject json = new JsonObject();
 		json.add("posts", new Gson().toJsonTree(postsForo));
-		
+
 		String datos = json.toString();
-		
+
 		return new ResponseEntity<String>(datos, HttpStatus.OK);
 	}
 
@@ -75,8 +96,8 @@ public class ServicioWebPosts {
 		f.setIdForo(Long.parseLong(idForo));
 		f.setIdUsuario(Long.parseLong(idUsuario));
 		System.out.println("foro a registrar: " + f.toString());
-		
-		//Post Valoraciones
+
+		// Post Valoraciones
 		List<Valoracion> postValoraciones = new ArrayList<Valoracion>();
 		f.setPostValoraciones(postValoraciones);
 		f.setFechaCreacion(LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-"

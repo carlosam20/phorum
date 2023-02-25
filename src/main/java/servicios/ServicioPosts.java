@@ -11,6 +11,7 @@ public interface ServicioPosts {
 int obtenerTotalDePostsDeUsuario(long id);
 int obtenerTotalDePosts(String marca);
 List<Post> obtenerPosts(String marca, int comienzo);
+List<Map<String, Object>>  obtenerPostsConMasValoraciones();
 List<Map<String, Object>> obtenerPostsParaListadoAleatorio();
 List<Map<String, Object>> obtenerPostsPorId(long id);
 List<Map<String, Object>> obtenerPostsPorIdUsuario(long id);

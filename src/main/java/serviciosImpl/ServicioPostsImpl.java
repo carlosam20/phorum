@@ -29,6 +29,7 @@ public class ServicioPostsImpl implements ServicioPosts {
 	@Autowired
 	private SessionFactory sessionFactory; // bean del hibernate-context
 
+	@Override
 	public List<Map<String, Object>> obtenerPostsParaListado() {
 
 		SQLQuery query = sessionFactory.getCurrentSession()
@@ -37,7 +38,17 @@ public class ServicioPostsImpl implements ServicioPosts {
 		List<Map<String, Object>> res = query.list();
 		return res;
 	}
+	
+	@Override
+	public List<Map<String, Object>> obtenerPostsConMasValoraciones(){
+		SQLQuery query = sessionFactory.getCurrentSession()
+				.createSQLQuery(ConstantesSQL.SQL_OBTENER_TOP3_VALORACIONES_DE_POST);
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		List<Map<String, Object>> res = query.list();
+		return res;
+	}
 
+	@Override
 	public List<Map<String, Object>> obtenerPostsParaListadoAleatorio() {
 
 		SQLQuery query = sessionFactory.getCurrentSession()
@@ -106,6 +117,7 @@ public class ServicioPostsImpl implements ServicioPosts {
 				
 	}
 	
+	@Override
 	public List<Map<String, Object>> obtenerPostsPorIdUsuario(long id) {
 		
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_POST_REALIZADOR_POR_USUARIO);
@@ -124,7 +136,7 @@ public class ServicioPostsImpl implements ServicioPosts {
 
 	@Override
 	public void eliminarPosts(long id) {
-		System.out.println("Borrar Post");
+		
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_POST);
 		query.setParameter("id", id);
 		query.executeUpdate();

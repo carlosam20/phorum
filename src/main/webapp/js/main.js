@@ -2,7 +2,7 @@
 //Variables globales de usuario
 let email = "";
 let pass = "";
-let nombre_login = "Sesi&oacute no iniciada";
+let nombre_login = "";
 let idUsuario = "";
 
 //Carga de plantillas en variables
@@ -22,6 +22,7 @@ let plantillaPerfilUsuarioComentario = "";
 //Metodos OnInit
 cargar_plantillas_del_servidor();
 listadoInicio();
+
 
 function registrarPost() {
 	$("#form_registro_post").submit(function (e) {
@@ -122,22 +123,42 @@ function verPerfilDeComentario() {
 	});
 }//-end ver perfil de comentario-
 
+function editarValoracion(idPost, valor) {
+	let formData = new FormData();
+	// editamosLaValoración				
+	formData.append("idPost", idPost);
+	formData.append("valor", valor);
+	$.ajax("identificado/servicioWebValoracion/editarValoracion", {
+		type: "POST",
+		data: formData,
+		cache: false,
+		contentType: false,
+		processData: false,
+		success: function (res) {
+			if(res.includes("ok")){
+				console.log("Valoracion editada con valor: "+valor);
+			}
+			
+		},
+	});
+
+}
+
 function valoracionLike(idPost) {
+
+let contadorLikes = document.getElementById("like-contador");
+let contadorDislikes = document.getElementById("dislike-contador");
+
 	$(".like").click(function (e) {
 		e.preventDefault();
 		comprobarExisteValoracion(idPost)
 			.then((valoracionExiste) => {
-				alert(valoracionExiste);
-				if (!valoracionExiste) {
-					/*Eliminar valoracion del dislike para crear un like*/
-					//Aqui se comprueba si existe una valoracion previa con valoracion = false
-					//En el caso de que haya será eliminada previamente
-					
-					// eliminarValoracionFalse(idPost);
-					let formData = new FormData();
+				let formData = new FormData();
+
+				if (valoracionExiste[0] === false) {
+					// User has not yet rated the post				
 					formData.append("idPost", idPost);
 					formData.append("valor", true);
-
 					$.ajax("identificado/servicioWebValoracion/registrarValoracion", {
 						type: "POST",
 						data: formData,
@@ -146,33 +167,46 @@ function valoracionLike(idPost) {
 						processData: false,
 						success: function (res) {
 							console.log("Like registrado");
+							contadorLikes.textContent = Number(contadorLikes.textContent) + 1;
 						},
 					});
-				} else if(valoracionExiste) {
+
+				} else if (valoracionExiste[0] && valoracionExiste[1]) {
+					console.log("Quitando like de usuario'.");
+					contadorLikes.textContent = Number(contadorLikes.textContent) - 1;
 					eliminarValoracionTrue(idPost);
+				} else if (valoracionExiste[0] && !valoracionExiste[1]) {
+					// User has already rated the post negatively
+					console.log("Quitando dislike de usuario");
+					contadorDislikes.textContent = Number(contadorDislikes.textContent) - 1;
+					contadorLikes.textContent = Number(contadorLikes.textContent) + 1;
+					editarValoracion(idPost, true);
+					// eliminarValoracionFalse(idPost);
+					//Editar Valoración
 				}
 			})
 			.catch((error) => {
 				console.error(error);
 			});
-
 	});
+
 
 }//-end valoracion like-
 
 function valoracionDislike(idPost) {
+
+let contadorLikes = document.getElementById("like-contador");
+let contadorDislikes = document.getElementById("dislike-contador");
+
 	$(".dislike").click(function (e) {
-
 		e.preventDefault();
-
-		comprobarExisteValoracion(idPost).then(
-			(valoracionExiste) => {
-				if (!valoracionExiste) {
-					eliminarValoracionTrue(idPost);
-					let idPost = $(this).attr("id");
-					let formData = new FormData();
+		comprobarExisteValoracion(idPost)
+			.then((valoracionExiste) => {
+				let formData = new FormData();
+				if (!valoracionExiste[0]) {
 					formData.append("idPost", idPost);
 					formData.append("valor", false);
+					// User has not yet rated the post				
 					$.ajax("identificado/servicioWebValoracion/registrarValoracion", {
 						type: "POST",
 						data: formData,
@@ -180,17 +214,25 @@ function valoracionDislike(idPost) {
 						contentType: false,
 						processData: false,
 						success: function (res) {
-						}
+							console.log("Dislike registrado");
+							contadorDislikes.textContent = Number(contadorDislikes.textContent) + 1;
+						},
 					});
-
-				} else {
+				} else if (valoracionExiste[0] && !valoracionExiste[1]) {
+					console.log("Quitando dislike de usuario'.");
 					eliminarValoracionFalse(idPost);
+					contadorDislikes.textContent = Number(contadorDislikes.textContent) - 1;
+				} else if (valoracionExiste[0] && valoracionExiste[1]) {
+					// User has already rated the post negatively
+					console.log("Eliminando like y dando dislike.");
+					editarValoracion(idPost, false);
+					contadorLikes.textContent = Number(contadorLikes.textContent) - 1;
+					contadorDislikes.textContent = Number(contadorDislikes.textContent) + 1;
 				}
-
-			}).catch((error) => {
+			})
+			.catch((error) => {
 				console.error(error);
 			});
-
 	});
 }//-end valoracion dislike-
 
@@ -509,6 +551,7 @@ function mostrarIdentificacionUsuario() {
 
 	$("#contenedor").html(plantillaLogin);
 
+
 	if (typeof (Cookies.get("email")) != "undefined") {
 		$("#email").val(Cookies.get("email"));
 	}
@@ -528,21 +571,21 @@ function mostrarIdentificacionUsuario() {
 					data: "email=" + email + "&pass=" + pass,
 					success: function (res) {
 						if (res.split(",")[0] == "ok") {
-							$("#mensaje_login").text(res.split(",")[1]);
 							nombre_login = res.split(",")[1];
 							id_login = res.split(",")[2];
+							$("#mensaje_login").text(res.split(",")[1]);
 							swal("", "Sesión iniciada", "success");
 
 							if ($("#recordar_datos").prop('checked')) {
 								swal("Cookies sesion", "Datos guardados", "success");
 								Cookies.set('email', email, { expires: 100 });
 								Cookies.set('pass', pass, { expires: 100 });
-								nombre_login = res.split(",")[1];
 							}
 
 						} else {
-							alert(res);
+							swal("", "Error al iniciar sesión", "error");
 						}
+
 					}
 				});
 				//end.ajax
@@ -744,19 +787,21 @@ function comprobarExisteValoracion(idPost) {
 	return new Promise(function (resolve, reject) {
 		$.ajax("identificado/servicioWebValoracion/comprobarValoracion?idPost=" + idPost, {
 			success: function (data) {
-				if (data.includes("ok, true")) {
-					resolve(true);
+				if (data.includes("ok, true, true")) {
+					resolve([true, true]);
+				} else if (data.includes("ok, true, false")) {
+					resolve([true, false]);
 				} else if (data.includes("ok, false")) {
-					resolve(false);
+					resolve([false]);
 				}
 				console.log(data);
 			},
 			error: function () {
-				// reject(new Error("No se pudo obtener la valoración"));
+				reject(new Error("No se pudo obtener la valoración"));
 			}
 		});
 	});
-} //-end comprobar existe valoracion-
+}
 
 function comprobarIdentificacion() {
 	$.ajax("servicioWebUsuarios/comprobarLogin", {
