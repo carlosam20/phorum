@@ -135,19 +135,19 @@ function editarValoracion(idPost, valor) {
 		contentType: false,
 		processData: false,
 		success: function (res) {
-			if(res.includes("ok")){
-				console.log("Valoracion editada con valor: "+valor);
+			if (res.includes("ok")) {
+				console.log("Valoracion editada con valor: " + valor);
 			}
-			
+
 		},
 	});
 
-}
+}//-end editarValoracion-
 
 function valoracionLike(idPost) {
 
-let contadorLikes = document.getElementById("like-contador");
-let contadorDislikes = document.getElementById("dislike-contador");
+	let contadorLikes = document.getElementById("like-contador");
+	let contadorDislikes = document.getElementById("dislike-contador");
 
 	$(".like").click(function (e) {
 		e.preventDefault();
@@ -195,8 +195,8 @@ let contadorDislikes = document.getElementById("dislike-contador");
 
 function valoracionDislike(idPost) {
 
-let contadorLikes = document.getElementById("like-contador");
-let contadorDislikes = document.getElementById("dislike-contador");
+	let contadorLikes = document.getElementById("like-contador");
+	let contadorDislikes = document.getElementById("dislike-contador");
 
 	$(".dislike").click(function (e) {
 		e.preventDefault();
@@ -476,6 +476,30 @@ function obtener_listado_foros() {
 	});//--end ajax--
 }//-end obtener_listado-
 
+function obtener_listado_foros_identificado() {
+	$.ajax("servicioWebForos/identificado/obtenerForos", {
+		success: function (data) {
+
+			alert("recibido: " + data);
+			let foros = JSON.parse(data);
+			let texto_html = "";
+			texto_html = Mustache.render(plantillaListarForos,
+				foros);
+			$("#contenedor").html(texto_html);
+			
+			//Ver Posts de Foro
+			verPostsDeForo();
+
+			// Buscar foros
+			busquedaForos();
+
+			//Registro de foros
+			registrarForo();
+
+		}//---end success---
+	});//--end ajax--
+}//-end obtener_listado-
+
 function obtener_listado_posts() {
 
 	$.ajax("servicioWebPosts/obtenerPosts", {
@@ -552,6 +576,7 @@ function mostrarIdentificacionUsuario() {
 	$("#contenedor").html(plantillaLogin);
 
 
+	//Comprobamos si hay cookies guardadas
 	if (typeof (Cookies.get("email")) != "undefined") {
 		$("#email").val(Cookies.get("email"));
 	}
@@ -560,35 +585,18 @@ function mostrarIdentificacionUsuario() {
 	}
 
 	$("#form_login").submit(function () {
-
+		//Comprobamos hay una cuenta logeada previamente
+		if (comprobarIdentificacion) {
+			logout();
+		}
 		email = $("#email").val();
 		pass = $("#pass").val();
 
 		if (validarEmail(email)) {
 			if (validarPass(pass)) {
 
-				$.ajax("servicioWebUsuarios/loginUsuario", {
-					data: "email=" + email + "&pass=" + pass,
-					success: function (res) {
-						if (res.split(",")[0] == "ok") {
-							nombre_login = res.split(",")[1];
-							id_login = res.split(",")[2];
-							$("#mensaje_login").text(res.split(",")[1]);
-							swal("", "Sesión iniciada", "success");
-
-							if ($("#recordar_datos").prop('checked')) {
-								swal("Cookies sesion", "Datos guardados", "success");
-								Cookies.set('email', email, { expires: 100 });
-								Cookies.set('pass', pass, { expires: 100 });
-							}
-
-						} else {
-							swal("", "Error al iniciar sesión", "error");
-						}
-
-					}
-				});
-				//end.ajax
+				//Llamamos a la función ajax de login
+				loginUsuario(email, pass);
 
 			} else {
 				swal("El formato de la contraseña no es valido", "Fallo", "error");
@@ -599,7 +607,35 @@ function mostrarIdentificacionUsuario() {
 		}
 		//endValidarEmail
 	});
+
+
+
 }//-end identificacion usuario-
+
+function loginUsuario(email, pass) {
+	$.ajax("servicioWebUsuarios/loginUsuario", {
+		data: "email=" + email + "&pass=" + pass,
+		success: function (res) {
+			if (res.includes("ok")) {
+				nombre_login = res.split(",")[1];
+				id_login = res.split(",")[2];
+
+				$("#mensaje_login").text(res.split(",")[1]);
+				swal("", "Sesión iniciada", "success");
+
+				if ($("#recordar_datos").prop('checked')) {
+					swal("Cookies sesion", "Datos guardados", "success");
+					Cookies.set('email', email, { expires: 100 });
+					Cookies.set('pass', pass, { expires: 100 });
+				}
+
+			} else {
+				swal("", "Error al iniciar sesión", "error");
+			}
+
+		}
+	});//end.ajax
+}//-end loginUsuario-
 
 function logout() {
 	$.ajax("servicioWebUsuarios/logout", {
@@ -616,7 +652,7 @@ function logout() {
 function editarUsuario() {
 	//Boton Editar
 	$(".boton_editar_usuario").click(function (e) {
-		if (comprobarIdentificacion) {
+		if (comprobarIdentificacion()) {
 			$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
 				success: function (data) {
 					alert("recibido: " + data);
@@ -736,7 +772,6 @@ function perfil() {
 			texto_html = Mustache.render(plantillaPerfil, info);
 			$("#contenedor").html(texto_html);
 
-
 			// Editar usuario
 			editarUsuario();
 			// Borrar usuario
@@ -803,12 +838,31 @@ function comprobarExisteValoracion(idPost) {
 	});
 }
 
+function comprobarExisteValoracion(idForo) {
+	return new Promise(function (resolve, reject) {
+		$.ajax("identificado/servicioWebFollow/comprobarFollow?idForo=" + idForo, {
+			success: function (data) {
+				if (data.includes("ok, true")) {
+					resolve(true);
+				} else if (data.includes("ok, false")) {
+					resolve([true, false]);
+				}
+				console.log(data);
+			},
+			error: function () {
+				reject(new Error("No se pudo obtener la follow"));
+			}
+		});
+	});
+}
+
 function comprobarIdentificacion() {
 	$.ajax("servicioWebUsuarios/comprobarLogin", {
 		success: function (res) {
 			if (res == "ok") {
 				return true;
 			} else {
+				swal("Te debes identificar para acceder a esta parte", "Identificate", "info");
 				return false;
 			}
 		}
@@ -816,10 +870,21 @@ function comprobarIdentificacion() {
 } // -end comprobar identificacion-
 
 
-
 //Enlaces del navbar
 $("#enlace_home").click(listadoInicio);
+
+//El listado de foros cambia dependiendo de si está identificado o no 
+$("#enlace_listado_foros").click(function () {
+	if (comprobarIdentificacion()) {
+		obtener_listado_foros_identificado();
+	} else {
+		obtener_listado_foros();
+	}
+});
+
 $("#enlace_listado_foros").click(obtener_listado_foros);
+
+
 $("#enlace_listado_posts").click(obtener_listado_posts);
 $("#enlace_editar_usuario").click(mostrarRegistroUsuario);
 $("#enlace_registrarme").click(mostrarRegistroUsuario);

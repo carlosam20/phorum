@@ -35,37 +35,37 @@
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                             <ul class="navbar-nav me-auto mb-3 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="nav-link m-3" id="enlace_home" aria-current="page" href="#">Home</a>
+                                    <a class="nav-link m-2" id="enlace_home" aria-current="page" href="#">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link m-3" id="enlace_perfil" aria-current="page" href="#">Perfil</a>
+                                    <a class="nav-link m-2" id="enlace_perfil" aria-current="page" href="#">Perfil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link m-3" id="enlace_listado_foros" aria-current="page"
+                                    <a class="nav-link m-2" id="enlace_listado_foros" aria-current="page"
                                         href="#">Foros</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link m-3" id="enlace_listado_posts" aria-current="page"
+                                    <a class="nav-link m-2" id="enlace_listado_posts" aria-current="page"
                                         href="#">Posts</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link m-3" id="enlace_logout" aria-current="page" href="#">Cerrar
+                                    <a class="nav-link m-2" id="enlace_logout" aria-current="page" href="#">Cerrar
                                         Sesi&oacuten</a>
                                 </li>
                             </ul>
 
                             <ul class="navbar-nav mb-auto mb-lg-0">
                                 <li class="nav-item">
-                                    <button class="btn btn-outline-primary m-3" id="enlace_identificarme"
+                                    <button class="btn btn-outline-primary m-2" id="enlace_identificarme"
                                         aria-current="page" href="#">Iniciar Sesi&oacuten</button>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link m-3" id="enlace_registrarme" aria-current="page"
+                                    <a class="nav-link m-2" id="enlace_registrarme" aria-current="page"
                                         href="#">Registrar</a>
                                 </li>
                                 <li class="nav-item">
-                                    <p id="mensaje_login" class="nav-link m-3" aria-current="page">Sesi&oacuten no
+                                    <p id="mensaje_login" class="nav-link m-2" aria-current="page">Sesi&oacuten no
                                         iniciada</p>
                                 </li>
                             </ul>
@@ -95,7 +95,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-sm-3  footer-enlaces">
+                    <div class="col-lg-3 col-sm-2  footer-enlaces">
 
                         <ul class="list-group list-footer">
                             <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_home">Home</a>
@@ -113,7 +113,7 @@
                     </div>
 
                     <div class="col-lg-3 col-sm-3  footer-enlaces">
-                        <ul class="list-group m-3">
+                        <ul class="list-group m-2">
                             <li class="list-group-item list-footer-item"><a class="text-light"
                                     id="enlace_identificarme">Iniciar Sesi&oacuten</a></li>
                             <li class="list-group-item list-footer-item"><a class="text-light"

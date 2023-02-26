@@ -1,5 +1,6 @@
 package serviciosImpl;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,37 @@ public class ServicioFollowsImpl implements ServicioFollow {
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 		List<Map<String, Object>> res = query.list();
 		return res;
+	}
+	@Override
+	public Map<String, Object> obtenerFollowPorUsuarioIdYPorForoId(long idUsuario, long idForo){
+		SQLQuery query = sessionFactory.getCurrentSession()
+				.createSQLQuery(ConstantesSQL.OBTENER_FOLLOW_POR_USUARIO_Y_FORO);
+		query.setParameter("idUsuario", idUsuario);
+		query.setParameter("idForo", idForo);
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		return (Map<String, Object>) query.uniqueResult();
+	}
+	
+	@Override
+	public boolean comprobarExisteFollow(long idForo, long idUsuario) {
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.COMPROBAR_EXISTE_VALORACION);
+		query.setParameter("idUsuario", idUsuario);
+		query.setParameter("idForo", idForo);
+		Object result = query.uniqueResult();
+		
+		boolean existeFollow = false;
+		
+		if (result != null) {
+		    if (result instanceof BigInteger) {
+		    	existeFollow = ((BigInteger) result).intValue() > 0;
+		    } else if (result instanceof Integer) {
+		    	existeFollow = ((Integer) result).intValue() > 0;
+		    } else {
+		        throw new IllegalStateException("fallo en query " + result.getClass().getName());
+		    }
+		}
+		
+		return existeFollow;
 	}
 
 	@Override

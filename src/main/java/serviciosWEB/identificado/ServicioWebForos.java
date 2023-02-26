@@ -1,5 +1,6 @@
 package serviciosWEB.identificado;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import modelo.Foro;
 
 import modelo.Usuario;
 import servicios.ServicioComentarios;
+import servicios.ServicioFollow;
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
 
@@ -34,6 +36,9 @@ public class ServicioWebForos {
 
 	@Autowired
 	private ServicioPosts servicioPosts;
+
+	@Autowired
+	private ServicioFollow servicioFollow;
 
 	@RequestMapping("obtenerForoPorId")
 	public ResponseEntity<String> obtenerForoPorId(HttpServletRequest request) {
@@ -83,6 +88,30 @@ public class ServicioWebForos {
 
 		respuesta = "ok";
 		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
+	}
+
+	@RequestMapping("obtenerForos")
+	public ResponseEntity<String> obtenerForos(HttpServletRequest request) {
+		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+
+		List<Map<String, Object>> foros = servicioForos.obtenerForosParaListado();
+
+		for (int i = 0; i < foros.size(); i++) {
+			Map<String, Object> follow = servicioFollow.obtenerFollowPorUsuarioIdYPorForoId(u.getId(),
+					Long.parseLong(String.valueOf(foros.get(i).get("id"))));
+
+			if (follow != null) {
+				follow.remove("usuario");
+				follow.remove("foro");
+				follow.put("idFollow", follow.get("id"));
+				follow.remove("remove");
+				foros.add(follow);
+			}
+		}
+
+		String json = new Gson().toJson(foros);
+		return new ResponseEntity<String>(json, HttpStatus.OK);
+
 	}
 
 }

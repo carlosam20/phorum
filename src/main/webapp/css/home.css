@@ -12,11 +12,6 @@
   --textLightColor: #34403A;
 }
 
-.display-4 {
-  font-family: 'Roboto', sans-serif;
-
-}
-
 .btn-outline-primary:hover {
   background-color: #439F88;
   color: black;
@@ -24,22 +19,13 @@
 }
 
 .contenedorfotoForoPost{
-
-
-  max-width: 10px !important; 
-}
-.contenedorfotoForo{
- 
-   max-width: 20px !important; 
-}
-
-.fotoForo {
-  width: 100%;
+  max-width: 40px !important; 
   height: auto;
-  max-width: 20px;
-  max-height: auto;
 }
-
+.contenedorfotoPost{
+  max-width: 200px !important;
+  height: 300px;
+}
 
 
 

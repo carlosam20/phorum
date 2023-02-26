@@ -180,25 +180,9 @@ img{
 
 
 /* Header */
+
 .waves {
-    background-image: url(../images/wavesHome.png);
-    color: var(--textLightColor);
     background-color: var(--secondary);
-    background-repeat: no-repeat;
-    background-position: 75% 50%;
-    background-size: auto;
-    image-rendering: -webkit-optimize-contrast;
-
-}
-
-/* Contenedor */
-.contenedor-block {
-    display: block;
-}
-
-#contenedor {
-    height: auto;
-    width: 98vw;
 }
 
 .text-secondary {

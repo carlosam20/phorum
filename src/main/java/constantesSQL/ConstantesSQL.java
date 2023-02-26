@@ -16,7 +16,6 @@ public class ConstantesSQL {
 			+ "from foro where nombre like :nombreForo "
 			+ "order by nombre desc";
 	
-	
 	public static final String OBTENER_VALORACION_PARA_LISTADO="select *"
 			+ "from valoracion"
 			+ "order by id desc";
@@ -94,9 +93,11 @@ public class ConstantesSQL {
 	public final static String OBTENER_COMENTARIOS_CON_ID_POST="select * from comentario where postComentario = :id";
 	public final static String OBTENER_VALORACION_POR_ID_POST ="select * from valoracion where post = :id";
 	
+	public final static String OBTENER_FOLLOW_POR_USUARIO_Y_FORO = "select * from follow where usuario = :idUsuario AND foro = :idForo ";
 	
 	public final static String OBTENER_VALORACION_POR_ID_POST_Y_POR_ID_USUARIO ="select * from valoracion where post = :idPost AND usuario = :id";
 	public final static String COMPROBAR_EXISTE_VALORACION = "SELECT COUNT(*) > 0 FROM valoracion WHERE usuario = :idUsuario AND post = :idPost";
+	public final static String COMPROBAR_EXISTE_FOLLOW = "SELECT COUNT(*) > 0 FROM follow WHERE usuario = :idUsuario AND foro = :idForo";
 	
 	
 	public static final String SQL_OBTENER_DATOS_COMENTARIO = "select * from comentario where id = :id"; 

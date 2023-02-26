@@ -16,4 +16,6 @@ public interface ServicioFollow {
 	void guardarCambiosFollow(Follow s);
 	Map<String, String >obtenerFollowsParaDesplegable();
 	Map<String, Object> obtenerFollowsPorId(long id);
+	Map<String, Object> obtenerFollowPorUsuarioIdYPorForoId(long idUsuario, long idForo);
+	boolean comprobarExisteFollow(long idForo, long idUsuario);
 }

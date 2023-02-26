@@ -1,1 +1,0 @@
-$("#mensaje_login").html(nombre_login);
