@@ -1,26 +1,15 @@
-{
-    "postsListado": [
-        {
-            "descripcion": "Este es otra descripcion de ballena",
-            "fechaCreacion": "2023-02-21",
-            "usuario": 1,
-            "id": 2,
-            "nombre": "Otro post de ballena",
-            "foro": 1
-        },
-        {
-            "descripcion": "En el los usuarios comentan cosas sobre ballenas y sobre lo que hacen",
-            "fechaCreacion": "2023-02-16",
-            "usuario": 1,
-            "id": 1,
-            "nombre": "Este es un post de ballena",
-            "foro": 1
-        }
-    ],
-    "postsTop3": [
-        {
-            "id": 1,
-            "nombre": "Este es un post de ballena"
-        }
-    ]
-}
+[
+    {
+        "descripcion": "Este es mi perfil está bastante vacio como puedes ver la verdad es que no lo he rellenado demasiado",
+        "fechaCreacion": "2023-02-22",
+        "id": 2,
+        "nombre": "Porsche"
+    },
+    {
+        "descripcion": "Este es un foro en el que se habla de ballenas",
+        "idFollow": 1,
+        "fechaCreacion": "2023-02-16",
+        "id": 1,
+        "nombre": "Foro de ballenas"
+    }
+]

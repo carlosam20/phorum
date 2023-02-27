@@ -1,92 +1,125 @@
-
 :root {
-    --primary: #003F30;
-    --primaryHover: #00140F;
-    --primaryFocus: #439F88;
+  --primary: #003F30;
+  --primaryHover: #00140F;
+  --primaryFocus: #439F88;
 
-    --secondary: #060637;
-    --secondaryHover: #202031;
-    --secondaryFocus: #9C9CD3;
+  --secondary: #060637;
+  --secondaryHover: #202031;
+  --secondaryFocus: #9C9CD3;
 
-    --footer-color: #002031;
-    --textLightColor: #34403A;
+  --footer-color: #002031;
+  --textLightColor: #34403A;
 }
 
-.fa-magnifying-glass{
-    width: 50%;
-    height: auto;
-    color: white;
-  }
 
-  .form-inline {
-    display: flex;
-    border-radius: 1rem;
-    background-color: #fff;
-  }
-  
+
+.form-inline {
+  display: flex;
+  border-radius: 1rem;
+  background-color: #fff;
+}
+
+.form-control {
+  border-right: none;
+  border-left: 1px, solid, black;
+  border-top: 1px, solid, black;
+  border-bottom: 1px, solid, black;
+
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-top-right-radius: none;
+  border-bottom-right-radius: none;
+
+  background-color: transparent;
+  color: black;
+  padding: 1rem 1.4rem 1rem 2.5rem;
+}
+
+.form-control:hover {
+  border-color: #003F30;
+}
+
+#boton-buscar {
+  border: 0;
+  border-right: 1px, solid, black;
+  border-top: 1px, solid, black;
+  border-bottom: 1px, solid, black;
+  border-left: 1px, solid, #060637;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding: 0.45rem 1.2rem 0.45rem 1.1rem;
+}
+
+#boton-buscar:active {
+  background-color: white;
+}
+
+
+.followForoContainer {
+  background-color: var(--primary);
+}
+
+
+.contenedorfotoForo {
+  max-width: 80px !important;
+  max-height: 80px !important;
+}
+
+
+.fa-regular {
+  color: var(--primaryHover);
+}
+
+.fa-solid {
+  color: var(--primary);
+}
+
+.fa-magnifying-glass {
+  width: 50%;
+  height: auto;
+  color: white !important;
+}
+
+.descripcion {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+.nombre{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+
+@media only screen and (max-width: 425px) {
+
   .form-control {
-    border-right: none;
-    border-left: 1px, solid, black;
-    border-top: 1px, solid, black;
-    border-bottom: 1px, solid, black;
-
-    border-top-left-radius: 1rem;
-    border-bottom-left-radius: 1rem;
-    border-top-right-radius: none;
-    border-bottom-right-radius: none;
-    
-    background-color: transparent;
-    color: black;
-    padding: 1rem 1.4rem 1rem 2.5rem;
-  }
-
-  .form-control:hover {
-    border-color: #003F30;
+    padding: 0.5rem 1.0rem 0.6rem 1.8rem;
   }
 
   #boton-buscar {
-    border: 0;
-    border-right: 1px, solid, black;
-    border-top: 1px, solid, black;
-    border-bottom: 1px, solid, black;
-    border-left: 1px, solid, #060637;
-    border-top-right-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-    padding: 0.45rem 1.2rem 0.45rem 1.1rem;
-  }
-  
-  #boton-buscar:active {
-    background-color: white;
+    padding: 0.20rem 0.8rem 0.21rem 0.7rem;
   }
 
-  
-.followForoContainer{
-    background-color: var(--primary);
+  .descripcion{
+    display: none;
+  }
+
 }
 
-.fa-circle-plus{
---fa-flip-x: 1;
---fa-flip-y: 0;
+@media only screen and (max-width: 768px) {
+  .form-control {
+    padding: 0.8rem 1.2rem 0.8rem 2.3rem;
+  }
+
+  #boton-buscar {
+    padding: 0.25rem 1.0rem 0.25rem 0.9rem;
+  }
+
+  .descripcion{
+    display: none;
+  }
 }
-
-
-  @media only screen and (max-width: 425px) {
-
-    .form-control{
-      padding: 0.5rem 1.0rem 0.6rem 1.8rem;
-    }
-    #boton-buscar{
-      padding: 0.20rem 0.8rem 0.21rem 0.7rem;
-    }
-  }
-  
-  @media only screen and (max-width: 768px) {
-    .form-control{
-      padding: 0.8rem 1.2rem 0.8rem 2.3rem;
-    }
-    #boton-buscar{
-      padding: 0.25rem 1.0rem 0.25rem 0.9rem;
-    }
-  }
-  
-

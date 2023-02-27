@@ -88,7 +88,9 @@
       {{#.}}
       <li class="list-group-item  flex-column align-items-center">
         <div class="d-flex w-100 justify-content-between align-items-center">
-          <img class="s-avatar s-avatar__48 m-1" src="subidas/{{id}}.jpg" id="{{id}}" alt="{{nombre}}">
+          <div class="contenedorfotoForo m-1">
+            <img src="subidas/{{id}}.jpg" id="{{id}}" alt="{{nombre}}">
+          </div>
           <h5 class="m-1">{{nombre}}</h5>
           <p class="m-1">{{descripcion}}</p>
           <button class="btn btn-secondary boton_post_foro " type="button" id="{{id}}">Ver Foro</button>

@@ -8,6 +8,7 @@ let idUsuario = "";
 //Carga de plantillas en variables
 let plantillaHome = "";
 let plantillaListarForos = "";
+let plantillaListarForosIdentificado = "";
 let plantillaListarPostYComentarios = "";
 let plantillaListarForosBusqueda = "";
 let plantillaForo = "";
@@ -304,8 +305,13 @@ function busquedaForos() {
 				//Registrar foros
 				registrarForo();
 
+				//Buscar foros
+				busquedaForos();
+
 			}//---end success---
-		}.done(busquedaForos()));//--end ajax obtenerForosBuscados--
+
+
+		});//--end ajax obtenerForosBuscados--
 
 	});//--end click boton_buscar--
 }//-end busqueda foros-
@@ -462,7 +468,6 @@ function obtener_listado_foros() {
 				foros);
 			$("#contenedor").html(texto_html);
 
-
 			//Ver Posts de Foro
 			verPostsDeForo();
 
@@ -477,16 +482,19 @@ function obtener_listado_foros() {
 }//-end obtener_listado-
 
 function obtener_listado_foros_identificado() {
-	$.ajax("servicioWebForos/identificado/obtenerForos", {
+	$.ajax("identificado/servicioWebForos/obtenerForos", {
 		success: function (data) {
 
 			alert("recibido: " + data);
 			let foros = JSON.parse(data);
 			let texto_html = "";
-			texto_html = Mustache.render(plantillaListarForos,
+			texto_html = Mustache.render(plantillaListarForosIdentificado,
 				foros);
 			$("#contenedor").html(texto_html);
-			
+
+			//Dar follow por el usuario
+			follow();
+
 			//Ver Posts de Foro
 			verPostsDeForo();
 
@@ -496,9 +504,84 @@ function obtener_listado_foros_identificado() {
 			//Registro de foros
 			registrarForo();
 
+
 		}//---end success---
 	});//--end ajax--
 }//-end obtener_listado-
+
+function follow() {
+	$(".follow").click(function () {
+		let idForo = $(this).attr("id");
+		comprobarExisteFollow(idForo)
+			.then((followExiste) => {
+				if (!followExiste) {
+					//Dar follow si no hay
+					darFollow(idForo);
+				} else {
+					//Si ya le dio a seguir, le quitamos el follow
+					eliminarFollow(idForo);
+				}
+			});
+	});
+}//-end follow-
+
+function comprobarExisteFollow(idForo) {
+	console.log("Comprobar: "+idForo);
+	return new Promise(function (resolve, reject) {
+		$.ajax("identificado/servicioWebFollow/comprobarFollow?idForo=" + idForo, {
+			success: function (data) {
+				if (data.includes("ok, true")) {
+					resolve(true);
+				} else if (data.includes("ok, false")) {
+					resolve(false);
+				}
+				console.log(data);
+			},
+			error: function () {
+				reject(new Error("No se pudo obtener la follow"));
+			}
+		});
+	});
+}//-end comprobarExisteFollow
+
+function darFollow(idForo) {
+	//Se comprueba si hay follow previamente y se añade si no lo hay
+	let formData = new FormData();
+	formData.append("idForo", idForo);
+	
+
+	$.ajax("identificado/servicioWebFollow/registrarFollow", {
+		type: "POST",
+		data: formData,
+		cache: false,
+		contentType: false,
+		processData: false,
+		success: function (res) {
+			console.log("Follow registrado");
+		},
+	}).fail(function () {
+		swal("Ha fallado la funcion de dar follow", {
+			icon: "error",
+		});
+	});
+}//-end dar follow
+
+function eliminarFollow(idForo) {
+	//Se comprueba si hay follow previamente y se elimina si lo hay
+	
+	$.ajax("identificado/servicioWebFollow/eliminarFollow?idForo=" + idForo, {
+		success: function (data) {
+			if (data.includes("ok")) {
+			}
+		}//---end success---
+	}).fail(function () {
+		swal("Ha fallado la funcion de quitar follow", {
+			icon: "error",
+		});
+	})//--end ajax--
+
+
+} //-end eliminar follow-
 
 function obtener_listado_posts() {
 
@@ -836,55 +919,47 @@ function comprobarExisteValoracion(idPost) {
 			}
 		});
 	});
-}
-
-function comprobarExisteValoracion(idForo) {
-	return new Promise(function (resolve, reject) {
-		$.ajax("identificado/servicioWebFollow/comprobarFollow?idForo=" + idForo, {
-			success: function (data) {
-				if (data.includes("ok, true")) {
-					resolve(true);
-				} else if (data.includes("ok, false")) {
-					resolve([true, false]);
-				}
-				console.log(data);
-			},
-			error: function () {
-				reject(new Error("No se pudo obtener la follow"));
-			}
-		});
-	});
-}
+}//-end comprobar existe valoracion
 
 function comprobarIdentificacion() {
-	$.ajax("servicioWebUsuarios/comprobarLogin", {
-		success: function (res) {
-			if (res == "ok") {
-				return true;
-			} else {
-				swal("Te debes identificar para acceder a esta parte", "Identificate", "info");
-				return false;
+	return new Promise(function (resolve, reject) {
+		$.ajax("servicioWebUsuarios/comprobarLogin", {
+			success: function (res) {
+				if (res.includes("ok")) {
+					resolve(true);
+				} else {
+					resolve(false)
+				}
+			}, error: function () {
+				reject(new Error("No se pudo obtener la identificacion"));
 			}
-		}
+
+		});
 	});
 } // -end comprobar identificacion-
-
 
 //Enlaces del navbar
 $("#enlace_home").click(listadoInicio);
 
 //El listado de foros cambia dependiendo de si está identificado o no 
 $("#enlace_listado_foros").click(function () {
-	if (comprobarIdentificacion()) {
-		obtener_listado_foros_identificado();
-	} else {
-		obtener_listado_foros();
+	comprobarIdentificacion().then((usuarioIdentificado) => {
+		if (usuarioIdentificado === false) {
+			//Dar follow si no hay 
+			obtener_listado_foros();
+		} else {
+			//Si ya le dio a seguir, le quitamos el follow
+			obtener_listado_foros_identificado();
+		}
 	}
-});
+
+	)
+	.catch((error) => {
+		swal("se ha producido un error en identificación", "Error","error");
+	});
+});//-end enlace listado foros
 
 $("#enlace_listado_foros").click(obtener_listado_foros);
-
-
 $("#enlace_listado_posts").click(obtener_listado_posts);
 $("#enlace_editar_usuario").click(mostrarRegistroUsuario);
 $("#enlace_registrarme").click(mostrarRegistroUsuario);

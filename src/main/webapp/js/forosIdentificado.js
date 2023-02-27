@@ -3,15 +3,16 @@ let iconosFollow = document.querySelectorAll('i');
 
 iconosFollow.forEach(
     (icono) =>{
-        if(!icono.id ===""){
-            icono.classList.remove("fa-regular fa-circle-plus");
-            icono.classList.add("fa-solid fa-circle-plus");
+        //Comprueba si contiene un número
+        if(/\d+/.test(icono.id)){
+            icono.classList.remove("fa-regular", "fa-square-plus", "fa-2xl");
+            icono.classList.add("fa-solid", "fa-square-plus", "fa-2xl");            
         }
         icono.addEventListener("click", function () {
             if(icono.classList.contains("fa-regular")){
-                darFollow(icono);
+                darFollowIcono(icono);
             }else{
-                quitarFollow(icono);
+                quitarFollowIcono(icono);
             }
         });
     }
@@ -19,7 +20,7 @@ iconosFollow.forEach(
 
 
 
-function darFollow(icono) {
+function darFollowIcono(icono) {
 	icono.classList.add("fa-flip");
 	setTimeout(() => {
 		icono.classList.remove("fa-flip");
@@ -28,11 +29,11 @@ function darFollow(icono) {
 	}, 800);
 }
 
-function quitarFollow(icono) {
+function quitarFollowIcono(icono) {
 	icono.classList.add("fa-flip");
 	setTimeout(() => {
 		icono.classList.remove("fa-flip");
-		icono.classList.remove("fa-regular");
-		icono.classList.add("fa-solid");	
+		icono.classList.remove("fa-solid");
+		icono.classList.add("fa-regular");	
 	}, 800);
 }

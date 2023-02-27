@@ -46,7 +46,12 @@
   #boton-buscar:active {
     background-color: white;
   }
-
+  
+  .contenedorfotoForo{
+    max-width: 80px !important;
+    max-height: 80px !important;
+  }
+  
 
   @media only screen and (max-width: 425px) {
 

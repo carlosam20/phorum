@@ -93,7 +93,7 @@ public class ConstantesSQL {
 	public final static String OBTENER_COMENTARIOS_CON_ID_POST="select * from comentario where postComentario = :id";
 	public final static String OBTENER_VALORACION_POR_ID_POST ="select * from valoracion where post = :id";
 	
-	public final static String OBTENER_FOLLOW_POR_USUARIO_Y_FORO = "select * from follow where usuario = :idUsuario AND foro = :idForo ";
+	public final static String OBTENER_FOLLOW_POR_USUARIO_Y_FORO = "select * from follow where usuario = :idUsuario AND foro = :idForo";
 	
 	public final static String OBTENER_VALORACION_POR_ID_POST_Y_POR_ID_USUARIO ="select * from valoracion where post = :idPost AND usuario = :id";
 	public final static String COMPROBAR_EXISTE_VALORACION = "SELECT COUNT(*) > 0 FROM valoracion WHERE usuario = :idUsuario AND post = :idPost";

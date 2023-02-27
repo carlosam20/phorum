@@ -1,5 +1,7 @@
 package serviciosWEB.identificado;
 
+
+
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +21,6 @@ import com.google.gson.JsonElement;
 import modelo.Foro;
 
 import modelo.Usuario;
-import servicios.ServicioComentarios;
 import servicios.ServicioFollow;
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
@@ -95,21 +96,22 @@ public class ServicioWebForos {
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 
 		List<Map<String, Object>> foros = servicioForos.obtenerForosParaListado();
+		
+	
+		for (Map<String, Object> foro : foros) {
+			
+			boolean followExiste = servicioFollow.comprobarExisteFollow(Long.parseLong(String.valueOf(foro.get("id"))), u.getId());
 
-		for (int i = 0; i < foros.size(); i++) {
-			Map<String, Object> follow = servicioFollow.obtenerFollowPorUsuarioIdYPorForoId(u.getId(),
-					Long.parseLong(String.valueOf(foros.get(i).get("id"))));
-
-			if (follow != null) {
-				follow.remove("usuario");
-				follow.remove("foro");
-				follow.put("idFollow", follow.get("id"));
-				follow.remove("remove");
-				foros.add(follow);
+			if (followExiste) {
+				Map<String, Object> follow = servicioFollow.obtenerFollowPorUsuarioIdYPorForoId(u.getId(),
+						Long.parseLong(String.valueOf(foro.get("id"))));
+				foro.put("idFollow", follow.get("id"));
 			}
 		}
-
+		
+		
 		String json = new Gson().toJson(foros);
+		System.out.println("WebForos"+json);
 		return new ResponseEntity<String>(json, HttpStatus.OK);
 
 	}

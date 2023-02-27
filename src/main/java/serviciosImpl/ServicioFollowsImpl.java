@@ -50,7 +50,7 @@ public class ServicioFollowsImpl implements ServicioFollow {
 	
 	@Override
 	public boolean comprobarExisteFollow(long idForo, long idUsuario) {
-		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.COMPROBAR_EXISTE_VALORACION);
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.COMPROBAR_EXISTE_FOLLOW);
 		query.setParameter("idUsuario", idUsuario);
 		query.setParameter("idForo", idForo);
 		Object result = query.uniqueResult();

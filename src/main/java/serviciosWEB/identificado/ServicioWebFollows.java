@@ -37,16 +37,14 @@ public class ServicioWebFollows {
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 		String respuesta = "";
 
-		System.out.println("--------" + formData);
 		Gson gson = new Gson();
 		JsonElement json = gson.toJsonTree(formData);
-		System.out.println("--------" + json);
-		
+	
 		Follow f = gson.fromJson(json, Follow.class);
 		
 	
 		f.setIdUsuario(u.getId());
-		System.out.println("---Registrar Follow");
+		
 		servicioFollow.registrarFollow(f);
 		respuesta = "ok";
 
@@ -57,6 +55,8 @@ public class ServicioWebFollows {
 	@RequestMapping("eliminarFollow")
 	public ResponseEntity<String> eliminarFollow(HttpServletRequest request, String idForo) {
 
+		System.out.println("ELiminar follow: "+idForo);
+		
 		 Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 		 		  
 		    Map<String, Object> usuarioForo = servicioFollow.obtenerFollowPorUsuarioIdYPorForoId(u.getId(), Long.parseLong(idForo));
@@ -73,10 +73,11 @@ public class ServicioWebFollows {
 	@RequestMapping("comprobarFollow")
 	public ResponseEntity<String> comprobarFollow(HttpServletRequest request, String idForo){
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
-		boolean existeFollow = servicioFollow.comprobarExisteFollow(Long.parseLong(String.valueOf(u.getId())), Long.parseLong(idForo));
+		boolean existeFollow = servicioFollow.comprobarExisteFollow(Long.parseLong(idForo), Long.parseLong(String.valueOf(u.getId())));
 		 
+		
 		if(existeFollow) {
-			return new ResponseEntity<String>("ok, true, ", HttpStatus.OK);
+			return new ResponseEntity<String>("ok, true", HttpStatus.OK);
 		}else {
 			return new ResponseEntity<String>("ok, false", HttpStatus.OK);
 		}

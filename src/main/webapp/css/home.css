@@ -12,11 +12,12 @@
   --textLightColor: #34403A;
 }
 
-.btn-outline-primary:hover {
-  background-color: #439F88;
-  color: black;
+/* .btn-outline-primary:hover {
+  background-color: var(--primaryHover);
+  border-color: black;
+  color: white ;
 
-}
+} */
 
 .contenedorfotoForoPost{
   max-width: 40px !important; 
@@ -26,6 +27,11 @@
   max-width: 200px !important;
   height: 300px;
 }
-
+.card-text{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
 

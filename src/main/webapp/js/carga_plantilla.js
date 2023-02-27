@@ -5,7 +5,6 @@ function cargar_plantillas_del_servidor(){
         plantillaListarPostYComentarios = data;
     });
 	$.get("plantillas_mustache/home.html",function(data){
-        
         plantillaHome = data;
     });
 
@@ -14,6 +13,9 @@ function cargar_plantillas_del_servidor(){
     });
     $.get("plantillas_mustache/listado_foros_busqueda.html",function(data){
         plantillaListarForosBusqueda = data;
+    });
+    $.get("plantillas_mustache/listado_foros_identificado.html",function(data){
+        plantillaListarForosIdentificado = data;
     });
 	$.get("plantillas_mustache/listado_posts.html",function(data){
         plantillaListarPosts = data;

@@ -25,9 +25,7 @@
 
     <div class="row info-creacion-perfil m-3">
         <div class=" col-lg-2 col-md-2 col-sm-2 p-2">
-            <span class="material-symbols-outlined m-3">
-                timer
-            </span>
+            <i class="fa-regular fa-calendar-days fa-xl"></i>
         </div>
         <h2 class="creacionPerfil m-3">{{fechaCreacion}}</h2>
     </div>
@@ -43,11 +41,24 @@
         {{/.}}
     </div>
 
+
+
     <div class="row botones justify-content-left d-flex m-3">
         <div class="col-lg-2 col-md-2 col-sm-2">
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-danger boton_borrar_usuario" id="{{id}}">Borrar</button>
-                <button type="button" class="btn btn-secondary boton_editar_usuario" id="{{id}}">Editar</button>
+           
+            <div class="btn-group dropend">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown button
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                  <li><a class="dropdown-item boton_borrar_usuario">Borrar</a></li>
+                  <li><a class="dropdown-item boton_editar_usuario">Editar</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li> <a class="dropdown-item boton_ver_follows" id="{{id}}">Ver listado
+                    follows</a></li>
+                </ul>
+              </div>
+
             </div>
         </div>
     </div>
@@ -56,8 +67,15 @@
         <div class="row titulo">
             <h2>Estadísticas</h2>
         </div>
-        <div class="row chartTotal">
-            <canvas id="charTotal"></canvas>
+        <div class="col-lg-3 col-sm-3">
+            <div>
+                <h2>Foros seguidos</h2>
+                {{#.}}
+                {{#id}}
+                <h2>{{numeroForosSeguidos}}</h2>
+                {{/id}}
+                {{/.}}
+            </div>
         </div>
         <div class="col-lg-3 col-sm-3">
             <div>
