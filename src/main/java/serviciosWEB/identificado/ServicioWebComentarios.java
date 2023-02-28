@@ -1,6 +1,7 @@
 package serviciosWEB.identificado;
 
 import java.time.LocalDate;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,17 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 import modelo.Comentario;
-import modelo.Post;
 import modelo.Usuario;
 import servicios.ServicioComentarios;
 import servicios.ServicioPosts;
-import utilidadesArchivos.GestorArchivos;
 
 @Controller("servicioWebComentariosIdentificado")
 @RequestMapping("identificado/servicioWebComentarios/")

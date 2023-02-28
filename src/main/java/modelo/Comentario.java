@@ -3,7 +3,9 @@ package modelo;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -14,7 +16,11 @@ public class Comentario {
     @Id	
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    @NotEmpty
+    @Pattern(regexp ="/^[\\w\\s\\d,.<>áéíóúÁÉÍÓÚñÑüÜ]{1,200}+$/u\n"
+    		+ "", message="El comentario no es correcto:"
+    				+ "Se pueden introducir guiones bajos, puntos, comas, espacios en blanco, numeros, acentos y mayúsculas y minúsculas")
+    @Length(min=1, max=200)
+    @NotEmpty(message ="El texto del comentario no puedes estar nulo o vacío")
     private String textoComentario;
 
     @ManyToOne(cascade = {CascadeType.MERGE}, targetEntity = Post.class, optional = false, fetch = FetchType.EAGER)

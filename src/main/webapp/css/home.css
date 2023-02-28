@@ -20,18 +20,22 @@
 } */
 
 .contenedorfotoForoPost{
-  max-width: 40px !important; 
+  max-width: 60px !important; 
   height: auto;
 }
 .contenedorfotoPost{
   max-width: 200px !important;
-  height: 300px;
+  max-height: 300px !important;
 }
 .card-text{
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+scroll > a{
+  text-decoration: none;
 }
 
 

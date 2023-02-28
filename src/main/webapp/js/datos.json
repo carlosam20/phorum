@@ -1,15 +1,9 @@
-[
-    {
-        "descripcion": "Este es mi perfil está bastante vacio como puedes ver la verdad es que no lo he rellenado demasiado",
-        "fechaCreacion": "2023-02-22",
-        "id": 2,
-        "nombre": "Porsche"
-    },
-    {
-        "descripcion": "Este es un foro en el que se habla de ballenas",
-        "idFollow": 1,
-        "fechaCreacion": "2023-02-16",
-        "id": 1,
-        "nombre": "Foro de ballenas"
-    }
-]
+{
+    "descripcion": "Discusion sobre el coche hibrido",
+    "pass": "carlos",
+    "numeroPost": 1,
+    "numeroComentarios": 1,
+    "id": 1,
+    "nombre": "carlos",
+    "email": "carlos@carlos.com"
+}

@@ -2,6 +2,7 @@ package modelo;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
-
-import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"usuario", "foro"}))
@@ -31,12 +30,11 @@ private Usuario usuario;
 @JoinColumn(name = "foro")
 private Foro foro;
 
-@Transient
-@NumberFormat
+@Transient	
 private long idForo;
 
 @Transient
-@NumberFormat
+
 private long idUsuario;
 
 public Follow() {

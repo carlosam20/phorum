@@ -2,6 +2,7 @@ package serviciosWEB.identificado;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -115,5 +116,58 @@ public class ServicioWebForos {
 		return new ResponseEntity<String>(json, HttpStatus.OK);
 
 	}
+	@RequestMapping("obtenerForosPerfil")
+	public ResponseEntity<String> obtenerForosPerfil(HttpServletRequest request) {
+		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+
+		List<Map<String, Object>> foros = servicioForos.obtenerForosParaListado();
+		List<Map<String, Object>> perfilForos = new ArrayList<Map<String,Object>>();
+		
+	
+		//Iteramos en los foro del list e introducimos el idFollow además de introducirlos al listado que pasaremos
+		for (Map<String, Object> foro : foros) {
+			
+			boolean followExiste = servicioFollow.comprobarExisteFollow(Long.parseLong(String.valueOf(foro.get("id"))), u.getId());
+
+			if (followExiste) {
+				Map<String, Object> follow = servicioFollow.obtenerFollowPorUsuarioIdYPorForoId(u.getId(),
+						Long.parseLong(String.valueOf(foro.get("id"))));
+				foro.put("idFollow", follow.get("id"));
+				perfilForos.add(foro);
+			}
+		}
+		
+		
+		String json = new Gson().toJson(perfilForos);
+		System.out.println("WebForos"+json);
+		return new ResponseEntity<String>(json, HttpStatus.OK);
+
+	}
+	@RequestMapping("obtenerForosDeNombreIntroducidoPerfil")
+	public ResponseEntity<String> obtenerForosDeNombreIntroducido(String nombreForo, HttpServletRequest request) {
+		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+		
+		List<Map<String, Object>> foros = servicioForos.obtenerForosParaListadoBusquedaForo(nombreForo);
+		List<Map<String, Object>> perfilForosBuscados = new ArrayList<Map<String,Object>>();
+		
+		
+		//Iteramos en los foro del list e introducimos el idFollow además de introducirlos al listado que pasaremos
+		for (Map<String, Object> foro : foros) {
+			
+			boolean followExiste = servicioFollow.comprobarExisteFollow(Long.parseLong(String.valueOf(foro.get("id"))), u.getId());
+
+			if (followExiste) {
+				Map<String, Object> follow = servicioFollow.obtenerFollowPorUsuarioIdYPorForoId(u.getId(),
+						Long.parseLong(String.valueOf(foro.get("id"))));
+				foro.put("idFollow", follow.get("id"));
+				perfilForosBuscados.add(foro);
+			}
+		}
+		
+		String json = new Gson().toJson(perfilForosBuscados);
+		return new ResponseEntity<String>(json, HttpStatus.OK);
+
+	}
+	
 
 }

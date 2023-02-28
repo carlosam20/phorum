@@ -296,7 +296,36 @@ function busquedaForos() {
 			success: function (res) {
 				let forosEncontrados = JSON.parse(res);
 				let texto_html = "";
-				texto_html = Mustache.render(plantillaListarForosBusqueda, forosEncontrados);
+				texto_html = Mustache.render(plantillaListarForos, forosEncontrados);
+				$("#contenedor").html(texto_html);
+
+				//Ver post Foros
+				verPostsDeForo();
+
+				//Registrar foros
+				registrarForo();
+
+				//Buscar foros
+				busquedaForos();
+
+			}//---end success---
+
+
+		});//--end ajax obtenerForosBuscados--
+
+	});//--end click boton_buscar--
+}//-end busqueda foros-
+
+function busquedaFollowsPerfil() {
+
+	//Buscador de Foros
+	$(".boton_buscar").click(function (e) {
+		let nombreForo = $("#inputBuscador").val();
+		$.ajax("identificado/servicioWebForos/obtenerForosDeNombreIntroducidoPerfil?nombreForo=" + nombreForo, {
+			success: function (res) {
+				let forosEncontrados = JSON.parse(res);
+				let texto_html = "";
+				texto_html = Mustache.render(plantillaListarForosIdentificado, forosEncontrados);
 				$("#contenedor").html(texto_html);
 
 				//Ver post Foros
@@ -484,7 +513,6 @@ function obtener_listado_foros() {
 function obtener_listado_foros_identificado() {
 	$.ajax("identificado/servicioWebForos/obtenerForos", {
 		success: function (data) {
-
 			alert("recibido: " + data);
 			let foros = JSON.parse(data);
 			let texto_html = "";
@@ -508,6 +536,35 @@ function obtener_listado_foros_identificado() {
 		}//---end success---
 	});//--end ajax--
 }//-end obtener_listado-
+
+function listadoFollowsPerfil(){
+	$(".boton_ver_follows").click(function () {
+		$.ajax("identificado/servicioWebForos/obtenerForosPerfil", {
+			success: function (data) {
+				alert("recibido: " + data);
+				let foros = JSON.parse(data);
+				let texto_html = "";
+				texto_html = Mustache.render(plantillaListarForosIdentificado,
+					foros);
+				$("#contenedor").html(texto_html);
+	
+				//Dar follow por el usuario
+				follow();
+	
+				//Ver Posts de Foro
+				verPostsDeForo();
+	
+				// Buscar foros
+				busquedaForos();
+	
+				// Registro de foros
+				registrarForo();
+	
+	
+			}//---end success---
+		});//--end ajax--
+	});
+}//-end listado follows perfil
 
 function follow() {
 	$(".follow").click(function () {
@@ -859,6 +916,9 @@ function perfil() {
 			editarUsuario();
 			// Borrar usuario
 			borrarUsuario();
+
+			//Ver listado follows
+			listadoFollowsPerfil();
 
 		}//end success Obtener id
 

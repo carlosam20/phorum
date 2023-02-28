@@ -5,8 +5,10 @@ import org.springframework.format.annotation.NumberFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -22,12 +24,24 @@ public class Post {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    @NotEmpty
+   
     @NotBlank(message = "El nombre no puede estar vacio")
+    @Pattern(regexp = "^[a-zA-Z 0-9]{3,60}$", message="Los nombres solo admiten letras, numeros y espacios")
     private String nombre;
-    @NotEmpty
-    @NotBlank(message = "La descripcion no puede estar vacia")
+   
+    @Pattern(regexp ="/^[\\w\\s\\d,.<>áéíóúÁÉÍÓÚñÑüÜ]{1,300}+$/u\n"
+    		+ "", message="La descripción no es correcta:"
+    				+ "Se pueden introducir guiones bajos, espacios en blanco, numeros, acentos y mayúsculas y minúsculas")
+    @Length(min=1, max=300)
+    @Column(length=300)
     private String descripcion;
+    
+	@NotBlank(message = "Se requiere una fecha para el foro")
+	@Pattern(regexp = "/^([1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[012])\\/\\d{4}$/\n"
+			+ "" + "", message = "La fecha de creación no es correcta:"
+			+ "Se tiene que introducir en formato dd/mm/yyyy")
+	@Length(min=10)
+	@Column(length=10)
     private String fechaCreacion;
     
    
@@ -44,11 +58,9 @@ public class Post {
 
     
     @Transient
-    @NumberFormat
     private long idForo;
 
     @Transient
-    @NumberFormat
     private long idUsuario;
    
     @OneToMany (cascade = {CascadeType.MERGE},mappedBy="post")

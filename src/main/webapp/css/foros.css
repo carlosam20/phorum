@@ -1,8 +1,6 @@
 
 
   .fa-magnifying-glass{
-    width: 50%;
-    height: auto;
     color: white;
   }
 
@@ -47,10 +45,7 @@
     background-color: white;
   }
   
-  .contenedorfotoForo{
-    max-width: 80px !important;
-    max-height: 80px !important;
-  }
+
   
 
   @media only screen and (max-width: 425px) {

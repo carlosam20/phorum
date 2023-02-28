@@ -35,6 +35,8 @@ button select {
 
     --footer-color: #002031;
     --textLightColor: #34403A;
+
+    --error: #780B0B:
 }
 
 body {
@@ -306,8 +308,14 @@ img{
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     color: black;
+
+    
 }
 
+input {
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+  }
 
 /*Modal Bootstrap */
 .modal-backdrop {
@@ -322,9 +330,16 @@ img{
 }
 
 /*Modal Swal*/
+/*Glasmorphismo*/
 .swal {
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
+
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(221, 221, 221, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
 }
 
 .swal-title {
@@ -332,8 +347,15 @@ img{
     font-size: 1.4rem;
 }
 
-.swal-button {
+.swal-button--confirm{
     background-color: var(--primary);
+    border: 1px solid white;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.swal-button--cancel{
+    background-color: var(--error);
     border: 1px solid white;
     border-radius: 4px;
     font-size: 1rem;
@@ -394,15 +416,23 @@ body.cargando .spinner {
 .phorum-tag {
     font-size: 1rem;
 }
-
-
-
-
 /* Cabecera */
 #phorum-icon {
     width: 10%;
     height: auto;
     background-color: #202031;
+}
+
+.card-img-top-scroll {
+    width: 100%;
+    height: 8vw;
+    object-fit: cover;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
 }
 
 

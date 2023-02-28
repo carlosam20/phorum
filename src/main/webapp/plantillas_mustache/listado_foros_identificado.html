@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <link rel="stylesheet" href="css/forosIdentificado.css">
@@ -86,9 +87,7 @@
       {{#.}}
       <li class="list-group-item  flex-column align-items-center m-1">
         <div class="d-flex w-100 justify-content-around align-items-center">
-          <div class="contenedorfotoForo text-start m-1">
-            <img src="subidas/{{id}}.jpg" id="{{id}}" alt="{{nombre}}">
-          </div>
+          <img class="avatar avatar-8" src="subidas/{{id}}.jpg" id="{{id}}" alt="{{nombre}}">
           <h5 class="nombre text-start m-1">{{nombre}}</h5>
           <p class="descripcion text-start  m-1">{{descripcion}}</p>
           <a class="follow" id="{{id}}">
@@ -104,4 +103,7 @@
 
 </body>
 <script src="js/forosIdentificado.js"></script>
+<script>
+  init();
+</script>
 </html>

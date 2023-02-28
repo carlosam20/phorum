@@ -1,0 +1,44 @@
+:root {
+    --primary: #003F30;
+    --primaryHover: #00140F;
+    --primaryFocus: #439F88;
+
+    --secondary: #060637;
+    --secondaryHover: #202031;
+    --secondaryFocus: #9C9CD3;
+
+    --footer-color: #002031;
+    --textLightColor: #34403A;
+
+    --error: #780B0B:
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.fa-rectangle-history-circle-plus{
+    color: var(--primary);
+}
+
+.imagenSubida {
+    border: 1px, solid, black;
+    background-color: var(--primary);
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.imagenSubida:hover {
+    border: 1px, solid, black;
+    background-color: var(--primaryHover);
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.imagenSubida:focus {
+    border: 1px, solid, black;
+    background-color: var(--primaryHover);
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}

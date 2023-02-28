@@ -1,10 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/home.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <meta charset="UTF-8">
+
 </head>
 
 <body>
@@ -21,7 +24,7 @@
         <a class="boton_post_foro" id="{{id}}">
           <div class="item">
             <div class="contenedorfotoForo">
-              <img src="subidas/{{id}}.jpg" alt="{{nombre}}" id="{{id}}" class="fotoForo rounded">
+              <img src="subidas/{{id}}.jpg" alt="{{nombre}}" id="{{id}}" class="card-img-top-scroll rounded">
             </div>
             <h5 class="text-center">{{nombre}}</h5>
           </div>
@@ -50,7 +53,7 @@
 
               <div class="row align-items-center">
                 <div class=" col-lg-4 col-md-4 col-sm-4 contenedorfotoForoPost">
-                  <img src="subidas/{{foro}}.jpg" alt="{{foro}}" id="{{foro}}" class=" fotoForoPost rounded">
+                  <img src="subidas/{{foro}}.jpg" alt="{{foro}}" id="{{foro}}" class="avatar avatar-7 fotoForoPost rounded">
                 </div>
                 <div class="col-lg-8 col-md-8 col-sm-8 ">
                   <p class="card-text text-start m-1 align-middle ">{{foroNombre}}</p>
@@ -88,7 +91,7 @@
 
 </body>
 
-
+</html>
 
 
 <script src="js/home-animacion.js"></script>

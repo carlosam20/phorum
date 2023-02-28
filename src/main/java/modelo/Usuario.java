@@ -2,7 +2,7 @@ package modelo;
 
 
 import org.hibernate.validator.constraints.Email;
-
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,7 +12,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 
 
 @Entity
@@ -25,19 +25,29 @@ public class Usuario  {
     @Pattern(regexp = "^[a-zA-Z 0-9]{3,60}$", message="Los nombres solo admiten letras, numeros y espacios")
     private String nombre;
     @NotBlank(message = "Introduce una contraseña")
-    //@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$")
     private String pass;
     @Email
     //https://stackoverflow.com/questions/1423195/what-is-the-actual-minimum-length-of-an-email-address-as-defined-by-the-ietf#:~:text=The%20shortest%20valid%20email%20address,two%20parts%3A%20name%20and%20domain.&text=Since%20both%20the%20name%20and,length%20resolves%20to%203%20characters.
     //https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
     @Pattern(regexp = "^[a-zA-Z]+@[a-zA-Z]+\\.[a-zA-Z]{3,254}+$", message="El email debe contener '@', '.' y al menos 10 caracteres")
+    @Length(min=3, max=254)
+    @Column(length = 254)
     @NotEmpty(message = "Introduce un email")	
     private String email;
     
-    
+	@NotBlank(message = "Se requiere una fecha para el foro")
+	@Pattern(regexp = "/^([1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[012])\\/\\d{4}$/\n"
+			+ "" + "", message = "La fecha de creación no es correcta:"
+			+ "Se tiene que introducir en formato dd/mm/yyyy")
+	@Length(min = 10)
+	@Column(length = 10)
     private String fechaCreacion;
     
-    //@Pattern(regexp = "^[0-9a-z A-ZáéíóúÁÉÍÓÚ]{3,60}$", message="Las descripciones solo admiten letras, numeros y espacios") 
+    @Pattern(regexp ="/^[\\w\\s\\d,.<>áéíóúÁÉÍÓÚñÑüÜ]{1,300}+$/u\n"
+    		+ "", message="La descripción no es correcta:"
+    				+ "Se pueden introducir guiones bajos, espacios en blanco, numeros, acentos y mayúsculas y minúsculas")
+    @Length(min=1, max=300)
     private String descripcion;
     
     @OneToMany (cascade = {CascadeType.MERGE},mappedBy="usuario")

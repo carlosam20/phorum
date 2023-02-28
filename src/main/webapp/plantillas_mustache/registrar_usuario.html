@@ -1,78 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/registrar.css">
+	<title>Registrate</title>
 </head>
 
-<div class="row justify-content-center align-items-center contenido">
-	<!-- Imagen y titulo -->
-	<div class="col-5-lg col-5-md col-11-sm p-1 m-1" id="imagen_form">
-		<h1 class="display-4 text-light justify-conetent-center">Bienvenido a phorum</h1>
-		<h1 class="display-4 text-light justify-conetent-center">Comienza tu experiencia!</h1>
-		<img class="explora border rounded-top p-3" src="../images/registrarse.png" alt=""
-				id="registrarse">
-	</div>
-	<!--Termina Imagen y titulo-->
-
-	<!--Form-->
-
-	<div class="col-6-lg col-6-md col-11-sm m-1 p-1" id="form">
-		<button class="btn btn-primary m-3 justify-content-left m-3">Volver</button>
-
-		<div class="row justify-content-center m-3 ">
-			<img class="explora border rounded-top p-5" src="../images/logo-phorum.svg" alt=""
-				id="logo_phorum">
+<body>
+	<div class="row justify-content-center align-items-center contenido">
+		<!-- Imagen y titulo -->
+		<div class="col-5-lg col-5-md col-11-sm" id="imagen_form">
+			<h1 class="display-4 justify-conetent-center">Bienvenido a phorum</h1>
+			<h1 class="display-4 justify-conetent-center">Comienza tu experiencia!</h1>
+			<img class="explora border rounded-top p-3" src="images/registrarse.png" alt="" id="registrarse">
 		</div>
+		<!--Termina Imagen y titulo-->
 
-		<form id="form_registro_usuario">
+		<!--Form-->
+		<div class="col-6-lg col-6-md col-11-sm " id="form">
 
-			<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1 ">
-				<div class="col-lg-8 col-md-6">
-					<input type="text" name="nombre" class="form-control form-control-lg"
-						placeholder="Nombre de Usuario" id="nombre" pattern="[a-z_áéíóú]{2,10}"
-						title="Solo se admiten minusculas y de 2 a 10 carácteres" /><br>
-				</div>
-			</div>
-			<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-				<div class="col-lg-8 col-md-6">
-					<input type="text" name="email" class="form-control form-control-lg" placeholder="E-mail" id="email"
-						pattern="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})"
-						title="Se tiene que incluir un @ y una dirección de dominio ejemplo: .com" /><br>
-				</div>
-			</div>
-			<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-				<div class="col-lg-8 col-md-6">
-					<input type="password" name="pass" class="form-control form-control-lg" placeholder="Contraseña"
-						id="pass" pattern="[a-z0-9áéíóú]{3,10}"
-						title="La contraseña tiene que tener entre 3 y 10 carácteres y ser en minúsculas, se admiten números" /><br>
-				</div>
+			<div class="row">
+				<button class="btn btn-primary justify-content-left m-3">Volver</button>
 			</div>
 
-			<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-				<div class="col-lg-8 col-md-6">
-					<input type="password" name="pass" class="form-control form-control-lg" placeholder="Contraseña confirmación"
-						id="pass-validacion" pattern="[a-z0-9áéíóú]{3,10}" 
-						title="La contraseña tiene que tener entre 3 y 10 carácteres y ser en minúsculas, se admiten números" /><br>" /><br>
-						
-				</div>
+			<div class="row justify-content-center">
+				<img class="avatar avatar-8 explora border rounded-top" src="images/logo-phorum.svg" alt="logo-phorum"
+					id="logo_phorum">
+			</div>
+			<div class="row">
+				<form id="form_registro_usuario">
+
+					<div class="row justify-content-center ">
+						<div class="col-lg-8 col-md-6">
+							<input type="text" name="nombre" class="form-control form-control-lg"
+								placeholder="Nombre de Usuario" id="nombre" pattern="[a-z_áéíóú]{2,10}"
+								title="Solo se admiten minusculas y de 2 a 10 carácteres" /><br>
+						</div>
+					</div>
+					<div class="row justify-content-center ">
+						<div class="col-lg-8 col-md-6">
+							<input type="text" name="email" class="form-control form-control-lg" placeholder="E-mail"
+								id="email" pattern="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})"
+								title="Se tiene que incluir un @ y una dirección de dominio ejemplo: .com" /><br>
+						</div>
+					</div>
+					<div class="row justify-content-center ">
+						<div class="col-lg-8 col-md-6">
+							<input type="password" name="pass" class="form-control form-control-lg"
+								placeholder="Contraseña" id="pass" pattern="[a-z0-9áéíóú]{3,10}"
+								title="La contraseña tiene que tener entre 3 y 10 carácteres y ser en minúsculas, se admiten números" /><br>
+						</div>
+					</div>
+
+					<div class="row justify-content-center">
+						<div class="col-lg-8 col-md-6">
+							<input type="password" name="pass" class="form-control form-control-lg"
+								placeholder="Contraseña confirmación" id="pass-validacion" pattern="[a-z0-9áéíóú]{3,10}"
+								title="La contraseña tiene que tener entre 3 y 10 carácteres y ser en minúsculas, se admiten números" /><br>"
+							/><br>
+
+						</div>
+					</div>
+
+					<div class="row justify-content-center ">
+						<div class="col-lg-8 col-md-6">
+							<input class="btn btn-secondary" type="file" name="foto" id="foto" /> <br>
+						</div>
+					</div>
+					<div class="row justify-content-center ">
+						<div class="col-lg-8 col-md-6">
+							<input class="btn btn-primary" id="registrar" type="submit" value="Registrarme" />
+						</div>
+					</div>
+
+				</form>
 			</div>
 
-			<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-				<div class="col-lg-8 col-md-6">
-					<input class="btn btn-secondary" type="file" name="foto" id="foto" /> <br>
-				</div>
-			</div>
-			<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-				<div class="col-lg-8 col-md-6">
-					<input class="btn btn-primary" id="registrar" type="submit" value="Registrarme" />
-				</div>
-			</div>
+		</div> <!--Termina Formulario-->
+	</div>
+</body>
 
-		</form>
-
-	</div> <!--Termina Formulario-->
-
-
-
-</div>
+</html>
