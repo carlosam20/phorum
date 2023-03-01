@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <h1 class="text-center mb-1 me-1"><b>Explora los foros</b></h1>
+  <h1 class="text-center mx-auto"><b>Explora los foros</b></h1>
 
 
   <!--Scroll container-->
@@ -23,9 +23,7 @@
         {{#foros}}
         <a class="boton_post_foro" id="{{id}}">
           <div class="item">
-            <div class="contenedorfotoForo">
-              <img src="subidas/{{id}}.jpg" alt="{{nombre}}" id="{{id}}" class="card-img-top-scroll rounded">
-            </div>
+              <img src="subidas/{{id}}.jpg" alt="{{nombre}}" id="{{id}}" class="card-img-top-scroll rounded mx-auto">
             <h5 class="text-center">{{nombre}}</h5>
           </div>
         </a>
@@ -38,7 +36,7 @@
 
 
 
-  <h1 class="text-center mb-1 me-1"><b>Explora los posts</b></h1>
+  <h1 class="text-center mx-auto"><b>Explora los posts</b></h1>
   <!--Listado Posts -->
   <div class="row">
     {{#.}}

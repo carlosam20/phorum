@@ -3,6 +3,7 @@ package controladores.admin;
 
 
 import javax.servlet.http.HttpServletRequest;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import modelo.Usuario;
 import servicios.ServicioComentarios;
+import servicios.ServicioFollow;
 import servicios.ServicioPosts;
 import servicios.ServicioUsuarios;
+import servicios.ServicioValoracion;
 import utilidadesArchivos.GestorArchivos;
 
 
@@ -34,11 +37,18 @@ public class ControladoresUsuarios {
 	@Autowired
 	private ServicioComentarios servicioComentarios;
 	
+	@Autowired
+	private ServicioValoracion servicioValoraciones;
+	
+	@Autowired
+	private ServicioFollow servicioFollows;
+	
 	
 	@RequestMapping("listarUsuarios")
 	public String listarUsuarios(@RequestParam(defaultValue = "")String nombre, Integer comienzo, Model model) {
 		
 		int comienzo_int = 0;
+		
 		if (comienzo != null) {
 			comienzo_int = comienzo.intValue();
 		}
@@ -48,7 +58,6 @@ public class ControladoresUsuarios {
 		model.addAttribute("anterior", comienzo_int-10);
 		model.addAttribute("total", servicioUsuarios.obtenerTotalDeUsuarios(nombre));
 		model.addAttribute("nombre", nombre);
-		
 		
 		return "admin/usuarios";
 	}
@@ -64,7 +73,6 @@ public class ControladoresUsuarios {
 	public String guardarNuevoUsuario(@ModelAttribute("nuevoUsuario") @Valid Usuario nuevoUsuario, BindingResult br, Model model,
 			HttpServletRequest request) {
 		if (!br.hasErrors()) {		
-			//model.addAttribute("fecha_hora_actual", new Date().getTime());
 			
 			servicioUsuarios.registrarUsuario(nuevoUsuario);
 			String rutaRealDelProyecto =
@@ -73,8 +81,8 @@ public class ControladoresUsuarios {
 			return "admin/registroUsuarioOk";
 			
 		} else {
-			
-			
+				
+			System.out.println("Error en"+br.getFieldError());
 			model.addAttribute("nuevoUsuario", nuevoUsuario);
 			return "admin/formularioRegistroUsuario";
 		}
@@ -108,7 +116,17 @@ public class ControladoresUsuarios {
 		
 		
 		servicioComentarios.borrarComentariosPorIdUsuario(Long.parseLong(id));
+		
+		//Eliminar valoraciones por usuario
+		servicioValoraciones.eliminaValoracionesPorUsuario(Long.parseLong(id));
+		
+		//Eliminar follows por usuario
+		servicioFollows.eliminarFollowsPorUsuario(Long.parseLong(id));
+		
+		//Eliminamos posts de  usuario
 		servicioPosts.eliminarPostUsuarios(Long.parseLong(id));
+		
+		//Eliminamos el usuario finalmente
 		servicioUsuarios.eliminarUsuario(Long.parseLong(id));
 		
 		return listarUsuarios("", null, model);

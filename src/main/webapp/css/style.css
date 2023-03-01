@@ -84,6 +84,7 @@ a {
     text-decoration: none;
     color: var(--primary);
 }
+
 a:hover {
     font-size: 1rem;
     color: var(--primaryHover);
@@ -94,7 +95,8 @@ a:focus {
     color: var(--primaryFocus);
     box-shadow: none;
 }
-img{
+
+img {
     width: 100%;
     height: auto;
     object-fit: cover;
@@ -107,8 +109,15 @@ img{
 
 .form-control:focus {
     border-color: var(--primaryFocus);
-    box-shadow: inset 0 1px 1px rgba(61, 61, 61, 0.075), 0 0 8px var(--primaryFocus);
-  }
+    box-shadow:
+    2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+    6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+    12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+    22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+    41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+    100px 100px 80px rgba(0, 0, 0, 0.07)
+  ;
+}
 
 
 /* Botones */
@@ -119,7 +128,8 @@ img{
     border: none;
     box-shadow: none;
 }
-.btn:focus{
+
+.btn:focus {
     border-color: var(--primaryFocus);
     box-shadow: inset 0 1px 1px rgba(250, 241, 241, 0.075), 0 0 8px var(--primaryFocus);
 }
@@ -199,6 +209,7 @@ img{
 }
 
 .navbar {
+    padding-top: 0 !important;
     background-color: var(--primary);
     text-align: center;
 }
@@ -207,7 +218,7 @@ img{
     text-decoration: none;
 }
 
-#logo-nav{
+#logo-nav {
     width: 100%;
     max-width: 70px;
     height: auto;
@@ -215,14 +226,13 @@ img{
 
 /*Horizontal scroll*/
 
-.item{
+.item {
     width: 20%;
     height: auto;
 }
 
-.item>a {
-    color: var(--primary);
-
+.boton_post_foro {
+    text-decoration: none;
 }
 
 .scrollContainer {
@@ -250,7 +260,14 @@ img{
 }
 
 .scroll .item:hover {
-    box-shadow: 6px 6px 8px 6px #ddd;
+    box-shadow:
+  2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+  6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+  12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+  22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+  41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+  100px 100px 80px rgba(0, 0, 0, 0.07)
+;
     transition: all 200ms ease-in-out;
 }
 
@@ -287,7 +304,14 @@ img{
 
 .card:hover {
     transition: all 200ms ease-in-out;
-    box-shadow: 7px 9px 13px 0px rgba(0, 0, 0, 0.67);
+    box-shadow:
+  2.8px 2.8px 2.2px rgba(0, 0, 0, 0.059),
+  6.7px 6.7px 5.3px rgba(0, 0, 0, 0.085),
+  12.5px 12.5px 10px rgba(0, 0, 0, 0.105),
+  22.3px 22.3px 17.9px rgba(0, 0, 0, 0.125),
+  41.8px 41.8px 33.4px rgba(0, 0, 0, 0.151),
+  100px 100px 80px rgba(0, 0, 0, 0.21)
+;
 }
 
 /*Botones*/
@@ -309,13 +333,13 @@ img{
     font-size: 1rem;
     color: black;
 
-    
+
 }
 
 input {
     font-size: 1rem;
     font-family: 'Roboto', sans-serif;
-  }
+}
 
 /*Modal Bootstrap */
 .modal-backdrop {
@@ -347,14 +371,14 @@ input {
     font-size: 1.4rem;
 }
 
-.swal-button--confirm{
+.swal-button--confirm {
     background-color: var(--primary);
     border: 1px solid white;
     border-radius: 4px;
     font-size: 1rem;
 }
 
-.swal-button--cancel{
+.swal-button--cancel {
     background-color: var(--error);
     border: 1px solid white;
     border-radius: 4px;
@@ -416,6 +440,7 @@ body.cargando .spinner {
 .phorum-tag {
     font-size: 1rem;
 }
+
 /* Cabecera */
 #phorum-icon {
     width: 10%;
@@ -424,7 +449,7 @@ body.cargando .spinner {
 }
 
 .card-img-top-scroll {
-    width: 100%;
+    width: 80%;
     height: 8vw;
     object-fit: cover;
 }

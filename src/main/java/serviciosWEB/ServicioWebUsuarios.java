@@ -1,6 +1,9 @@
 package serviciosWEB;
 
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,10 +44,23 @@ public class ServicioWebUsuarios {
 
 		Usuario u = gson.fromJson(json, Usuario.class);
 		//Creamos una fecha y la guardamos en fechaCreacion
-		u.setFechaCreacion(LocalDate.now().getDayOfMonth() + "/" + LocalDate.now().getMonthValue() + "/"
-				+ LocalDate.now().getYear());
+		
+		
+		//Recogemos la fecha actual en el formato adecuado
+        Date currentDate = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-DD-MM");
+        String formattedDate = dateFormat.format(currentDate);
+        Date fechaCreacion = null;
+        try {
+            fechaCreacion = dateFormat.parse(formattedDate);
+            u.setFechaCreacion(fechaCreacion);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
+        
 		//Se inserta una descripcion vacia que posteriormente se podrá editar
-		u.setDescripcion("");
+		u.setDescripcion("Estoy usando phorum");
 		System.out.println("usuario a registrar: " + u.toString());
 		servicioUsuarios.registrarUsuario(u);
 		

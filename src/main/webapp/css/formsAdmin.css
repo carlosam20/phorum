@@ -1,8 +1,19 @@
-#logo-phorum{
-    width: 10%;
-    height: auto;
-    background-color: #202031;
+body{
+    background-color: #DFDBE5;
+    background-image: 
+    url("data:image/svg+xml,%3Csvg width='24' height='40' viewBox='0 0 24 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40c5.523 0 10-4.477 10-10V0C4.477 0 0 4.477 0 10v30zm22 0c-5.523 0-10-4.477-10-10V0c5.523 0 10 4.477 10 10v30z' fill='%2300140f' fill-opacity='0.14' fill-rule='evenodd'/%3E%3C/svg%3E");
 }
 
-
+form{
+    box-shadow:
+  2.8px 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  6.7px 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  12.5px 12.5px 10px rgba(0, 0, 0, 0.06),
+  22.3px 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  41.8px 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  100px 100px 80px rgba(0, 0, 0, 0.12)
+;
+padding-bottom: 15%;
+margin: auto;
+}
 

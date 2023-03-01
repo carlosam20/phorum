@@ -73,7 +73,9 @@ public class ConstantesSQL {
 	public final static String SQL_BORRAR_POST="delete from post where  id = :id";
 	public final static String SQL_BORRAR_COMENTARIO="delete from comentario where  id = :id";
 	public final static String SQL_BORRAR_FOLLOW="delete from follow where id = :id";
+	public final static String SQL_BORRAR_FOLLOWS_DE_USUARIO="delete from follow where usuario = :id";
 	public final static String SQL_BORRAR_VALORACION="delete from valoracion where id = :id";
+	public final static String SQL_BORRAR_VALORACIONES_DE_USUARIO="delete from valoracion where usuario = :id";
 	public final static String SQL_BORRAR_POSTS_DE_FORO="delete from post where foro = :id";
 	public final static String SQL_BORRAR_POSTS_DE_USUARIO="delete from post where usuario = :id";
 	public final static String SQL_BORRAR_COMENTARIOS_DE_POST="delete from comentario where postComentario = :id";

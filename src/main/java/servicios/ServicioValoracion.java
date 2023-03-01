@@ -12,6 +12,7 @@ public interface ServicioValoracion {
 	int obtenerTotalValoraciones(long id);
 	int obtenerTotalValoracionesPostLike(long idPost);
 	int obtenerTotalValoracionesPostDislike(long idPost);
+	void eliminaValoracionesPorUsuario(long id);
 	void eliminaValoraciones(long id);
 	void guardarCambiosValoraciones(Valoracion v);
 	Map<String, String >obtenerValoracionesParaDesplegable();

@@ -82,8 +82,6 @@
         <!-- Contenedor donde cargan las vistas -->
             <div class="" id="contenedor"></div>
 
-            
-
             <!-- Foooter -->
             <div class="footer-menu">
 

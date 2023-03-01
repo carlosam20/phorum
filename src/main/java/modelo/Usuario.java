@@ -5,12 +5,14 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -22,7 +24,7 @@ public class Usuario  {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     @NotBlank(message = "Introduce un nombre de usuario")
-    @Pattern(regexp = "^[a-zA-Z 0-9]{3,60}$", message="Los nombres solo admiten letras, numeros y espacios")
+    @Pattern(regexp = "^.{1,60}$", message="Los nombres solo admiten letras, numeros y espacios")
     private String nombre;
     @NotBlank(message = "Introduce una contraseña")
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$")
@@ -36,17 +38,14 @@ public class Usuario  {
     @NotEmpty(message = "Introduce un email")	
     private String email;
     
-	@NotBlank(message = "Se requiere una fecha para el foro")
-	@Pattern(regexp = "/^([1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[012])\\/\\d{4}$/\n"
-			+ "" + "", message = "La fecha de creación no es correcta:"
-			+ "Se tiene que introducir en formato dd/mm/yyyy")
-	@Length(min = 10)
-	@Column(length = 10)
-    private String fechaCreacion;
+	@NotBlank(message = "Se requiere una fecha")
+
+	@DateTimeFormat("yyyy/MM/dd")
+	private Date fechaCreacion;
     
-    @Pattern(regexp ="/^[\\w\\s\\d,.<>áéíóúÁÉÍÓÚñÑüÜ]{1,300}+$/u\n"
+    @Pattern(regexp ="^.{1,300}$"
     		+ "", message="La descripción no es correcta:"
-    				+ "Se pueden introducir guiones bajos, espacios en blanco, numeros, acentos y mayúsculas y minúsculas")
+    				+ "El tamaño no es el adecuado")
     @Length(min=1, max=300)
     private String descripcion;
     

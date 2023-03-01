@@ -26,7 +26,6 @@ import servicios.ServicioFollow;
 @Transactional
 public class ServicioFollowsImpl implements ServicioFollow {
 
-	
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -38,8 +37,9 @@ public class ServicioFollowsImpl implements ServicioFollow {
 		List<Map<String, Object>> res = query.list();
 		return res;
 	}
+
 	@Override
-	public Map<String, Object> obtenerFollowPorUsuarioIdYPorForoId(long idUsuario, long idForo){
+	public Map<String, Object> obtenerFollowPorUsuarioIdYPorForoId(long idUsuario, long idForo) {
 		SQLQuery query = sessionFactory.getCurrentSession()
 				.createSQLQuery(ConstantesSQL.OBTENER_FOLLOW_POR_USUARIO_Y_FORO);
 		query.setParameter("idUsuario", idUsuario);
@@ -47,57 +47,57 @@ public class ServicioFollowsImpl implements ServicioFollow {
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 		return (Map<String, Object>) query.uniqueResult();
 	}
-	
+
 	@Override
 	public boolean comprobarExisteFollow(long idForo, long idUsuario) {
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.COMPROBAR_EXISTE_FOLLOW);
 		query.setParameter("idUsuario", idUsuario);
 		query.setParameter("idForo", idForo);
 		Object result = query.uniqueResult();
-		
+
 		boolean existeFollow = false;
-		
+
 		if (result != null) {
-		    if (result instanceof BigInteger) {
-		    	existeFollow = ((BigInteger) result).intValue() > 0;
-		    } else if (result instanceof Integer) {
-		    	existeFollow = ((Integer) result).intValue() > 0;
-		    } else {
-		        throw new IllegalStateException("fallo en query " + result.getClass().getName());
-		    }
+			if (result instanceof BigInteger) {
+				existeFollow = ((BigInteger) result).intValue() > 0;
+			} else if (result instanceof Integer) {
+				existeFollow = ((Integer) result).intValue() > 0;
+			} else {
+				throw new IllegalStateException("fallo en query " + result.getClass().getName());
+			}
 		}
-		
+
 		return existeFollow;
 	}
 
 	@Override
 	public void registrarFollow(Follow fl) {
-		
+
 		Foro f = (Foro) sessionFactory.getCurrentSession().get(Foro.class, fl.getIdForo());
 		fl.setForo(f);
 
 		Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class, fl.getIdUsuario());
 		fl.setUsuario(u);
-		
+
 		sessionFactory.getCurrentSession().save(fl);
-		
+
 	}
 
 	@Override
 	public Follow obtenerFollow(long id) {
-		
+
 		return (Follow) sessionFactory.getCurrentSession().get(Follow.class, id);
 	}
 
 	@Override
 	public List<Follow> obtenerFollows(long id, int comienzo) {
-		
-		Criteria c = sessionFactory.getCurrentSession().createCriteria(Follow.class);	
-		if(id != 0){
+
+		Criteria c = sessionFactory.getCurrentSession().createCriteria(Follow.class);
+		if (id != 0) {
 			c.add(Restrictions.like("id", id));
 			c.addOrder(Order.desc("id"));
 		}
-		
+
 		c.setFirstResult(comienzo);
 		c.setMaxResults(10);
 		return c.list();
@@ -105,7 +105,7 @@ public class ServicioFollowsImpl implements ServicioFollow {
 
 	@Override
 	public int obtenerTotalDeFollows(long id) {
-		
+
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_TOTAL_FOLLOWS);
 		query.setParameter("id", id);
 		return Integer.parseInt(query.list().get(0).toString());
@@ -113,33 +113,40 @@ public class ServicioFollowsImpl implements ServicioFollow {
 
 	@Override
 	public void eliminarFollow(long id) {
-		System.out.println("Eliminando follow");
-		
+
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_FOLLOW);
 		query.setParameter("id", id);
 		query.executeUpdate();
 
-		
+	}
+
+	@Override
+	public void eliminarFollowsPorUsuario(long id) {
+
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_FOLLOWS_DE_USUARIO);
+		query.setParameter("id", id);
+		query.executeUpdate();
+
 	}
 
 	@Override
 	public void guardarCambiosFollow(Follow fl) {
-		
+
 		Foro f = (Foro) sessionFactory.getCurrentSession().get(Foro.class, fl.getIdForo());
 		fl.setForo(f);
 
 		Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class, fl.getIdUsuario());
 		fl.setUsuario(u);
-		
+
 		sessionFactory.getCurrentSession().merge(fl);
-		
+
 	}
 
 	@Override
 	public Map<String, String> obtenerFollowsParaDesplegable() {
 		SQLQuery query = sessionFactory.getCurrentSession()
 				.createSQLQuery(ConstantesSQL.SQL_OBTENER_FOLLOWS_PARA_DESPLEGABLE);
-				//TODO queda pensar como habria que hacerlo
+		// TODO queda pensar como habria que hacerlo
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 
 		List<Map<String, Object>> res = query.list();
@@ -147,19 +154,20 @@ public class ServicioFollowsImpl implements ServicioFollow {
 
 		for (Map<String, Object> map : res) {
 			System.out.println("id: " + map.get("id") + " usuario" + map.get("usuario") + " foro" + map.get("foro"));
-			valoresDesplegable.put(map.get("id").toString(), map.get("usuario").toString() + " usuario" + map.get("usuario"));
+			valoresDesplegable.put(map.get("id").toString(),
+					map.get("usuario").toString() + " usuario" + map.get("usuario"));
 		}
-		
+
 		return valoresDesplegable;
 	}
 
 	@Override
 	public Map<String, Object> obtenerFollowsPorId(long id) {
-		
+
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_FOLLOW_POR_ID);
 		query.setParameter("id", id);
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 		return (Map<String, Object>) query.uniqueResult();
 	}
-	
+
 }
