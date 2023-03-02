@@ -56,6 +56,7 @@ public class ConstantesSQL {
 	
 	public static final String OBTENER_TOTAL_VALORACIONES = "select count(id) from valoracion where id like :id";
 	public static final String OBTENER_TOTAL_FOLLOWS = "select count(id) from follow where id like :id";
+	public static final String OBTENER_TOTAL_FOLLOWS_DE_USUARIO = "select count(id) from follow where usuario like :id";
 	
 	public static final String OBTENER_TOTAL_VALORACIONES_POST_LIKE = "select count(id) from valoracion where post =:idPost AND valor = 1";
 	public static final String OBTENER_TOTAL_VALORACIONES_POST_DISLIKE = "select count(id) from valoracion where post =:idPost AND valor = 0";
@@ -98,14 +99,14 @@ public class ConstantesSQL {
 	public final static String OBTENER_FOLLOW_POR_USUARIO_Y_FORO = "select * from follow where usuario = :idUsuario AND foro = :idForo";
 	
 	public final static String OBTENER_VALORACION_POR_ID_POST_Y_POR_ID_USUARIO ="select * from valoracion where post = :idPost AND usuario = :id";
-	public final static String COMPROBAR_EXISTE_VALORACION = "SELECT COUNT(*) > 0 FROM valoracion WHERE usuario = :idUsuario AND post = :idPost";
-	public final static String COMPROBAR_EXISTE_FOLLOW = "SELECT COUNT(*) > 0 FROM follow WHERE usuario = :idUsuario AND foro = :idForo";
+	public final static String COMPROBAR_EXISTE_VALORACION = "select count(*) > 0 FROM valoracion WHERE usuario = :idUsuario AND post = :idPost";
+	public final static String COMPROBAR_EXISTE_FOLLOW = "select count(*) > 0 FROM follow WHERE usuario = :idUsuario AND foro = :idForo";
 	
 	
 	public static final String SQL_OBTENER_DATOS_COMENTARIO = "select * from comentario where id = :id"; 
 	public static final String SQL_OBTENER_DATOS_FORO = "select * from foro where id = :id"; 
 	public static final String SQL_OBTENER_DATOS_POST = "select * from post where id = :id"; 
-	public static final String SQL_OBTENER_DATOS_USUARIO="SELECT * from usuario where id = :id ";
+	public static final String SQL_OBTENER_DATOS_USUARIO="select * from usuario where id = :id ";
 			
 	
 	//OBTENER ID A PARTIR DE ID

@@ -715,7 +715,6 @@ function mostrarIdentificacionUsuario() {
 
 	$("#contenedor").html(plantillaLogin);
 
-
 	//Comprobamos si hay cookies guardadas
 	if (typeof (Cookies.get("email")) != "undefined") {
 		$("#email").val(Cookies.get("email"));
@@ -725,10 +724,6 @@ function mostrarIdentificacionUsuario() {
 	}
 
 	$("#form_login").submit(function () {
-		//Comprobamos hay una cuenta logeada previamente
-		if (comprobarIdentificacion) {
-			logout();
-		}
 		email = $("#email").val();
 		pass = $("#pass").val();
 
@@ -833,12 +828,6 @@ function editarUsuario() {
 													});
 												});
 
-												caches.open("v1").then((cache) => {
-													cache.delete("/images/" + idUsuario + ".png").then((response) => {
-														someUIUpdateFunction();
-														window.location.reload();
-													});
-												});
 											}
 										});
 

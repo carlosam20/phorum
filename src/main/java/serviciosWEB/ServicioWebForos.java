@@ -1,5 +1,6 @@
 package serviciosWEB;
 
+import java.util.Calendar;
 import java.util.Iterator;
 
 import java.util.List;
@@ -59,9 +60,6 @@ public class ServicioWebForos {
 		List<Map<String, Object>> postsResults = servicioPosts.obtenerPostsParaListadoAleatorio();
 		Gson gson = new Gson();
 
-		
-		
-		
 			//Añadimos el nombre del foro a los resultados de los posts
 		if(postsResults.size() != 0 || !postsResults.isEmpty()) {
 			for(int i =0 ; i < postsResults.size(); i++) {
@@ -97,6 +95,16 @@ public class ServicioWebForos {
 		System.out.println("--------" + json);
 		Foro f = gson.fromJson(json, Foro.class);
 		System.out.println("foro a registrar: " + f.toString());
+		
+		//Eliminamos la hora del guardado de fecha
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(f.getFechaCreacion());
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+	    
+	    f.setFechaCreacion(calendar.getTime());
 		servicioForos.registrarForo(f);
 
 		// tras hacer un registro con hibernate, hibernate asigna a este usuario la id

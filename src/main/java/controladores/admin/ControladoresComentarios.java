@@ -3,6 +3,7 @@ package controladores.admin;
 
 
 
+import java.util.Calendar;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,7 +77,16 @@ public class ControladoresComentarios {
 	@RequestMapping("guardarNuevoComentario")
 	public String guardarNuevoComentario(@ModelAttribute("nuevoComentario") @Valid Comentario nuevoComentario, BindingResult br, Model model,
 			HttpServletRequest request) {
-			
+		//Eliminamos la hora del guardado de fecha
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(nuevoComentario.getFechaCreacion());
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+	    
+	    nuevoComentario.setFechaCreacion(calendar.getTime());
+	    
 		if (!br.hasErrors()) {		
 			servicioComentarios.registrarComentario(nuevoComentario);
 
@@ -100,9 +110,19 @@ public class ControladoresComentarios {
 	public String guardarCambiosComentario(@ModelAttribute("comentario") @Valid Comentario comentario, BindingResult br,  Model model,
 			HttpServletRequest request) {
 		
-		servicioComentarios.guardarCambiosComentario(comentario);
+		//Eliminamos la hora del guardado de fecha
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(comentario.getFechaCreacion());
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+	    
+	    comentario.setFechaCreacion(calendar.getTime()); 
+		
 		
 		if(!br.hasErrors()) {
+			servicioComentarios.guardarCambiosComentario(comentario);
 			return listarComentarios("",0,model);
 		}else {
 			Map<String, String> mapPosts = servicioPosts.obtenerPostsParaDesplegable();

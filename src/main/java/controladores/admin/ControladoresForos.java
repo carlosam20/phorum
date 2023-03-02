@@ -3,6 +3,7 @@ package controladores.admin;
 
 
 
+import java.util.Calendar;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,6 +60,17 @@ public class ControladoresForos {
 	@RequestMapping("guardarNuevoForo")
 	public String guardarNuevoForo(@ModelAttribute("nuevoForo") @Valid Foro nuevoForo, BindingResult br, Model model,
 			HttpServletRequest request) {
+		
+		//Eliminamos la hora del guardado de fecha
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(nuevoForo.getFechaCreacion());
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+	    
+	    nuevoForo.setFechaCreacion(calendar.getTime());
+	    
 		if (!br.hasErrors()) {		
 			servicioForos.registrarForo(nuevoForo);
 			String rutaRealDelProyecto =
@@ -80,7 +92,16 @@ public class ControladoresForos {
 	@RequestMapping("guardarCambiosForo")
 	public String guardarCambiosForo(@ModelAttribute("foro") @Valid Foro foro, BindingResult br,  Model model,
 			HttpServletRequest request) {
-		
+		//Eliminamos la hora del guardado de fecha
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(foro.getFechaCreacion());
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+	    
+	    foro.setFechaCreacion(calendar.getTime());
+	    
 		if(!br.hasErrors()) {
 			servicioForos.guardarCambiosForo(foro);
 			String rutaRealDelProyecto = 

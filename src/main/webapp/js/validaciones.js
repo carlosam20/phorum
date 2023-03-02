@@ -1,21 +1,21 @@
 
 
 //Usuario
-const REGEXP_NOMBRE = /^[a-z ]{2,10}$/i;
-const REGEXP_EMAIL = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/i;
-const REGEXP_PASS = /^[a-z0-9áéíóú]{3,10}$/i;
-const REGEXP_DESCRIPCION = /^[a-z0-9áéíóú ]{3,500}$/i;
+const REGEXP_NOMBRE = /^.{1,60}$/i;
+const REGEXP_EMAIL = /^[a-zA-Z]+@[a-zA-Z]+\.[a-zA-Z]{3,254}$/;
+const REGEXP_PASS = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$/;
+const REGEXP_DESCRIPCION = /^.{1,300}$/;
 
 // Foro
-const REGEXP_FORO_NOMBRE = /^[a-z0-9áéíóú_\.-]{2,200}$/i;
-const REGEXP_FORO_DESCRIPCION = /^[a-z0-9áéíóú .,:¿?!¡]{3,500}$/i; 
+const REGEXP_FORO_NOMBRE = /^.{1,60}$/i
+const REGEXP_FORO_DESCRIPCION = /^.{1,300}$/; 
 
 // Post
-const REGEXP_POST_NOMBRE = /^[a-z0-9áéíóú_\.-]{2,200}$/i;
-const REGEXP_POST_DESCRIPCION_ = /^[a-z0-9áéíóú .,:¿?!¡]{3,500}$/i;
+const REGEXP_POST_NOMBRE = /^.{1,100}$/i;
+const REGEXP_POST_DESCRIPCION_ = /^.{1,300}$/;
 
 //Comentarios
-const REGEXP_COMENTARIO_TEXTO = /^[a-z0-9áéíóú_\.-]{2,200}$/i;
+const REGEXP_COMENTARIO_TEXTO = /^.{1,60}$/i;;
 
 
 

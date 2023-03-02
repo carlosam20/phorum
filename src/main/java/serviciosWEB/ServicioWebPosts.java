@@ -2,6 +2,8 @@ package serviciosWEB;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,22 +94,28 @@ public class ServicioWebPosts {
 		JsonElement json = gson.toJsonTree(formData);
 
 		System.out.println("--------" + json);
-		Post f = gson.fromJson(json, Post.class);
-		f.setIdForo(Long.parseLong(idForo));
-		f.setIdUsuario(Long.parseLong(idUsuario));
-		System.out.println("foro a registrar: " + f.toString());
+		Post p = gson.fromJson(json, Post.class);
+		p.setIdForo(Long.parseLong(idForo));
+		p.setIdUsuario(Long.parseLong(idUsuario));
+		
 
 		// Post Valoraciones
 		List<Valoracion> postValoraciones = new ArrayList<Valoracion>();
-		f.setPostValoraciones(postValoraciones);
-		f.setFechaCreacion(LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-"
-				+ LocalDate.now().getYear());
-		servicioPosts.registrarPost(f);
+		p.setPostValoraciones(postValoraciones);
+		Date currentDate = Calendar.getInstance().getTime();
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(currentDate);
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+        
+        p.setFechaCreacion(currentDate); 
 		// tras hacer un registro con hibernate, hibernate asigna a este usuario la id
 		// del
 		// registro en la tabla de la base de datos
 		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
-		GestorArchivos.guardarImagenPost(f, rutaRealDelProyecto, foto);
+		GestorArchivos.guardarImagenPost(p, rutaRealDelProyecto, foto);
 		respuesta = "ok";
 
 		return new ResponseEntity<String>(respuesta, HttpStatus.OK);

@@ -3,6 +3,7 @@ package controladores.admin;
 
 
 
+import java.util.Calendar;
 import java.util.Map;
 
 
@@ -73,7 +74,15 @@ public class ControladoresPost {
 	@RequestMapping("guardarNuevoPost")
 	public String guardarNuevoPost(@ModelAttribute("nuevoPost") @Valid Post nuevoPost, BindingResult br, Model model,
 			HttpServletRequest request) {
-		
+		//Eliminamos la hora del guardado de fecha
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(nuevoPost.getFechaCreacion());
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+	    
+	    nuevoPost.setFechaCreacion(calendar.getTime());
 		if (!br.hasErrors()) {		
 			servicioPosts.registrarPost(nuevoPost);
 			
@@ -100,6 +109,16 @@ public class ControladoresPost {
 	@RequestMapping("guardarCambiosPost")
 	public String guardarCambiosPost(@ModelAttribute("post") @Valid Post post, BindingResult br,  Model model,
 			HttpServletRequest request) {
+		
+		//Eliminamos la hora del guardado de fecha
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(post.getFechaCreacion());
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+	    
+	    post.setFechaCreacion(calendar.getTime());
 		
 		if(!br.hasErrors()) {
 			servicioPosts.guardarCambiosPosts(post);

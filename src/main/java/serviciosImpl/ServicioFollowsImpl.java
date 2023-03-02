@@ -110,6 +110,13 @@ public class ServicioFollowsImpl implements ServicioFollow {
 		query.setParameter("id", id);
 		return Integer.parseInt(query.list().get(0).toString());
 	}
+	@Override
+	public int obtenerTotalDeFollowsDeUsuario(long id) {
+
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_TOTAL_FOLLOWS_DE_USUARIO);
+		query.setParameter("id", id);
+		return Integer.parseInt(query.list().get(0).toString());
+	}
 
 	@Override
 	public void eliminarFollow(long id) {

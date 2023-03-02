@@ -49,7 +49,8 @@
             <div class="row m-1">
               <div class="col-lg 7 col-md-7 col-sm-7">
                 <input id="pass" type="password" class="form-control" placeholder="Contraseña"
-                pattern="[a-z0-9áéíóú]{3,10}" title="La contraseña tiene que tener entre 3 y 10 caracteteres">
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$" title="La contraseña tiene que tener entre 8 y 60 caracteteres y
+                 tiene que incluir mayúsculas, minúsculas, numeros y un caracter especial como por ejemplo:!@#$%^&*_=+- ">
               </div>
               <div class="col-lg-5 col-md-5 col-sm-5">
                 <i class="fa-solid fa-eye" id="ojo-icon"></i>

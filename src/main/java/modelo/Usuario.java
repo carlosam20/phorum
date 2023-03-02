@@ -2,6 +2,7 @@ package modelo;
 
 
 import org.hibernate.validator.constraints.Email;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -29,19 +30,20 @@ public class Usuario  {
     @NotBlank(message = "Introduce una contraseña")
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$")
     private String pass;
+    
     @Email
-    //https://stackoverflow.com/questions/1423195/what-is-the-actual-minimum-length-of-an-email-address-as-defined-by-the-ietf#:~:text=The%20shortest%20valid%20email%20address,two%20parts%3A%20name%20and%20domain.&text=Since%20both%20the%20name%20and,length%20resolves%20to%203%20characters.
-    //https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
     @Pattern(regexp = "^[a-zA-Z]+@[a-zA-Z]+\\.[a-zA-Z]{3,254}+$", message="El email debe contener '@', '.' y al menos 10 caracteres")
     @Length(min=3, max=254)
     @Column(length = 254)
     @NotEmpty(message = "Introduce un email")	
     private String email;
     
-	@NotBlank(message = "Se requiere una fecha")
+    
 
-	@DateTimeFormat("yyyy/MM/dd")
-	private Date fechaCreacion;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date fechaCreacion;
     
     @Pattern(regexp ="^.{1,300}$"
     		+ "", message="La descripción no es correcta:"
@@ -66,7 +68,7 @@ public class Usuario  {
     public Usuario(){}
 
 
-	public Usuario(Long id, String nombre, String pass, String email, String fechaCreacion, String descripcion,
+	public Usuario(Long id, String nombre, String pass, String email, Date fechaCreacion, String descripcion,
 			List<Valoracion> usuariosValoraciones, List<Follow> forosSeguidos, MultipartFile imagen) {
 		super();
 		this.id = id;
@@ -136,14 +138,14 @@ public class Usuario  {
 
 
 
-	public String getFechaCreacion() {
+	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
 
 
 
 
-	public void setFechaCreacion(String fechaCreacion) {
+	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
 

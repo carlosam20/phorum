@@ -47,7 +47,7 @@
 				<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
 					<div class="col-lg-8 col-md-6">
 						<input type="password" name="pass" class="form-control form-control-lg input-contrast " placeholder="Password"
-							id="pass" value="{{pass}}" pattern="[a-z0-9áéíóú]{3,10}" />
+							id="pass" value="{{pass}}" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$" />
 					</div>
 				</div>
 				<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">

@@ -4,7 +4,9 @@ package controladores.admin;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 import javax.validation.Valid;
+import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
 import modelo.Usuario;
 import servicios.ServicioComentarios;
 import servicios.ServicioFollow;
@@ -72,8 +72,20 @@ public class ControladoresUsuarios {
 	@RequestMapping("guardarNuevoUsuario")
 	public String guardarNuevoUsuario(@ModelAttribute("nuevoUsuario") @Valid Usuario nuevoUsuario, BindingResult br, Model model,
 			HttpServletRequest request) {
-		if (!br.hasErrors()) {		
+		
+		//Eliminamos la hora del guardado de fecha
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(nuevoUsuario.getFechaCreacion());
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+	    
+	    nuevoUsuario.setFechaCreacion(calendar.getTime());
+		
+		if (!br.hasErrors()) {
 			
+
 			servicioUsuarios.registrarUsuario(nuevoUsuario);
 			String rutaRealDelProyecto =
 			request.getServletContext().getRealPath("");
@@ -91,6 +103,16 @@ public class ControladoresUsuarios {
 	@RequestMapping("guardarCambiosUsuario")
 	public String guardarCambiosUsuario(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult br,  Model model,
 			HttpServletRequest request) {
+		
+		//Eliminamos la hora del guardado de fecha
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(usuario.getFechaCreacion());
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+	    
+	    usuario.setFechaCreacion(calendar.getTime());
 	
 		if(!br.hasErrors()) {
 			String rutaRealDelProyecto = 

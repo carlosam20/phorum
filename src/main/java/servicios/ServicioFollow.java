@@ -12,6 +12,7 @@ public interface ServicioFollow {
 	Follow obtenerFollow(long id);
 	List<Follow> obtenerFollows(long id, int comienzo);
 	int obtenerTotalDeFollows(long id);
+	int obtenerTotalDeFollowsDeUsuario(long id);
 	void eliminarFollowsPorUsuario(long id);
 	void eliminarFollow(long id);
 	void guardarCambiosFollow(Follow s);

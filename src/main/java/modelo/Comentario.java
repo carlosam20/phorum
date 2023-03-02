@@ -7,8 +7,11 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.Date;
 
 
 @Entity
@@ -26,7 +29,9 @@ public class Comentario {
     @ManyToOne(cascade = {CascadeType.MERGE}, targetEntity = Post.class, optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "postComentario")
     private Post postComentario;
-    private String fechaCreacion;
+    
+    @DateTimeFormat(pattern = "yyyy-mm-DD")
+    private Date fechaCreacion;
 
     @ManyToOne
     @JoinColumn(name = "usuario")
@@ -42,7 +47,7 @@ public class Comentario {
     public Comentario() {}
 
        
-    public Comentario(Long id, String textoComentario, Post postComentario, String fechaCreacion, Usuario usuario,
+    public Comentario(Long id, String textoComentario, Post postComentario, Date fechaCreacion, Usuario usuario,
 			long idPostComentario, long idUsuario) {
 		super();
 		this.id = id;
@@ -87,12 +92,12 @@ public class Comentario {
 	}
 
 
-	public String getFechaCreacion() {
+	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
 
 
-	public void setFechaCreacion(String fechaCreacion) {
+	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
 

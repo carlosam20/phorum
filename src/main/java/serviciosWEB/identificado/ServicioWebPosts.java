@@ -1,5 +1,6 @@
 package serviciosWEB.identificado;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -72,7 +73,15 @@ public class ServicioWebPosts {
 
 		System.out.println("post ForoId:  " + p.getForo());
 
-		System.out.println(p.toString());
+		//Eliminamos la hora del guardado de fecha
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(p.getFechaCreacion());
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+	    
+	    p.setFechaCreacion(calendar.getTime());
 
 		servicioPosts.registrarPost(p);
 

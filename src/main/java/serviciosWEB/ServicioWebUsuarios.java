@@ -46,18 +46,17 @@ public class ServicioWebUsuarios {
 		//Creamos una fecha y la guardamos en fechaCreacion
 		
 		
+		
 		//Recogemos la fecha actual en el formato adecuado
-        Date currentDate = Calendar.getInstance().getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-DD-MM");
-        String formattedDate = dateFormat.format(currentDate);
-        Date fechaCreacion = null;
-        try {
-            fechaCreacion = dateFormat.parse(formattedDate);
-            u.setFechaCreacion(fechaCreacion);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+		Date currentDate = Calendar.getInstance().getTime();
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(currentDate);
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
         
+        u.setFechaCreacion(currentDate); 
         
 		//Se inserta una descripcion vacia que posteriormente se podrá editar
 		u.setDescripcion("Estoy usando phorum");

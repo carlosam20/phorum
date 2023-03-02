@@ -1,5 +1,6 @@
 package modelo;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -37,13 +39,8 @@ public class Foro {
 	@OneToMany(cascade = { CascadeType.MERGE }, mappedBy = "foro")
 	private List<Follow> seguidores;
 
-	@NotBlank(message = "Se requiere una fecha para el foro")
-	@Pattern(regexp = "/^([1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[012])\\/\\d{4}$/\n"
-			+ "" + "", message = "La fecha de creación no es correcta:"
-			+ "Se tiene que introducir en formato dd/mm/yyyy")
-	@Length(min=10)
-	@Column(length=10)
-	private String fechaCreacion;
+    @DateTimeFormat(pattern = "yyyy-mm-DD")
+    private Date fechaCreacion;
 
 	@Transient
 	private MultipartFile imagen;
@@ -51,7 +48,7 @@ public class Foro {
 	public Foro() {
 	}
 
-	public Foro(Long id, String nombre, String descripcion, List<Post> posts, String fechaCreacion,
+	public Foro(Long id, String nombre, String descripcion, List<Post> posts, Date fechaCreacion,
 			MultipartFile imagen, List<Follow> seguidores) {
 		super();
 		this.id = id;
@@ -96,11 +93,11 @@ public class Foro {
 		this.posts = posts;
 	}
 
-	public String getFechaCreacion() {
+	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
 
-	public void setFechaCreacion(String fechaCreacion) {
+	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
 

@@ -14,63 +14,95 @@
 
     <div class="perfil m-1">
 
-        <div class="row info-perfil m-3">
-            <div class=" col-lg-2 col-md-2 col-sm-2 p-2">
-                <img class="card-img-top rounded" src="subidasUsuario/{{id}}.jpg" alt="imagenPefil">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row info-perfil ">
+
+                    <div class=" col-lg-6 col-md-6 col-sm-6  d-flex align-items-center">
+
+                        <div class="row justify-content-left">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <img class="card-img-top rounded" src="subidasUsuario/{{id}}.jpg" alt="imagenPefil">
+                            </div>
+                        </div>
+
+                        <div class="row botones justify-content-left">
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="btn-group dropend">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Dropdown button
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                        <li><a class="dropdown-item boton_borrar_usuario">Borrar</a></li>
+                                        <li><a class="dropdown-item boton_editar_usuario">Editar</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li> <a class="dropdown-item boton_ver_follows" id="{{id}}">Ver listado
+                                                follows</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 justify-content-center d-flex align-items-center">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 text-center d-flex align-items-center justify-content-center">
+                                <h1 class="text-center">{{nombre}}</h1>                                
+                            </div>
+
+                        </div>
+
+                        <div class="row info-creacion-perfil d-flex align-items-center">
+                            <div class="col-lg-1 col-md-2 col-sm-1">
+                                <i class="fa-regular fa-calendar-days fa-xl"></i>
+                            </div>
+                            <div class="col-lg-11 col-md-11 col-sm-11">
+                                <h2 class="creacionPerfil">Lleva: {{fechaCreacion}} en phorum</h2>
+                            </div>
+
+                        </div> 
+
+                    </div>
+
+                </div>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 p-2 m-2 justify-content-center d-flex">
-                <h1 class="text-center">{{nombre}}</h1>
-            </div>
+
+
         </div>
 
-        <div class="row info-creacion-perfil m-3">
-            <div class=" col-lg-2 col-md-2 col-sm-2 p-2">
-                <i class="fa-regular fa-calendar-days fa-xl"></i>
-            </div>
-            <h2 class="creacionPerfil m-3">{{fechaCreacion}}</h2>
-        </div>
 
-        <div class="row descripcion m-3 justify-content-center">
-            <div class="row">
-                <h2>Descripcion</h2>
-            </div>
-            {{#.}}
-            <div class="col-lg-11 col-sm-11">
-                <h2>{{descripcion}}</h2>
-            </div>
-            {{/.}}
-        </div>
-
-
-
-        <div class="row botones justify-content-left d-flex m-3">
-            <div class="col-lg-2 col-md-2 col-sm-2">
-
-                <div class="btn-group dropend">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown button
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                        <li><a class="dropdown-item boton_borrar_usuario">Borrar</a></li>
-                        <li><a class="dropdown-item boton_editar_usuario">Editar</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li> <a class="dropdown-item boton_ver_follows" id="{{id}}">Ver listado
-                                follows</a></li>
-                    </ul>
+        <div class="row descripcion  text-center d-flex align-items-center justify-content-center">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row text-center d-flex align-items-center m-1">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <h2>Descripcion</h2>
+                    </div>
+                </div>
+                <div class="row text-center d-flex align-items-center m-1">
+                    {{#.}}
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <h2>{{descripcion}}</h2>
+                    </div>
+                    {{/.}}
                 </div>
 
             </div>
         </div>
+
     </div>
 
-    <div class="row estadisticas justify-content-center d-flex m-3">
+    <div class="row estadisticas text-center d-flexjustify-content-center">
         <div class="row titulo">
             <h2>Estadísticas</h2>
         </div>
-        <div class="col-lg-3 col-sm-3">
+        <div class="col-lg-4 col-md-4 col-sm-4">
             <div>
                 <h2>Foros seguidos</h2>
                 {{#.}}
@@ -80,7 +112,7 @@
                 {{/.}}
             </div>
         </div>
-        <div class="col-lg-3 col-sm-3">
+        <div class="col-lg-4 col-md-4 col-sm-4">
             <div>
                 <h2>Post Creados</h2>
                 {{#.}}
@@ -90,7 +122,7 @@
                 {{/.}}
             </div>
         </div>
-        <div class="col-lg-3 col-sm-3">
+        <div class="col-lg-4 col-md-4 col-sm-4">
             <div>
                 <h2>Comentarios</h2>
                 {{#.}}

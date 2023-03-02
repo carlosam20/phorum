@@ -1,6 +1,7 @@
 package modelo;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -29,20 +31,14 @@ public class Post {
     @Pattern(regexp = "^[a-zA-Z 0-9]{3,60}$", message="Los nombres solo admiten letras, numeros y espacios")
     private String nombre;
    
-    @Pattern(regexp ="/^[\\w\\s\\d,.<>áéíóúÁÉÍÓÚñÑüÜ]{1,300}+$/u\n"
-    		+ "", message="La descripción no es correcta:"
+    @Pattern(regexp ="^.{1,300}$", message="La descripción no es correcta:"
     				+ "Se pueden introducir guiones bajos, espacios en blanco, numeros, acentos y mayúsculas y minúsculas")
     @Length(min=1, max=300)
     @Column(length=300)
     private String descripcion;
     
-	@NotBlank(message = "Se requiere una fecha para el foro")
-	@Pattern(regexp = "/^([1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[012])\\/\\d{4}$/\n"
-			+ "" + "", message = "La fecha de creación no es correcta:"
-			+ "Se tiene que introducir en formato dd/mm/yyyy")
-	@Length(min=10)
-	@Column(length=10)
-    private String fechaCreacion;
+    @DateTimeFormat(pattern = "yyyy-mm-DD")
+    private Date fechaCreacion;
     
    
     @ManyToOne(cascade = {CascadeType.MERGE}, targetEntity = Foro.class, optional = false, fetch = FetchType.EAGER)
@@ -71,7 +67,7 @@ public class Post {
     }
 
 
-	public Post(Long id, String nombre, String descripcion, String fechaCreacion, Foro foro, MultipartFile imagen,
+	public Post(Long id, String nombre, String descripcion, Date fechaCreacion, Foro foro, MultipartFile imagen,
 			Usuario usuario, long idForo, long idUsuario, List<Valoracion> postValoraciones) {
 		super();
 		this.id = id;
@@ -119,12 +115,12 @@ public class Post {
 	}
 
 
-	public String getFechaCreacion() {
+	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
 
 
-	public void setFechaCreacion(String fechaCreacion) {
+	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
 

@@ -1,9 +1,14 @@
 package serviciosWEB.identificado;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +24,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import modelo.Usuario;
+import parseo.FechaParaUsuario;
 import servicios.ServicioComentarios;
+import servicios.ServicioFollow;
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
 import servicios.ServicioUsuarios;
@@ -39,6 +46,9 @@ public class ServicioWebUsuarios {
 	@Autowired
 	private ServicioPosts servicioPosts;
 	
+	@Autowired
+	private ServicioFollow servicioFollow;
+	
 
 	@RequestMapping("obtenerUsuarioPorId")
 	public ResponseEntity<String> obtenerUsuarioPorId(HttpServletRequest request) {
@@ -46,12 +56,26 @@ public class ServicioWebUsuarios {
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 		int numeroComentarios = servicioComentarios.obtenerTotalDeComentariosDeUsuario(Long.parseLong(String.valueOf(u.getId())));
 		int numeroPost = servicioComentarios.obtenerTotalDeComentariosDeUsuario(Long.parseLong(String.valueOf(u.getId())));
+		int numeroForosSeguidos = servicioFollow.obtenerTotalDeFollowsDeUsuario(Long.parseLong(String.valueOf(u.getId())));
 		
 		Map<String,Object> usuario = servicioUsuarios.obtenerUsuarioPorId(u.getId());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date fechaUsuarioCreado;
+		try {
+			fechaUsuarioCreado = sdf.parse((String) usuario.get("fechaCreacion"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			return new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		}
 		
 		usuario.put("numeroComentarios", numeroComentarios);
-		usuario.put("numeroPost", numeroPost);		
-	
+		usuario.put("numeroPost", numeroPost);
+		usuario.put("numeroForosSeguidos", numeroForosSeguidos);
+		
+		//Cambiamos la fecha por el string de la fecha
+		usuario.remove("fechaCreacion");
+		usuario.put("fechaCreacion",FechaParaUsuario.parseoDeFecha(fechaUsuarioCreado));
 		
 		String json = new Gson().toJson(usuario);
 		System.out.println("json: "+json);
@@ -88,10 +112,21 @@ public class ServicioWebUsuarios {
 		String respuesta = "";
 		Gson gson = new Gson();
 		JsonElement json = gson.toJsonTree(formData);
-
+		
+		
 		Usuario nu = gson.fromJson(json, Usuario.class);
 		nu.setId((u.getId()));
 		System.out.println("usuario a editar: " + nu.toString());
+		//Eliminamos la hora del guardado de fecha
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(nu.getFechaCreacion());
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+	    calendar.set(Calendar.MINUTE, 0);
+	    calendar.set(Calendar.SECOND, 0);
+	    calendar.set(Calendar.MILLISECOND, 0);
+	    
+	    nu.setFechaCreacion(calendar.getTime());
+	    
 		servicioUsuarios.guardarCambiosUsuario(nu);
 		// tras hacer un registro con hibernate, hibernate asigna a este usuario la id
 		// del
