@@ -12,13 +12,21 @@
 
     --error: #780B0B:
 }
-
-input[type="file"] {
-    display: none;
+.editarUsuario{
+    margin: 2%;
 }
 
 .fa-rectangle-history-circle-plus{
     color: var(--primary);
+}
+.fa-eye{
+    color: var(--primary);
+}
+
+.formulario{
+    padding: 1%;
+    border-radius: 1em;
+    background-color: #9c9cd3;
 }
 
 .imagenSubida {

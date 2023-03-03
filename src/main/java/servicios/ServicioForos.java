@@ -20,7 +20,7 @@ public interface ServicioForos {
 
 	void guardarCambiosForo(Foro l);
 
-	Map<String, Object> obtenerForo(long id);
+	Map<String, Object> obtenerForoPorIdEnMap(long id);
 
 	List<Map<String, Object>> obtenerForosParaListado();
 

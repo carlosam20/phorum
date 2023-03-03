@@ -111,7 +111,7 @@ public class ServicioForosImpl implements ServicioForos {
 	}
 
 	@Override
-	public Map<String, Object> obtenerForo(long id) {
+	public Map<String, Object> obtenerForoPorIdEnMap(long id) {
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_DATOS_FORO);
 		query.setParameter("id", id);
 		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);

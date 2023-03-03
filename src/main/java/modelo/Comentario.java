@@ -33,7 +33,7 @@ public class Comentario {
     @DateTimeFormat(pattern = "yyyy-mm-DD")
     private Date fechaCreacion;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE}, targetEntity = Usuario.class, optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario")
     private Usuario usuario;
     

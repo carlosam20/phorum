@@ -12,7 +12,7 @@
 
   <div class="row m-3">
     <div class="col-11-lg col-11-md col-10-sm">
-      <button class="btn btn-primary" onclick="window.history.go(-1)">Volver</button>
+      <button class="btn btn-primary" onclick="">Volver</button>
 
       <!-- Botón del Modal -->
       <button type="submit" class=" btn btn-primary enlace_crear_foro  " data-bs-toggle="modal"
@@ -70,12 +70,10 @@
     <div class="col-lg-6 col-md-6 col-sm-5">
       <div class="row justify-content-center">
         <form class="form-inline justify-content-center align-items-center">
-          <input class="col-lg-8 col-md-6 col-sm-2 form-control" type="search" placeholder="Search" aria-label="Search"
+          <input class="col-lg-8 col-md-6 col-sm-6 form-control" type="search" placeholder="Search" aria-label="Search"
             id="inputBuscador">
-          <button
-            class="boton_buscar col-lg-4 col-sm-4 col-sm-3 btn btn-secondary justify-content-center align-items-center"
-            type="submit">
-            <i class="fa-regular fa-magnifying-glass fa-2xl"></i>
+          <button class="boton_buscar col-lg-4 col-sm-6 col-sm-6 btn btn-secondary justify-content-center align-items-center"
+            type="submit"> <i class="fa-regular fa-magnifying-glass"></i>
           </button>
         </form>
       </div>
@@ -86,7 +84,6 @@
   <div class=" row justify-content-center m-2 recomendacionesForos ">
 
     <ul class="col-lg-8 col-md-8 col-sm-8 list-group ">
-
       {{#.}}
       <li class="list-group-item  flex-column align-items-center">
         <div class="d-flex w-100 justify-content-between align-items-center">
@@ -98,6 +95,7 @@
       </li>
       {{/.}}
     </ul>
+    
   </div>
 
 </body>

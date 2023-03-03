@@ -144,7 +144,7 @@ public class ServicioWebForos {
 
 	}
 	@RequestMapping("obtenerForosDeNombreIntroducidoPerfil")
-	public ResponseEntity<String> obtenerForosDeNombreIntroducido(String nombreForo, HttpServletRequest request) {
+	public ResponseEntity<String> obtenerForosDeNombreIntroducidoPerfil(String nombreForo, HttpServletRequest request) {
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 		
 		List<Map<String, Object>> foros = servicioForos.obtenerForosParaListadoBusquedaForo(nombreForo);

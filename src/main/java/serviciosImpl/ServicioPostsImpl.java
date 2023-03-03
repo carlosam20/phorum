@@ -95,7 +95,7 @@ public class ServicioPostsImpl implements ServicioPosts {
 		sessionFactory.getCurrentSession().save(p);
 	}
 
-	public List<Map<String, Object>> obtenerIdPostPorForoId(long id) {
+	public List<Map<String, Object>> obtenerPostPorForoId(long id) {
 
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_POST_CON_FORO);
 		query.setParameter("id", id);
@@ -133,6 +133,15 @@ public class ServicioPostsImpl implements ServicioPosts {
 	public Post obtenerPostPorId(long id) {
 		return (Post) sessionFactory.getCurrentSession().get(Post.class, id);
 	}
+	
+	@Override
+	public Map<String, Object> obtenerPostPorIdEnMap(long id) {
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_DATOS_POST);
+		query.setParameter("id", id);
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		return (Map<String, Object>) query.uniqueResult();
+	}
+	
 
 	@Override
 	public void eliminarPosts(long id) {

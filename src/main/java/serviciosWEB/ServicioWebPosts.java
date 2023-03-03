@@ -1,6 +1,9 @@
 package serviciosWEB;
 
-import java.time.LocalDate;
+
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,12 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import modelo.Post;
 import modelo.Valoracion;
+import parseo.FechaParaUsuario;
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
 import utilidadesArchivos.GestorArchivos;
@@ -69,18 +72,36 @@ public class ServicioWebPosts {
 
 	@RequestMapping("obtenerPostPorForoId")
 	public ResponseEntity<String> obtenerPost(String id, HttpServletRequest request) {
-		List<Map<String, Object>> postsForo = servicioPosts.obtenerIdPostPorForoId(Long.parseLong(id));
-
+		
+		List<Map<String, Object>> postsForo = servicioPosts.obtenerPostPorForoId(Long.parseLong(id));
+		Map<String, Object> foroInfo = servicioForos.obtenerForoPorIdEnMap(Long.parseLong(id));
+		
 		for (int i = 0; i < postsForo.size(); i++) {
-			Map<String, Object> obtenerForo = servicioForos.obtenerForo(Long.parseLong(id));
-			postsForo.get(i).put("nombreForo", obtenerForo.get("nombre"));
+			postsForo.get(i).put("nombreForo", foroInfo.get("nombre"));
 		}
+		
+		
+			
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date fechaForoCreado;
+		try {
+			System.out.println("Foro info:"+foroInfo.get("fechaCreacion"));
+			fechaForoCreado = sdf.parse((String) foroInfo.get("fechaCreacion"));
+			foroInfo.put("fechaCreacion", FechaParaUsuario.parseoDeFecha(fechaForoCreado));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			return new ResponseEntity<String>("error en formato de fecha", HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		}	
 
 		JsonObject json = new JsonObject();
 		json.add("posts", new Gson().toJsonTree(postsForo));
+		json.add("foro", new Gson().toJsonTree(foroInfo));
 
+		
 		String datos = json.toString();
 
+		System.out.println("DatosPostYComentarios"+datos);
 		return new ResponseEntity<String>(datos, HttpStatus.OK);
 	}
 

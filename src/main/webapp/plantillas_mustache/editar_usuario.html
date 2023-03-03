@@ -5,80 +5,95 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/editarUsuario.css">
 	<title>Editar Usuario</title>
 </head>
 
 <body>
+	<div class="editarUsuario">
 
-	<div class="row justify-content-center m-1">
-		<div class="d-flex justify-content-center">
-			<div class="col-lg-11 col-md-11">
-				<h1 class="text-center">Editar Usuario</h1>
+		<div class="row justify-content-center m-1">
+			<div class="d-flex justify-content-center">
+				<div class="col-lg-11 col-md-11">
+					<h1 class="text-center">Editar Usuario</h1>
+				</div>
+			</div>
+		</div>
+
+		<div class="row justify-content-center">
+
+
+			<div class="col-lg-5 col-md-5 col-sm-12">
+				<img class="explora" src="images/explora.svg" alt="imagen-explora">
+			</div>
+
+
+			<div class="formulario">
+				<div class="col-lg-5 col-md-5 col-sm-12">
+
+					<form id="form_editar_usuario">
+
+						<div class="d-grid gap-2">
+
+							<div class="row justify-content-center ">
+								<div class="col-lg-12 col-md-12 col-sm-12">
+									<input type="text" name="nombre" class="form-control form-control-lg  "
+										placeholder="Nombre" id="nombre" value="{{nombre}}"
+										pattern="[a-z_áéíóúA_Z]{2,10}"
+										title="Solo se admiten minusculas y de 2 a 10 carácteres" /><br>
+								</div>
+							</div>
+							<div class="row justify-content-center ">
+								<div class="col-lg-12 col-md-12 col-sm-12">
+									<input type="text" name="email" class="form-control form-control-lg  "
+										placeholder="E-mail" id="email" value="{{email}}"
+										pattern="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})"
+										title="Se tiene que incluir un @ y una dirección de dominio ejemplo: .com" />
+								</div>
+							</div>
+							<div class="row justify-content-center ">
+								<div class="col-lg-12 col-md-12 col-sm-12">
+									<div class="row">
+										<div class="col-lg-10 col-md-10 col-sm-10">
+											<input type="password" name="pass" class="form-control form-control-lg  "
+												placeholder="Password" id="pass" value="{{pass}}"
+												pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$" />
+										</div>
+										<div class="col-lg-2 col-md-2 col-sm-2">
+											<i class="fa-solid fa-eye" id="ojo-icon"></i>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="row justify-content-center ">
+								<div class="col-lg-12 col-md-12 col-sm-12">
+									<textarea type="text" name="descripcion" class="form-control form-control-lg  "
+										placeholder="Descripción" id="descripcion">{{descripcion}}
+										</textarea>
+								</div>
+							</div>
+
+							<div class="row justify-content-center ">
+								<div class="col-lg-12 col-md-12 col-sm-12">
+									<input type="file" name="foto" id="foto" />
+								</div>
+							</div>
+
+							<div class="row justify-content-center ">
+								<div class="col-lg-12 col-md-12 col-sm-12">
+									<input class="btn btn-primary" type="submit" value="Editar" />
+								</div>
+							</div>
+						</div>
+					</form>
+
+				</div>
 			</div>
 		</div>
 	</div>
-
-	<div class="row justify-content-center m-1">
-		<div class="col-sm-0 col-md-6 col-lg-6">
-			<img class="explora" src="images/explora.svg" alt="imagen-explora">
-		</div>
-
-
-		<div class="col-sm-11 col-md-6 col-lg-6">
-
-			<form id="form_editar_usuario">
-
-				<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-					<div class="col-lg-8 col-md-6">
-						<input type="text" name="nombre" class="form-control form-control-lg input-contrast " placeholder="Nombre"
-							id="nombre" value="{{nombre}}" pattern="[a-z_áéíóúA_Z]{2,10}"
-							title="Solo se admiten minusculas y de 2 a 10 carácteres"/><br>
-					</div>
-				</div>
-				<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-					<div class="col-lg-8 col-md-6">
-						<input type="text" name="email" class="form-control form-control-lg input-contrast " placeholder="E-mail"
-							id="email" value="{{email}}" pattern="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})"
-							title="Se tiene que incluir un @ y una dirección de dominio ejemplo: .com" />
-					</div>
-				</div>
-				<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-					<div class="col-lg-8 col-md-6">
-						<input type="password" name="pass" class="form-control form-control-lg input-contrast " placeholder="Password"
-							id="pass" value="{{pass}}" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$" />
-					</div>
-				</div>
-				<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-					<div class="col-lg-8 col-md-6">
-						<textarea type="text" name="descripcion" class="form-control form-control-lg input-contrast "
-							placeholder="Descripción" id="descripcion" value="{{descripcion}}">
-						</textarea>
-					</div>
-				</div>
-
-				<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-					<div class="col-lg-8 col-md-6">
-
-						<label for="file-upload" class="imagenSubida">
-							<i class="fa-regular fa-rectangle-history-circle-plus fa-2xl"></i> Sube una imagen
-						</label>
-						<input type="file" name="foto" id="foto" />	
-
-						
-					</div>
-				</div>
-				<div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-					<div class="col-lg-8 col-md-6">
-						<input class="btn btn-primary" type="submit" value="Editar" />
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
 </body>
-<script type="text/javascript" src="js/carga_plantilla.js"></script>
-<script type="text/javascript" src="js/validaciones.js"></script>
+<script src="js/togglePass.js"></script>
+
 
 </html>

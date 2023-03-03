@@ -109,7 +109,7 @@ public class ConstantesSQL {
 	public static final String SQL_OBTENER_DATOS_USUARIO="select * from usuario where id = :id ";
 			
 	
-	//OBTENER ID A PARTIR DE ID
+	
 	public final static String OBTENER_POST_CON_FORO="select * from post where foro = :id";
 	
 		

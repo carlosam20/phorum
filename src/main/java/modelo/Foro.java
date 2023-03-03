@@ -33,7 +33,7 @@ public class Foro {
 	@Length(min = 1, max = 300) // Rango de tamaño que tiene
 	private String descripcion;
 
-	@OneToMany(cascade = { CascadeType.MERGE }, mappedBy = "foro")
+	@OneToMany(cascade = { CascadeType.MERGE }, mappedBy = "foro" )
 	private List<Post> posts = new ArrayList<Post>();
 
 	@OneToMany(cascade = { CascadeType.MERGE }, mappedBy = "foro")

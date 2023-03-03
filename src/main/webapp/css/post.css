@@ -61,7 +61,7 @@
 
 /* Post */
 
-.card{
+.card {
   width: 45%;
   height: auto;
 }
@@ -79,7 +79,7 @@
   height: auto;
 }
 
-.dislike-icon{
+.dislike-icon {
   color: var(--primary);
   width: 50px;
   height: auto;
@@ -119,8 +119,4 @@
   .sidenav a {
     font-size: 18px;
   }
-}
-#textoComentario{
-  width: 400px;
-  height: 100px;
 }

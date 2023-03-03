@@ -1,8 +1,8 @@
 /*Home*/
 :root {
   --primary: #003F30;
-  --primaryHover:#00140F;
-  --primaryFocus:#439F88;
+  --primaryHover: #00140F;
+  --primaryFocus: #439F88;
 
   --secondary: #060637;
   --secondaryHover: #202031;
@@ -18,24 +18,17 @@
   color: white ;
 
 } */
+.home {
+  margin: 2%;
+}
 
-.contenedorfotoForoPost{
-  max-width: 60px !important; 
-  height: auto;
-}
-.contenedorfotoPost{
-  max-width: 200px !important;
-  max-height: 300px !important;
-}
-.card-text{
+.card-text {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-scroll > a{
+scroll>a {
   text-decoration: none;
 }
-
-

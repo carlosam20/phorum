@@ -489,8 +489,6 @@ function verPostsDeForo() {
 function obtener_listado_foros() {
 	$.ajax("servicioWebForos/obtenerForos", {
 		success: function (data) {
-
-			alert("recibido: " + data);
 			let foros = JSON.parse(data);
 			let texto_html = "";
 			texto_html = Mustache.render(plantillaListarForos,
@@ -513,7 +511,6 @@ function obtener_listado_foros() {
 function obtener_listado_foros_identificado() {
 	$.ajax("identificado/servicioWebForos/obtenerForos", {
 		success: function (data) {
-			alert("recibido: " + data);
 			let foros = JSON.parse(data);
 			let texto_html = "";
 			texto_html = Mustache.render(plantillaListarForosIdentificado,
@@ -559,7 +556,6 @@ function listadoFollowsPerfil(){
 	
 				// Registro de foros
 				registrarForo();
-	
 	
 			}//---end success---
 		});//--end ajax--

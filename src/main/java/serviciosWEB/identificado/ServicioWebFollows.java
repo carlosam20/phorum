@@ -2,6 +2,7 @@ package serviciosWEB.identificado;
 
 import java.util.Map;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,9 @@ import com.google.gson.JsonElement;
 
 import modelo.Follow;
 import modelo.Usuario;
-import modelo.Valoracion;
+
 import servicios.ServicioFollow;
-import servicios.ServicioPosts;
-import servicios.ServicioUsuarios;
-import servicios.ServicioValoracion;
+
 
 @Controller("servicioWebFollowIdentificado")
 @RequestMapping("identificado/servicioWebFollow/")

@@ -1,6 +1,7 @@
 package serviciosWEB.identificado;
 
 import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,13 +22,15 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+
+
 
 import modelo.Usuario;
 import parseo.FechaParaUsuario;
 import servicios.ServicioComentarios;
 import servicios.ServicioFollow;
-import servicios.ServicioForos;
+
+
 import servicios.ServicioPosts;
 import servicios.ServicioUsuarios;
 import utilidadesArchivos.GestorArchivos;
@@ -65,7 +68,7 @@ public class ServicioWebUsuarios {
 			fechaUsuarioCreado = sdf.parse((String) usuario.get("fechaCreacion"));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			return new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>("error en formato de fecha", HttpStatus.INTERNAL_SERVER_ERROR);
 			
 		}
 		
@@ -99,8 +102,6 @@ public class ServicioWebUsuarios {
 		System.out.println("json: "+json);
 		
 		return new ResponseEntity<String>(json, HttpStatus.OK);
-		
-		
 		
 	}
 

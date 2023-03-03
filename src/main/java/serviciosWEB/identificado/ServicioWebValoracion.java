@@ -2,6 +2,7 @@ package serviciosWEB.identificado;
 
 import java.util.Map;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,6 @@ import com.google.gson.JsonElement;
 
 import modelo.Usuario;
 import modelo.Valoracion;
-import servicios.ServicioPosts;
-import servicios.ServicioUsuarios;
 import servicios.ServicioValoracion;
 
 @Controller("servicioWebValoracionIdentificado")
@@ -57,8 +56,6 @@ public class ServicioWebValoracion {
 
 		 Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 		 
-		 
-		  
 		    Map<String, Object> usuarioPost = servicioValoracion.obtenerValoracionPorPostIdYPorUsuarioId(u.getId(), Long.parseLong(idPost));
 
 		    if (usuarioPost != null && usuarioPost.get("id") == null) {

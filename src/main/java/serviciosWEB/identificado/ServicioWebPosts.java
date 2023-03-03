@@ -1,6 +1,10 @@
 package serviciosWEB.identificado;
 
+import java.text.ParseException;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +29,7 @@ import com.google.gson.JsonObject;
 
 import modelo.Post;
 import modelo.Usuario;
+import parseo.FechaParaUsuario;
 import servicios.ServicioComentarios;
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
@@ -100,10 +105,7 @@ public class ServicioWebPosts {
 	public ResponseEntity<String> obtenerPostYComentariosPorId(String idPost, HttpServletRequest request) {
 
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
-		
-
-		List<Map<String, Object>> postResults = servicioPosts.obtenerPostsPorId(Long.parseLong(idPost));
-
+		Map<String, Object> postResult= servicioPosts.obtenerPostPorIdEnMap(Long.parseLong(idPost));		
 		List<Map<String, Object>> comentariosResults = servicioComentarios
 				.obtenerComentariosPost(Long.parseLong(idPost));
 
@@ -112,15 +114,9 @@ public class ServicioWebPosts {
 
 		Map<String, Object> valoracionUsuarioSesion =  servicioValoraciones.obtenerValoracionPorPostIdYPorUsuarioId(
 				Long.parseLong(String.valueOf(u.getId())), Long.parseLong(idPost));
-		System.out.println("--Usuario "+u.getId());
-		System.out.println("--Post "+idPost);
 		
 		boolean hayValor[] = servicioValoraciones.comprobarExisteValoracion( Long.parseLong(idPost), u.getId());
 		
-		System.out.println("hayValor:"+hayValor[0]+hayValor[1]);
-
-		// Necesito obtener la valoracion del post con el usuario actual
-
 		// Eliminamos todos los datos del usuario que no nos interesen
 
 		Set<String> keySetsAEliminarUsuario = new HashSet<>();
@@ -129,17 +125,14 @@ public class ServicioWebPosts {
 		keySetsAEliminarUsuario.add("descripcion");
 		keySetsAEliminarUsuario.add("fechaCreacion");
 
-		// Cambiar datos del post
-		for (int i = 0; i < postResults.size(); i++) {
-			Map<String, Object> usuarioPost = servicioUsuarios
-					.obtenerUsuarioPorId(Long.parseLong(String.valueOf(postResults.get(i).get("usuario"))));
-			postResults.get(i).put("idUsuarioPost", postResults.get(i).get("usuario"));
-			postResults.get(i).remove("usuario");
-			postResults.get(i).put("nombreUsuarioPost", usuarioPost.get("nombre"));
-			postResults.get(i).put("totalComentarios", comentariosResults.size());
+		// Añadimos los datos al post
+		postResult.put("totalComentarios", comentariosResults.size());
+		Map<String, Object> usuario = servicioUsuarios.obtenerUsuarioPorId(Long.parseLong(String.valueOf(u.getId())));
+		postResult.put("idUsuario", usuario.get("id"));
+		postResult.put("usuario", usuario.get("nombre"));
+			
 
-		}
-
+	
 		// Añadimos los datos del usuario en concreto al comentario realizado por él
 		// mismo
 		for (int i = 0; i < comentariosResults.size(); i++) {
@@ -151,8 +144,19 @@ public class ServicioWebPosts {
 		}
 
 		for (int i = 0; i < comentariosResults.size(); i++) {
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date fechaUsuarioCreado;
+			try {
+				fechaUsuarioCreado = sdf.parse((String)  comentariosResults.get(i).get("fechaCreacion"));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				return new ResponseEntity<String>("error en formato de fecha", HttpStatus.INTERNAL_SERVER_ERROR);
+				
+			}
+			
 			comentariosResults.get(i).keySet().remove("usuario");
-			comentariosResults.get(i).put("fechaCreacionComentario", comentariosResults.get(i).get("fechaCreacion"));
+			comentariosResults.get(i).put("fechaCreacionComentario", FechaParaUsuario.parseoDeFecha(fechaUsuarioCreado));
 			comentariosResults.get(i).keySet().remove("fechaCreacion");
 			comentariosResults.get(i).put("idComentario", comentariosResults.get(i).get("id"));
 			comentariosResults.get(i).keySet().remove("id");
@@ -180,7 +184,7 @@ public class ServicioWebPosts {
 
 			// Combinamos las consultas modificadas en un objeto json
 			JsonObject combinacionDatos = new JsonObject();
-			combinacionDatos.add("post", new Gson().toJsonTree(postResults));
+			combinacionDatos.add("post", new Gson().toJsonTree(postResult));
 			combinacionDatos.add("post_valoraciones", new Gson().toJsonTree(valoracionesPostResults));
 			combinacionDatos.add("post_comentarios", new Gson().toJsonTree(comentariosResults));
 			combinacionDatos.add("valoracion_usuario_sesion", valoracionUsuario);
@@ -205,12 +209,15 @@ public class ServicioWebPosts {
 			valoracionesPostResults.addProperty("like", like);
 			valoracionesPostResults.addProperty("dislike", dislike);
 
+			//Hay que convertir el postResults en un JsonObject para incluirlo a un JsonTree
 			JsonObject combinacionDatos = new JsonObject();
-			combinacionDatos.add("post", new Gson().toJsonTree(postResults));
+			combinacionDatos.add("post", new Gson().toJsonTree(postResult));
 			combinacionDatos.add("post_valoraciones", new Gson().toJsonTree(valoracionesPostResults));
 			combinacionDatos.add("valoracion_usuario_sesion", valoracionUsuario);
 
 			String jsonPostComentarios = combinacionDatos.toString();
+			System.out.println(jsonPostComentarios);
+			
 			return new ResponseEntity<String>(jsonPostComentarios, HttpStatus.OK);
 		}
 

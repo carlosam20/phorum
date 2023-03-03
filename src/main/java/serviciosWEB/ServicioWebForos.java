@@ -63,7 +63,7 @@ public class ServicioWebForos {
 			//Añadimos el nombre del foro a los resultados de los posts
 		if(postsResults.size() != 0 || !postsResults.isEmpty()) {
 			for(int i =0 ; i < postsResults.size(); i++) {
-				Map<String, Object> postForo = servicioForos.obtenerForo(Long.parseLong(String.valueOf(postsResults.get(i).get("foro"))));	
+				Map<String, Object> postForo = servicioForos.obtenerForoPorIdEnMap(Long.parseLong(String.valueOf(postsResults.get(i).get("foro"))));	
 				postsResults.get(i).put("foroNombre", String.valueOf(postForo.get("nombre")));
 			}
 		}
