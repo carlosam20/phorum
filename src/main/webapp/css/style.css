@@ -35,8 +35,8 @@ button select {
 
     --footer-color: #002031;
     --textLightColor: #34403A;
-
-    --error: #780B0B:
+    --error: #780B0B;
+    
 }
 
 body {
@@ -139,6 +139,7 @@ img {
     color: white;
 }
 
+
 .btn-primary:hover {
     background-color: var(--primaryHover);
     color: white;
@@ -188,6 +189,9 @@ img {
 .btn-secondary:focus {
     background-color: var(--secondaryFocus);
     color: var(--textLightColor);
+}
+.danger{
+    border-color: var(--error);
 }
 
 

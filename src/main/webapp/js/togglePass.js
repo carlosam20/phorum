@@ -1,8 +1,6 @@
-
 let ojoDOM = document.getElementById("ojo-icon");
 
 ojoDOM.addEventListener("click", function () {
-
   let pass = document.getElementById("pass");
 
   if (pass.type === "password") {
@@ -13,7 +11,6 @@ ojoDOM.addEventListener("click", function () {
     }, 1000);
     ojoDOM.classList.remove("fa-eye");
     ojoDOM.classList.add("fa-eye-slash");
-
   } else {
     pass.type = "password";
     ojoDOM.classList.add("fa-flip");
@@ -24,4 +21,3 @@ ojoDOM.addEventListener("click", function () {
     ojoDOM.classList.add("fa-eye");
   }
 });
-

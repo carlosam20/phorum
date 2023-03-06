@@ -9,5 +9,39 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-api-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-api-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-chrome-driver-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-chrome-driver-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-chromium-driver-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-chromium-driver-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-devtools-v85-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-devtools-v85-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-devtools-v108-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-devtools-v108-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-devtools-v109-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-devtools-v109-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-devtools-v110-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-devtools-v110-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-edge-driver-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-edge-driver-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-firefox-driver-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-firefox-driver-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-http-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-http-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-ie-driver-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-ie-driver-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-java-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-java-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-json-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-json-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-manager-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-manager-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-remote-driver-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-remote-driver-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-safari-driver-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-safari-driver-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-support-4.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-support-4.8.1-sources.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
