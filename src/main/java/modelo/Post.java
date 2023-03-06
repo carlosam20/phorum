@@ -2,16 +2,17 @@ package modelo;
 
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.NumberFormat;
+
+
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
+
 
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -28,14 +29,15 @@ public class Post {
     private Long id;
    
     @NotBlank(message = "El nombre no puede estar vacio")
-    @Pattern(regexp = "^[a-zA-Z 0-9]{3,60}$", message="Los nombres solo admiten letras, numeros y espacios")
+    @Pattern(regexp = "^.{1,60}$", message="Los nombres tienen un tamaño entre 1 y 60 caracteres")
     private String nombre;
    
-    @Pattern(regexp ="^.{1,300}$", message="La descripción no es correcta:"
-    				+ "Se pueden introducir guiones bajos, espacios en blanco, numeros, acentos y mayúsculas y minúsculas")
+    @NotBlank(message = "Se requiere una descripción para el foro")
+    @Pattern(regexp ="^.{1,300}$"
+    		+ "", message="El tamaño de la descripcion tiene que ser de 1 a 300 caracteres")
     @Length(min=1, max=300)
-    @Column(length=300)
     private String descripcion;
+ 
     
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)

@@ -1,8 +1,10 @@
 package serviciosWEB.identificado;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -10,9 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -58,9 +64,13 @@ public class ServicioWebPosts {
 
 	@RequestMapping("registrarPosts")
 	public ResponseEntity<String> registrarPosts(@RequestParam Map<String, Object> formData,
-			@RequestParam("foto") CommonsMultipartFile foto, String idForo, String idUsuario,
+			@RequestParam("foto") CommonsMultipartFile foto,
 			HttpServletRequest request) {
-		String respuesta = "";
+
+		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+		
+		StringBuilder respuesta = new StringBuilder();
+
 		System.out.println("--------" + formData);
 		Gson gson = new Gson();
 		JsonElement json = gson.toJsonTree(formData);
@@ -68,55 +78,60 @@ public class ServicioWebPosts {
 
 		Post p = gson.fromJson(json, Post.class);
 
-		System.out.println("idForo" + idForo);
-		System.out.println("idUsuario" + idUsuario);
+		
 
-		p.setIdForo(Long.parseLong(idForo));
-		p.setIdUsuario(Long.parseLong(idUsuario));
+		p.setIdForo(p.getIdForo());
+		p.setIdUsuario(u.getId());
 		p.setForo(servicioForos.obtenerForosPorId(p.getIdForo()));
 		p.setUsuario(servicioUsuarios.obtenerUsuario(p.getIdForo()));
 
-		System.out.println("post ForoId:  " + p.getForo());
+		LocalDate currentDate = LocalDate.now();
+		Date formattedDate = currentDate.toDate();
+		p.setFechaCreacion(formattedDate);
 
-		//Eliminamos la hora del guardado de fecha
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.setTime(p.getFechaCreacion());
-	    calendar.set(Calendar.HOUR_OF_DAY, 0);
-	    calendar.set(Calendar.MINUTE, 0);
-	    calendar.set(Calendar.SECOND, 0);
-	    calendar.set(Calendar.MILLISECOND, 0);
-	    
-	    p.setFechaCreacion(calendar.getTime());
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validador = factory.getValidator();
 
-		servicioPosts.registrarPost(p);
+		Set<ConstraintViolation<Post>> violations = validador.validate(p);
 
-		// tras hacer un registro con hibernate, hibernate asigna a este usuario la id
-		// del
-		// registro en la tabla de la base de datos
+		for (ConstraintViolation<Post> violation : violations) {
+			respuesta.append(violation.getMessage());
+			return new ResponseEntity<String>(respuesta.toString(), HttpStatus.CONFLICT);
+		}
 
-		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
-		GestorArchivos.guardarImagenPost(p, rutaRealDelProyecto, foto);
-		respuesta = "ok";
+		if (violations.size() == 0) {
+			servicioPosts.registrarPost(p);
+			// tras hacer un registro con hibernate, hibernate asigna a este usuario la id
+			// del
+			// registro en la tabla de la base de datos
 
-		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
+			String rutaRealDelProyecto = request.getServletContext().getRealPath("");
+			GestorArchivos.guardarImagenPost(p, rutaRealDelProyecto, foto);
+			respuesta.append("ok");
+			
+			
+		}
+		
+		return new ResponseEntity<String>(respuesta.toString(), HttpStatus.OK);
+		
 	}
 
 	@RequestMapping("obtenerPostYComentariosPorId")
 	public ResponseEntity<String> obtenerPostYComentariosPorId(String idPost, HttpServletRequest request) {
 
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
-		Map<String, Object> postResult= servicioPosts.obtenerPostPorIdEnMap(Long.parseLong(idPost));		
+		Map<String, Object> postResult = servicioPosts.obtenerPostPorIdEnMap(Long.parseLong(idPost));
 		List<Map<String, Object>> comentariosResults = servicioComentarios
 				.obtenerComentariosPost(Long.parseLong(idPost));
 
 		int like = servicioValoraciones.obtenerTotalValoracionesPostLike(Long.parseLong(idPost));
 		int dislike = servicioValoraciones.obtenerTotalValoracionesPostDislike(Long.parseLong(idPost));
 
-		Map<String, Object> valoracionUsuarioSesion =  servicioValoraciones.obtenerValoracionPorPostIdYPorUsuarioId(
+		Map<String, Object> valoracionUsuarioSesion = servicioValoraciones.obtenerValoracionPorPostIdYPorUsuarioId(
 				Long.parseLong(String.valueOf(u.getId())), Long.parseLong(idPost));
-		
-		boolean hayValor[] = servicioValoraciones.comprobarExisteValoracion( Long.parseLong(idPost), u.getId());
-		
+
+		boolean hayValor[] = servicioValoraciones.comprobarExisteValoracion(Long.parseLong(idPost), u.getId());
+
 		// Eliminamos todos los datos del usuario que no nos interesen
 
 		Set<String> keySetsAEliminarUsuario = new HashSet<>();
@@ -130,9 +145,7 @@ public class ServicioWebPosts {
 		Map<String, Object> usuario = servicioUsuarios.obtenerUsuarioPorId(Long.parseLong(String.valueOf(u.getId())));
 		postResult.put("idUsuario", usuario.get("id"));
 		postResult.put("usuario", usuario.get("nombre"));
-			
 
-	
 		// Añadimos los datos del usuario en concreto al comentario realizado por él
 		// mismo
 		for (int i = 0; i < comentariosResults.size(); i++) {
@@ -144,25 +157,26 @@ public class ServicioWebPosts {
 		}
 
 		for (int i = 0; i < comentariosResults.size(); i++) {
-			
+
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date fechaUsuarioCreado;
 			try {
-				fechaUsuarioCreado = sdf.parse((String)  comentariosResults.get(i).get("fechaCreacion"));
+				fechaUsuarioCreado = sdf.parse((String) comentariosResults.get(i).get("fechaCreacion"));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				return new ResponseEntity<String>("error en formato de fecha", HttpStatus.INTERNAL_SERVER_ERROR);
-				
+
 			}
-			
+
 			comentariosResults.get(i).keySet().remove("usuario");
-			comentariosResults.get(i).put("fechaCreacionComentario", FechaParaUsuario.parseoDeFecha(fechaUsuarioCreado));
+			comentariosResults.get(i).put("fechaCreacionComentario",
+					FechaParaUsuario.parseoDeFecha(fechaUsuarioCreado));
 			comentariosResults.get(i).keySet().remove("fechaCreacion");
 			comentariosResults.get(i).put("idComentario", comentariosResults.get(i).get("id"));
 			comentariosResults.get(i).keySet().remove("id");
 		}
-		
-		//Eliminamos datos de la valoracion del usuario
+
+		// Eliminamos datos de la valoracion del usuario
 		if (hayValor[0]) {
 			valoracionUsuarioSesion.remove("id");
 			valoracionUsuarioSesion.remove("post");
@@ -209,7 +223,8 @@ public class ServicioWebPosts {
 			valoracionesPostResults.addProperty("like", like);
 			valoracionesPostResults.addProperty("dislike", dislike);
 
-			//Hay que convertir el postResults en un JsonObject para incluirlo a un JsonTree
+			// Hay que convertir el postResults en un JsonObject para incluirlo a un
+			// JsonTree
 			JsonObject combinacionDatos = new JsonObject();
 			combinacionDatos.add("post", new Gson().toJsonTree(postResult));
 			combinacionDatos.add("post_valoraciones", new Gson().toJsonTree(valoracionesPostResults));
@@ -217,7 +232,7 @@ public class ServicioWebPosts {
 
 			String jsonPostComentarios = combinacionDatos.toString();
 			System.out.println(jsonPostComentarios);
-			
+
 			return new ResponseEntity<String>(jsonPostComentarios, HttpStatus.OK);
 		}
 

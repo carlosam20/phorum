@@ -25,27 +25,21 @@ cargar_plantillas_del_servidor();
 listadoInicio();
 
 
-function registrarPost() {
+function registrarPost() {	
 	$("#form_registro_post").submit(function (e) {
 
 		let nombre = $("#nombre").val();
 		let descripcion = $("#descripcion").val();
+		let idForo = $(".enlacePost").attr("id");
 
-		idUsuario = "";
-		let idForo = id;
+		//Testeamos los campos antes de pasarlos
 
-		$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
-			success: function (data) {
-				//alert("recibido: "+data);
-				let info = JSON.parse(data);
-				idUsuario = info.id;
-
+		console.log(idForo+" "+nombre+" "+descripcion+" ");
 				let formulario = document.forms[0];
 				let formData = new FormData(formulario);
 				formData.append('idForo', idForo);
-				formData.append('idUsuario', idUsuario);
 
-
+				
 				$.ajax("identificado/servicioWebPosts/registrarPosts", {
 					type: "POST",
 					data: formData,
@@ -54,18 +48,14 @@ function registrarPost() {
 					processData: false,
 					success: function (res) {
 						if (res == "ok") {
-							$('#crearPostModal').modal("hide");
-							obtener_listado_posts();
-						} else {
-							swal("Error de sintaxis en algun form del post", "Post no valido", "error");
-							alert(res);
+							alert("se ha metido en el registro");
 						}
 					} //end Success Registrar Post
-				}); //end Registrar Post
-
-			}//end Success (Recogemos El id del usuario)
-		});	//end ajax ObtenerUsuario
-
+				})
+					.fail(swal(res, "Error", "error"))
+					.then($('#crearPostModal').modal("hide"));
+					// .then(obtener_listado_posts());
+				//end Registrar Post
 		e.preventDefault();
 
 	});
@@ -75,9 +65,7 @@ function registrarComentarioPost() {
 	//Realizar comentario en post										
 	$("#form_registro_comentario").submit(function (e) {
 
-
 		let textoComentario = $("#textoComentario").val();
-
 		let formulario = document.forms[0];
 		let formData = new FormData(formulario);
 
@@ -415,52 +403,6 @@ function registrarForo() {
 
 }//-end registrar foro-
 
-function registrarPost() {
-	//Registrar Post
-	$("#form_registro_post").submit(function (e) {
-
-		let nombre = $("#nombre").val();
-		let descripcion = $("#descripcion").val();
-
-		idUsuario = "";
-		let idForo = id;
-
-		$.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
-			success: function (data) {
-				//alert("recibido: "+data);
-				let info = JSON.parse(data);
-				idUsuario = info.id;
-
-				let formulario = document.forms[0];
-				let formData = new FormData(formulario);
-				formData.append('idForo', idForo);
-				formData.append('idUsuario', idUsuario);
-
-
-				$.ajax("identificado/servicioWebPosts/registrarPosts", {
-					type: "POST",
-					data: formData,
-					cache: false,
-					contentType: false,
-					processData: false,
-					success: function (res) {
-						if (res == "ok") {
-							$('#crearPostModal').modal("hide");
-							obtener_listado_posts();
-						} else {
-							swal("Error de sintaxis en algun form del post", "Post no valido", "error");
-							alert(res);
-						}
-					} //end Success Registrar Post
-				}); //end Registrar Post
-
-			}//end Success (Recogemos El id del usuario)
-		});	//end ajax ObtenerUsuario
-
-		e.preventDefault();
-
-	});
-}//-end registrar post-
 
 function verPostsDeForo() {
 	//Boton Ver Posts de Foro
@@ -534,7 +476,7 @@ function obtener_listado_foros_identificado() {
 	});//--end ajax--
 }//-end obtener_listado-
 
-function listadoFollowsPerfil(){
+function listadoFollowsPerfil() {
 	$(".boton_ver_follows").click(function () {
 		$.ajax("identificado/servicioWebForos/obtenerForosPerfil", {
 			success: function (data) {
@@ -544,19 +486,19 @@ function listadoFollowsPerfil(){
 				texto_html = Mustache.render(plantillaListarForosIdentificado,
 					foros);
 				$("#contenedor").html(texto_html);
-	
+
 				//Dar follow por el usuario
 				follow();
-	
+
 				//Ver Posts de Foro
 				verPostsDeForo();
-	
+
 				// Buscar foros
 				busquedaForos();
-	
+
 				// Registro de foros
 				registrarForo();
-	
+
 			}//---end success---
 		});//--end ajax--
 	});
@@ -579,7 +521,7 @@ function follow() {
 }//-end follow-
 
 function comprobarExisteFollow(idForo) {
-	console.log("Comprobar: "+idForo);
+	console.log("Comprobar: " + idForo);
 	return new Promise(function (resolve, reject) {
 		$.ajax("identificado/servicioWebFollow/comprobarFollow?idForo=" + idForo, {
 			success: function (data) {
@@ -601,7 +543,7 @@ function darFollow(idForo) {
 	//Se comprueba si hay follow previamente y se añade si no lo hay
 	let formData = new FormData();
 	formData.append("idForo", idForo);
-	
+
 
 	$.ajax("identificado/servicioWebFollow/registrarFollow", {
 		type: "POST",
@@ -621,7 +563,7 @@ function darFollow(idForo) {
 
 function eliminarFollow(idForo) {
 	//Se comprueba si hay follow previamente y se elimina si lo hay
-	
+
 	$.ajax("identificado/servicioWebFollow/eliminarFollow?idForo=" + idForo, {
 		success: function (data) {
 			if (data.includes("ok")) {
@@ -988,20 +930,21 @@ $("#enlace_home").click(listadoInicio);
 
 //El listado de foros cambia dependiendo de si está identificado o no 
 $("#enlace_listado_foros").click(function () {
-	comprobarIdentificacion().then((usuarioIdentificado) => {
-		if (usuarioIdentificado === false) {
-			//Dar follow si no hay 
-			obtener_listado_foros();
-		} else {
-			//Si ya le dio a seguir, le quitamos el follow
-			obtener_listado_foros_identificado();
+	comprobarIdentificacion()
+		.then((usuarioIdentificado) => {
+			if (usuarioIdentificado === false) {
+				//Dar follow si no hay 
+				obtener_listado_foros();
+			} else if (usuarioIdentificado === true) {
+				//Si ya le dio a seguir, le quitamos el follow
+				obtener_listado_foros_identificado();
+			}
 		}
-	}
 
-	)
-	.catch((error) => {
-		swal("se ha producido un error en identificación", "Error","error");
-	});
+		)
+		.catch((error) => {
+			swal("se ha producido un error en identificación", "Error", "error");
+		});
 });//-end enlace listado foros
 
 $("#enlace_listado_foros").click(obtener_listado_foros);

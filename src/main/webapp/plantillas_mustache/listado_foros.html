@@ -38,7 +38,7 @@
             <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1 ">
               <div class="col-lg-8 col-md-8 col-sm-8">
                 <input type="text" name="nombre" class="form-control form-control-lg" placeholder="Nombre del post"
-                  id="nombre" /><br>
+                  id="nombre" title="Solo se admiten de 1 a 60 carácteres" /><br>
               </div>
             </div>
             <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
@@ -49,7 +49,7 @@
             </div>
             <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
               <div class="col-lg-8 col-md-8 col-sm-8">
-                <input type="file" name="foto" id="foto" /> <br>
+                <input type="file" name="foto" id="foto" pattern="/^.+\.(png|jpg)$/" title="La imagen tiene que ser un png o un jpg"/> <br>
               </div>
             </div>
             <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">

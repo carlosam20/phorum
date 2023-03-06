@@ -47,8 +47,12 @@
     <div class="row text-start">
       <!-- Botón del Modal -->
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <button type="button" class="enlace_crear_post btn btn-primary " data-bs-toggle="modal"
+        {{#.}}
+        {{#foro}}
+        <button type="button" class="enlacePost btn btn-primary" id="{{id}}" data-bs-toggle="modal"
           data-bs-target="#crearPostModal">
+          {{/foro}}
+          {{/.}}
           Crear Post
         </button>
       </div>
@@ -67,28 +71,28 @@
 
           <div class="modal-body">
 
-            <form id="form_registro_post d-grid gap-2">
+            <form id="form_registro_post" class="d-grid gap-2">
 
               <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-8 col-sm-8">
                   <input type="text" name="nombre" class="form-control form-control-lg" placeholder="Nombre del post"
-                    id="nombre" /><br>
+                    id="nombre" pattern="^.{1,60}$" title="Solo se admiten de 1 a 60 caracteres" /><br>
                 </div>
               </div>
               <div class="row justify-content-center ">
                 <div class="col-lg-8 col-md-8 col-sm-8">
-                  <input type="text" name="descripcion" class="form-control form-control-lg" placeholder="Descripcion"
-                    id="descripcion" /></input><br>
+                  <textarea type="text" name="descripcion" class="form-control form-control-lg"
+                    placeholder="Descripcion" id="descripcion"  pattern="^.{1,300}$" title="Solo se admiten de 1 a 300 caracteres"/></textarea><br>
                 </div>
               </div>
               <div class="row justify-content-center ">
                 <div class="col-lg-8 col-md-8 col-sm-8">
-                  <input type="file" name="foto" id="foto" /> <br>
+                  <input type="file" name="foto" id="foto" pattern="/^.+\.(png|jpg)$/" /> <br>
                 </div>
               </div>
               <div class="row justify-content-center ">
                 <div class="col-lg-8 col-md-8 col-sm-8">
-                  <input class="btn btn-primary" type="submit" value="Subir Post" />
+                  <input class="btn btn-primary" type="submit" value="Subir Post" pattern="/^.+\.(png|jpg)$/" />
                 </div>
               </div>
 
