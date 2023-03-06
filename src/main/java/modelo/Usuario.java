@@ -45,6 +45,7 @@ public class Usuario  {
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
     
+    @NotBlank(message = "Se requiere una descripción para el foro")
     @Pattern(regexp ="^.{1,300}$"
     		+ "", message="La descripción no es correcta:"
     				+ "El tamaño no es el adecuado")

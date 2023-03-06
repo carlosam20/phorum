@@ -82,17 +82,10 @@ public class ServicioWebPosts {
 		
 		
 			
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date fechaForoCreado;
-		try {
-			System.out.println("Foro info:"+foroInfo.get("fechaCreacion"));
-			fechaForoCreado = sdf.parse((String) foroInfo.get("fechaCreacion"));
-			foroInfo.put("fechaCreacion", FechaParaUsuario.parseoDeFecha(fechaForoCreado));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			return new ResponseEntity<String>("error en formato de fecha", HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		}	
+		//Formateo de fecha al String parseado de fecha
+		Date fechaPost = (Date) foroInfo.get("fechaCreacion");
+		foroInfo.put("fechaCreacion", FechaParaUsuario.parseoDeFecha(fechaPost));
+		
 
 		JsonObject json = new JsonObject();
 		json.add("posts", new Gson().toJsonTree(postsForo));

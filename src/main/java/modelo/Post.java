@@ -37,7 +37,8 @@ public class Post {
     @Column(length=300)
     private String descripcion;
     
-    @DateTimeFormat(pattern = "yyyy-mm-DD")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
     
    

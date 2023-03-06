@@ -57,8 +57,10 @@ public class FechaParaUsuario {
 		        return String.format("%d meses y %d dia", meses, dias);
 		    } else if (meses == 1 && dias == 1) {
 		        return String.format("%d mes y %d dia", meses, dias);
-		    } else {
-		        return String.format("%d dias", dias);
+		    } else if(dias == 1){
+		        return String.format("%d dia", dias);
+		    }else {
+		    	return String.format("%d dias", dias);
 		    }
 		} else if (anyos == 1) {
 		    if (meses == 1 && dias == 1) {

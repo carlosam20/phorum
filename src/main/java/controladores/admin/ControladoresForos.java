@@ -71,7 +71,8 @@ public class ControladoresForos {
 	    
 	    nuevoForo.setFechaCreacion(calendar.getTime());
 	    
-		if (!br.hasErrors()) {		
+		if (!br.hasErrors()) {
+			
 			servicioForos.registrarForo(nuevoForo);
 			String rutaRealDelProyecto =
 			request.getServletContext().getRealPath("");
@@ -79,6 +80,10 @@ public class ControladoresForos {
 			return "admin/registroForoOk";
 			
 		} else {
+			
+			for (int i = 0; i < br.getAllErrors().size(); i++) {
+				System.out.println("Error:"+br.getAllErrors().get(i));
+			}
 			
 			Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
 			model.addAttribute("foros", mapForos);

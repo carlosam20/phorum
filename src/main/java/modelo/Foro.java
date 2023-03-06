@@ -21,26 +21,23 @@ public class Foro {
 	private Long id;
 
 	@NotBlank(message = "Se requiere un nombre para el foro") // No puede ser ni nulo, ni tener longitud menor a 0
-	@Column(length = 60) // Tamaño de la columna en la base de datos
-	@Length(min = 1, max = 60) // Rango de tamaño que tiene
-	@Pattern(regexp = "^[a-zA-Z 0-9]{3,60}$", message="Los nombres solo admiten letras, numeros y espacios")
+	@Pattern(regexp = "^.{1,60}$", message = "Los nombres solo admiten letras, numeros y espacios")
 	private String nombre;
 
 	@NotBlank(message = "Se requiere una descripción para el foro") // No puede ser ni nulo, ni tener longitud menor a 0
-	@Pattern(regexp = "/^[\\w\\s\\d,.áéíóúÁÉÍÓÚñÑüÜ]{1,300}+$/u\n" + "", message = "La descripción no es correcta:"
-			+ "Se pueden introducir guiones bajos, espacios en blanco, numeros, acentos y mayúsculas y minúsculas")
-	@Column(length = 200)
+	@Pattern(regexp = "^.{1,300}$" + "", message = "La descripción no es correcta:" + "El tamaño no es el adecuado")
 	@Length(min = 1, max = 300) // Rango de tamaño que tiene
 	private String descripcion;
 
-	@OneToMany(cascade = { CascadeType.MERGE }, mappedBy = "foro" )
+	@OneToMany(cascade = { CascadeType.MERGE }, mappedBy = "foro")
 	private List<Post> posts = new ArrayList<Post>();
 
 	@OneToMany(cascade = { CascadeType.MERGE }, mappedBy = "foro")
 	private List<Follow> seguidores;
 
-    @DateTimeFormat(pattern = "yyyy-mm-DD")
-    private Date fechaCreacion;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	private Date fechaCreacion;
 
 	@Transient
 	private MultipartFile imagen;
@@ -48,8 +45,8 @@ public class Foro {
 	public Foro() {
 	}
 
-	public Foro(Long id, String nombre, String descripcion, List<Post> posts, Date fechaCreacion,
-			MultipartFile imagen, List<Follow> seguidores) {
+	public Foro(Long id, String nombre, String descripcion, List<Post> posts, Date fechaCreacion, MultipartFile imagen,
+			List<Follow> seguidores) {
 		super();
 		this.id = id;
 		this.nombre = nombre;

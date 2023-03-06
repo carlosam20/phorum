@@ -1,13 +1,16 @@
 package serviciosWEB.identificado;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.TemporalType;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -62,23 +65,16 @@ public class ServicioWebUsuarios {
 		int numeroForosSeguidos = servicioFollow.obtenerTotalDeFollowsDeUsuario(Long.parseLong(String.valueOf(u.getId())));
 		
 		Map<String,Object> usuario = servicioUsuarios.obtenerUsuarioPorId(u.getId());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date fechaUsuarioCreado;
-		try {
-			fechaUsuarioCreado = sdf.parse((String) usuario.get("fechaCreacion"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			return new ResponseEntity<String>("error en formato de fecha", HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		}
 		
 		usuario.put("numeroComentarios", numeroComentarios);
 		usuario.put("numeroPost", numeroPost);
 		usuario.put("numeroForosSeguidos", numeroForosSeguidos);
 		
-		//Cambiamos la fecha por el string de la fecha
-		usuario.remove("fechaCreacion");
-		usuario.put("fechaCreacion",FechaParaUsuario.parseoDeFecha(fechaUsuarioCreado));
+	
+		//Formateo de fecha al String parseado de fecha
+		Date fechaUsuario= (Date) usuario.get("fechaCreacion");
+		usuario.put("fechaCreacion", FechaParaUsuario.parseoDeFecha(fechaUsuario));
+	
 		
 		String json = new Gson().toJson(usuario);
 		System.out.println("json: "+json);
