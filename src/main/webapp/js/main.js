@@ -1,5 +1,3 @@
-
-
 //Variables globales de usuario
 let email = "";
 let pass = "";
@@ -300,14 +298,17 @@ function busquedaFollowsPerfil() {
   }); //--end click boton_buscar--
 } //-end busqueda foros-
 
-function listadoInicio() {
+function listadoInicio(){
   $.ajax("servicioWebForos/obtenerForosYPosts", {
-    success: function (data) {
+    success: (data) => {
       $("body").removeClass("cargando");
-      let forosYPost = JSON.parse(data);
+      const forosYPost = JSON.parse(data);
       let texto_html = "";
       texto_html = Mustache.render(plantillaHome, forosYPost);
       $("#contenedor").html(texto_html);
+
+      const url = "servicioWebForos/obtenerForosYPosts";
+      window.history.pushState("", "", url);
 
       //Ver post de foro
       verPostsDeForo();
@@ -315,12 +316,21 @@ function listadoInicio() {
       //Ver post y comentarios
       verPostYComentarios();
 
+      $(window).on("popstate", (e) => {
+        const state = e.originalEvent.state;
+        if (state) {
+          listadoInicio();
+        }
+      });
+
       //Registrar header
       $("#enlace_registrarme_header").click(mostrarRegistroUsuario);
     },
-    //---end success ---
-  }); //---end ajax listado inicio ---
-} //-end listado inicio-
+    error: () => {
+      swal("", "Error en el listado de inicio", "Error");
+    },
+  });
+};
 
 function registrarForo() {
   //Registro
@@ -359,17 +369,30 @@ function registrarForo() {
   });
 } //-end registrar foro-
 
-function verPostsDeForo() {
+const verPostsDeForo = () => {
   //Boton Ver Posts de Foro
   $(".boton_post_foro").click(function (e) {
     let id = $(this).attr("id");
     //ObtenerPostPorForoDeID
-    $.ajax("servicioWebPosts/obtenerPostPorForoId?id=" + id, {
+    $.ajax("../servicioWebPosts/obtenerPostPorForoId?id=" + id,  {
       success: function (data) {
         let posts = JSON.parse(data);
         // eslint-disable-next-line no-undef
         let texto_html = Mustache.render(plantillaListarPosts, posts);
         $("#contenedor").html(texto_html);
+
+        // Update the URL in the address bar
+        let currentURL = window.location.href;
+        let newURL = currentURL + "/servicioWebPosts/obtenerPostPorForoId?id=" + id;
+        window.history.pushState("", "", newURL);
+
+        // Call the listadoInicio function when the back button is clicked
+        $(window).on("popstate", (e) => {
+          let state = e.originalEvent.state;
+          if (state) {
+            listadoInicio();
+          }
+        });
 
         //Registrar post
         registrarPost();
@@ -380,7 +403,7 @@ function verPostsDeForo() {
 
     e.preventDefault();
   }); //--end obtener_listado-comentarios_post--
-} //-end posts de foro-
+}; //-end posts de foro-
 
 function obtener_listado_foros() {
   $.ajax("servicioWebForos/obtenerForos", {

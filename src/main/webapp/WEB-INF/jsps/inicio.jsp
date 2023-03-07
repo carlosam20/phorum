@@ -33,7 +33,7 @@
                         </button>
 
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                            <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
                                     <a class="nav-link m-2" id="enlace_home" aria-current="page" href="#">Home</a>
                                 </li>
@@ -54,18 +54,17 @@
                                 </li>
                             </ul>
 
-                            <ul class="navbar-nav mb-auto mb-lg-0">
-                                <li class="nav-item">
-                                    <button class="btn btn-outline-primary m-2" id="enlace_identificarme"
-                                        aria-current="page" href="#">Iniciar Sesi&oacuten</button>
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item mb-2">
+                                    <a class="nav-link" id="enlace_identificarme"
+                                        aria-current="page">Iniciar Sesi&oacuten</button>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link m-2" id="enlace_registrarme" aria-current="page"
-                                        href="#">Registrar</a>
+                                <li class="nav-item mb-2">
+                                    <a class="nav-link" id="enlace_registrarme" aria-current="page">Registrar</a>
                                 </li>
-                                <li class="nav-item">
-                                    <p id="mensaje_login" class="nav-link m-2" aria-current="page">Sesi&oacuten no
+                                <li class="nav-item mb-2">
+                                    <p id="mensaje_login" class="nav-link" aria-current="page">Sesi&oacuten no
                                         iniciada</p>
                                 </li>
                             </ul>
