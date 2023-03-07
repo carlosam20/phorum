@@ -175,16 +175,19 @@ img {
 
 
 .btn-primary:active {
+    
+
     border-color: var(--primaryFocus);
     background-color: var(--primaryFocus);
-    box-shadow: var(--primaryFocus) 0px 0px 0px 0px;
+    box-shadow: var(--primaryFocus) 1px 1px 1px 1px;
+    outline:1px,solid,var(--primaryFocus);
     color: var(--textLightColor);
 }
 
 .btn-primary:focus {
     border-color: var(--primaryFocus);
     background-color: var(--primaryFocus);
-    box-shadow: var(--primaryFocus) 0px 0px 0px 0px;
+    box-shadow: var(--primaryFocus) 1px 1px 1px 1px;
     color: var(--textLightColor);
 }
 
