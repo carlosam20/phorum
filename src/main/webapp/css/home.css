@@ -32,3 +32,9 @@
 scroll>a {
   text-decoration: none;
 }
+
+.boton_post_foro,.boton_ver_post {
+  padding: 0.4em 0.5em;
+}
+
+

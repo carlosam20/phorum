@@ -1,7 +1,12 @@
 //Funciones vercomentarios
+document.querySelector(".boton_post_top3").addEventListener("click", () => {
+  abrirPostsTop3();
+});
 
-let botonAbrirPosts = document.getElementById();
-let botonCerrarPosts = document.getElementById();
+document.querySelector(".closebtn").addEventListener("click", () => {
+  cerrarPostsTop3();
+});
+
 
 let abrirPostsTop3 = () => {
   document.getElementById("postsTop3").style.width = "50%";

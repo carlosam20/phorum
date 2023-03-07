@@ -3,13 +3,13 @@ let likeDOM = document.getElementById("like-icon");
 let dislikeDOM = document.getElementById("dislike-icon");
 
 //Funciones comentarios
-function abrirComents() {
+const abrirComents = () => {
   document.getElementById("comentarios").style.width = "50%";
   document.getElementById("post").style.marginLeft = "50%";
   document.getElementById("fechaCreacionPost").style.display = "none";
 }
 
-function cerrarComents() {
+const cerrarComents = () => {
   document.getElementById("comentarios").style.width = "0%";
   document.getElementById("post").style.marginLeft = "0%";
   document.getElementById("fechaCreacionPost").style.display = "initial";
@@ -38,7 +38,7 @@ dislikeDOM.addEventListener("click", function () {
 });
 
 //funciones likes y dislikes
-function darLike() {
+const darLike = () => {
   likeDOM.classList.add("fa-bounce");
   setTimeout(() => {
     likeDOM.classList.remove("fa-bounce");
@@ -47,7 +47,7 @@ function darLike() {
   }, 800);
 }
 
-function quitarLike(disLikeActivado) {
+const quitarLike = (disLikeActivado) => {
   if (dislikeDOM.classList.contains("fa-solid") && disLikeActivado === false) {
     likeDOM.classList.add("fa-bounce");
   }
@@ -58,7 +58,7 @@ function quitarLike(disLikeActivado) {
   }, 800);
 }
 
-function darDislike() {
+const darDislike = () => {
   dislikeDOM.classList.add("fa-bounce");
 
   setTimeout(() => {
@@ -67,7 +67,7 @@ function darDislike() {
     dislikeDOM.classList.add("fa-solid");
   }, 800);
 }
-function quitarDislike(likeActivado) {
+const quitarDislike = (likeActivado) => {
   if (likeDOM.classList.contains("fa-solid") && likeActivado === false) {
     dislikeDOM.classList.add("fa-bounce");
   }
