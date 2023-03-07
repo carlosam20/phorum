@@ -299,7 +299,7 @@ const busquedaFollowsPerfil = () => {
   }); //--end click boton_buscar--
 } //-end busqueda foros-
 
-const listadoInicio = () => {
+function listadoInicio() {
   $.ajax("servicioWebForos/obtenerForosYPosts", {
     success: (data) => {
       $("body").removeClass("cargando");
@@ -308,13 +308,18 @@ const listadoInicio = () => {
       texto_html = Mustache.render(plantillaHome, forosYPost);
       $("#contenedor").html(texto_html);
 
-
-
       //Ver post de foro
       verPostsDeForo();
 
       //Ver post y comentarios
       verPostYComentarios();
+
+      $(window).on("popstate", (e) => {
+        const state = e.originalEvent.state;
+        if (state) {
+          listadoInicio();
+        }
+      });
 
     },
     error: () => {
@@ -365,12 +370,25 @@ const verPostsDeForo = () => {
   $(".boton_post_foro").click(function (e) {
     let id = $(this).attr("id");
     //ObtenerPostPorForoDeID
-    $.ajax("servicioWebPosts/obtenerPostPorForoId?id=" + id, {
+    $.ajax("../servicioWebPosts/obtenerPostPorForoId?id=" + id,  {
       success: function (data) {
         let posts = JSON.parse(data);
 
         let texto_html = Mustache.render(plantillaListarPosts, posts);
         $("#contenedor").html(texto_html);
+
+        // Update the URL in the address bar
+        let currentURL = window.location.href;
+        let newURL = currentURL + "/servicioWebPosts/obtenerPostPorForoId?id=" + id;
+        window.history.pushState("", "", newURL);
+
+        // Call the listadoInicio function when the back button is clicked
+        $(window).on("popstate", (e) => {
+          let state = e.originalEvent.state;
+          if (state) {
+            listadoInicio();
+          }
+        });
 
         //Registrar post
         registrarPost();
