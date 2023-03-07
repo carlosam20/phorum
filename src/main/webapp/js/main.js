@@ -1,9 +1,10 @@
-/* eslint-disable no-undef */
+
+
 //Variables globales de usuario
 let email = "";
 let pass = "";
 let idUsuario = "";
-let nombre_login ="";
+let nombre_login = "";
 //Carga de plantillas en variables
 let plantillaHome = "";
 let plantillaListarForos = "";
@@ -22,7 +23,7 @@ listadoInicio();
 function registrarComentarioPost() {
   //Realizar comentario en post
   $("#form_registro_comentario").submit((e) => {
-    let idPost =$(this).attr("id");
+    let idPost = $(this).attr("id");
     let formulario = document.forms[0];
     let formData = new FormData(formulario);
 
@@ -39,6 +40,7 @@ function registrarComentarioPost() {
           if (res == "ok") {
             alert(res);
             //TODO recargar PostYcomentarios aqui
+            postYComentarios();
           } else {
             alert(res);
           }
@@ -52,7 +54,7 @@ function registrarComentarioPost() {
 
 function verPerfilDeComentario() {
   //Ver Perfil del usuario que comento
- const verPerfilDeComentario = $(".boton_ver_perfil").click((e) => {
+  const verPerfilDeComentario = $(".boton_ver_perfil").click((e) => {
     let idUsuarioComentario = $(this).attr("id");
 
     $.ajax(
@@ -162,19 +164,17 @@ function valoracionDislike(idPost) {
             contentType: false,
             processData: false,
             success: function () {
-              
               contadorDislikes.textContent =
-              Number(contadorDislikes.textContent) + 1;
+                Number(contadorDislikes.textContent) + 1;
             },
           });
         } else if (valoracionExiste[0] && !valoracionExiste[1]) {
-          
           eliminarValoracionFalse(idPost);
           contadorDislikes.textContent =
             Number(contadorDislikes.textContent) - 1;
         } else if (valoracionExiste[0] && valoracionExiste[1]) {
           // User has already rated the post negatively
-          
+
           editarValoracion(idPost, false);
           contadorLikes.textContent = Number(contadorLikes.textContent) - 1;
           contadorDislikes.textContent =
@@ -188,17 +188,21 @@ function valoracionDislike(idPost) {
 } //-end valoracion dislike-
 
 function verPostYComentarios() {
-  $(".boton_ver_post").click( (e) => {
+  $(".boton_ver_post").click((e) => {
+    alert("Entra en boton");
     let idPost = $(this).attr("id");
     $.ajax(
       "identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" +
         idPost,
       {
-        success: function (data) {
+        success: (data) => {
           alert("recibido: " + data);
           let postYComentarios = JSON.parse(data);
           let texto_html = "";
-          texto_html = Mustache.render(plantillaListarPostYComentarios,postYComentarios);
+          texto_html = Mustache.render(
+            plantillaListarPostYComentarios,
+            postYComentarios
+          );
           $("#contenedor").html(texto_html);
 
           //Cambiar iconos según la valoración del usuario
@@ -236,6 +240,7 @@ function verPostYComentarios() {
 
 function busquedaForos() {
   //Buscador de Foros
+  buscarForos();
   const buscarForos = $(".boton_buscar").click((e) => {
     let nombreForo = $("#inputBuscador").val();
     $.ajax(
@@ -491,21 +496,22 @@ function darFollow(idForo) {
     cache: false,
     contentType: false,
     processData: false,
-    success: function (res) {
+  })
+    .done(() => {
       console.log("Follow registrado");
-    },
-  }).fail(function () {
-    swal("Ha fallado la funcion de dar follow", {
-      icon: "error",
+    })
+    .fail(function () {
+      swal("Ha fallado la funcion de dar follow", {
+        icon: "error",
+      });
     });
-  });
 } //-end dar follow
 
 function eliminarFollow(idForo) {
   //Se comprueba si hay follow previamente y se elimina si lo hay
-
-  $.ajax("identificado/servicioWebFollow/eliminarFollow?idForo=" + idForo)
-  .fail(swal("Ha fallado la funcion de quitar follow","Error","error")); //--end ajax--
+  $.ajax("identificado/servicioWebFollow/eliminarFollow?idForo=" + idForo).fail(
+    swal("Ha fallado la funcion de quitar follow", "Error", "error")
+  ); //--end ajax--
 } //-end eliminar follow-
 
 const obtener_listado_posts = async () => {
@@ -550,7 +556,7 @@ function registrarPost() {
       success: function (res) {
         if (res == "ok") {
           alert("se ha metido en el registro");
-          respuestaError=res;
+          respuestaError = res;
         }
       }, //end Success Registrar Post
     })
@@ -649,9 +655,8 @@ function loginUsuario(email, pass) {
     success: function (res) {
       if (res.includes("ok")) {
         nombre_login = res.split(",")[1];
-        
+        $("#mensaje_login").text(nombre_login);
 
-        $("#mensaje_login").text(res.split(",")[1]);
         swal("", "Sesión iniciada", "success");
 
         if ($("#recordar_datos").prop("checked")) {
@@ -680,7 +685,7 @@ function logout() {
   });
 } //-end logout-
 
-const  editarUsuario = async() => {
+const editarUsuario = async () => {
   //Boton Editar
   $(".boton_editar_usuario").click(function (e) {
     if (comprobarIdentificacion()) {
@@ -714,17 +719,17 @@ const  editarUsuario = async() => {
                         cache: false,
                         contentType: false,
                         processData: false,
-                        
                       }
-                    )
-                    .then(caches.open("v1").then((cache) => {
-                      cache
-                        .delete("/images/" + idUsuario + ".jpg")
-                        .then(() => {
-                          perfil();
-                          window.location.reload();
-                        });
-                    }));
+                    ).then(
+                      caches.open("v1").then((cache) => {
+                        cache
+                          .delete("/images/" + idUsuario + ".jpg")
+                          .then(() => {
+                            perfil();
+                            window.location.reload();
+                          });
+                      })
+                    );
                   } else {
                     swal("La contraseña  es incorrecta", "Error", "error");
                   } //end Pass
@@ -773,6 +778,7 @@ function borrarUsuario() {
         perfil();
       }
     });
+    e.preventDefault();
   }); //end Borrar Usuario
 } //-end borrar usuario-
 
@@ -802,8 +808,8 @@ function eliminarValoracionFalse(idPost) {
   //Se le llama y se le pasa la valoración previa realizada
   $(".like").click(
     $.ajax(
-      "identificado/servicioWebValoracion/eliminarValoracion?idPost=" + idPost)
-      .fail(function () {
+      "identificado/servicioWebValoracion/eliminarValoracion?idPost=" + idPost
+    ).fail(function () {
       swal("Ha fallado la funcion de quitar dislike", {
         icon: "error",
       });
@@ -814,17 +820,15 @@ function eliminarValoracionFalse(idPost) {
 function eliminarValoracionTrue(idPost) {
   //Eliminar valoración
   //Se le llama y se le pasa la valoración previa realizada
-  const dislike =  $(".dislike").click(
+  const dislike = $(".dislike").click(
     $.ajax(
-      "identificado/servicioWebValoracion/eliminarValoracion?idPost=" + idPost)
-      
-      .fail(function () {
-      swal("Ha fallado la funcion de quitar like", "Error","error");
+      "identificado/servicioWebValoracion/eliminarValoracion?idPost=" + idPost
+    ).fail(function () {
+      swal("Ha fallado la funcion de quitar like", "Error", "error");
     }) //--end ajax--
   );
   dislike();
 } //-end eliminar valoracion true-
-
 
 function comprobarExisteValoracion(idPost) {
   return new Promise(function (resolve, reject) {

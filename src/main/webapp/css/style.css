@@ -29,14 +29,22 @@ button select {
     --primaryHover: #00140F;
     --primaryFocus: #439F88;
 
+    --primaryHsl: hsl(166, 100%, 12%);
+    --primaryHover: hsl(165, 100%, 4%);
+    --primaryFocus: hsl(165, 41%, 44%);
+
     --secondary: #060637;
     --secondaryHover: #202031;
     --secondaryFocus: #9C9CD3;
 
     --footer-color: #002031;
     --textLightColor: #34403A;
+
+
     --error: #780B0B;
-    
+    --errorHover: #ac1010;
+    --errorFocus: #f11b1b;
+
 }
 
 body {
@@ -110,13 +118,12 @@ img {
 .form-control:focus {
     border-color: var(--primaryFocus);
     box-shadow:
-    2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
-    6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
-    12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
-    22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
-    41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-    100px 100px 80px rgba(0, 0, 0, 0.07)
-  ;
+        2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+        6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+        12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+        22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+        41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+        100px 100px 80px rgba(0, 0, 0, 0.07);
 }
 
 
@@ -125,28 +132,59 @@ img {
 /* -Primarios */
 
 .btn {
-    border: none;
-    box-shadow: none;
+    padding: 1.1em 2.1em;
+    border-radius: 1.05rem;
+    border: 0;
+    box-shadow: hsla(0, 0%, 0%, 0.05) 0 0 8px;
+    letter-spacing: 0.1em;
+    font-size: 1rem;
+    transition: all .5s ease;
+}
+
+.btn:hover{
+    letter-spacing: 0.2em;
+    color: white;
+    border-radius: 1rem;
 }
 
 .btn:focus {
+    transform: translateY(-6px);
+    transition: 200ms;
+    letter-spacing: 0.2em;
     border-color: var(--primaryFocus);
     box-shadow: inset 0 1px 1px rgba(250, 241, 241, 0.075), 0 0 8px var(--primaryFocus);
+}
+.btn:active {
+    letter-spacing: 0.2em;
+    transform: translateY(6px);
+    transition: 200ms;
 }
 
 .btn-primary {
     background-color: var(--primary);
-    color: white;
+    /* background:var(--primary); */
 }
 
 
 .btn-primary:hover {
     background-color: var(--primaryHover);
-    color: white;
+    /* background:var(--primaryHover); */
+    box-shadow: inset 22px 22px 44px #03a37e,
+        inset -22px -22px 44px #01614b;
+}
+
+
+.btn-primary:active {
+    border-color: var(--primaryFocus);
+    background-color: var(--primaryFocus);
+    box-shadow: var(--primaryFocus) 0px 0px 0px 0px;
+    color: var(--textLightColor);
 }
 
 .btn-primary:focus {
+    border-color: var(--primaryFocus);
     background-color: var(--primaryFocus);
+    box-shadow: var(--primaryFocus) 0px 0px 0px 0px;
     color: var(--textLightColor);
 }
 
@@ -165,7 +203,13 @@ img {
 }
 
 .btn-outline-primary:focus {
+    border-color: var(--primaryHover);
+    color: var(--primaryHover);
+    background-color: var(--primaryFocus);
 
+}
+
+.btn-outline-primary:active {
     border-color: var(--primaryHover);
     color: var(--primaryHover);
     background-color: var(--primaryFocus);
@@ -190,7 +234,19 @@ img {
     background-color: var(--secondaryFocus);
     color: var(--textLightColor);
 }
-.danger{
+
+.btn-danger {
+    border-color: var(--error);
+}
+.btn-danger:hover {
+    border-color: var(--error);
+}
+
+.btn-danger:focus{
+    border-color: var(--error);
+}
+
+.btn-danger:active{
     border-color: var(--error);
 }
 
@@ -265,13 +321,12 @@ img {
 
 .scroll .item:hover {
     box-shadow:
-  2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
-  6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
-  12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
-  22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
-  41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-  100px 100px 80px rgba(0, 0, 0, 0.07)
-;
+        2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+        6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+        12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+        22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+        41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+        100px 100px 80px rgba(0, 0, 0, 0.07);
     transition: all 200ms ease-in-out;
 }
 
@@ -309,13 +364,12 @@ img {
 .card:hover {
     transition: all 200ms ease-in-out;
     box-shadow:
-  2.8px 2.8px 2.2px rgba(0, 0, 0, 0.059),
-  6.7px 6.7px 5.3px rgba(0, 0, 0, 0.085),
-  12.5px 12.5px 10px rgba(0, 0, 0, 0.105),
-  22.3px 22.3px 17.9px rgba(0, 0, 0, 0.125),
-  41.8px 41.8px 33.4px rgba(0, 0, 0, 0.151),
-  100px 100px 80px rgba(0, 0, 0, 0.21)
-;
+        2.8px 2.8px 2.2px rgba(0, 0, 0, 0.059),
+        6.7px 6.7px 5.3px rgba(0, 0, 0, 0.085),
+        12.5px 12.5px 10px rgba(0, 0, 0, 0.105),
+        22.3px 22.3px 17.9px rgba(0, 0, 0, 0.125),
+        41.8px 41.8px 33.4px rgba(0, 0, 0, 0.151),
+        100px 100px 80px rgba(0, 0, 0, 0.21);
 }
 
 /*Botones*/
@@ -464,11 +518,11 @@ body.cargando .spinner {
     object-fit: cover;
 }
 
-.botonMovilOpciones{
+.botonMovilOpciones {
     text-decoration: none;
 }
 
-.botonMovilOpciones:focus{
+.botonMovilOpciones:focus {
     background-color: #439F88;
 }
 

@@ -87,3 +87,11 @@ function validarNombrePost(nombrePost) {
     return false;
   }
 }
+
+function validarPostDescripcion(descripcionForo) {
+  if (REGEXP_POST_DESCRIPCION_.test(descripcionForo)) {
+    return true;
+  } else {
+    return false;
+  }
+}

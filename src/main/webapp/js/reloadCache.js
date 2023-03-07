@@ -1,6 +1,7 @@
-let button = document.querySelector(".btn").value;
-document
+let button = document
   .getElementsByClassName("button")
-  .addEventListener("click", function () {
+  .addEventListener("click", () => {
     location.reload(true);
   });
+
+button();
