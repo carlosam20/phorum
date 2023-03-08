@@ -54,24 +54,17 @@
                                 </li>
                             </ul>
 
-<<<<<<< HEAD
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
-                                <li class="nav-item mb-2">
+                                <li class="nav-item m-2">
                                     <a class="nav-link" id="enlace_identificarme" aria-current="page">Iniciar
                                         Sesi&oacuten</button>
-=======
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item mb-2">
-                                    <a class="nav-link" id="enlace_identificarme"
-                                        aria-current="page">Iniciar Sesi&oacuten</button>
->>>>>>> afb293c1f1fc89f74b360a3b9ae6af4f2a17cf80
                                 </li>
 
-                                <li class="nav-item mb-2">
+                                <li class="nav-item m-2">
                                     <a class="nav-link" id="enlace_registrarme" aria-current="page">Registrar</a>
                                 </li>
-                                <li class="nav-item mb-2">
-                                    <p id="mensaje_login" class="nav-link" aria-current="page">Sesi&oacuten no
+                                <li class="nav-item m-2">
+                                    <p class="nav-link" id="mensaje_login" aria-current="page">Sesi&oacuten no
                                         iniciada</p>
                                 </li>
                             </ul>

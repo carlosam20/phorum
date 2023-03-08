@@ -43,5 +43,9 @@
 	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-safari-driver-4.8.1-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-support-4.8.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/selenium-support-4.8.1-sources.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/mockito-core-4.8.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/mockito-junit-jupiter-5.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/spring-test-5.3.19.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

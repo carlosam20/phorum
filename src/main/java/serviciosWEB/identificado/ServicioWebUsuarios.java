@@ -1,39 +1,23 @@
 package serviciosWEB.identificado;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import javax.persistence.TemporalType;
 import javax.servlet.http.HttpServletRequest;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-
-
-
 import modelo.Usuario;
 import parseo.FechaParaUsuario;
 import servicios.ServicioComentarios;
 import servicios.ServicioFollow;
-
-
 import servicios.ServicioPosts;
 import servicios.ServicioUsuarios;
 import utilidadesArchivos.GestorArchivos;
