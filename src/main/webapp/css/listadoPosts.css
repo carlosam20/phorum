@@ -8,8 +8,7 @@ a {
 
 .card {
     width: 100%;
-    height: auto;
-    max-height: 45vw;
+    max-height: 35vw;
     object-fit: cover;
 }
 
@@ -24,4 +23,8 @@ a {
     margin: 1%;
     background-color: #9c9cd3;
     border-radius: 1em;
+}
+.containerImagenPost{
+    height: 15vw; 
+    width: 12vw;   
 }

@@ -107,8 +107,6 @@ a:focus {
 img {
     width: 100%;
     height: auto;
-    object-fit: cover;
-    object-position: bottom;
 }
 
 .text-primary {
@@ -270,9 +268,7 @@ img {
     text-align: center;
 }
 
-.nav-item>a {
-    text-decoration: none;
-}
+
 
 #logo-nav {
     width: 100%;
@@ -514,7 +510,7 @@ body.cargando .spinner {
     object-fit: cover;
 }
 .card-header{
-    background-color: var(--secondaryFocus);
+    background-color: var(--primaryFocus);
 }
 
 .botonMovilOpciones {

@@ -135,7 +135,7 @@
             <script type="text/javascript" src="librerias_javascript/jquery.js"></script>
             <script type="text/javascript" src="librerias_javascript/mustache.js"></script>
             <script type="text/javascript" src="librerias_javascript/js.cookie.min.js"></script>
-            <script type="text/javascript" src="js/carga_plantilla.js"></script>
+            <!-- <script type="module" src="js/cargarPlantillas.js"></script> -->
             <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
             <script type="text/javascript" src="js/validaciones.js"></script>
             <script src="https://kit.fontawesome.com/485aa9f350.js" crossorigin="anonymous"></script>

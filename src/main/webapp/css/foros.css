@@ -44,6 +44,10 @@
   #boton-buscar:active {
     background-color: white;
   }
+
+  .list-group-item{
+    border-radius: 1em;
+  }
   
 
   

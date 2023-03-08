@@ -108,6 +108,11 @@
     display: none;
   }
 
+  
+  .list-group-item{
+    border-radius: 1em;
+  }
+
 }
 
 @media only screen and (max-width: 768px) {

@@ -17,6 +17,7 @@
 
 
     <!--Scroll container-->
+    <div class="scrollContainer">
     <div class="row m-1">
       <div class="col-lg-12 col-md-12 col-sm-12 scrollContainer">
 
@@ -40,65 +41,68 @@
 
       </div>
     </div>
+  </div>
 
 
 
     <h1 class="text-center mx-auto"><b>Explora los posts</b></h1>
     <!--Listado Posts -->
-    <div class="row">
-      {{#.}}
-      {{#posts}}
-      <div class="col-lg-5 col-md-5 col-sm-11 ">
+    <div class="listadoPosts text-center">
+      <div class="row d-flex justify-content-center">
+        {{#.}}
+        {{#posts}}
+        <div class="col-lg-6 col-md-6 col-sm-11 ">
 
-        <div class="card">
-          <!-- |encabezado|  -->
-          <div class="card-header">
-            <div class="row d-flex align-items-center">
+          <div class="card">
+            <!-- |encabezado|  -->
+            <div class="card-header">
+              <div class="row d-flex align-items-center">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+
+                  <div class="row d-flex align-items-center">
+                    <div class=" col-lg-4 col-md-4 col-sm-4">
+                      <img src="subidas/{{foro}}.jpg" alt="{{foro}}" id="{{foro}}"
+                        class="avatar avatar-7 fotoForoPost rounded align-self-center">
+
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 ">
+                      <p class="card-text text-start align-self-center">{{foroNombre}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- |imagen|  -->
+            <div class="row">
               <div class="col-lg-12 col-md-12 col-sm-12">
+                <img src="subidasPost/{{id}}.jpg" id="{{id}}" alt="{{id}}" class="card-img-top rounded">
+              </div>
+            </div>
 
-                <div class="row d-flex align-items-center">
-                  <div class=" col-lg-5 col-md-5 col-sm-5">
-                    <img src="subidas/{{foro}}.jpg" alt="{{foro}}" id="{{foro}}"
-                      class="avatar avatar-7 fotoForoPost rounded">
-
-                  </div>
-                  <div class="col-lg-7 col-md-7 col-sm-7 ">
-                    <p class="card-text text-start">{{foroNombre}}</p>
+            <!-- |contenido|  -->
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card-body">
+                  <h5 class="card-title">{{nombre}}</h5>
+                  <p class="card-text">{{descripcion}}</p>
+                  <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-11">
+                      <button class="btn btn-outline-primary boton_post_foro" type="button" id="{{foro}}">Ir al Foro</a>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-11">
+                      <button class="btn btn-outline-primary boton_ver_post" type="button" id="{{id}}">Ver Post</a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- |imagen|  -->
-          <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-              <img src="subidasPost/{{id}}.jpg" id="{{id}}" alt="{{id}}" class="card-img-top rounded">
-            </div>
-          </div>
-
-          <!-- |contenido|  -->
-          <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-              <div class="card-body">
-                <h5 class="card-title">{{nombre}}</h5>
-                <p class="card-text">{{descripcion}}</p>
-                <div class="row">
-                  <div class="col-lg-5 col-md-5 col-sm-11">
-                    <button class="btn btn-outline-primary boton_post_foro" type="button" id="{{foro}}">Ir al Foro</a>
-                  </div>
-                  <div class="col-lg-5 col-md-5 col-sm-11">
-                    <button class="btn btn-outline-primary boton_ver_post" type="button" id="{{id}}">Ver Post</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
 
+          </div>
         </div>
+        {{/posts}}
+        {{/.}}
       </div>
-      {{/posts}}
-      {{/.}}
     </div>
   </div>
   </div>

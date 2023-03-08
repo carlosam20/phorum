@@ -82,7 +82,8 @@
               <div class="row justify-content-center ">
                 <div class="col-lg-8 col-md-8 col-sm-8">
                   <textarea type="text" name="descripcion" class="form-control form-control-lg"
-                    placeholder="Descripcion" id="descripcion"  pattern="^.{1,300}$" title="Solo se admiten de 1 a 300 caracteres"/></textarea><br>
+                    placeholder="Descripcion" id="descripcion" pattern="^.{1,300}$"
+                    title="Solo se admiten de 1 a 300 caracteres" /></textarea><br>
                 </div>
               </div>
               <div class="row justify-content-center ">
@@ -117,7 +118,7 @@
               <div class="card">
                 <div class="row">
                   <div class="col-lg-12 col-md-12 col-sm-12>
-                  <a class="boton_ver_post" type="button" id="{{id}}">
+                  <a class=" boton_ver_post" type="button" id="{{id}}">
                     <div class="card-header">
                       <img src="subidas/{{foro}}.jpg" id="{{foro}}" class="avatar avatar-7" alt="{{nombreForo}}">
                       <p class="card-text">{{nombreForo}}</p>
@@ -125,28 +126,28 @@
 
                     <div class="row">
                       <div class="col-lg-12 col-md-12 col-sm-12">
-                        <img src="subidasPost/{{id}}.jpg" id="{{id}}" class=" card-img-top" alt="{{nombre}}">
-                        <img hidden="true" src="" class="card-img-top" />
-                      </div>
+                        <div class="card-img-top">
+                          <img src="subidasPost/{{id}}.jpg" id="{{id}}" class="rounded" alt="{{nombre}}">
+                        </div>
                     </div>
-
-                    <div class="card-body">
-                      <h5 class="card-title">{{nombre}}</h5>
-                      <p class="card-text">{{descripcion}}</p>
-                      <button class="btn btn-primary boton_ver_post " type="button" id="{{id}}">Ver Post</button>
-                    </div>
-                    </a>
                   </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{nombre}}</h5>
+                    <p class="card-text">{{descripcion}}</p>
+                    <button class="btn btn-primary boton_ver_post " type="button" id="{{id}}">Ver Post</button>
+                  </div>
+                  </a>
                 </div>
               </div>
             </div>
-            {{/posts}}
-            {{/.}}
           </div>
+          {{/posts}}
+          {{/.}}
         </div>
       </div>
-
     </div>
+
+  </div>
 
   </div>
 
