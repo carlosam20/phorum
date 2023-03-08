@@ -1,8 +1,6 @@
 package serviciosWEB.identificado;
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -142,6 +140,8 @@ public class ServicioWebPosts {
 		Map<String, Object> usuario = servicioUsuarios.obtenerUsuarioPorId(Long.parseLong(String.valueOf(u.getId())));
 		postResult.put("idUsuario", usuario.get("id"));
 		postResult.put("usuario", usuario.get("nombre"));
+		Date fechaPost= (Date) postResult.get("fechaCreacion");
+		postResult.put("fechaCreacion", FechaParaUsuario.parseoDeFecha(fechaPost));
 
 		// Añadimos los datos del usuario en concreto al comentario realizado por él
 		// mismo
@@ -155,19 +155,11 @@ public class ServicioWebPosts {
 
 		for (int i = 0; i < comentariosResults.size(); i++) {
 
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			Date fechaUsuarioCreado;
-			try {
-				fechaUsuarioCreado = sdf.parse((String) comentariosResults.get(i).get("fechaCreacion"));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				return new ResponseEntity<String>("error en formato de fecha", HttpStatus.INTERNAL_SERVER_ERROR);
-
-			}
-
+			Date fechaComentarioUsuario= (Date) comentariosResults.get(i).get("fechaCreacion");
+			comentariosResults.get(i).put("fechaCreacionComentario", FechaParaUsuario.parseoDeFecha(fechaComentarioUsuario));
+			
 			comentariosResults.get(i).keySet().remove("usuario");
-			comentariosResults.get(i).put("fechaCreacionComentario",
-					FechaParaUsuario.parseoDeFecha(fechaUsuarioCreado));
+	
 			comentariosResults.get(i).keySet().remove("fechaCreacion");
 			comentariosResults.get(i).put("idComentario", comentariosResults.get(i).get("id"));
 			comentariosResults.get(i).keySet().remove("id");

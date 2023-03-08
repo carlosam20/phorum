@@ -10,5 +10,7 @@ module.exports = {
         "ecmaVersion": "latest"
     },
     "rules": {
+        "semi": [1, "always"],
+        "quotes": [2, "double", { "avoidEscape": true }]
     }
 }

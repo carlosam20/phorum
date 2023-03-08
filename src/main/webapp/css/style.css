@@ -513,6 +513,9 @@ body.cargando .spinner {
     height: 12vw;
     object-fit: cover;
 }
+.card-header{
+    background-color: var(--secondaryFocus);
+}
 
 .botonMovilOpciones {
     text-decoration: none;

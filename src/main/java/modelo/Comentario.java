@@ -19,7 +19,7 @@ public class Comentario {
     @Id	
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    @Pattern(regexp ="/^[\\w\\s\\d,.<>áéíóúÁÉÍÓÚñÑüÜ]{1,200}+$/u\n"
+    @Pattern(regexp ="^.{1,60}$"
     		+ "", message="El comentario no es correcto:"
     				+ "Se pueden introducir guiones bajos, puntos, comas, espacios en blanco, numeros, acentos y mayúsculas y minúsculas")
     @Length(min=1, max=200)

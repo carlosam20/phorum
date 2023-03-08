@@ -72,9 +72,12 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-
-          <form id="form_registro_comentario">
-
+          {{#.}}
+          {{#post}}
+          <form id="{{id}}" class="form_registro_comentario">
+            {{/post}}
+            {{/.}}
+            
             <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1 ">
               <div class="col-lg-8 col-md-8 col-sm-8">
                 <input type="text" name="textoComentario" class="form-control form-control-lg" placeholder="Escribe tu comentario"
@@ -83,7 +86,7 @@
 
               <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
                 <div class="col-lg-8 col-md-8 col-sm-8">
-                  <input class="btn btn-primary" type="submit" value="Comentar" />
+                  <input class="btn btn-primary boton_comentar" type="submit" value="Comentar" />
                 </div>
               </div>
             </div>
@@ -105,7 +108,7 @@
         <div class="col-lg-11 justify-content-center d-flex m-3">
           <div class="card">
             <div class="card-header">
-              <div class="row">
+              <div class="row d-flex align-items-center">
                 <div class="col-lg-3 col-md-3 col-sm-3">
                   <div class="perfilContenedor">
                     <img class="img-fluid rounded" src="subidasUsuario/{{idUsuario}}.jpg"
@@ -115,8 +118,8 @@
                 <div class="col-lg-3 col-md-3 col-sm-3">
                   <h4 class="card-text">{{usuario}}</h4>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3" id="fechaCreacionPost">
-                  <p class="card-text">{{fechaCreacion}}</p>
+                <div class="col-lg-6 col-md-6 col-sm-6" id="fechaCreacionPost">
+                  <p class="card-text">Creado hace: {{fechaCreacion}}</p>
                 </div>
               </div>
             </div>

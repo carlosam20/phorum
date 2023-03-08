@@ -129,7 +129,6 @@ public class ServicioWebUsuarios {
 		
 		//Eliminar comentarios de post del usuario
 		
-		
 		List<Map<String, Object>> postHechosPorUsuario = servicioPosts.obtenerPostsPorIdUsuario(u.getId());
 	
 		for (int i = 0; i < postHechosPorUsuario.size(); i++) {
