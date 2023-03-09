@@ -83,38 +83,4 @@ public class ServicioWebForos {
 		return new ResponseEntity<String>(json, HttpStatus.OK);
 	}
 
-	@RequestMapping("registrarForo")
-	public ResponseEntity<String> registrarForo(@RequestParam Map<String, Object> formData,
-			@RequestParam("foto") CommonsMultipartFile foto, HttpServletRequest request) {
-		String respuesta = "";
-		System.out.println("--------" + formData);
-
-		Gson gson = new Gson();
-		JsonElement json = gson.toJsonTree(formData);
-
-		System.out.println("--------" + json);
-		Foro f = gson.fromJson(json, Foro.class);
-		System.out.println("foro a registrar: " + f.toString());
-		
-		//Eliminamos la hora del guardado de fecha
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.setTime(f.getFechaCreacion());
-	    calendar.set(Calendar.HOUR_OF_DAY, 0);
-	    calendar.set(Calendar.MINUTE, 0);
-	    calendar.set(Calendar.SECOND, 0);
-	    calendar.set(Calendar.MILLISECOND, 0);
-	    
-	    f.setFechaCreacion(calendar.getTime());
-		servicioForos.registrarForo(f);
-
-		// tras hacer un registro con hibernate, hibernate asigna a este usuario la id
-		// del
-		// registro en la tabla de la base de datos
-		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
-		GestorArchivos.guardarImagenForo(f, rutaRealDelProyecto, foto);
-		respuesta = "ok";
-
-		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
-	}
-
 }

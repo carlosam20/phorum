@@ -353,9 +353,7 @@ const registrarForo = () => {
     const nombre = $("#nombre").val();
     const descripcion = $("#descripcion").val();
 
-    if (validarNombreForo(nombre) && validarDescripcionForo(descripcion)) {
-      alert("todo ok, mandando informacion al servicio web...");
-
+    if (validarNombreForo(nombre) && validarForoDescripcion(descripcion)) {
       // vamos a usar FormData para mandar el form al servicio web
       const formulario = document.forms[0];
       const formData = new FormData(formulario);
@@ -368,10 +366,9 @@ const registrarForo = () => {
         processData: false,
         success: function (res) {
           if (res === "ok") {
-            alert("registrado correctamente");
-
+            swal("", "Se ha creado correctamente", "success");
             $("#crearForoModal").modal("hide");
-            obtenerListadoForos();
+            obtenerListadoForosIdentificado();
           } else {
             swal(res, "Foro no valido", "error");
             alert("Foro no valido");

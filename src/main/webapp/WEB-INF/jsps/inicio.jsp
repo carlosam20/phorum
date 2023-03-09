@@ -52,9 +52,6 @@
                                     <a class="nav-link m-2" id="enlace_logout" aria-current="page" href="#">Cerrar
                                         Sesi&oacuten</a>
                                 </li>
-                            </ul>
-
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
                                 <li class="nav-item m-2">
                                     <a class="nav-link" id="enlace_identificarme" aria-current="page">Iniciar
                                         Sesi&oacuten</button>
@@ -68,6 +65,8 @@
                                         iniciada</p>
                                 </li>
                             </ul>
+
+                 
                         </div>
 
 

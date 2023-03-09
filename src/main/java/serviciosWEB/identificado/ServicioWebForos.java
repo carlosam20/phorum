@@ -3,11 +3,13 @@ package serviciosWEB.identificado;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,6 +65,12 @@ public class ServicioWebForos {
 		System.out.println("--------" + json);
 		Foro f = gson.fromJson(json, Foro.class);
 		System.out.println("Foro a registrar " + f.toString());
+		
+		//Recogemos la fecha actual
+		LocalDate currentDate = LocalDate.now();
+		Date formattedDate = currentDate.toDate();
+		f.setFechaCreacion(formattedDate);
+		
 		servicioForos.registrarForo(f);
 
 		// tras hacer un registro con hibernate, hibernate asigna a este foro la id del
