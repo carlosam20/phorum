@@ -12,6 +12,9 @@
                 href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
             <link rel="stylesheet" href="css/style.css">
+
+            <!-- icons -->
+
         </head>
 
 
@@ -19,54 +22,52 @@
 
             <!--Navbar -->
             <div class="barraNavegacion">
-                <nav class="navbar navbar-expand-lg navbar-dark">
+                <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
                     <div class="container-fluid">
 
-                        <div class="navbar-brand" href="#">
+                        <div class="navbar-brand">
                             <img src="images/logo-phorum.svg" id="logo-nav">
                         </div>
 
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="material-symbols-outlined">menu</span>
-                        </button>
+                        <i class="fa-solid fa-bars fa-2xl collapsed" class=" navbar-toggler" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler"
+                            aria-expanded="false" aria-label="Toggle navigation" id="menuIcon"></i>
 
-                        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <div class="collapse navbar-collapse mx-auto" id="navbarToggler">
+                            <ul class="navbar-nav d-flex justify-content-evenly">
                                 <li class="nav-item">
-                                    <a class="nav-link m-2" id="enlace_home" aria-current="page" href="#">Home</a>
+                                    <a class="nav-link m-2" id="enlace_home" aria-current="page">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link m-2" id="enlace_perfil" aria-current="page" href="#">Perfil</a>
+                                    <a class="nav-link m-2" id="enlace_perfil" aria-current="page">Perfil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link m-2" id="enlace_listado_foros" aria-current="page"
-                                        href="#">Foros</a>
+                                    <a class="nav-link m-2" id="enlace_listado_foros" aria-current="page">Foros</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link m-2" id="enlace_listado_posts" aria-current="page"
-                                        href="#">Posts</a>
+                                    <a class="nav-link m-2" id="enlace_listado_posts" aria-current="page">Posts</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link m-2" id="enlace_logout" aria-current="page" href="#">Cerrar
+                                    <a class="nav-link m-2" id="enlace_logout" aria-current="page">Cerrar
                                         Sesi&oacuten</a>
-                                </li>
-                                <li class="nav-item m-2">
-                                    <a class="nav-link" id="enlace_identificarme" aria-current="page">Iniciar
-                                        Sesi&oacuten</button>
-                                </li>
-
-                                <li class="nav-item m-2">
-                                    <a class="nav-link" id="enlace_registrarme" aria-current="page">Registrar</a>
-                                </li>
-                                <li class="nav-item m-2">
-                                    <p class="nav-link" id="mensaje_login" aria-current="page">Sesi&oacuten no
-                                        iniciada</p>
                                 </li>
                             </ul>
 
-                 
+                            <ul class="navbar-nav d-flex justify-content-center">
+                                <li class="nav-item">
+                                    <a class="nav-link m-2" id="enlace_identificarme" aria-current="page">Iniciar
+                                        Sesi&oacuten</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link m-2" id="enlace_registrarme"
+                                        aria-current="page">Registrar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link m-2" id="mensaje_login" aria-current="page">Sesi&oacuten no
+                                        iniciada</a>
+                                </li>
+                            </ul>
+
                         </div>
 
 
@@ -131,13 +132,13 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
                 crossorigin="anonymous"></script>
+            <script src="https://kit.fontawesome.com/485aa9f350.js" crossorigin="anonymous"></script>
             <script type="text/javascript" src="librerias_javascript/jquery.js"></script>
             <script type="text/javascript" src="librerias_javascript/mustache.js"></script>
             <script type="text/javascript" src="librerias_javascript/js.cookie.min.js"></script>
-            <!-- <script type="module" src="js/cargarPlantillas.js"></script> -->
             <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
             <script type="text/javascript" src="js/validaciones.js"></script>
-            <script src="https://kit.fontawesome.com/485aa9f350.js" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="js/navbarIcono.js"></script>
             <script type="text/javascript" src="js/main.js"></script>
 
 

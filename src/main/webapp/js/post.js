@@ -37,7 +37,7 @@ dislikeDOM.addEventListener("click", function () {
   }
 });
 
-//funciones likes y dislikes
+// funciones likes y dislikes
 const darLike = () => {
   likeDOM.classList.add("fa-bounce");
   setTimeout(() => {
