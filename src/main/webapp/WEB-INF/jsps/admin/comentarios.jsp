@@ -49,8 +49,8 @@
 <div class="card mx-auto " style="width: 32rem;" >
 
   <div class="card-body">
-    <h5 class="card-title">${comentario.textoComentario}  ${comentario.fechaCreacion }</h5>
-    <p class="card-text">Descripcion</p>
+    <h5 class="card-title"> ${comentario.id } ${comentario.fechaCreacion }</h5>
+    <p class="card-text">${comentario.textoComentario} </p>
   </div>
   
   <ul class="list-group list-group-flush">
@@ -62,7 +62,7 @@
   
   <div class="card-body">
   <a href="editarComentario?id=${comentario.id}" class="card-link" >Editar</a>
-	<a href="borrarComentario?id=${comentario.id}" onclick="return confirm(Estas seguro?)">Borrar</a> 
+	<a href="borrarComentario?id=${comentario.id}" onclick="">Borrar</a> 
   </div>
 </div>
 </c:forEach>

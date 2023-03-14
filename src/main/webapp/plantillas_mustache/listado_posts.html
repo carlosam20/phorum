@@ -13,52 +13,35 @@
 
 <body>
 
-  <div class="listadoPosts d-grid gap-2">
+  <div class="listadoPosts  d-grid gap-2">
 
+    <!-- Perfil foro -->
     {{#.}}
     {{#foro}}
     <div class="foroInfo">
       <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12 d-grid gap-2">
-          <div class="row">
-            <div class="col-lg-8 col-md-8 col-sm-12">
-              <img src="subidas/{{id}}.jpg" id="{{foro}}" class="card-img-top" alt="{{nombre}}">
+        <div class="col-lg-3 col-md-3 col-sm-12 d-grid gap-2">
+          <div class="row bgGlass m-2">
+            <div class="col-lg-12 col-md-12 col-sm-6 d-flex justify-content-start p-1">
+              <img src="subidas/{{id}}.jpg" id="{{nombre}}" class="imagenForo" alt="{{nombre}}">
             </div>
           </div>
-          <div class="row">
-            <h4 class="text-start m-1">Creado hace {{fechaCreacion}}</h4>
+          <div class="row mx-auto mb-1">
+            <h5 class="text-start" id="fechaCreacion">Creado hace {{fechaCreacion}}</h4>
           </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 d-grid gap-2">
-          <div class="row">
-            <h3 class="text-start m-1">Posts de {{nombre}}</h3>
-          </div>
-          <div class="row">
-            <p>{{descripcion}}</p>
+        <div class="col-lg-9 col-md-9 col-sm-12  d-lg-flex justify-content-start">
+          <div class="row mx-auto">
+            <div class="col-lg-12 col-md-12 col-sm-12 bgGlass">
+              <h3 class="text-start" id="nombreForo">Posts de {{nombre}}</h3>
+              <span class="text-start">{{descripcion}}</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
     {{/foro}}
     {{/.}}
-
-
-
-    <div class="row text-start">
-      <!-- Botón del Modal -->
-      <div class="col-lg-12 col-md-12 col-sm-12">
-        {{#.}}
-        {{#foro}}
-        <button type="button" class="enlacePost btn btn-primary" id="{{id}}" data-bs-toggle="modal"
-          data-bs-target="#crearPostModal">
-          {{/foro}}
-          {{/.}}
-          Crear Post
-        </button>
-      </div>
-    </div>
-
-
 
     <!-- Modal -->
     <div class="modal " id="crearPostModal" tabindex="-1" aria-labelledby="crearPostModal" aria-hidden="true">
@@ -105,49 +88,81 @@
       </div>
     </div>
 
-
-
-    <!--Listado posts-->
-    <div class="recomendacionesPosts">
-      <div class="row justify-content-center d-grid gap-2">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-          <div class="row">
-            {{#.}}
-            {{#posts}}
-            <div class="col-lg-6 col-md-6 col-sm-12">
-              <div class="card">
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12>
-                  <a class=" boton_ver_post" type="button" id="{{id}}">
-                    <div class="card-header">
-                      <img src="subidas/{{foro}}.jpg" id="{{foro}}" class="avatar avatar-7" alt="{{nombreForo}}">
-                      <p class="card-text">{{nombreForo}}</p>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="card-img-top">
-                          <img src="subidasPost/{{id}}.jpg" id="{{id}}" class="rounded" alt="{{nombre}}">
-                        </div>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">{{nombre}}</h5>
-                    <p class="card-text">{{descripcion}}</p>
-                    <button class="btn btn-primary boton_ver_post " type="button" id="{{id}}">Ver Post</button>
-                  </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          {{/posts}}
+    <div class="row text-start">
+      <!-- Botón del Modal -->
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        {{#.}}
+        {{#foro}}
+        <button type="button" class="enlacePost btn btn-primary" id="{{id}}" data-bs-toggle="modal"
+          data-bs-target="#crearPostModal">
+          {{/foro}}
           {{/.}}
-        </div>
+          Crear Post
+        </button>
       </div>
     </div>
 
-  </div>
+
+
+
+
+
+    <!--Listado posts-->
+    <div class="recomendacionesPosts text-center">
+      <div class="row d-flex justify-content-evenly ">
+        {{#.}}
+        {{#posts}}
+        <div class="col-lg-5 col-md-5 col-sm-12 mb-lg-3 mb-md-3 mb-sm-3 mx-auto boton_ver_post">
+
+          <div class="card">
+            <!-- |encabezado|  -->
+            <div class="card-header">
+              <div class="row d-flex align-items-center">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+
+                  <div class="row d-flex flex-row align-items-center">
+                    <div class="col-lg-3 col-md-3 col-sm-12 d-sm-flex justify-content-center ">
+                      <img src="subidas/{{foro}}.jpg" alt="{{foro}}" id="{{foro}}"
+                        class="avatar avatar-6 rounded d-flex align-self-center text-lg-right text-md-right">
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-12 text-lg-start text-md-start">
+                      <p class="card-text">{{nombreForo}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- |imagen|  -->
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <img src="subidasPost/{{id}}.jpg" id="imagenForo" alt="{{id}}" class="rounded">
+              </div>
+            </div>
+
+            <!-- |contenido|  -->
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card-body">
+                  <h5 class="card-title text-start">{{nombre}}</h5>
+                  <p class="card-text text-start">{{descripcion}}</p>
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 mb-sm-1">
+                      <button class="btn btn-primary boton_ver_post" type="button" id="{{id}}">Ver Post</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        {{/posts}}
+        {{/.}}
+      </div>
+    </div>
+
 
   </div>
 

@@ -59,8 +59,7 @@
                                         Sesi&oacuten</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link m-2" id="enlace_registrarme"
-                                        aria-current="page">Registrar</a>
+                                    <a class="nav-link m-2" id="enlace_registrarme" aria-current="page">Registrar</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link m-2" id="mensaje_login" aria-current="page">Sesi&oacuten no
@@ -84,43 +83,53 @@
             <!-- Foooter -->
             <div class="footer-menu">
 
-                <div class="row footer-bg">
-                    <div class="row m-1">
-                        <div class="col-lg-10 col-md-10 col-sm-10 justify-content-left m-1">
-                            <div><img class="logo-footer" src="images/logo-phorum.svg" alt="logo-phorum" srcset="">
+                <div class="row m-1">
+                    <div class="col-lg-12 col-md-12 col-sm-12 justify-content-left m-1">
+                        <img class="logo-footer" src="images/logo-phorum.svg" alt="logo-phorum" srcset="">
+                    </div>
+                </div>
+
+                <div class="row m-1 footer-bg">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 ">
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-4 ">
+                                <ul class="list-group list-footer">
+                                    <li class="list-group-item list-footer-item"><a class="text-light"
+                                            id="enlace_home">Home</a>
+                                    </li>
+                                    <li class="list-group-item list-footer-item"><a class="text-light"
+                                            id="enlace_perfil">Perfil</a></li>
+                                    <li class="list-group-item list-footer-item"><a class="text-light"
+                                            id="enlace_listado_posts">Posts</a></li>
+                                    <li class="list-group-item list-footer-item"><a class="text-light"
+                                            id="enlace_listado_foros">Foros</a></li>
+                                    <li class="list-group-item list-footer-item"><a class="text-light"
+                                            id="enlace_logout">Cerrar
+                                            Sesi&oacuten</a></li>
+                                </ul>
                             </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-0  footer-imagen justify-content-center">
+                                <img class="imagen-footer" src="images/footer-team.png" alt="footer equipo" />
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                <ul class="list-group list-footer">
+                                    <li class="list-group-item list-footer-item"><a class="text-light"
+                                            id="enlace_identificarme">Iniciar Sesi&oacuten</a></li>
+                                    <li class="list-group-item list-footer-item"><a class="text-light"
+                                            id="enlace_registrarme">Registrarse</a></li>
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-sm-2  footer-enlaces">
 
-                        <ul class="list-group list-footer">
-                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_home">Home</a>
-                            </li>
-                            <li class="list-group-item list-footer-item"><a class="text-light"
-                                    id="enlace_perfil">Perfil</a></li>
-                            <li class="list-group-item list-footer-item"><a class="text-light"
-                                    id="enlace_listado_posts">Posts</a></li>
-                            <li class="list-group-item list-footer-item"><a class="text-light"
-                                    id="enlace_listado_foros">Foros</a></li>
-                            <li class="list-group-item list-footer-item"><a class="text-light" id="enlace_logout">Cerrar
-                                    Sesi&oacuten</a></li>
-                        </ul>
 
-                    </div>
 
-                    <div class="col-lg-3 col-sm-3  footer-enlaces">
-                        <ul class="list-group m-2">
-                            <li class="list-group-item list-footer-item"><a class="text-light"
-                                    id="enlace_identificarme">Iniciar Sesi&oacuten</a></li>
-                            <li class="list-group-item list-footer-item"><a class="text-light"
-                                    id="enlace_registrarme">Registrarse</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-4 col-sm-4  footer-imagen justify-content-center">
-                        <img class="imagen-footer" src="images/footer-team.png" alt="footer equipo" />
-                    </div>
 
                 </div>
 

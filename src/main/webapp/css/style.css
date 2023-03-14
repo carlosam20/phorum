@@ -537,14 +537,14 @@ input {
     #menuIcon {
         visibility: visible;
     }
-    /* #menuIcon:active {
+     #menuIcon:active {
         transform: translateY(6px);
         transition: 200ms;
     }
     #menuIcon:focus {
         transform: translateY(-6px);
         transition: 200ms;
-    } */
+    } 
 
 }
 
@@ -574,12 +574,12 @@ input {
     #menuIcon {
         visibility: visible;
     }
-    /* #menuIcon:active {
+    #menuIcon:active {
         transform: translateY(6px);
         transition: 200ms;
     }
     #menuIcon:focus {
         transform: translateY(-6px);
         transition: 200ms;
-    } */
+    } 
 }

@@ -688,7 +688,7 @@ const logout = () => {
   $.ajax("servicioWebUsuarios/logout", {
     success: function (res) {
       if (res === "ok") {
-        swal("Sesi&aocuten cerrada", "Operaci&aocuten completada", "success");
+        swal("Sesión cerrada", "Operación completada", "success");
         $("#mensaje_login").html("");
         setTimeout(() => {
           location.reload();
