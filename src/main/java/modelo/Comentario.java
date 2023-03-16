@@ -30,9 +30,11 @@ public class Comentario {
     @JoinColumn(name = "postComentario")
     private Post postComentario;
     
-    @DateTimeFormat(pattern = "yyyy-mm-DD")
+    @NotEmpty(message="La fecha no puede ser nula o vacía")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaCreacion;
 
+    
     @ManyToOne(cascade = {CascadeType.MERGE}, targetEntity = Usuario.class, optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario")
     private Usuario usuario;
