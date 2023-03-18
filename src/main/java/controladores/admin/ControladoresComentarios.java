@@ -44,19 +44,18 @@ public class ControladoresComentarios {
 	
 	
 	@RequestMapping("listarComentarios")
-	public String listarComentarios(@RequestParam(defaultValue = "")String nombre, Integer comienzo, Model model) {
+	public String listarComentarios(@RequestParam(defaultValue = "")String comentario, Integer comienzo, Model model) {
 		
 		int comienzo_int = 0;
 		if (comienzo != null) {
 			comienzo_int = comienzo.intValue();
 		}
 		
-		model.addAttribute("info", servicioComentarios.obtenerComentarios(nombre, comienzo_int));
-		
+		model.addAttribute("info", servicioComentarios.obtenerComentarios(comentario, comienzo_int));
 		model.addAttribute("siguiente", comienzo_int+10);
 		model.addAttribute("anterior", comienzo_int-10);
-		model.addAttribute("total", servicioComentarios.obtenerTotalDeComentarios(nombre));
-		model.addAttribute("nombre", nombre);
+		model.addAttribute("total", servicioComentarios.obtenerTotalDeComentarios(comentario));
+		model.addAttribute("nombre", comentario);
 		
 		return "admin/comentarios";
 	}

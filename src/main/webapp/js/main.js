@@ -14,46 +14,54 @@ let plantillaRegistrarUsuario = "";
 let plantillaEditarUsuario = "";
 let plantillaPerfil = "";
 
+const baseURL = "http://localhost:8080/phorum/";
+
 // Se inician al principio
-const cargarPlantillasDelServidor = () => {
-  $.get("plantillas_mustache/post.html", (data) => {
-    plantillaListarPostYComentarios = data;
-  });
-  $.get("plantillas_mustache/home.html", (data) => {
-    plantillaHome = data;
-  });
-  $.get("plantillas_mustache/listado_foros.html", (data) => {
-    plantillaListarForos = data;
-  });
-  $.get("plantillas_mustache/listado_foros_busqueda.html", (data) => {
-    plantillaListarForosBusqueda = data;
-  });
-  $.get("plantillas_mustache/listado_foros_identificado.html", (data) => {
-    plantillaListarForosIdentificado = data;
-  });
-  $.get("plantillas_mustache/listado_posts.html", (data) => {
-    plantillaListarPosts = data;
-  });
-  $.get("plantillas_mustache/listado_posts_populares.html", (data) => {
-    plantillaListarPostsPopulares = data;
-  });
-  $.get("plantillas_mustache/registrar_usuario.html", (data) => {
-    plantillaRegistrarUsuario = data;
-  });
-  $.get("plantillas_mustache/editar_usuario.html", (data) => {
-    plantillaEditarUsuario = data;
-  });
-  $.get("plantillas_mustache/login.html", (data) => {
-    plantillaLogin = data;
-  });
-  $.get("plantillas_mustache/perfil.html", (data) => {
-    plantillaPerfil = data;
-  });
-  $.get("plantillas_mustache/perfil.html", (data) => {
-    plantillaPerfilUsuarioComentario = data;
-  });
-};
 cargarPlantillasDelServidor();
+
+const pushStatePagina = (url) => {
+  const stateObj = { url: baseURL + url };
+  window.history.pushState(stateObj, url, url);
+};// introduce en la navegación el estado actual
+
+const popStateMenu = (estado, id) => {
+  // recogemos el estado de la url actual
+  // según su estado cargará una página u otra
+  switch (estado.url) {
+    case inicio:
+      listadoInicio();
+      break;
+    case perfil:
+      perfil();
+      break;
+    case foros:
+      obtenerListadoForos();
+      break;
+    case forosRegistrado:
+      obtenerListadoForosIdentificado();
+      break;
+    case login:
+      mostrarIdentificacionUsuario();
+      break;
+    case registrar:
+      mostrarRegistroUsuario();
+      break;
+    // Se necesita introducir otro parámetro a partir de aquí
+    case post:
+      postYComentarios();
+      break;
+    // url = listado + nombre foro(sacado de quitar el baseURL)
+    case listadoPosts:
+      verPostsDeForo();
+      break;
+    case listadoFollows:
+      listadoFollowsPerfil();
+      break;
+    default:
+      listadoInicio();
+      break;
+  }
+};// retorna al estado anterior
 
 // Cargamos el home
 const listadoInicio = async () => {
@@ -63,6 +71,9 @@ const listadoInicio = async () => {
     let textoHtml = "";
     textoHtml = Mustache.render(plantillaHome, forosYPost);
     $("#contenedor").html(textoHtml);
+
+    const url = "inicio";
+    pushStatePagina(url);
 
     // Ver post de foro
     verPostsDeForo();
@@ -710,6 +721,21 @@ const editarUsuario = () => {
           textoHtml = Mustache.render(plantillaEditarUsuario, info);
           $("#contenedor").html(textoHtml);
 
+          // Navegacion
+          const url = "editarPerfil";
+          const stateObj = { url: baseURL + url };
+          window.history.pushState(stateObj, "profile", url);
+
+          // Renavegacion a perfil
+          window.addEventListener("popstate", function (event) {
+            // If the user navigates back to "perfil", reload the page
+            if (event.state.url === baseURL + "perfil") {
+              perfil();
+            } else if (event.state.url === baseURL + "inicio") {
+              listadoInicio();
+            }
+          });
+
           // Form
           $("#form_editar_usuario").submit(function () {
             const nombre = $("#nombre").val();
@@ -812,6 +838,10 @@ const perfil = () => {
 
       // Ver listado follows
       listadoFollowsPerfil();
+
+      // Add history state
+      const url = "perfil";
+      pushStatePagina(url);
     } // end success Obtener id
   }); // end ajax
 }; // -end perfil-

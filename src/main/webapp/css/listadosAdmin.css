@@ -1,0 +1,29 @@
+:root {
+    --primary: #003F30;
+    --primaryHover: #00140F;
+    --primaryFocus: #439F88;
+
+    --primaryHsl: hsl(166, 100%, 12%);
+    --primaryHover: hsl(165, 100%, 4%);
+    --primaryFocus: hsl(165, 41%, 44%);
+
+    --secondary: #060637;
+    --secondaryHover: #202031;
+    --secondaryFocus: #9C9CD3;
+
+    --footer-color: #002031;
+    --textLightColor: #34403A;
+
+
+    --error: #780B0B;
+    --errorHover: #ac1010;
+    --errorFocus: #f11b1b;
+
+}
+
+.card{
+    border-style: solid !important;
+    border-width: 2px !important;
+    border-color: var(--primary) !important;
+    border-radius: 1em !important;
+}

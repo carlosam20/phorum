@@ -106,7 +106,6 @@ public class ServicioWebForos {
 
 		List<Map<String, Object>> foros = servicioForos.obtenerForosParaListado();
 		
-	
 		for (Map<String, Object> foro : foros) {
 			
 			boolean followExiste = servicioFollow.comprobarExisteFollow(Long.parseLong(String.valueOf(foro.get("id"))), u.getId());
