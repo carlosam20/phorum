@@ -9,6 +9,7 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
       <link rel="stylesheet" href="../css/style.css">
+      <link rel="stylesheet" href="../css/listadosAdmin.css">
     </head>
 
     <body>
@@ -38,9 +39,16 @@
 
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6">
-          <div class="justify-content-start">
-            paginacion: <br>
-            total de comentarios: ${total} <br>
+          <div class=" d-flex justify-content-start">
+            <div class="row d-flex justify-content-start">
+              <div>
+                <p>paginacion:</p>
+              </div>
+              <div>
+                <p>total de comentarios:</p>
+              </div>
+            </div>
+            <div class="badge bg-primary"> ${total}</div>
             <c:if test="${ anterior >= 0 }">
               <a href="listarComentarios?comienzo=${anterior}&comentarioTexto=${comentario.comentarioTexto}"
                 class="btn btn-outline-primary">anterior</a>
@@ -65,21 +73,22 @@
             <div class="col-lg-6 col-md-6 col-sm-6 mx-auto">
               <div class="card">
 
-                <div class="card-body">
+                <div class="card-body ">
                   <h5 class="card-title">Id: ${comentario.id }</h5>
                   <h3 class="card-title">Fecha: ${comentario.fechaCreacion }</h5>
                     <p class="card-text"> Comentario: ${comentario.textoComentario} </p>
                 </div>
 
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush ">
                   <li class="list-group-item">usuario: ${comentario.usuario.nombre} </li>
                   <li class="list-group-item">usuario id: ${comentario.usuario.id} </li>
                   <li class="list-group-item">nombre post: ${comentario.postComentario.nombre}</li>
                   <li class="list-group-item">post id: ${comentario.postComentario.id}</li>
                 </ul>
 
-                <div class="card-body">
-                  <a class="btn btn-outline-primary" href="editarComentario?id=${comentario.id}" class="card-link">Editar</a>
+                <div class="card-body ">
+                  <a class="btn btn-outline-primary" href="editarComentario?id=${comentario.id}"
+                    class="card-link">Editar</a>
                   <a class="btn btn-outline-danger" href="borrarComentario?id=${comentario.id}" onclick="">Borrar</a>
                 </div>
               </div>
@@ -88,7 +97,7 @@
 
         </c:forEach>
       </div>
-      
+
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
