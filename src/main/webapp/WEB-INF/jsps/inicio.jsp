@@ -22,7 +22,7 @@
 
             <!--Navbar -->
             <div class="barraNavegacion">
-                <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+                <nav class="navbar navbar-expand-lg navbar-dark">
                     <div class="container-fluid">
 
                         <div class="navbar-brand">
@@ -148,6 +148,7 @@
             <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
             <script type="text/javascript" src="js/validaciones.js"></script>
             <script type="text/javascript" src="js/navbarIcono.js"></script>
+            <script type="text/javascript" src="js/cargarPlantillas.js"></script>
             <script type="text/javascript" src="js/main.js"></script>
 
 
