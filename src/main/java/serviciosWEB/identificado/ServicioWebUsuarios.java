@@ -69,14 +69,15 @@ public class ServicioWebUsuarios {
 	@RequestMapping("obtenerUsuarioComentarioPorId")
 	public ResponseEntity<String> obtenerUsuarioComentarioPorId(String idUsuarioComentario){
 		
+		int numeroForosFollows = servicioFollow.obtenerTotalDeFollowsDeUsuario(Long.parseLong(idUsuarioComentario));
 		int numeroComentarios = servicioComentarios.obtenerTotalDeComentariosDeUsuario(Long.parseLong(idUsuarioComentario));
 		int numeroPost = servicioComentarios.obtenerTotalDeComentariosDeUsuario(Long.parseLong(String.valueOf(idUsuarioComentario)));
 		
 		Map<String,Object> usuario = servicioUsuarios.obtenerUsuarioPorId(Long.parseLong(idUsuarioComentario));
 		
+		usuario.put("numeroForosSeguidos", numeroForosFollows);
 		usuario.put("numeroComentarios", numeroComentarios);
 		usuario.put("numeroPost", numeroPost);		
-	
 		
 		String json = new Gson().toJson(usuario);
 		System.out.println("json: "+json);
