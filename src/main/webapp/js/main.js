@@ -50,6 +50,8 @@ const handleStateChange = (state) => {
       $("#contenedor").html(state.textoHtml);
     } else if (state.url === baseURL + urlPostsForo) {
       $("#contenedor").html(state.textoHtml);
+    } else if (state.url === baseURL + urlListadoFollows) {
+      $("#contenedor").html(state.textoHtml);
     }
     setTimeout(() => {
       popstateFlag = false;
@@ -487,7 +489,6 @@ const obtenerListadoForosIdentificado = () => {
       $("#contenedor").html(textoHtml);
       const stateObj = { url: baseURL + urlForosIdentificado };
       window.history.pushState(stateObj, urlForosIdentificado, baseURL + urlForosIdentificado);
-
       // Dar follow por el usuario
       follow();
 
@@ -512,17 +513,22 @@ const listadoFollowsPerfil = () => {
         let textoHtml = "";
         textoHtml = Mustache.render(plantillaListarForosIdentificado, foros);
         $("#contenedor").html(textoHtml);
+        const stateObj = { url: baseURL + urlListadoFollows };
+        window.history.pushState(stateObj, urlListadoFollows, baseURL + urlListadoFollows);
         // Dar follow por el usuario
         follow();
 
         // Ver Posts de Foro
-        verPostsDeForo(urlListadoFollows);
+        verPostsDeForo();
 
         // Buscar foros
-        busquedaFollowsPerfil(urlListadoFollows);
+        busquedaFollowsPerfil();
 
         // Registro de foros
         registrarForo();
+      },
+      error: (data) => {
+        swal(data, "Error en listado follows de perfil", "error");
       } // ---end success---
     }); // --end ajax--
   });
