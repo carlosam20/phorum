@@ -34,6 +34,7 @@ module.exports = {
     plantillaRegistrarUsuario: true,
     plantillaEditarUsuario: true,
     plantillaPerfil: true,
+    plantillaPerfilUsuarioComentario: true,
     plantillaListarPosts: true,
     plantillaListarPostsPopulares: true
   }

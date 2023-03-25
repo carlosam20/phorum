@@ -131,8 +131,7 @@ const registrarComentarioPost = () => {
 const verPerfilDeComentario = () => {
   // Ver Perfil del usuario que comento
   $(".boton_ver_perfil").click((e) => {
-    const idUsuarioComentario = $(this).attr("id");
-
+    const idUsuarioComentario = $(e.currentTarget).attr("id");
     $.ajax(
       "identificado/servicioWebUsuarios/obtenerUsuarioComentarioPorId?idUsuarioComentario=" +
       idUsuarioComentario,
@@ -142,9 +141,11 @@ const verPerfilDeComentario = () => {
           alert("recibido: " + res);
           const info = JSON.parse(res);
           let textoHtml = "";
-
-          textoHtml = Mustache.render(plantillaPerfil, info);
+          textoHtml = Mustache.render(plantillaPerfilUsuarioComentario, info);
           $("#contenedor").html(textoHtml);
+        },
+        error: (res) => {
+          swal(res, "Error en ver perfil comentario", "error");
         }
       }
     );

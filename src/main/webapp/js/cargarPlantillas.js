@@ -34,7 +34,7 @@ const cargarPlantillasDelServidor = () => {
   $.get("plantillas_mustache/perfil.html", (data) => {
     plantillaPerfil = data;
   });
-  $.get("plantillas_mustache/perfil.html", (data) => {
+  $.get("plantillas_mustache/perfil_de_comentario.html", (data) => {
     plantillaPerfilUsuarioComentario = data;
   });
 };
