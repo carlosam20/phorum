@@ -150,8 +150,6 @@
             <script type="text/javascript" src="js/navbarIcono.js"></script>
             <script type="text/javascript" src="js/cargarPlantillas.js"></script>
             <script type="text/javascript" src="js/main.js"></script>
-
-
         </body>
 
         </html>
