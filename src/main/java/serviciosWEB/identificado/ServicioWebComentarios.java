@@ -1,9 +1,7 @@
 package serviciosWEB.identificado;
 
-
-
-import java.util.Calendar;
 import java.util.Date;
+import org.joda.time.LocalDate;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,16 +48,12 @@ public class ServicioWebComentarios {
 		Comentario c = gson.fromJson(json, Comentario.class);
 		c.setIdPostComentario(servicioPosts.obtenerPostPorId(Long.parseLong(idPost)).getId());
 		c.setIdUsuario(u.getId());
+		
 		//Recogemos la fecha actual en el formato adecuado
-		Date currentDate = Calendar.getInstance().getTime();
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.setTime(currentDate);
-	    calendar.set(Calendar.HOUR_OF_DAY, 0);
-	    calendar.set(Calendar.MINUTE, 0);
-	    calendar.set(Calendar.SECOND, 0);
-	    calendar.set(Calendar.MILLISECOND, 0);
+		LocalDate currentDate = LocalDate.now();
+		Date formattedDate = currentDate.toDate();
+        c.setFechaCreacion(formattedDate); 
         
-        c.setFechaCreacion(currentDate); 
 		servicioComentarios.registrarComentario(c);
 	
 		respuesta = "ok";

@@ -116,14 +116,12 @@ const registrarComentarioPost = () => {
         processData: false,
         success: function (res) {
           if (res === "ok") {
-            alert(res);
-
-            verPostYComentarios();
-          } else {
-            alert(res);
+            window.location.reload();
           }
-        }
-        // end Success Registrar Comentario
+        }, // end Success Registrar Comentario
+        error: (res) => {
+          swal("", "Error al registrar comentario", "error");
+        }// end Error
       }
     ); // end Registrar Comentarios
     e.preventDefault();
@@ -408,15 +406,17 @@ const registrarForo = () => {
         cache: false,
         contentType: false,
         processData: false,
-        success: function () {
+        success: function (res) {
+          if (res === "ok") {
+            swal("", "Se ha creado correctamente", "success");
+            $("#crearForoModal").modal("hide");
+          }
         },
         error: (res) => {
           swal(res, "Error al registrar", "error");
         },
         complete: (res) => {
           if (res === "ok") {
-            swal("", "Se ha creado correctamente", "success");
-            $("#crearForoModal").modal("hide");
             obtenerListadoForosIdentificado();
           }
         }
@@ -487,7 +487,10 @@ const obtenerListadoForosIdentificado = () => {
       let textoHtml = "";
       textoHtml = Mustache.render(plantillaListarForosIdentificado, foros);
       $("#contenedor").html(textoHtml);
-      const stateObj = { url: baseURL + urlForosIdentificado };
+      const stateObj = {
+        url: baseURL + urlForosIdentificado,
+        textoHtml: Mustache.render(plantillaListarForosIdentificado, foros)
+      };
       window.history.pushState(stateObj, urlForosIdentificado, baseURL + urlForosIdentificado);
       // Dar follow por el usuario
       follow();

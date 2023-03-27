@@ -30,8 +30,8 @@ public class Comentario {
     @JoinColumn(name = "postComentario")
     private Post postComentario;
     
-    @NotEmpty(message="La fecha no puede ser nula o vacía")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
     private Date fechaCreacion;
 
     

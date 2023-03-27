@@ -11,8 +11,6 @@
 
   <div class="row m-3">
     <div class="col-11-lg col-11-md col-10-sm">
-      <button class="btn btn-primary" onclick="window.history.go(-1)">Volver</button>
-
       <!-- Botón del Modal -->
       <button type="submit" class=" btn btn-primary enlace_crear_foro  " data-bs-toggle="modal"
         data-bs-target="#crearForoModal">
@@ -86,7 +84,7 @@
 
       {{#.}}
       <li class="list-group-item  flex-column align-items-center m-1">
-        <div class="d-flex w-100 justify-content-around align-items-center">
+        <div class="d-flex w-100 justify-content-evenly align-items-center">
           <img class="avatar avatar-8" src="subidas/{{id}}.jpg" id="{{id}}" alt="{{nombre}}">
           <h5 class="nombre text-start m-1">{{nombre}}</h5>
           <p class="descripcion text-start  m-1">{{descripcion}}</p>
