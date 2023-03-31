@@ -299,7 +299,19 @@ const verPostYComentarios = () => {
           textoHtml:
             Mustache.render(
               plantillaListarPostYComentarios,
-              postYComentarios
+              postYComentarios, () => {
+                // Comentario en post
+                registrarComentarioPost();
+
+                // Ver perfil de comentario
+                verPerfilDeComentario();
+
+                // Crear valoración y poner like
+                valoracionLike(idPost);
+
+                // Crear valoración y poner dislike
+                valoracionDislike(idPost);
+              }
             )
         };
         window.history.pushState(stateObj, urlPostYComentarios, baseURL + urlPostYComentarios);
@@ -445,7 +457,12 @@ const verPostsDeForo = () => {
         const stateObj = {
           url: baseURL + urlPostsForo,
           textoHtml:
-            Mustache.render(plantillaListarPosts, posts)
+            Mustache.render(plantillaListarPosts, posts, () => {
+              // Registrar post
+              registrarPost();
+              // Ver post y comentarios
+              verPostYComentarios(id);
+            })
         };
         window.history.pushState(stateObj, urlPostsForo, baseURL + urlPostsForo);
         // Registrar post
@@ -470,18 +487,27 @@ const obtenerListadoForos = () => {
 
       const stateObj = {
         url: baseURL + urlForos,
-        textoHtml: textoHtml = Mustache.render(plantillaListarForos, foros)
+        textoHtml: textoHtml = Mustache.render(plantillaListarForos, foros, () => {
+          // Ver Posts de Foro
+          verPostsDeForo();
+
+          // Buscar foros
+          busquedaForos();
+
+          // Registro de foros
+          registrarForo();
+        })
       };
       window.history.pushState(stateObj, urlForos, baseURL + urlForos);
 
       // Ver Posts de Foro
-      verPostsDeForo(urlForos);
+      verPostsDeForo();
 
       // Buscar foros
-      busquedaForos(urlForos);
+      busquedaForos();
 
       // Registro de foros
-      registrarForo(urlForos);
+      registrarForo();
     } // ---end success---
   }); // --end ajax--
 }; // -end obtener_listado-
@@ -495,7 +521,19 @@ const obtenerListadoForosIdentificado = () => {
       $("#contenedor").html(textoHtml);
       const stateObj = {
         url: baseURL + urlForosIdentificado,
-        textoHtml: Mustache.render(plantillaListarForosIdentificado, foros)
+        textoHtml: Mustache.render(plantillaListarForosIdentificado, foros, () => {
+          // Dar follow por el usuario
+          follow();
+
+          // Ver Posts de Foro
+          verPostsDeForo();
+
+          // Buscar foros
+          busquedaForos();
+
+          // Registro de foros
+          registrarForo();
+        })
       };
       window.history.pushState(stateObj, urlForosIdentificado, baseURL + urlForosIdentificado);
       // Dar follow por el usuario
@@ -520,7 +558,16 @@ const listadoFollowsPerfil = () => {
         alert("recibido: " + data);
         const foros = JSON.parse(data);
         let textoHtml = "";
-        textoHtml = Mustache.render(plantillaListarForosIdentificado, foros);
+        textoHtml = Mustache.render(plantillaListarForosIdentificado, foros, () => {
+          // Ver Posts de Foro
+          verPostsDeForo();
+
+          // Buscar foros
+          busquedaFollowsPerfil();
+
+          // Registro de foros
+          registrarForo();
+        });
         $("#contenedor").html(textoHtml);
         const stateObj = { url: baseURL + urlListadoFollows };
         window.history.pushState(stateObj, urlListadoFollows, baseURL + urlListadoFollows);
@@ -616,7 +663,10 @@ const obtenerListadoPostsPopulares = () => {
 
       const stateObj = {
         url: baseURL + urlPosts,
-        textoHtml: Mustache.render(plantillaListarPostsPopulares, posts)
+        textoHtml: Mustache.render(plantillaListarPostsPopulares, posts, () => {
+          verPostYComentarios();
+          registrarPost();
+        })
       };
 
       window.history.pushState(stateObj, urlPosts, baseURL + urlPosts);
@@ -913,7 +963,15 @@ const perfil = () => {
       $("#contenedor").html(textoHtml);
       const stateObj = {
         url: baseURL + urlPerfil,
-        textoHtml: Mustache.render(plantillaPerfil, info)
+        textoHtml: Mustache.render(plantillaPerfil, info, () => {
+          // Editar usuario
+          editarUsuario();
+          // Borrar usuario
+          borrarUsuario();
+
+          // Ver listado follows
+          listadoFollowsPerfil();
+        })
       };
       window.history.pushState(stateObj, urlPerfil, baseURL + urlPerfil);
 
