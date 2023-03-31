@@ -10,9 +10,6 @@ const cargarPlantillasDelServidor = () => {
   $.get("plantillas_mustache/listado_foros.html", (data) => {
     plantillaListarForos = data;
   });
-  $.get("plantillas_mustache/listado_foros_busqueda.html", (data) => {
-    plantillaListarForosBusqueda = data;
-  });
   $.get("plantillas_mustache/listado_foros_identificado.html", (data) => {
     plantillaListarForosIdentificado = data;
   });

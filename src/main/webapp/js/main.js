@@ -79,7 +79,13 @@ const listadoInicio = () => {
 
       const stateObj = {
         url: baseURL,
-        textoHtml: Mustache.render(plantillaHome, forosYPost)
+        textoHtml: Mustache.render(plantillaHome, forosYPost, () => {
+          // Ver post de foro
+          verPostsDeForo();
+
+          // Ver post y comentarios
+          verPostYComentarios();
+        })
       };
       window.history.replaceState(stateObj, baseURL, baseURL);
     },

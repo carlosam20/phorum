@@ -1,74 +1,115 @@
+.foros {
+  margin: 5%;
+}
 
+.fa-magnifying-glass {
+  color: white;
+}
 
-  .fa-magnifying-glass{
-    color: white;
-  }
+.form-inline {
+  display: flex;
+  border-radius: 1rem;
+  background-color: #fff;
+}
 
-  .form-inline {
-    display: flex;
-    border-radius: 1rem;
-    background-color: #fff;
-  }
-  
+.descripcion {
+  /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px; */
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.nombre {
+  /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; */
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.form-control {
+  border-right: none;
+  border-left: 1px, solid, black;
+  border-top: 1px, solid, black;
+  border-bottom: 1px, solid, black;
+
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-top-right-radius: none;
+  border-bottom-right-radius: none;
+
+  background-color: transparent;
+  color: black;
+  padding: 1rem 1.4rem 1rem 2.5rem;
+}
+
+.form-control:hover {
+  border-color: #003F30;
+}
+
+#boton-buscar {
+  border: 0;
+  border-right: 1px, solid, black;
+  border-top: 1px, solid, black;
+  border-bottom: 1px, solid, black;
+  border-left: 1px, solid, #060637;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding: 0.45rem 1.2rem 0.45rem 1.1rem;
+}
+
+#boton-buscar:active {
+  background-color: white;
+}
+
+.list-group-item {
+  border-radius: 1em;
+}
+.boton_post_foro{
+  padding: 0.4em 0.5em;
+}
+
+@media only screen and (max-width: 425px) {
+
   .form-control {
-    border-right: none;
-    border-left: 1px, solid, black;
-    border-top: 1px, solid, black;
-    border-bottom: 1px, solid, black;
-
-    border-top-left-radius: 1rem;
-    border-bottom-left-radius: 1rem;
-    border-top-right-radius: none;
-    border-bottom-right-radius: none;
-    
-    background-color: transparent;
-    color: black;
-    padding: 1rem 1.4rem 1rem 2.5rem;
-  }
-
-  .form-control:hover {
-    border-color: #003F30;
+    padding: 0.5rem 1.0rem 0.6rem 1.8rem;
   }
 
   #boton-buscar {
-    border: 0;
-    border-right: 1px, solid, black;
-    border-top: 1px, solid, black;
-    border-bottom: 1px, solid, black;
-    border-left: 1px, solid, #060637;
-    border-top-right-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-    padding: 0.45rem 1.2rem 0.45rem 1.1rem;
-  }
-  
-  #boton-buscar:active {
-    background-color: white;
+    padding: 0.20rem 0.8rem 0.21rem 0.7rem;
   }
 
-  .list-group-item{
-    border-radius: 1em;
+  .descripcion {
+    display: none;
   }
-  
-
-  
-
-  @media only screen and (max-width: 425px) {
-
-    .form-control{
-      padding: 0.5rem 1.0rem 0.6rem 1.8rem;
-    }
-    #boton-buscar{
-      padding: 0.20rem 0.8rem 0.21rem 0.7rem;
-    }
+  #boton_del_foro{
+    display: none;
   }
-  
-  @media only screen and (max-width: 768px) {
-    .form-control{
-      padding: 0.8rem 1.2rem 0.8rem 2.3rem;
-    }
-    #boton-buscar{
-      padding: 0.25rem 1.0rem 0.25rem 0.9rem;
-    }
+}
+
+@media only screen and (max-width: 768px) {
+  .form-control {
+    padding: 0.8rem 1.2rem 0.8rem 2.3rem;
   }
-  
-  
+
+  #boton-buscar {
+    padding: 0.25rem 1.0rem 0.25rem 0.9rem;
+  }
+
+  .descripcion {
+    display: none;
+  }
+  .descripcion {
+    display: none;
+  }
+  #boton_del_foro{
+    display: none;
+  }
+}
