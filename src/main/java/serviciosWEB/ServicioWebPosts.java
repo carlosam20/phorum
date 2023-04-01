@@ -3,7 +3,8 @@ package serviciosWEB;
 
 
 import java.util.ArrayList;
-import java.util.Calendar;
+
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,19 +18,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import modelo.Post;
-import modelo.Valoracion;
 import parseo.FechaParaUsuario;
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
-import utilidadesArchivos.GestorArchivos;
 
 @Controller
 @RequestMapping("servicioWebPosts/")
@@ -47,6 +42,15 @@ public class ServicioWebPosts {
 		List<Map<String, Object>> idsPostsTop3 = servicioPosts.obtenerPostsConMasValoraciones();
 		List<Map<String, Object>> infoPostsTop3 = new ArrayList<Map<String, Object>>();
 
+		if(idsPostsTop3.isEmpty() || idsPostsTop3.equals(null)) {
+			
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if(infoPostsTop3.isEmpty() || infoPostsTop3.equals(null)) {
+			
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 		for (int i = 0; i < idsPostsTop3.size(); i++) {
 			
 			Post post = servicioPosts.obtenerPostPorId(Long.parseLong(String.valueOf(idsPostsTop3.get(i).get("post"))));
@@ -74,6 +78,14 @@ public class ServicioWebPosts {
 		List<Map<String, Object>> postsForo = servicioPosts.obtenerPostPorForoId(Long.parseLong(id));
 		Map<String, Object> foroInfo = servicioForos.obtenerForoPorIdEnMap(Long.parseLong(id));
 		
+		if(postsForo.isEmpty() || postsForo.equals(null)) {
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		if(foroInfo.isEmpty() || foroInfo.equals(null)) {
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 		for (int i = 0; i < postsForo.size(); i++) {
 			postsForo.get(i).put("nombreForo", foroInfo.get("nombre"));
 		}
@@ -94,42 +106,5 @@ public class ServicioWebPosts {
 
 		System.out.println("DatosPostYComentarios"+datos);
 		return new ResponseEntity<String>(datos, HttpStatus.OK);
-	}
-
-	@RequestMapping("registrarPosts")
-	public ResponseEntity<String> registrarPost(String idForo, String idUsuario,
-			@RequestParam Map<String, Object> formData, @RequestParam("foto") CommonsMultipartFile foto,
-			HttpServletRequest request) {
-		String respuesta = "";
-		System.out.println("--------" + formData);
-		Gson gson = new Gson();
-		JsonElement json = gson.toJsonTree(formData);
-
-		System.out.println("--------" + json);
-		Post p = gson.fromJson(json, Post.class);
-		p.setIdForo(Long.parseLong(idForo));
-		p.setIdUsuario(Long.parseLong(idUsuario));
-		
-
-		// Post Valoraciones
-		List<Valoracion> postValoraciones = new ArrayList<Valoracion>();
-		p.setPostValoraciones(postValoraciones);
-		Date currentDate = Calendar.getInstance().getTime();
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.setTime(currentDate);
-	    calendar.set(Calendar.HOUR_OF_DAY, 0);
-	    calendar.set(Calendar.MINUTE, 0);
-	    calendar.set(Calendar.SECOND, 0);
-	    calendar.set(Calendar.MILLISECOND, 0);
-        
-        p.setFechaCreacion(currentDate); 
-		// tras hacer un registro con hibernate, hibernate asigna a este usuario la id
-		// del
-		// registro en la tabla de la base de datos
-		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
-		GestorArchivos.guardarImagenPost(p, rutaRealDelProyecto, foto);
-		respuesta = "ok";
-
-		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
 	}
 }

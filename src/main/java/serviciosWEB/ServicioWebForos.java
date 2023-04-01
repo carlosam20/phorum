@@ -14,7 +14,6 @@ import com.google.gson.JsonObject;
 import servicios.ServicioForos;
 import servicios.ServicioPosts;
 
-
 @Controller
 @RequestMapping("servicioWebForos/")
 public class ServicioWebForos {
@@ -27,7 +26,12 @@ public class ServicioWebForos {
 
 	@RequestMapping("obtenerForosDeNombreIntroducido")
 	public ResponseEntity<String> obtenerForosDeNombreIntroducido(String nombreForo, HttpServletRequest request) {
-		String json = new Gson().toJson(servicioForos.obtenerForosParaListadoBusquedaForo(nombreForo));
+
+		List<Map<String, Object>> listadoForos = servicioForos.obtenerForosParaListadoBusquedaForo(nombreForo);
+		if (listadoForos.isEmpty() || listadoForos.equals(null)) {
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		String json = new Gson().toJson(listadoForos);
 		return new ResponseEntity<String>(json, HttpStatus.OK);
 
 	}
@@ -35,6 +39,9 @@ public class ServicioWebForos {
 	@RequestMapping("obtenerForos")
 	public ResponseEntity<String> obtenerForos() {
 		List<Map<String, Object>> foros = servicioForos.obtenerForosParaListado();
+		if (foros.isEmpty() || foros.equals(null)) {
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		String json = new Gson().toJson(foros);
 		return new ResponseEntity<String>(json, HttpStatus.OK);
 
@@ -46,25 +53,29 @@ public class ServicioWebForos {
 		List<Map<String, Object>> postsResults = servicioPosts.obtenerPostsParaListadoAleatorio();
 		Gson gson = new Gson();
 
-			//Añadimos el nombre del foro a los resultados de los posts
-		if(postsResults.size() != 0 || !postsResults.isEmpty()) {
-			for(int i =0 ; i < postsResults.size(); i++) {
-				Map<String, Object> postForo = servicioForos.obtenerForoPorIdEnMap(Long.parseLong(String.valueOf(postsResults.get(i).get("foro"))));	
-				postsResults.get(i).put("foroNombre", String.valueOf(postForo.get("nombre")));
-			}
+		// Añadimos el nombre del foro a los resultados de los posts
+		if (forosResults.isEmpty() || forosResults.equals(null)) {
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		
+		if (postsResults.isEmpty() || postsResults.equals(null)) {
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		for (int i = 0; i < postsResults.size(); i++) {
+			Map<String, Object> postForo = servicioForos
+					.obtenerForoPorIdEnMap(Long.parseLong(String.valueOf(postsResults.get(i).get("foro"))));
+			postsResults.get(i).put("foroNombre", String.valueOf(postForo.get("nombre")));
+		}
+
 		JsonArray forosArray = gson.toJsonTree(forosResults).getAsJsonArray();
 		JsonArray postsArray = gson.toJsonTree(postsResults).getAsJsonArray();
-		
-		
+
 		JsonObject combinacionDatos = new JsonObject();
 		combinacionDatos.add("foros", forosArray);
 		combinacionDatos.add("posts", postsArray);
-		
+
 		String json = combinacionDatos.toString();
-		
+
 		System.out.println(json);
 		return new ResponseEntity<String>(json, HttpStatus.OK);
 	}

@@ -4,6 +4,7 @@ package controladores.admin;
 
 
 import java.util.Calendar;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import modelo.Foro;
-import modelo.Usuario;
 import servicios.ServicioForos;
 import utilidadesArchivos.GestorArchivos;
 
