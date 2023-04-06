@@ -28,20 +28,21 @@ public class Usuario  {
     @Pattern(regexp = "^.{1,60}$", message="Los nombres solo admiten letras, numeros y espacios")
     private String nombre;
     @NotBlank(message = "Introduce una contraseña")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$",  message="La contraseñas tienen que ser de 8 a 60 caracteres e incluir una mayúscula, un número y un caracter especial al menos")
     private String pass;
     
     @Email
-    @Pattern(regexp = "^[a-zA-Z]+@[a-zA-Z]+\\.[a-zA-Z]{3,254}+$", message="El email debe contener '@', '.' y al menos 10 caracteres")
-    @Length(min=3, max=254)
-    @Column(length = 254)
+    @Pattern(regexp = "^[a-zA-Z]+@[a-zA-Z]+\\.[a-zA-Z]{3,255}+$", message="El email debe contener '@', '.' /n Al menos 10 caracteres "
+    		+ "/n y una longitud de 3 a 255 caracteres")
+    @Length(min=3, max=255)
+    @Column(length = 255)
     @NotEmpty(message = "Introduce un email")	
     private String email;
     
     
 
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @FutureOrPresent (message = "La fecha tiene que ser actual o posterior")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")	
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
     

@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Pattern;
 
 
@@ -38,7 +39,7 @@ public class Post {
     @Length(min=1, max=300)
     private String descripcion;
  
-    
+    @FutureOrPresent (message = "La fecha tiene que ser actual o posterior")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;

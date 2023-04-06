@@ -721,51 +721,27 @@ const mostrarRegistroUsuario = () => {
   };
   window.history.pushState(stateObj, urlRegistrar, baseURL + urlRegistrar);
   $("#form_registro_usuario").submit(function (e) {
-    const nombre = $("#nombre").val();
-    const email = $("#email").val();
-    const pass = $("#pass").val();
-
-    if (validarNombre(nombre)) {
-      if (validarEmail(email)) {
-        if (validarPass(pass)) {
-          const formulario = document.forms[0];
-          const formData = new FormData(formulario);
-          $.ajax("servicioWebUsuarios/registrarUsuario", {
-            type: "POST",
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (res) {
-              if (res === "ok") {
-                swal(
-                  "El registro se ha realizado de forma correcta",
-                  "Realizado",
-                  "success"
-                );
-              } else {
-                swal(
-                  "El registro se ha realizado de forma incorrecta",
-                  "Error",
-                  "error"
-                );
-              }
-            }
-          });
-        } else {
-          swal(
-            "La cotrase&ntildea introducida no es correcto",
-            "Error",
-            "error"
-          );
-        } // endIfPass
-      } else {
-        swal("El email introducido no es correcto", "Error", "error");
+    const formulario = document.forms[0];
+    const formData = new FormData(formulario);
+    $.ajax("servicioWebUsuarios/registrarUsuario", {
+      type: "POST",
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (res) {
+        alert("success:" + res);
+        swal(
+          "El registro se ha realizado de forma correcta",
+          "Realizado",
+          "success"
+        );
+      },
+      error: function (res) {
+        console.log(res); // Log the entire XMLHttpRequest object to the console
+        swal("Error al registrar", res.responseText, "error"); // Display the error message in the swal dialog
       }
-    } else {
-      swal("El nombre introducido no es correcto", "Error", "error");
-    }
-
+    });
     e.preventDefault();
   });
 }; // -end registro usuario-

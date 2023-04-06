@@ -1,6 +1,7 @@
 package serviciosWEB;
 
 import java.util.Calendar;
+
 import java.util.Date;
 import java.util.Map;
 
@@ -11,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -22,6 +22,7 @@ import com.google.gson.JsonElement;
 import modelo.Usuario;
 import servicios.ServicioUsuarios;
 import utilidadesArchivos.GestorArchivos;
+import validacionObjetos.ParValidacion;
 import validaciones.ValidacionesImpl;
 
 @Controller
@@ -38,7 +39,7 @@ public class ServicioWebUsuarios {
 		// Hay que realizar una comprobación de que no se duplica el Usuario aqui y
 		// devolver duplicado si ocurre
 
-		String respuesta = "";
+		
 		Gson gson = new Gson();
 
 		JsonElement json = gson.toJsonTree(formData);
@@ -63,19 +64,18 @@ public class ServicioWebUsuarios {
 		
 		BeanPropertyBindingResult bp = new BeanPropertyBindingResult(u, "usuario");
 
-		Map<Boolean, String> resultadoValidacion =  ValidacionesImpl.validarUsuario(u,bp);
+		ParValidacion resultadoValidacion =  ValidacionesImpl.validarUsuario(u,bp);
 		
 		
-		if(resultadoValidacion.get(true) != null) {
+		if(resultadoValidacion.getResultado() == true) {
 			servicioUsuarios.registrarUsuario(u);
 			String rutaRealDelProyecto = request.getServletContext().getRealPath("");
 			//Guardado de Imagen
 			GestorArchivos.guardarFotoUsuario(u, rutaRealDelProyecto, foto);
-			respuesta = resultadoValidacion.get("ok");
-			return new ResponseEntity<String>(respuesta, HttpStatus.OK);
+			
+			return new ResponseEntity<String>(resultadoValidacion.getRespuesta(), HttpStatus.OK);
 		}else {
-			respuesta = "Error en registro del usuario";
-			return new ResponseEntity<String>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>(resultadoValidacion.getRespuesta(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}

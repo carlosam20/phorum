@@ -10,12 +10,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/spring-test-5.2.9.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kikuy/Downloads/mockito-inline-5.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kikuy/Downloads/objenesis-3.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kikuy/Downloads/byte-buddy-1.14.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kikuy/Downloads/byte-buddy-agent-1.14.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kikuy/Downloads/mockito-junit-jupiter-5.1.1 (1).jar"/>
-	<classpathentry kind="lib" path="C:/Users/kikuy/Downloads/mockito-core-5.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kikuy/Desktop/Eclipse y Tomcat/validation-api-2.0.1.Final.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

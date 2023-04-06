@@ -1,113 +1,176 @@
 package validaciones;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
 import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.BindingResult;
 import modelo.Comentario;
 import modelo.Follow;
 import modelo.Foro;
 import modelo.Post;
 import modelo.Usuario;
 import modelo.Valoracion;
+import validacionObjetos.ParValidacion;
 
 public class ValidacionesImpl {
 
-	public static Map<Boolean, String> validarUsuario(@Valid Usuario usuario, BeanPropertyBindingResult  bp) {
+	public static ParValidacion validarUsuario(@Valid Usuario usuario, BeanPropertyBindingResult bp) {
 
-		Map<Boolean, String> validacion = new HashMap<Boolean, String>();
-		String respuesta = null;
+		// Perform validation and error checks
+		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+		Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);
+		ParValidacion validacion = new ParValidacion(false, null);
+		String respuesta = "";
 
-		if (bp.hasFieldErrors()) {
-			for (int i = 0; i < bp.getFieldErrors().size(); i++) {
-				respuesta = respuesta + System.lineSeparator() + bp.getFieldErrors().get(i);
-			}
-			validacion.put(false, respuesta);
+		for (ConstraintViolation<Usuario> violation : violations) {
+			String propertyPath = violation.getPropertyPath().toString();
+			String mensaje = violation.getMessage();
+			bp.rejectValue(propertyPath, "", mensaje);
+			respuesta += mensaje + System.lineSeparator() + System.lineSeparator();
+		}
+
+		if (bp.hasErrors()) {
+			validacion.setResultado(false);
+			validacion.setRespuesta(respuesta);
 			return validacion;
 		}
-		validacion.put(true, "ok");
+
+		validacion.setResultado(true);
+		validacion.setRespuesta("ok");
 		return validacion;
 	}
 
-	public static Map<Boolean, String> validarForo(@Valid Foro foro, BindingResult br) {
+	public static ParValidacion validarForo(@Valid Foro foro, BeanPropertyBindingResult bp) {
 
-		Map<Boolean, String> validacion = new HashMap<Boolean, String>();
-		String respuesta = null;
+		// Perform validation and error checks
+		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+		Set<ConstraintViolation<Foro>> violations = validator.validate(foro);
+		ParValidacion validacion = new ParValidacion(false, null);
+		String respuesta = "";
 
-		if (br.hasFieldErrors()) {
-			for (int i = 0; i < br.getFieldErrors().size(); i++) {
-				respuesta = respuesta + System.lineSeparator() + br.getFieldErrors().get(i);
-			}
-			validacion.put(false, respuesta);
+		for (ConstraintViolation<Foro> violation : violations) {
+			String propertyPath = violation.getPropertyPath().toString();
+			String mensaje = violation.getMessage();
+			bp.rejectValue(propertyPath, "", mensaje);
+			respuesta += mensaje + System.lineSeparator() + System.lineSeparator();
+		}
+
+		if (bp.hasErrors()) {
+			validacion.setResultado(false);
+			validacion.setRespuesta(respuesta);
 			return validacion;
 		}
-		validacion.put(true, "ok");
+
+		validacion.setResultado(true);
+		validacion.setRespuesta("ok");
 		return validacion;
 	}
 
-	public static Map<Boolean, String> validarPost(@Valid Post post, BindingResult br) {
+	public static ParValidacion validarPost(@Valid Post post, BeanPropertyBindingResult bp) {
 
-		Map<Boolean, String> validacion = new HashMap<Boolean, String>();
-		String respuesta = null;
+		// Perform validation and error checks
+		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+		Set<ConstraintViolation<Post>> violations = validator.validate(post);
+		ParValidacion validacion = new ParValidacion(false, null);
+		String respuesta = "";
 
-		if (br.hasFieldErrors()) {
-			for (int i = 0; i < br.getFieldErrors().size(); i++) {
-				respuesta = respuesta + System.lineSeparator() + br.getFieldErrors().get(i);
-			}
-			validacion.put(false, respuesta);
+		for (ConstraintViolation<Post> violation : violations) {
+			String propertyPath = violation.getPropertyPath().toString();
+			String mensaje = violation.getMessage();
+			bp.rejectValue(propertyPath, "", mensaje);
+			respuesta += mensaje + System.lineSeparator() + System.lineSeparator();
+		}
+
+		if (bp.hasErrors()) {
+			validacion.setResultado(false);
+			validacion.setRespuesta(respuesta);
 			return validacion;
 		}
-		validacion.put(true, "ok");
+
+		validacion.setResultado(true);
+		validacion.setRespuesta("ok");
 		return validacion;
 	}
 
-	public static Map<Boolean, String> validarComentario(@Valid Comentario comentario, BindingResult br) {
+	public static ParValidacion validarComentario(@Valid Comentario comentario, BeanPropertyBindingResult bp) {
 
-		Map<Boolean, String> validacion = new HashMap<Boolean, String>();
-		String respuesta = null;
+		// Perform validation and error checks
+		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+		Set<ConstraintViolation<Comentario>> violations = validator.validate(comentario);
+		ParValidacion validacion = new ParValidacion(false, null);
+		String respuesta = "";
 
-		if (br.hasFieldErrors()) {
-			for (int i = 0; i < br.getFieldErrors().size(); i++) {
-				respuesta = respuesta + System.lineSeparator() + br.getFieldErrors().get(i);
-			}
-			validacion.put(false, respuesta);
+		for (ConstraintViolation<Comentario> violation : violations) {
+			String propertyPath = violation.getPropertyPath().toString();
+			String mensaje = violation.getMessage();
+			bp.rejectValue(propertyPath, "", mensaje);
+			respuesta += mensaje + System.lineSeparator() + System.lineSeparator();
+		}
+
+		if (bp.hasErrors()) {
+			validacion.setResultado(false);
+			validacion.setRespuesta(respuesta);
 			return validacion;
 		}
-		validacion.put(true, "ok");
+
+		validacion.setResultado(true);
+		validacion.setRespuesta("ok");
 		return validacion;
 	}
 
-	public Map<Boolean, String> validarFollow(@Valid Follow follow, BindingResult br) {
+	public static ParValidacion validarFollow(@Valid Follow follow, BeanPropertyBindingResult bp) {
 
-		Map<Boolean, String> validacion = new HashMap<Boolean, String>();
-		String respuesta = null;
+		// Perform validation and error checks
+		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+		Set<ConstraintViolation<Follow>> violations = validator.validate(follow);
+		ParValidacion validacion = new ParValidacion(false, null);
+		String respuesta = "";
 
-		if (br.hasFieldErrors()) {
-			for (int i = 0; i < br.getFieldErrors().size(); i++) {
-				respuesta = respuesta + System.lineSeparator() + br.getFieldErrors().get(i);
-			}
-			validacion.put(false, respuesta);
+		for (ConstraintViolation<Follow> violation : violations) {
+			String propertyPath = violation.getPropertyPath().toString();
+			String mensaje = violation.getMessage();
+			bp.rejectValue(propertyPath, "", mensaje);
+			respuesta += mensaje + System.lineSeparator() + System.lineSeparator();
+		}
+
+		if (bp.hasErrors()) {
+			validacion.setResultado(false);
+			validacion.setRespuesta(respuesta);
 			return validacion;
 		}
-		validacion.put(true, "ok");
+
+		validacion.setResultado(true);
+		validacion.setRespuesta("ok");
 		return validacion;
 	}
 
-	public static Map<Boolean, String> validarValoracion(@Valid Valoracion valoracion, BindingResult br) {
+	public static ParValidacion validarValoracion(@Valid Valoracion valoracion, BeanPropertyBindingResult bp) {
 
-		Map<Boolean, String> validacion = new HashMap<Boolean, String>();
-		String respuesta = null;
+		// Perform validation and error checks
+		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+		Set<ConstraintViolation<Valoracion>> violations = validator.validate(valoracion);
+		ParValidacion validacion = new ParValidacion(false, null);
+		String respuesta = "";
 
-		if (br.hasFieldErrors()) {
-			for (int i = 0; i < br.getFieldErrors().size(); i++) {
-				respuesta = respuesta + System.lineSeparator() + br.getFieldErrors().get(i);
-			}
-			validacion.put(false, respuesta);
+		for (ConstraintViolation<Valoracion> violation : violations) {
+			String propertyPath = violation.getPropertyPath().toString();
+			String mensaje = violation.getMessage();
+			bp.rejectValue(propertyPath, "", mensaje);
+			respuesta += mensaje + System.lineSeparator() + System.lineSeparator();
+		}
+
+		if (bp.hasErrors()) {
+			validacion.setResultado(false);
+			validacion.setRespuesta(respuesta);
 			return validacion;
 		}
-		validacion.put(true, "ok");
+
+		validacion.setResultado(true);
+		validacion.setRespuesta("ok");
 		return validacion;
 	}
 

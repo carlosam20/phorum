@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Pattern;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class Foro {
 	@OneToMany(cascade = { CascadeType.MERGE }, mappedBy = "foro")
 	private List<Follow> seguidores;
 
+	@FutureOrPresent (message = "La fecha tiene que ser actual o posterior")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date fechaCreacion;
