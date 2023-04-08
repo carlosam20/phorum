@@ -32,11 +32,10 @@ public class Usuario  {
     private String pass;
     
     @Email
-    @Pattern(regexp = "^[a-zA-Z]+@[a-zA-Z]+\\.[a-zA-Z]{3,255}+$", message="El email debe contener '@', '.' /n Al menos 10 caracteres "
-    		+ "/n y una longitud de 3 a 255 caracteres")
-    @Length(min=3, max=255)
+    @Pattern(regexp = "^[a-zA-Z]+@[a-zA-Z]+\\.[a-zA-Z]{3,255}+$", message="El email debe contener '@', '.'")
+    @Length(min=3, max=255, message="una longitud de 3 a 255 caracteres. ")
     @Column(length = 255)
-    @NotEmpty(message = "Introduce un email")	
+    @NotEmpty(message = "El email no puede estar vacío. ")	
     private String email;
     
     

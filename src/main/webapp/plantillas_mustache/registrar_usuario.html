@@ -10,74 +10,81 @@
 </head>
 
 <body>
-	<div class="row justify-content-center align-items-center contenido">
-		<!-- Imagen y titulo -->
-		<div class="col-5-lg col-5-md col-11-sm" id="imagen_form">
-			<h1 class="display-4 justify-conetent-center">Bienvenido a phorum</h1>
-			<h1 class="display-4 justify-conetent-center">Comienza tu experiencia!</h1>
-			<img class="explora border rounded-top p-3" src="images/registrarse.png" alt="" id="registrarse">
+	<div class="registrar">
+		<div class="row d-flex align-items-center">
+			<!-- Imagen y titulo -->
+			<div class="col-lg-6 col-md-6 col-sm-12 ">
+				<div class="text-start d-flex justify-content-center">
+					<h1 class="text-start">Bienvenido a phorum</h1>
+				</div>
+				<div class="text-start d-flex justify-content-center">
+					<h1 class="text-start">Comienza tu experiencia!</h1>
+				</div>
+				<div class="png-registrarse">
+					<img class="explora" src="images/registrarse.png" alt="registrarse">
+				</div>
+
+			</div>
+			<!--Termina Imagen y titulo-->
+
+			<!--Form-->
+			<div class="col-lg-6 col-md-6 col-sm-11  form">
+
+				<div class="row">
+					<form class="d-grid gap-2" id="form_registro_usuario">
+
+						<div class="row d-flex justify-content-center">
+							<img class="avatar avatar-8 explora" src="images/logo-phorum.svg"
+								alt="logo-phorum" id="logo_phorum">
+						</div>
+
+						<div class="row d-flex justify-content-center ">
+							<div class="col-lg-8 col-md-8 col-sm-8">
+								<input type="text" name="nombre" class="form-control form-control-lg"
+									placeholder="Nombre de Usuario" id="nombre" />
+							</div>
+						</div>
+						<div class="row d-flex justify-content-center ">
+							<div class="col-lg-8 col-md-8 col-sm-8">
+								<input type="text" name="email" class="form-control form-control-lg"
+									placeholder="E-mail" id="email" />
+							</div>
+						</div>
+						<div class="row d-flex justify-content-center ">
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<input id="pass" type="password" class="form-control" placeholder="Contraseña">
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-2">
+								<i class="fa-solid fa-eye" id="ojo-icon"></i>
+							</div>
+						</div>
+
+						<div class="row d-flex justify-content-center">
+							<div class="col-lg-8 col-md-8 col-sm-8">
+								<input type="password" name="pass" class="form-control form-control-lg text-start"
+									placeholder="Contraseña confirmación" id="pass-validacion" />
+							</div>
+						</div>
+
+						<div class="row d-flex justify-content-center ">
+							<div class="col-lg-8 col-md-6">
+								<input class="btn btn-secondary" type="file" name="foto" id="foto"
+									pattern="/^.+\.(png|jpg)$/" /> <br>
+							</div>
+						</div>
+						<div class="row d-flex justify-content-center ">
+							<div class="col-lg-8 col-md-6">
+								<input class="btn btn-primary" id="registrar" type="submit" value="Registrarme" />
+							</div>
+						</div>
+
+					</form>
+				</div>
+
+			</div> <!--Termina Formulario-->
 		</div>
-		<!--Termina Imagen y titulo-->
-
-		<!--Form-->
-		<div class="col-6-lg col-6-md col-11-sm " id="form">
-
-			<div class="row">
-				<button class="btn btn-primary justify-content-left m-3">Volver</button>
-			</div>
-
-			<div class="row justify-content-center">
-				<img class="avatar avatar-8 explora border rounded-top" src="images/logo-phorum.svg" alt="logo-phorum"
-					id="logo_phorum">
-			</div>
-			<div class="row">
-				<form id="form_registro_usuario">
-
-					<div class="row justify-content-center ">
-						<div class="col-lg-8 col-md-6">
-							<input type="text" name="nombre" class="form-control form-control-lg"
-								placeholder="Nombre de Usuario" id="nombre" />
-						</div>
-					</div>
-					<div class="row justify-content-center ">
-						<div class="col-lg-8 col-md-6">
-							<input type="text" name="email" class="form-control form-control-lg" placeholder="E-mail"
-								id="email"/>
-						</div>
-					</div>
-					<div class="row justify-content-center ">
-						<div class="col-lg 8 col-md-8 col-sm-8">
-							<input id="pass" type="password" class="form-control" placeholder="Contraseña">
-						  </div>
-						  <div class="col-lg-4 col-md-4 col-sm-4">
-							<i class="fa-solid fa-eye" id="ojo-icon"></i>
-						  </div>
-					</div>
-
-					<div class="row justify-content-center">
-						<div class="col-lg-8 col-md-6">
-							<input type="password" name="pass" class="form-control form-control-lg"
-								placeholder="Contraseña confirmación" id="pass-validacion" />
-
-						</div>
-					</div>
-
-					<div class="row justify-content-center ">
-						<div class="col-lg-8 col-md-6">
-							<input class="btn btn-secondary" type="file" name="foto" id="foto" pattern="/^.+\.(png|jpg)$/" /> <br>
-						</div>
-					</div>
-					<div class="row justify-content-center ">
-						<div class="col-lg-8 col-md-6">
-							<input class="btn btn-primary" id="registrar" type="submit" value="Registrarme" />
-						</div>
-					</div>
-
-				</form>
-			</div>
-
-		</div> <!--Termina Formulario-->
 	</div>
 </body>
 <script src="js/togglePass.js"></script>
+
 </html>
