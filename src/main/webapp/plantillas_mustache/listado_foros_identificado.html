@@ -65,7 +65,6 @@
     </div>
 
 
-
     <!--Search Bar-->
     <div class="row justify-content-center">
       <div class="col-lg-6 col-md-6 col-sm-5">
@@ -84,22 +83,29 @@
     </div>
 
     <!--Listado foros-->
-    <div class=" row justify-content-center m-1 recomendacionesForos ">
-      <ul class="d-grid gap-1 col-lg-11 col-md-11 col-sm-11 list-group">
-
-        {{#.}}
-        <li class="list-group-item  flex-column align-items-center m-1">
-          <div class="d-inline-flex justify-content-center align-items-center ">
-            <img class="avatar avatar-8" src="subidas/{{id}}.jpg" id="{{id}}" alt="{{nombre}}">
-            <h5 class="nombre text-start">{{nombre}}</h5>
-            <p class="descripcion text-start">{{descripcion}}</p>
-            <a class="follow" id="{{id}}">
-              <i class="fa-regular fa-square-plus fa-2xl" id="{{idFollow}}"></i>
-            </a>
-            <button class="btn btn-secondary boton_post_foro " type="button" id="{{id}}">Ver Foro</button>
-          </div>
-        </li>
-        {{/.}}
+    <div class="row d-flex justify-content-center m-1 recomendacionesForos ">
+      <div class="col-lg-11 col-md-11 col-sm-11 mx-auto">
+        <table class="table mx-auto">
+          <tbody>
+            {{#.}}
+            <tr class="elemento mx-auto boton_post_foro" id="{{id}}">
+              <td colspan="2"><img class="avatar avatar-8" src="subidas/{{id}}.jpg" id="{{id}}" alt="{{nombre}}"></td>
+              <td colspan="1">
+                <h5 class="nombre text-start">{{nombre}}</h5>
+              </td>
+              <td colspan="1"><a class="follow" id="{{id}}">
+                  <i class="fa-regular fa-square-plus fa-2xl" id="{{idFollow}}"></i>
+                </a></td>
+              <td colspan="2">
+                <p class="descripcion mx-auto">{{descripcion}}</p>
+              </td>
+              <td id="boton_del_foro" colspan="1"><button class="btn btn-secondary boton_post_foro " type="button"
+                  id="{{id}}">Ver Foro</button></td>
+            </tr>
+            {{/.}}
+          </tbody>
+        </table>
+      </div>
       </ul>
     </div>
 

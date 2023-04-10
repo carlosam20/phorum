@@ -649,9 +649,11 @@ const darFollow = (idForo) => {
 
 const eliminarFollow = (idForo) => {
   // Se comprueba si hay follow previamente y se elimina si lo hay
-  $.ajax("identificado/servicioWebFollow/eliminarFollow?idForo=" + idForo).fail(
-    swal("Ha fallado la funcion de quitar follow", "Error", "error")
-  ); // --end ajax--
+  $.ajax("identificado/servicioWebFollow/eliminarFollow?idForo=" + idForo, {
+    error: (res) => {
+      swal("Error en eliminar Follow", res, "error");
+    }
+  }); // --end ajax--
 }; // -end eliminar follow-
 
 const obtenerListadoPostsPopulares = () => {
@@ -810,10 +812,10 @@ const logout = () => {
   $.ajax("servicioWebUsuarios/logout", {
     success: function (res) {
       if (res === "ok") {
-        swal("Sesión cerrada", "Operación completada", "success");
+        swal("Sesi&acuteon cerrada", "Operaci&acuteon completada", "success");
         $("#mensaje_login").html("");
         setTimeout(() => {
-          location.reload();
+          listadoInicio();
         }, 2000);
       }
     }

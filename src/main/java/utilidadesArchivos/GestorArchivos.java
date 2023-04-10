@@ -1,12 +1,9 @@
 package utilidadesArchivos;
 
 import java.io.File;
-
 import java.io.IOException;
-
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
 import modelo.Foro;
 import modelo.Post;
 import modelo.Usuario;

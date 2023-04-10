@@ -1,9 +1,6 @@
 package serviciosWEB;
 
-
-
 import java.util.ArrayList;
-
 
 import java.util.Date;
 import java.util.HashMap;
@@ -42,24 +39,24 @@ public class ServicioWebPosts {
 		List<Map<String, Object>> idsPostsTop3 = servicioPosts.obtenerPostsConMasValoraciones();
 		List<Map<String, Object>> infoPostsTop3 = new ArrayList<Map<String, Object>>();
 
-		if(idsPostsTop3.isEmpty() || idsPostsTop3.equals(null)) {
-			
+		if (idsPostsTop3.isEmpty() || idsPostsTop3.equals(null)) {
+
 			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		if(infoPostsTop3.isEmpty() || infoPostsTop3.equals(null)) {
-			
-			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		
+
 		for (int i = 0; i < idsPostsTop3.size(); i++) {
-			
+
 			Post post = servicioPosts.obtenerPostPorId(Long.parseLong(String.valueOf(idsPostsTop3.get(i).get("post"))));
 			Map<String, Object> postMap = new HashMap<String, Object>();
 			postMap.put("id", post.getId());
 			postMap.put("nombre", post.getNombre());
 			infoPostsTop3.add(postMap);
-			
 
+		}
+		
+		if (infoPostsTop3.isEmpty() || infoPostsTop3.equals(null)) {
+
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		JsonObject combinacionDatos = new JsonObject();
@@ -74,37 +71,33 @@ public class ServicioWebPosts {
 
 	@RequestMapping("obtenerPostPorForoId")
 	public ResponseEntity<String> obtenerPost(String id, HttpServletRequest request) {
-		
+
 		List<Map<String, Object>> postsForo = servicioPosts.obtenerPostPorForoId(Long.parseLong(id));
 		Map<String, Object> foroInfo = servicioForos.obtenerForoPorIdEnMap(Long.parseLong(id));
-		
-		if(postsForo.isEmpty() || postsForo.equals(null)) {
+
+		if (postsForo.isEmpty() || postsForo.equals(null)) {
 			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		if(foroInfo.isEmpty() || foroInfo.equals(null)) {
+
+		if (foroInfo.isEmpty() || foroInfo.equals(null)) {
 			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 		for (int i = 0; i < postsForo.size(); i++) {
 			postsForo.get(i).put("nombreForo", foroInfo.get("nombre"));
 		}
-		
-		
-			
-		//Formateo de fecha al String parseado de fecha
+
+		// Formateo de fecha al String parseado de fecha
 		Date fechaPost = (Date) foroInfo.get("fechaCreacion");
 		foroInfo.put("fechaCreacion", FechaParaUsuario.parseoDeFecha(fechaPost));
-		
 
 		JsonObject json = new JsonObject();
 		json.add("posts", new Gson().toJsonTree(postsForo));
 		json.add("foro", new Gson().toJsonTree(foroInfo));
 
-		
 		String datos = json.toString();
 
-		System.out.println("DatosPostYComentarios"+datos);
+		System.out.println("DatosPostYComentarios" + datos);
 		return new ResponseEntity<String>(datos, HttpStatus.OK);
 	}
 }

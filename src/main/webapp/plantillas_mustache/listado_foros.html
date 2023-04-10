@@ -69,15 +69,15 @@
     <div class="row justify-content-center">
       <div class="col-lg-6 col-md-6 col-sm-5">
         <div class="row justify-content-center">
-          <form class="form-inline justify-content-center align-items-center">
+          <div class="form-inline justify-content-center align-items-center input-group mb-3">
             <input class="col-lg-8 col-md-6 col-sm-2 form-control" type="search" placeholder="Search"
-              aria-label="Search" id="inputBuscador" aria-describedby="button-addon2">
+              aria-label="Search" id="inputBuscador" aria-describedby="button-addon">
             <button
               class="boton_buscar col-lg-4 col-sm-4 col-sm-3 btn btn-secondary justify-content-center align-items-center"
-              type="submit" id="button-addon2">
+              type="submit" id="button-addon">
               <div class="fa-regular fa-magnifying-glass"></div>
             </button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
@@ -89,16 +89,16 @@
           <tbody>
             {{#.}}
             <tr class="elemento mx-auto boton_post_foro" id="{{id}}">
-              <td colspan="2" ><img class="avatar avatar-8 mx-auto"
-                  src="subidas/{{id}}.jpg" id="{{id}}" alt="{{nombre}}"></td>
+              <td colspan="2"><img class="avatar avatar-8 mx-auto" src="subidas/{{id}}.jpg" id="{{id}}"
+                  alt="{{nombre}}"></td>
               <td colspan="1">
                 <h5 class="nombre mx-auto">{{nombre}}</h5>
               </td>
               <td colspan="2">
                 <p class="descripcion mx-auto">{{descripcion}}</p>
               </td>
-              <td id="boton_del_foro" colspan="1"><button class="btn btn-secondary boton_post_foro"
-                  type="button" id="{{id}}">Ver Foro</button></td>
+              <td id="boton_del_foro" colspan="1"><button class="btn btn-secondary boton_post_foro" type="button"
+                  id="{{id}}">Ver Foro</button></td>
             </tr>
             {{/.}}
           </tbody>
