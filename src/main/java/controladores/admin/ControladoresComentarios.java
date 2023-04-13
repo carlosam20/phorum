@@ -53,6 +53,7 @@ public class ControladoresComentarios {
 		}
 		
 		model.addAttribute("info", servicioComentarios.obtenerComentarios(comentario, comienzo_int));
+		
 		model.addAttribute("siguiente", comienzo_int+10);
 		model.addAttribute("anterior", comienzo_int-10);
 		model.addAttribute("total", servicioComentarios.obtenerTotalDeComentarios(comentario));

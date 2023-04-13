@@ -15,7 +15,7 @@ public interface ServicioFollow {
 
 	List<Follow> obtenerFollows(long id, int comienzo);
 
-	int obtenerTotalDeFollows(long id);
+	int obtenerTotalDeFollows();
 
 	int obtenerTotalDeFollowsDeUsuario(long id);
 

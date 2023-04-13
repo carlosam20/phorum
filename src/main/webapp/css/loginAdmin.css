@@ -1,3 +1,12 @@
-#logo-phorum{
+.loginAdmin {
+   margin: 1%;
+}
+
+#logo-phorum {
    background-color: #202031;
+}
+
+.contenedorFormulario {
+   border-radius: 1em;
+   border: 1px, solid, black;
 }

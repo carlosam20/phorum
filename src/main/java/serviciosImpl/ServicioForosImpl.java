@@ -78,10 +78,8 @@ public class ServicioForosImpl implements ServicioForos {
 		return Integer.parseInt(query.list().get(0).toString());
 	}
 	
-
 	@Override
 	public List<Foro> obtenerForos(String nombre, int comienzo) {
-
 		Criteria c = sessionFactory.getCurrentSession().createCriteria(Foro.class);
 		c.add(Restrictions.like("nombre", "%" + nombre + "%"));
 		c.addOrder(Order.desc("id"));

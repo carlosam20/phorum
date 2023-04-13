@@ -29,16 +29,6 @@ public class ServicioComentariosImpl implements ServicioComentarios{
 	private SessionFactory sessionFactory;
 
 	@Override
-	public List<Map<String, Object>> obtenerComentariosParaListado() {
-		
-		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_OBTENER_COMENTARIOS_PARA_LISTADO);
-		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
-		List<Map<String, Object>> res = query.list();
-		
-		return res;
-	}
-
-	@Override
 	public int obtenerTotalDeComentarios(String textoComentario) {
 		SQLQuery query = sessionFactory.getCurrentSession().
 		createSQLQuery(ConstantesSQL.OBTENER_TOTAL_COMENTARIOS);
@@ -61,7 +51,7 @@ public class ServicioComentariosImpl implements ServicioComentarios{
 	@Override
 	public List<Comentario> obtenerComentarios(String textoComentario, int comienzo) {
 		Criteria c = sessionFactory.getCurrentSession().createCriteria(Comentario.class);
-		c.add(Restrictions.like("textoComentario", "%"+textoComentario+"%"));
+		c.add(Restrictions.like("textoComentario", "%" + textoComentario + "%"));
 		c.addOrder(Order.desc("id"));
 		c.setFirstResult(comienzo);
 		c.setMaxResults(10);

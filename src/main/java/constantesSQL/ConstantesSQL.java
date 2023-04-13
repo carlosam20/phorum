@@ -54,8 +54,8 @@ public class ConstantesSQL {
 	public static final String OBTENER_TOTAL_COMENTARIOS= "select count(id) from comentario where textoComentario like :textoComentario ";
 	public static final String OBTENER_TOTAL_COMENTARIOS_DE_POST= "select count(id) from comentario where postComentario like :postComentario";
 	
-	public static final String OBTENER_TOTAL_VALORACIONES = "select count(id) from valoracion where id like :id";
-	public static final String OBTENER_TOTAL_FOLLOWS = "select count(id) from follow where id like :id";
+	public static final String OBTENER_TOTAL_VALORACIONES = "select count(*) from valoracion";
+	public static final String OBTENER_TOTAL_FOLLOWS = "select count(*) from follow";
 	public static final String OBTENER_TOTAL_FOLLOWS_DE_USUARIO = "select count(id) from follow where usuario like :id";
 	
 	public static final String OBTENER_TOTAL_VALORACIONES_POST_LIKE = "select count(id) from valoracion where post =:idPost AND valor = 1";

@@ -86,11 +86,7 @@ public class ServicioUsuariosImpl implements ServicioUsuarios {
 		return c.list();
 	}
 
-	@Override
-	public List<Map<String, Object>> obtenerUsuariosParaListado() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public Map<String, Object> obtenerUsuarioPorId(long id) {

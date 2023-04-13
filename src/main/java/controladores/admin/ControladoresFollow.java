@@ -46,7 +46,7 @@ public class ControladoresFollow {
 		
 		model.addAttribute("siguiente", comienzo_int+10);
 		model.addAttribute("anterior", comienzo_int-10);
-		model.addAttribute("total", servicioFollow.obtenerTotalDeFollows(Long.parseLong(id)));
+		model.addAttribute("total", servicioFollow.obtenerTotalDeFollows());
 		model.addAttribute("id", id);
 		
 		return "admin/follows";

@@ -12,7 +12,7 @@ public interface ServicioValoracion {
 
 	List<Valoracion> obtenerValoraciones(long id, int comienzo);
 
-	int obtenerTotalValoraciones(long id);
+	int obtenerTotalValoraciones();
 
 	int obtenerTotalValoracionesPostLike(long idPost);
 

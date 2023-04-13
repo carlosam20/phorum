@@ -21,9 +21,19 @@
 
 }
 
-.card{
-    border-style: solid !important;
-    border-width: 2px !important;
-    border-color: var(--primary) !important;
+.card {
+    border: 1px solid black !important;
     border-radius: 1em !important;
+    height: auto !important;
+    max-height: fit-content;
+}
+
+
+.fotoForo {
+    border-radius: 1em;
+    border: 1px solid var(--primary);
+    border-radius: 1em;
+    width: 80%;
+    max-height: 330px;
+
 }

@@ -7,8 +7,6 @@ import modelo.Usuario;
 
 public interface ServicioUsuarios {
 
-	List<Map<String, Object>> obtenerUsuariosParaListado();
-
 	boolean comprobarEmail(String email);
 
 	void registrarUsuario(Usuario u);

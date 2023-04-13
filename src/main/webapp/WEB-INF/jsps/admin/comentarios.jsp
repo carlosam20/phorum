@@ -45,10 +45,9 @@
                 <p>paginacion:</p>
               </div>
               <div>
-                <p>total de comentarios:</p>
+                <p>total de comentarios: ${total}</p>
               </div>
             </div>
-            <div class="badge bg-primary"> ${total}</div>
             <c:if test="${ anterior >= 0 }">
               <a href="listarComentarios?comienzo=${anterior}&comentarioTexto=${comentario.comentarioTexto}"
                 class="btn btn-outline-primary">anterior</a>
@@ -64,16 +63,14 @@
       </div>
 
 
-
-
       <div class="d-grid gap-3">
         <c:forEach var="comentario" items="${info}">
 
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 mx-auto">
+          <div class="row d-flex justify-content-center m-3">
+            <div class="col-lg-6 col-md-6 col-sm-6">
               <div class="card">
 
-                <div class="card-body ">
+                <div class="card-body">
                   <h5 class="card-title">Id: ${comentario.id }</h5>
                   <h3 class="card-title">Fecha: ${comentario.fechaCreacion }</h5>
                     <p class="card-text"> Comentario: ${comentario.textoComentario} </p>

@@ -61,10 +61,9 @@ public class ServicioValoracionImpl implements ServicioValoracion {
 	}
 
 	@Override
-	public int obtenerTotalValoraciones(long id) {
+	public int obtenerTotalValoraciones() {
 
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_TOTAL_VALORACIONES);
-		query.setParameter("id", id);
 		return Integer.parseInt(query.list().get(0).toString());
 	}
 

@@ -8,8 +8,6 @@ import modelo.Comentario;
 
 public interface ServicioComentarios {
 
-	List<Map<String, Object>> obtenerComentariosParaListado();
-
 	int obtenerTotalDeComentariosDeUsuario(long id);
 
 	int obtenerTotalDeComentarios(String textoComentario);
@@ -17,7 +15,7 @@ public interface ServicioComentarios {
 	int obtenerTotalComentariosDePost(long postComentario);
 
 	List<Comentario> obtenerComentarios(String textoComentario, int comienzo);
-
+	
 	Comentario obtenerComentariosPorId(long id);
 
 	List<Map<String, Object>> obtenerComentariosPost(long id);

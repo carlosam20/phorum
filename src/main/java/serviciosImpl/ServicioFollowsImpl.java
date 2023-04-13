@@ -102,12 +102,9 @@ public class ServicioFollowsImpl implements ServicioFollow {
 		c.setMaxResults(10);
 		return c.list();
 	}
-
 	@Override
-	public int obtenerTotalDeFollows(long id) {
-
+	public int obtenerTotalDeFollows() {
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.OBTENER_TOTAL_FOLLOWS);
-		query.setParameter("id", id);
 		return Integer.parseInt(query.list().get(0).toString());
 	}
 	@Override

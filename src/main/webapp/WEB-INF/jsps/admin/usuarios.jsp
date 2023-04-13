@@ -9,6 +9,8 @@
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
 				integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 				crossorigin="anonymous">
+			<link rel="stylesheet" href="../css/style.css">
+			<link rel="stylesheet" href="../css/listadosAdmin.css">
 		</head>
 
 		<body>
@@ -52,28 +54,31 @@
 
 			</div>
 
-			<c:forEach var="usuario" items="${info}">
+			<div class="d-grid gap-3">
+				<c:forEach var="usuario" items="${info}">
 
-				<div class="card mx-auto " style="width: 32rem;">
+					<div class="row d-flex justify-content-center m-3">
+						<div class="col-lg-6 co-md-6 col-sm-6 ">
+							<div class="card">
 
-					<img class="card-img-top" src="../subidasUsuario/${usuario.id}.jpg" />
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">id: ${usuario.id} </li>
-						<li class="list-group-item">nombre: ${usuario.nombre} </li>
-						<li class="list-group-item">email: ${usuario.email} </li>
-						<li class="list-group-item">descripcion: ${usuario.descripcion} </li>
-						<li class="list-group-item">fecha: ${usuario.fechaCreacion} </li>
-					</ul>
+								<img class="fotoForo mx-auto my-3" src="../subidasUsuario/${usuario.id}.jpg" />
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item">id: ${usuario.id} </li>
+									<li class="list-group-item">nombre: ${usuario.nombre} </li>
+									<li class="list-group-item">email: ${usuario.email} </li>
+									<li class="list-group-item">descripcion: ${usuario.descripcion} </li>
+									<li class="list-group-item">fecha: ${usuario.fechaCreacion} </li>
+								</ul>
 
-					<div class="card-body">
-						<a class="btn btn-outline-primary" href="editarUsuario?id=${usuario.id}"
-							class="card-link">Editar</a>
-						<a class="btn btn-outline-danger" href="borrarUsuario?id=${usuario.id}"
-							class="card-link">Borrar</a>
+								<div class="card-body">
+									<a class="btn btn-outline-primary" href="editarUsuario?id=${usuario.id}">Editar</a>
+									<a class="btn btn-outline-danger" href="borrarUsuario?id=${usuario.id}">Borrar</a>
+								</div>
+							</div>
+						</div>
 					</div>
-
-				</div>
-			</c:forEach>
+				</c:forEach>
+			</div>
 
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 				integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

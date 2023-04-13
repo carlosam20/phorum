@@ -46,7 +46,7 @@ public class ControladoresValoracion {
 		
 		model.addAttribute("siguiente", comienzo_int+10);
 		model.addAttribute("anterior", comienzo_int-10);
-		model.addAttribute("total", servicioValoracion.obtenerTotalValoraciones(Long.parseLong(id)));
+		model.addAttribute("total", servicioValoracion.obtenerTotalValoraciones());
 		model.addAttribute("id", id);
 		
 		return "admin/valoraciones";
