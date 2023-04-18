@@ -34,13 +34,12 @@ const handleStateChange = (state) => {
     if (state.url === baseURL + urlPerfil) {
       $("#contenedor").html(state.textoHtml);
     } else if (state.url === baseURL) {
-      // Ver post de foro
-      verPostsDeForo();
-
-      // Ver post y comentarios
-      verPostYComentarios();
       console.log("Handle Inicio");
       $("#contenedor").html(state.textoHtml);
+      // Ver post de foro
+      verPostsDeForo();
+      // Ver post y comentarios
+      verPostYComentarios();
     } else if (state.url === baseURL + urlPosts) {
       verPostYComentarios();
       registrarPost();
@@ -292,57 +291,64 @@ const valoracionDislike = (idPost) => {
 
 const verPostYComentarios = () => {
   $(".boton_ver_post").click(function (e) {
-    const idPost = $(this).attr("id");
-    $.ajax("identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" + idPost, {
-      success: (data, idPost) => {
-        alert("recibido: " + data);
-        const postYComentarios = JSON.parse(data);
-        let textoHtml = "";
-        textoHtml = Mustache.render(
-          plantillaListarPostYComentarios,
-          postYComentarios
-        );
-        $("#contenedor").html(textoHtml);
-
-        // Cambiar iconos según la valoración del usuario
-        const valor = postYComentarios.valoracion_usuario_sesion.valorUsuarioSesion;
-
-        if (valor === "true") {
-          $("#like-icon")
-            .removeClass("fa-regular fa-thumbs-up fa-xl")
-            .addClass("fa-solid fa-thumbs-up fa-xl");
-        } else if (valor === "false") {
-          $("#dislike-icon")
-            .removeClass("fa-regular fa-thumbs-down fa-xl")
-            .addClass("fa-solid fa-thumbs-down fa-xl");
+    if (comprobarIdentificacion()
+      .then((usuarioIdentificado) => {
+        if (usuarioIdentificado === false) {
+          throw swal("Error no identificado", "Te debes identificar para acceder", "info");
         }
-        const stateObj = {
-          url: baseURL + urlPostYComentarios,
-          textoHtml:
-            Mustache.render(
-              plantillaListarPostYComentarios,
-              postYComentarios),
-          id: idPost
-        };
-        // Comentario en post
-        registrarComentarioPost();
+      })) {
+      const idPost = $(this).attr("id");
+      $.ajax("identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" + idPost, {
+        success: (data, idPost) => {
+          alert("recibido: " + data);
+          const postYComentarios = JSON.parse(data);
+          let textoHtml = "";
+          textoHtml = Mustache.render(
+            plantillaListarPostYComentarios,
+            postYComentarios
+          );
+          $("#contenedor").html(textoHtml);
 
-        // Ver perfil de comentario
-        verPerfilDeComentario();
+          // Cambiar iconos según la valoración del usuario
+          const valor = postYComentarios.valoracion_usuario_sesion.valorUsuarioSesion;
 
-        // Crear valoración y poner like
-        valoracionLike(idPost);
+          if (valor === "true") {
+            $("#like-icon")
+              .removeClass("fa-regular fa-thumbs-up fa-xl")
+              .addClass("fa-solid fa-thumbs-up fa-xl");
+          } else if (valor === "false") {
+            $("#dislike-icon")
+              .removeClass("fa-regular fa-thumbs-down fa-xl")
+              .addClass("fa-solid fa-thumbs-down fa-xl");
+          }
+          const stateObj = {
+            url: baseURL + urlPostYComentarios,
+            textoHtml:
+              Mustache.render(
+                plantillaListarPostYComentarios,
+                postYComentarios),
+            id: idPost
+          };
+          // Comentario en post
+          registrarComentarioPost();
 
-        // Crear valoración y poner dislike
-        valoracionDislike(idPost);
-        window.history.pushState(stateObj, urlPostYComentarios, baseURL + urlPostYComentarios);
-      },
-      error: () => {
-        swal("", "Error cargando post y comentarios", "error");
+          // Ver perfil de comentario
+          verPerfilDeComentario();
+
+          // Crear valoración y poner like
+          valoracionLike(idPost);
+
+          // Crear valoración y poner dislike
+          valoracionDislike(idPost);
+          window.history.pushState(stateObj, urlPostYComentarios, baseURL + urlPostYComentarios);
+        },
+        error: (data) => {
+          swal("", "Error en ver post", "error");
+        }
       }
+      ); // --end ajax--
+      e.preventDefault();
     }
-    ); // --end ajax--
-    e.preventDefault();
   });
 };// -end ver Post y comentarios-
 
@@ -839,60 +845,60 @@ const editarUsuario = () => {
           };
           window.history.pushState(stateObj, urlEditarPerfil, baseURL + urlEditarPerfil);
           // Form
-          $("#form_editar_usuario").submit(function () {
+          $("#form_editar_usuario").submit(function (e) {
             const stateObj = {
               url: baseURL,
               textoHtml: Mustache.render(plantillaLogin)
             };
             window.history.pushState(stateObj, "", baseURL);
-            const nombre = $("#nombre").val();
-            const email = $("#email").val();
-            const descripcion = $("#descripcion").val();
-            const pass = $("#pass").val();
+            const formulario = document.forms[0];
+            const formData = new FormData(formulario);
 
-            if (validarNombre(nombre)) {
-              if (validarEmail(email)) {
-                if (validarDescripcion(descripcion)) {
-                  if (validarPass(pass)) {
-                    const formulario = document.forms[0];
-                    const formData = new FormData(formulario);
-
-                    $.ajax(
-                      "identificado/servicioWebUsuarios/editarUsuarioPorId",
-                      {
-                        type: "POST",
-                        data: formData,
-                        cache: false,
-                        contentType: false,
-                        processData: false
+            $.ajax(
+              "identificado/servicioWebUsuarios/editarUsuarioPorId",
+              {
+                type: "POST",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                error: (res) => {
+                  swal("Error al editar", res.responseText, "error");
+                },
+                success: (res) => {
+                  if (res === "ok") {
+                    swal("Usuario editado", "El usuario se ha editado correctamente", "success", {
+                      buttons: {
+                        catch: {
+                          text: "OK",
+                          value: "ok"
+                        }
                       }
-                    ).then(
-                      caches.open("v1").then((cache) => {
-                        cache
-                          .delete("/images/" + idUsuario + ".jpg")
-                          .then(() => {
-                            perfil();
-                            window.location.reload();
-                          });
-                      })
-                    );
-                  } else {
-                    swal("La contraseña  es incorrecta", "Error", "error");
-                  } // end Pass
-                } else {
-                  swal("La descripción es incorrecta", "Error", "error");
-                } // end Descripcion
-              } else {
-                swal("El email es incorrecto", "Error", "error");
-              } // end Descripcion
-            } else {
-              swal("El nombre es incorrecto", "Error", "error");
-            } // end Descripcion
+                    })
+                      .then((value) => {
+                        switch (value) {
+                          case "ok":
+                            caches.open("v1").then((cache) => {
+                              cache
+                                .delete("/images/" + idUsuario + ".jpg")
+                                .then(() => {
+                                  perfil();
+                                  window.location.reload();
+                                });
+                            });
+                            break;
+                        }
+                      });
+                  }
+                }
+              }
+            );
+            e.preventDefault();
           }); // end Submit Form
         } // end Success (Carga plantilla)
       }); // end ajax
-      e.preventDefault();
     }
+    e.preventDefault();
   }); // -end enlace editar
 }; // -end editar usuario-
 

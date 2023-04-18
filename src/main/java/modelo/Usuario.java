@@ -47,8 +47,7 @@ public class Usuario  {
     
     @NotBlank(message = "Se requiere una descripción para el foro")
     @Pattern(regexp ="^.{1,300}$"
-    		+ "", message="La descripción no es correcta:"
-    				+ "El tamaño no es el adecuado")
+    		+ "", message="La descripción no es correcta el tamaño no es el adecuado")
     @Length(min=1, max=300)
     private String descripcion;
     

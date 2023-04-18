@@ -64,7 +64,7 @@ public class ServicioWebUsuarios {
 		
 		BeanPropertyBindingResult bp = new BeanPropertyBindingResult(u, "usuario");
 
-		ParValidacion resultadoValidacion =  ValidacionesImpl.validarUsuario(u,bp);
+		ParValidacion resultadoValidacion =  ValidacionesImpl.validarUsuario(u,bp,foto);
 		
 		
 		if(resultadoValidacion.getResultado() == true) {
