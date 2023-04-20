@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -30,6 +31,8 @@ import servicios.ServicioForos;
 import servicios.ServicioPosts;
 
 import utilidadesArchivos.GestorArchivos;
+import validacionObjetos.ParValidacion;
+import validaciones.ValidacionesImpl;
 
 @Controller("servicioWebForosIdentificado")
 @RequestMapping("identificado/servicioWebForos/")
@@ -57,7 +60,6 @@ public class ServicioWebForos {
 	public ResponseEntity<String> registroPost(@RequestParam Map<String, Object> formData,
 			@RequestParam("foto") CommonsMultipartFile foto, HttpServletRequest request) {
 
-		String respuesta = "";
 		System.out.println("--------" + formData);
 
 		Gson gson = new Gson();
@@ -72,16 +74,23 @@ public class ServicioWebForos {
 		Date formattedDate = currentDate.toDate();
 		f.setFechaCreacion(formattedDate);
 		
-		servicioForos.registrarForo(f);
-
-		// tras hacer un registro con hibernate, hibernate asigna a este foro la id del
-		// registro en la tabla de la base de datos
+		BeanPropertyBindingResult bp = new BeanPropertyBindingResult(f, "foro");
 
 		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
-		GestorArchivos.guardarImagenForo(f, rutaRealDelProyecto, foto);
-		respuesta = "ok";
+		
+		ParValidacion resultadoValidacion =  ValidacionesImpl.validarForo(f,bp,foto, rutaRealDelProyecto);
+		if(resultadoValidacion.getResultado() == true) {
+			servicioForos.registrarForo(f);
 
-		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
+			// tras hacer un registro con hibernate, hibernate asigna a este foro la id del
+			// registro en la tabla de la base de datos		
+			GestorArchivos.guardarImagenForo(f, rutaRealDelProyecto, foto);
+			
+			return new ResponseEntity<String>(resultadoValidacion.getRespuesta(), HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>(resultadoValidacion.getRespuesta(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 
 	@RequestMapping("borrarForoPorId")

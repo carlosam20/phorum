@@ -422,36 +422,27 @@ const busquedaFollowsPerfil = () => {
 const registrarForo = () => {
   // Registro
   $("#form_registro_foro").submit(function (e) {
-    const nombre = $("#nombre").val();
-    const descripcion = $("#descripcion").val();
+    // vamos a usar FormData para mandar el form al servicio web
+    const formulario = document.forms[0];
+    const formData = new FormData(formulario);
 
-    if (validarNombreForo(nombre) && validarForoDescripcion(descripcion)) {
-      // vamos a usar FormData para mandar el form al servicio web
-      const formulario = document.forms[0];
-      const formData = new FormData(formulario);
-
-      $.ajax("identificado/servicioWebForos/registroForo", {
-        type: "POST",
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function (res) {
-          if (res === "ok") {
-            swal("", "Se ha creado correctamente", "success");
-            $("#crearForoModal").modal("hide");
-          }
-        },
-        error: (res) => {
-          swal(res, "Error al registrar", "error");
-        },
-        complete: (res) => {
-          if (res === "ok") {
-            obtenerListadoForosIdentificado();
-          }
+    $.ajax("identificado/servicioWebForos/registroForo", {
+      type: "POST",
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (res) {
+        if (res === "ok") {
+          swal("", "Se ha creado correctamente", "success");
+          $("#crearForoModal").modal("hide");
+          obtenerListadoForosIdentificado();
         }
-      });
-    } // end if validaciones
+      },
+      error: (res) => {
+        swal("Error al registrar", res.responseText, "error");
+      }
+    });
     e.preventDefault();
   });
 }; // -end registrar foro-
@@ -692,12 +683,9 @@ const registrarPost = () => {
     const descripcion = $("#descripcion").val();
     const idForo = $(".enlacePost").attr("id");
 
-    // Testeamos los campos antes de pasarlos
-
     console.log(idForo + " " + nombre + " " + descripcion + " ");
     const formulario = document.forms[0];
     const formData = new FormData(formulario);
-    let respuestaError;
     formData.append("idForo", idForo);
 
     $.ajax("identificado/servicioWebPosts/registrarPosts", {
@@ -708,14 +696,15 @@ const registrarPost = () => {
       processData: false,
       success: function (res) {
         if (res === "ok") {
-          alert("se ha metido en el registro");
-          respuestaError = res;
+          swal("Registro correcto", "", "success");
+          $("#crearPostModal").modal("hide");
+          obtenerListadoPostsPopulares();
         }
+      },
+      error: (res) => {
+        swal("Error en el registro", res.responseText, "error");
       } // end Success Registrar Post
-    })
-      .fail(swal(respuestaError, "Error", "error"))
-      .then($("#crearPostModal").modal("hide"))
-      .then(obtenerListadoPostsPopulares());
+    });
     // end Registrar Post
     e.preventDefault();
   });

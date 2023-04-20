@@ -22,7 +22,7 @@ public class Foro {
 	private Long id;
 
 	@NotBlank(message = "Se requiere un nombre para el foro") // No puede ser ni nulo, ni tener longitud menor a 0
-	@Pattern(regexp = "^.{1,60}$", message = "Los nombres solo admiten letras, numeros y espacios")
+	@Pattern(regexp = "^.{1,60}$", message = "Se admiten entre 1 y 60 caracteres")
 	private String nombre;
 
 	@NotBlank(message = "Se requiere una descripción para el foro") // No puede ser ni nulo, ni tener longitud menor a 0

@@ -80,17 +80,19 @@ public class ValidacionesImpl {
 		}
 		String nombreArchivo = usuario.getId() + ".jpg";
 		String rutaFotos = rutaRealDelProyecto + "/subidasUsuario";
-		File fileCarpetaFotos = new File(rutaFotos);
 
-		if (!fileCarpetaFotos.exists()) {
-			fileCarpetaFotos.mkdirs();
-		}
 
 		File imagenExistente = new File(rutaFotos + "/" + nombreArchivo);
 		// Se comprueba si existe una imagen
 		if (!imagenExistente.exists() && foto.getSize() == 0) {
 			validacion.setResultado(false);
-			validacion.setRespuesta("No se ha subido una imagen y no hay ninguna existente");
+			validacion.setRespuesta("No se ha subido una imágen y no hay ninguna existente");
+			return validacion;
+		}
+		
+		if(foto.getSize() > 5000000) {
+			validacion.setResultado(false);
+			validacion.setRespuesta("La imágen es demasiado grande");
 			return validacion;
 		}
 		
@@ -100,7 +102,7 @@ public class ValidacionesImpl {
 
 	}
 
-	public static ParValidacion validarForo(@Valid Foro foro, BeanPropertyBindingResult bp) {
+	public static ParValidacion validarForo(@Valid Foro foro, BeanPropertyBindingResult bp, CommonsMultipartFile foto, String rutaRealDelProyecto) {
 
 		// Perform validation and error checks
 		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -120,13 +122,20 @@ public class ValidacionesImpl {
 			validacion.setRespuesta(respuesta);
 			return validacion;
 		}
+		
+		// Se comprueba si existe una imagen
+		if (foto.getSize() == 0) {
+			validacion.setResultado(false);
+			validacion.setRespuesta("No se ha subido una imagen");
+			return validacion;
+		}
 
 		validacion.setResultado(true);
 		validacion.setRespuesta("ok");
 		return validacion;
 	}
 
-	public static ParValidacion validarPost(@Valid Post post, BeanPropertyBindingResult bp) {
+	public static ParValidacion validarPost(@Valid Post post, BeanPropertyBindingResult bp, CommonsMultipartFile foto) {
 
 		// Perform validation and error checks
 		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -144,6 +153,18 @@ public class ValidacionesImpl {
 		if (bp.hasErrors()) {
 			validacion.setResultado(false);
 			validacion.setRespuesta(respuesta);
+			return validacion;
+		}
+		
+		
+		if (foto.getSize() == 0) {
+			validacion.setResultado(false);
+			validacion.setRespuesta("No se ha subido una imágen y no hay ninguna existente");
+			return validacion;
+		}
+		if(foto.getSize() > 5000000) {
+			validacion.setResultado(false);
+			validacion.setRespuesta("La imágen es demasiado grande");
 			return validacion;
 		}
 

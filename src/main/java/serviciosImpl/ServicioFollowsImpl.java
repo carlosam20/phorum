@@ -132,6 +132,15 @@ public class ServicioFollowsImpl implements ServicioFollow {
 		query.executeUpdate();
 
 	}
+	
+	@Override
+	public void eliminarFollowsPorForo(long id) {
+
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_FOLLOWS_DE_FORO);
+		query.setParameter("id", id);
+		query.executeUpdate();
+
+	}
 
 	@Override
 	public void guardarCambiosFollow(Follow fl) {

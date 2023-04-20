@@ -75,9 +75,6 @@ public class ServicioWebPosts {
 		List<Map<String, Object>> postsForo = servicioPosts.obtenerPostPorForoId(Long.parseLong(id));
 		Map<String, Object> foroInfo = servicioForos.obtenerForoPorIdEnMap(Long.parseLong(id));
 
-		if (postsForo.isEmpty() || postsForo.equals(null)) {
-			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
 
 		if (foroInfo.isEmpty() || foroInfo.equals(null)) {
 			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);

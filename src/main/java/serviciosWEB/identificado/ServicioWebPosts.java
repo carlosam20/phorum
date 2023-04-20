@@ -1,17 +1,13 @@
 package serviciosWEB.identificado;
 
-
 import java.util.Date;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +34,8 @@ import servicios.ServicioPosts;
 import servicios.ServicioUsuarios;
 import servicios.ServicioValoracion;
 import utilidadesArchivos.GestorArchivos;
+import validacionObjetos.ParValidacion;
+import validaciones.ValidacionesImpl;
 
 @Controller("servicioWebPostsIdentificado")
 @RequestMapping("identificado/servicioWebPosts/")
@@ -59,12 +58,10 @@ public class ServicioWebPosts {
 
 	@RequestMapping("registrarPosts")
 	public ResponseEntity<String> registrarPosts(@RequestParam Map<String, Object> formData,
-			@RequestParam("foto") CommonsMultipartFile foto,
-			HttpServletRequest request) {
+			@RequestParam("foto") CommonsMultipartFile foto, HttpServletRequest request) {
 
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
-		
-		StringBuilder respuesta = new StringBuilder();
+
 
 		System.out.println("--------" + formData);
 		Gson gson = new Gson();
@@ -72,8 +69,6 @@ public class ServicioWebPosts {
 		System.out.println("--------" + json);
 
 		Post p = gson.fromJson(json, Post.class);
-
-		
 
 		p.setIdForo(p.getIdForo());
 		p.setIdUsuario(u.getId());
@@ -84,31 +79,23 @@ public class ServicioWebPosts {
 		Date formattedDate = currentDate.toDate();
 		p.setFechaCreacion(formattedDate);
 
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validador = factory.getValidator();
+		String rutaRealDelProyecto = request.getServletContext().getRealPath("");
+		BeanPropertyBindingResult bp = new BeanPropertyBindingResult(p, "post");
+		ParValidacion resultadoValidacion = ValidacionesImpl.validarPost(p, bp, foto);
 
-		Set<ConstraintViolation<Post>> violations = validador.validate(p);
-
-		for (ConstraintViolation<Post> violation : violations) {
-			respuesta.append(violation.getMessage());
-			return new ResponseEntity<String>(respuesta.toString(), HttpStatus.CONFLICT);
-		}
-
-		if (violations.size() == 0) {
+		if (resultadoValidacion.getResultado() == true) {
 			servicioPosts.registrarPost(p);
 			// tras hacer un registro con hibernate, hibernate asigna a este usuario la id
 			// del
 			// registro en la tabla de la base de datos
 
-			String rutaRealDelProyecto = request.getServletContext().getRealPath("");
 			GestorArchivos.guardarImagenPost(p, rutaRealDelProyecto, foto);
-			respuesta.append("ok");
-			
-			
+		
+			return new ResponseEntity<String>(resultadoValidacion.getRespuesta(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>(resultadoValidacion.getRespuesta(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		return new ResponseEntity<String>(respuesta.toString(), HttpStatus.OK);
-		
+
 	}
 
 	@RequestMapping("obtenerPostYComentariosPorId")
@@ -140,7 +127,7 @@ public class ServicioWebPosts {
 		Map<String, Object> usuario = servicioUsuarios.obtenerUsuarioPorId(Long.parseLong(String.valueOf(u.getId())));
 		postResult.put("idUsuario", usuario.get("id"));
 		postResult.put("usuario", usuario.get("nombre"));
-		Date fechaPost= (Date) postResult.get("fechaCreacion");
+		Date fechaPost = (Date) postResult.get("fechaCreacion");
 		postResult.put("fechaCreacion", FechaParaUsuario.parseoDeFecha(fechaPost));
 
 		// Añadimos los datos del usuario en concreto al comentario realizado por él
@@ -155,11 +142,12 @@ public class ServicioWebPosts {
 
 		for (int i = 0; i < comentariosResults.size(); i++) {
 
-			Date fechaComentarioUsuario= (Date) comentariosResults.get(i).get("fechaCreacion");
-			comentariosResults.get(i).put("fechaCreacionComentario", FechaParaUsuario.parseoDeFecha(fechaComentarioUsuario));
-			
+			Date fechaComentarioUsuario = (Date) comentariosResults.get(i).get("fechaCreacion");
+			comentariosResults.get(i).put("fechaCreacionComentario",
+					FechaParaUsuario.parseoDeFecha(fechaComentarioUsuario));
+
 			comentariosResults.get(i).keySet().remove("usuario");
-	
+
 			comentariosResults.get(i).keySet().remove("fechaCreacion");
 			comentariosResults.get(i).put("idComentario", comentariosResults.get(i).get("id"));
 			comentariosResults.get(i).keySet().remove("id");

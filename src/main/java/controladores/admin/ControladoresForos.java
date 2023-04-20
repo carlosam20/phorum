@@ -4,7 +4,7 @@ package controladores.admin;
 
 
 import java.util.Calendar;
-
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import modelo.Foro;
+import servicios.ServicioComentarios;
+import servicios.ServicioFollow;
 import servicios.ServicioForos;
+import servicios.ServicioPosts;
+import servicios.ServicioValoracion;
 import utilidadesArchivos.GestorArchivos;
 
 
@@ -30,6 +34,20 @@ public class ControladoresForos {
 
 	@Autowired
 	private ServicioForos servicioForos;
+	
+	
+	@Autowired
+	private ServicioPosts servicioPosts;
+	
+	@Autowired
+	private ServicioFollow servicioFollow;
+	
+	@Autowired
+	private ServicioValoracion servicioValoracion;
+	
+	@Autowired
+	private ServicioComentarios servicioComentarios;
+	
 	@RequestMapping("listarForos")
 	public String listarForos(@RequestParam(defaultValue = "")String nombre, Integer comienzo, Model model) {
 		
@@ -129,6 +147,18 @@ public class ControladoresForos {
 	}
 	@RequestMapping("borrarForo")
 	public String borrarForo(String id, Model model) {
+		
+		servicioValoracion.eliminaValoraciones(Long.parseLong(id));
+		List<Map<String, Object>> posts = servicioPosts.obtenerPostPorForoId(Long.parseLong(id));
+			
+		for (Map<String, Object> post : posts) {
+			servicioComentarios.borrarComentariosPoridPost(Long.parseLong(String.valueOf(post.get("id"))));
+		}
+		
+		servicioFollow.eliminarFollowsPorForo(Long.parseLong(id));
+		
+		servicioPosts.eliminarPostsDeForo(Long.parseLong(id));
+		
 		servicioForos.borrarForo(Long.parseLong(id));
 		
 		return listarForos("",null,model);

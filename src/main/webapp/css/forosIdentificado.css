@@ -11,9 +11,10 @@
   --textLightColor: #34403A;
 }
 
-.foros{
+.foros {
   margin: 5%;
 }
+
 .form-inline {
   display: flex;
   border-radius: 1rem;
@@ -21,16 +22,8 @@
 }
 
 .form-control {
-  border-right: none;
-  border-left: 1px, solid, black;
-  border-top: 1px, solid, black;
-  border-bottom: 1px, solid, black;
-
-  border-top-left-radius: 1rem;
-  border-bottom-left-radius: 1rem;
-  border-top-right-radius: none;
-  border-bottom-right-radius: none;
-
+  border: 1px, solid, black;
+  border-radius: 1rem;
   background-color: transparent;
   color: black;
   padding: 1rem 1.4rem 1rem 2.5rem;
@@ -81,14 +74,15 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.nombre{
+
+.nombre {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.boton_post_foro{
+.boton_post_foro {
   padding: 0.4em 0.5em;
 }
 
@@ -103,12 +97,12 @@
     padding: 0.20rem 0.8rem 0.21rem 0.7rem;
   }
 
-  .descripcion{
+  .descripcion {
     display: none;
   }
 
-  
-  .list-group-item{
+
+  .list-group-item {
     border-radius: 1em;
   }
 
@@ -123,7 +117,7 @@
     padding: 0.25rem 1.0rem 0.25rem 0.9rem;
   }
 
-  .descripcion{
+  .descripcion {
     display: none;
   }
 }

@@ -138,6 +138,15 @@ public class ServicioValoracionImpl implements ServicioValoracion {
 		query.executeUpdate();
 
 	}
+	
+	@Override
+	public void eliminaValoracionesPorForo(long id) {
+
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.SQL_BORRAR_VALORACIONES_DE_FORO);
+		query.setParameter("id", id);
+		query.executeUpdate();
+
+	}
 
 	@Override
 	public Valoracion obtenerValoracion(long id) {

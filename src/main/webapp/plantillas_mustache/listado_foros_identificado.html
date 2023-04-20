@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/forosIdentificado.css">
   <title>Listado Foros</title>
 </head>
@@ -30,35 +33,43 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
-          <div class="modal-body">
+          <div class="modal-body p-2">
+            <div class="container-fluid">
+              <div class="row">
 
-            <form id="form_registro_foro">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <form id="form_registro_foro" class="d-grid gap-2">
 
-              <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1 ">
-                <div class="col-lg-8 col-md-8 col-sm-8">
-                  <input type="text" name="nombre" class="form-control form-control-lg" placeholder="Nombre del post"
-                    id="nombre" /><br>
+                    <div class="row d-flex justify-content-center ">
+                      <div class="col-lg-11 col-md-12 col-sm-11">
+                        <input type="text" name="nombre" class="form-control form-control-lg"
+                          placeholder="Nombre del post" id="nombre" />
+                      </div>
+                    </div>
+
+                    <div class="row d-flex justify-content-center ">
+                      <div class="col-lg-11 col-md-11 col-sm-11">
+                        <textarea type="text" name="descripcion" class="form-control form-control-lg"
+                          placeholder="Descripcion" id="descripcion"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="row d-flex justify-content-center">
+                      <div class="col-lg-8 col-md-8 col-sm-8">
+                        <input type="file" name="foto" id="foto" />
+                      </div>
+                    </div>
+
+                    <div class="row d-flex justify-content-center ">
+                      <div class="col-lg-8 col-md-8 col-sm-8">
+                        <input class="btn btn-primary" type="submit" value="Subir Foro" />
+                      </div>
+                    </div>
+
+                  </form>
                 </div>
               </div>
-              <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-                <div class="col-lg-8 col-md-8 col-sm-8">
-                  <input type="text" name="descripcion" class="form-control form-control-lg" placeholder="Descripcion"
-                    id="descripcion"></input><br>
-                </div>
-              </div>
-              <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-                <div class="col-lg-8 col-md-8 col-sm-8">
-                  <input type="file" name="foto" id="foto" /> <br>
-                </div>
-              </div>
-              <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
-                <div class="col-lg-8 col-md-8 col-sm-8">
-                  <input class="btn btn-primary" type="submit" value="Subir Foro" />
-                </div>
-              </div>
-
-            </form>
-
+            </div>
           </div>
         </div>
       </div>

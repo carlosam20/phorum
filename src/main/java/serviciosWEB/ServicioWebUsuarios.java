@@ -60,7 +60,6 @@ public class ServicioWebUsuarios {
 
 		// Se inserta una descripcion vacia que posteriormente se podrá editar
 		u.setDescripcion("Estoy usando phorum");
-		System.out.println("usuario a registrar: " + u.toString());
 		
 		BeanPropertyBindingResult bp = new BeanPropertyBindingResult(u, "usuario");
 

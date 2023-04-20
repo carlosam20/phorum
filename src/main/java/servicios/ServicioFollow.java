@@ -20,6 +20,8 @@ public interface ServicioFollow {
 	int obtenerTotalDeFollowsDeUsuario(long id);
 
 	void eliminarFollowsPorUsuario(long id);
+	
+	void eliminarFollowsPorForo(long id);
 
 	void eliminarFollow(long id);
 
