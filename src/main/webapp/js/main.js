@@ -143,11 +143,11 @@ const registrarComentarioPost = () => {
         processData: false,
         success: function (res) {
           if (res === "ok") {
-            window.location.reload();
+            location.reload();
           }
         }, // end Success Registrar Comentario
         error: (res) => {
-          swal("", "Error al registrar comentario", "error");
+          swal("Error al registrar comentario", res.responseText, "error");
         }// end Error
       }
     ); // end Registrar Comentarios
@@ -342,8 +342,8 @@ const verPostYComentarios = () => {
           valoracionDislike(idPost);
           window.history.pushState(stateObj, urlPostYComentarios, baseURL + urlPostYComentarios);
         },
-        error: (data) => {
-          swal("", "Error en ver post", "error");
+        error: () => {
+          swal("Error en ver post", "", "error");
         }
       }
       ); // --end ajax--
@@ -720,6 +720,7 @@ const mostrarRegistroUsuario = () => {
   $("#form_registro_usuario").submit(function (e) {
     const formulario = document.forms[0];
     const formData = new FormData(formulario);
+    alert(formData);
     $.ajax("servicioWebUsuarios/registrarUsuario", {
       type: "POST",
       data: formData,

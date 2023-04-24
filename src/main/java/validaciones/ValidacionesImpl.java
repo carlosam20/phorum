@@ -21,7 +21,8 @@ import validacionObjetos.ParValidacion;
 
 public class ValidacionesImpl {
 
-	public static ParValidacion validarUsuario(@Valid Usuario usuario, BeanPropertyBindingResult bp, CommonsMultipartFile foto) {
+	public static ParValidacion validarUsuario(@Valid Usuario usuario, BeanPropertyBindingResult bp,
+			CommonsMultipartFile foto) {
 
 		// Perform validation and error checks
 		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -41,12 +42,34 @@ public class ValidacionesImpl {
 			validacion.setRespuesta(respuesta);
 			return validacion;
 		}
+
+		
+		
+		String archivoUsuario = foto.getOriginalFilename();
+
+		if (archivoUsuario != null && archivoUsuario.lastIndexOf(".") != -1) {
+		    String extension = archivoUsuario.substring(archivoUsuario.lastIndexOf(".") + 1);
+
+		    if (!extension.equalsIgnoreCase("jpg") && !extension.equalsIgnoreCase("png")) {
+		        validacion.setResultado(false);
+		        validacion.setRespuesta("Tiene que ser una imagen con extensión png o jpg");
+		        return validacion;
+		    }
+		} else {
+		    validacion.setResultado(false);
+		    validacion.setRespuesta("El archivo no tiene una extensión válida");
+		    return validacion;
+		}
+
+		
+
+
 		if (foto.getSize() == 0) {
 			validacion.setResultado(false);
 			validacion.setRespuesta("No se ha subido una imagen y no hay ninguna existente");
 			return validacion;
 		}
-		if(foto.getSize() > 5000000) {
+		if (foto.getSize() > 5000000) {
 			validacion.setResultado(false);
 			validacion.setRespuesta("La imágen es demasiado grande");
 			return validacion;
@@ -78,31 +101,43 @@ public class ValidacionesImpl {
 			validacion.setRespuesta(respuesta);
 			return validacion;
 		}
+
 		String nombreArchivo = usuario.getId() + ".jpg";
 		String rutaFotos = rutaRealDelProyecto + "/subidasUsuario";
 
-
 		File imagenExistente = new File(rutaFotos + "/" + nombreArchivo);
 		// Se comprueba si existe una imagen
+
 		if (!imagenExistente.exists() && foto.getSize() == 0) {
 			validacion.setResultado(false);
 			validacion.setRespuesta("No se ha subido una imágen y no hay ninguna existente");
 			return validacion;
 		}
+
+		// Recogemos el nombre del archivo y comprobamos su extensión
+		String archivoUsuario = foto.getOriginalFilename();
+		String extension = archivoUsuario.substring(archivoUsuario.lastIndexOf(".") + 1);
 		
-		if(foto.getSize() > 5000000) {
+		if ((!extension.equalsIgnoreCase("jpg") || !extension.equalsIgnoreCase("png")) && !imagenExistente.exists()) {
+			validacion.setResultado(false);
+			validacion.setRespuesta("Tiene que ser una imagen con extension png o jpg");
+			return validacion;
+		}
+
+		if (foto.getSize() > 5000000) {
 			validacion.setResultado(false);
 			validacion.setRespuesta("La imágen es demasiado grande");
 			return validacion;
 		}
-		
+
 		validacion.setResultado(true);
 		validacion.setRespuesta("ok");
 		return validacion;
 
 	}
 
-	public static ParValidacion validarForo(@Valid Foro foro, BeanPropertyBindingResult bp, CommonsMultipartFile foto, String rutaRealDelProyecto) {
+	public static ParValidacion validarForo(@Valid Foro foro, BeanPropertyBindingResult bp, CommonsMultipartFile foto,
+			String rutaRealDelProyecto) {
 
 		// Perform validation and error checks
 		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -122,7 +157,7 @@ public class ValidacionesImpl {
 			validacion.setRespuesta(respuesta);
 			return validacion;
 		}
-		
+
 		// Se comprueba si existe una imagen
 		if (foto.getSize() == 0) {
 			validacion.setResultado(false);
@@ -155,14 +190,13 @@ public class ValidacionesImpl {
 			validacion.setRespuesta(respuesta);
 			return validacion;
 		}
-		
-		
+
 		if (foto.getSize() == 0) {
 			validacion.setResultado(false);
 			validacion.setRespuesta("No se ha subido una imágen y no hay ninguna existente");
 			return validacion;
 		}
-		if(foto.getSize() > 5000000) {
+		if (foto.getSize() > 5000000) {
 			validacion.setResultado(false);
 			validacion.setRespuesta("La imágen es demasiado grande");
 			return validacion;

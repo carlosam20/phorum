@@ -147,7 +147,7 @@
             <script type="text/javascript" src="librerias_javascript/js.cookie.min.js"></script>
             <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
             <script type="text/javascript" src="js/validaciones.js"></script>
-            <script type="text/javascript" src="js/navbarIcono.js"></script>
+            <script type="text/javascript" src="js/navbarIconoMobile.js"></script>
             <script type="text/javascript" src="js/cargarPlantillas.js"></script>
             <script type="text/javascript" src="js/main.js"></script>
         </body>

@@ -31,45 +31,60 @@
 			<div class="col-lg-6 col-md-6 col-sm-11  form">
 
 				<div class="row">
-					<form class="d-grid gap-2" id="form_registro_usuario">
+					<form class="d-grid gap-3 needs-validation" id="form_registro_usuario" novalidate>
 
 						<div class="row d-flex justify-content-center">
-							<img class="avatar avatar-8 explora" src="images/logo-phorum.svg"
-								alt="logo-phorum" id="logo_phorum">
+							<img class="avatar avatar-8 explora" src="images/logo-phorum.svg" alt="logo-phorum"
+								id="logo_phorum">
 						</div>
 
-						<div class="row d-flex justify-content-center ">
-							<div class="col-lg-8 col-md-8 col-sm-8">
+						<div class="row d-flex justify-content-center my-1">
+							<div class="col-lg-8 col-md-8 col-sm-8 position-relative">
 								<input type="text" name="nombre" class="form-control form-control-lg"
-									placeholder="Nombre de Usuario" id="nombre" />
+									placeholder="Nombre de Usuario*" id="nombre" pattern="^.{1,60}$" required />
+								<div class="invalid-tooltip">
+									Nombre no valido
+								</div>
+								<div class="valid-tooltip">
+									Nombre correcto
+								</div>
 							</div>
 						</div>
-						<div class="row d-flex justify-content-center ">
-							<div class="col-lg-8 col-md-8 col-sm-8">
+						<div class="row d-flex justify-content-center my-1 ">
+							<div class="col-lg-8 col-md-8 col-sm-8 position-relative">
 								<input type="text" name="email" class="form-control form-control-lg"
-									placeholder="E-mail" id="email" />
+									placeholder="E-mail*" pattern="^[a-zA-Z]+@[a-zA-Z]+\\.[a-zA-Z]{3,255}+$" id="email"
+									required />
+								<div class="invalid-tooltip">
+									Email no valido
+								</div>
+								<div class="valid-tooltip">
+									Email es correcto
+								</div>
 							</div>
 						</div>
-						<div class="row d-flex justify-content-center ">
-							<div class="col-lg-6 col-md-6 col-sm-6">
-								<input id="pass" type="password" class="form-control" placeholder="Contraseña">
+
+						<div class="row d-flex justify-content-center my-1 ">
+							<div class="col-lg-6 col-md-6 col-sm-6 position-relative">
+								<input id="pass" type="password" name="pass" class="form-control form-control-lg"
+									pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$"
+									placeholder="Contraseña*" required>
+								<div class="invalid-tooltip">
+									La contraseñas tienen que ser de 8 a 60 caracteres e incluir una mayúscula, un
+									número y un caracter especial al menos
+								</div>
+								<div class="valid-tooltip">
+									Contraseña correcta
+								</div>
 							</div>
-							<div class="col-lg-2 col-md-2 col-sm-2">
+							<div class="col-lg-2 col-md-2 col-sm-2 ">
 								<i class="fa-solid fa-eye" id="ojo-icon"></i>
 							</div>
 						</div>
 
-						<div class="row d-flex justify-content-center">
-							<div class="col-lg-8 col-md-8 col-sm-8">
-								<input type="password" name="pass" class="form-control form-control-lg text-start"
-									placeholder="Contraseña confirmación" id="pass-validacion" />
-							</div>
-						</div>
-
-						<div class="row d-flex justify-content-center ">
-							<div class="col-lg-8 col-md-6">
-								<input class="btn btn-secondary" type="file" name="foto" id="foto"
-									pattern="/^.+\.(png|jpg)$/" /> <br>
+						<div class="row d-flex justify-content-center my-1 ">
+							<div class="col-lg-8 col-md-6 position-relative">
+								<input class="btn btn-secondary" type="file" name="foto" id="foto" pattern="/^.+\.(png|jpg)$/" required />
 							</div>
 						</div>
 						<div class="row d-flex justify-content-center ">
@@ -86,5 +101,5 @@
 	</div>
 </body>
 <script src="js/togglePass.js"></script>
-
+<script src="js/bootstrapForm.js"></script>
 </html>

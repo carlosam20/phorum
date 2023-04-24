@@ -1,6 +1,7 @@
 package serviciosWEB.identificado;
 
 import java.util.Date;
+
 import org.joda.time.LocalDate;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,6 +23,8 @@ import modelo.Comentario;
 import modelo.Usuario;
 import servicios.ServicioComentarios;
 import servicios.ServicioPosts;
+import validacionObjetos.ParValidacion;
+import validaciones.ValidacionesImpl;
 
 @Controller("servicioWebComentariosIdentificado")
 @RequestMapping("identificado/servicioWebComentarios/")
@@ -37,7 +41,6 @@ public class ServicioWebComentarios {
 			HttpServletRequest request) {
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 	
-		String respuesta = "";
 		System.out.println("--------" + formData);
 		
 		Gson gson = new Gson();
@@ -53,12 +56,20 @@ public class ServicioWebComentarios {
 		LocalDate currentDate = LocalDate.now();
 		Date formattedDate = currentDate.toDate();
         c.setFechaCreacion(formattedDate); 
-        
-		servicioComentarios.registrarComentario(c);
+ 
 	
-		respuesta = "ok";
+		BeanPropertyBindingResult bp = new BeanPropertyBindingResult(c, "comentario");
+		ParValidacion resultadoValidacion = ValidacionesImpl.validarComentario(c, bp);
+		if (resultadoValidacion.getResultado() == true) {
+			servicioComentarios.registrarComentario(c);
 
-		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
+			return new ResponseEntity<String>(resultadoValidacion.getRespuesta(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>(resultadoValidacion.getRespuesta(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	
+
+		
 	}
 
 }
