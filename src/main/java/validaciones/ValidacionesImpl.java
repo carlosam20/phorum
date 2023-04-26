@@ -157,6 +157,17 @@ public class ValidacionesImpl {
 			validacion.setRespuesta(respuesta);
 			return validacion;
 		}
+		
+		// Recogemos el nombre del archivo y comprobamos su extensión
+				String archivoUsuario = foto.getOriginalFilename();
+				String extension = archivoUsuario.substring(archivoUsuario.lastIndexOf(".") + 1);
+				
+				if ((!extension.equalsIgnoreCase("jpg") || !extension.equalsIgnoreCase("png"))) {
+					validacion.setResultado(false);
+					validacion.setRespuesta("Tiene que ser una imagen con extension png o jpg");
+					return validacion;
+				}
+
 
 		// Se comprueba si existe una imagen
 		if (foto.getSize() == 0) {
@@ -190,6 +201,17 @@ public class ValidacionesImpl {
 			validacion.setRespuesta(respuesta);
 			return validacion;
 		}
+		
+		// Recogemos el nombre del archivo y comprobamos su extensión
+				String archivoUsuario = foto.getOriginalFilename();
+				String extension = archivoUsuario.substring(archivoUsuario.lastIndexOf(".") + 1);
+				
+				if ((!extension.equalsIgnoreCase("jpg") || !extension.equalsIgnoreCase("png"))) {
+					validacion.setResultado(false);
+					validacion.setRespuesta("Tiene que ser una imagen con extension png o jpg");
+					return validacion;
+				}
+
 
 		if (foto.getSize() == 0) {
 			validacion.setResultado(false);

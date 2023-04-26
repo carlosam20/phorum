@@ -33,14 +33,14 @@ public class Usuario  {
     
     @Email
     @Pattern(regexp = "^[a-zA-Z]+@[a-zA-Z]+\\.[a-zA-Z]{3,255}+$", message="El email debe contener '@', '.'")
-    @Length(min=3, max=255, message="una longitud de 3 a 255 caracteres. ")
+    @Length(min=3, max=255, message="y una longitud de 3 a 255 caracteres. ")
     @Column(length = 255)
     @NotEmpty(message = "El email no puede estar vacío. ")	
     private String email;
     
     
 
-    @FutureOrPresent (message = "La fecha tiene que ser actual o posterior")
+    @PastOrPresent (message = "La fecha tiene que ser actual o anterior")
     @DateTimeFormat(pattern = "yyyy-MM-dd")	
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;

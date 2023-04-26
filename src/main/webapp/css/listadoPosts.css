@@ -46,8 +46,12 @@ a {
     margin: 1%;
 }
 
+.imagenForoEncabezado {
+    border: 1px solid rgba(221, 221, 221, 0.75);
+    border-radius: 1em;
+}
 
-#imagenForo {
+#imagenPost {
     margin: auto;
     width: 100%;
     height: auto;
@@ -86,7 +90,7 @@ a {
 }
 
 @media only screen and (max-width: 425px) {
-    #imagenForo {
+    #imagenPost {
         margin: auto;
         width: 100%;
         height: auto;
@@ -121,7 +125,7 @@ a {
 
 @media only screen and (max-width: 768px) {
 
-    #imagenForo {
+    #imagenPost {
         margin: auto;
         width: 100%;
         height: auto;
@@ -130,6 +134,7 @@ a {
         border: 1px solid rgba(221, 221, 221, 0.75);
         border-radius: 1em;
     }
+
     .card {
         width: 100%;
         height: auto;

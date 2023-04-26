@@ -14,20 +14,20 @@
     <div>
       <a href="javascript:void(0)" class="closebtn align-items-left" onclick="cerrarComents()">&times;</a>
     </div>
-  
+
     {{#.}}
     {{#post}}
     <div class="row align-items-center text-center">
       <div class="col-lg-6 col-md-6 col-sm-6">
-        <h1 >Respuestas {{totalComentarios}}</h1>
+        <h1>Respuestas {{totalComentarios}}</h1>
       </div>
       <!--Crear comentario abrir modal-->
       <div class="col-lg-6 col-md-6 col-sm-6">
         <button class="btn btn-primary" type="button" id="{{id}}" data-bs-toggle="modal"
-        data-bs-target="#crearComentarioModal">Comentar</button>
+          data-bs-target="#crearComentarioModal">Comentar</button>
       </div>
     </div>
-    
+
     {{/post}}
     {{/.}}
     <!--Listado de comentarios del post-->
@@ -65,7 +65,7 @@
   <!-- Modal Crear comentario -->
   <div class="modal " id="crearComentarioModal" tabindex="-1" aria-labelledby="crearComentarioModal" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
-      
+
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Crear comentario</h5>
@@ -74,14 +74,20 @@
         <div class="modal-body">
           {{#.}}
           {{#post}}
-          <form id="{{id}}" class="form_registro_comentario">
+          <form id="{{id}}" class="form_registro_comentario needs-validation" novalidate>
             {{/post}}
             {{/.}}
-            
-            <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1 ">
+
+            <div class="row justify-content-center m-2 position-relative">
               <div class="col-lg-8 col-md-8 col-sm-8">
-                <input type="text" name="textoComentario" class="form-control form-control-lg" placeholder="Escribe tu comentario"
-                  id="textoComentario" maxlength="200"/><br>
+                <textarea type="text" name="textoComentario" class="form-control form-control-lg"
+                  placeholder="Escribe tu comentario*" id="textoComentario" maxlength="200" required></textarea>
+                <div class="invalid-tooltip">
+                  Descripción no valida
+                </div>
+                <div class="valid-tooltip">
+                  Descripción correcta
+                </div>
               </div>
 
               <div class="row justify-content-center mb-2 mt-2 ml-1 mr-1">
@@ -97,72 +103,83 @@
       </div>
     </div>
   </div>
- 
+
 
   <!--Contenido del post-->
   {{#.}}
   {{#post}}
   <div id="post">
-    <div class="recomendacionesPost">
-      <div class="row m-3">
-        <div class="col-lg-11 justify-content-center d-flex m-3">
-          <div class="card">
-            <div class="card-header">
-              <div class="row d-flex align-items-center">
-                <div class="col-lg-3 col-md-3 col-sm-3">
-                  <div class="perfilContenedor">
-                    <img class="img-fluid rounded" src="subidasUsuario/{{idUsuario}}.jpg"
-                      alt="{{usuario}}">
+    <div class="row mx-auto d-flex justify-content-center">
+      <div class="col-lg-8 col-md-8 col-sm-8 d-flex justify-content-center">
+        <div class="card">
+          <div class="card-header">
+            <div class="row d-flex align-items-center">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="perfilContenedor">
+                  <img class="img-fluid rounded" src="subidasUsuario/{{idUsuario}}.jpg" alt="{{usuario}}">
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <h4 class="card-text">{{usuario}}</h4>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6" id="fechaCreacionPost">
+                <p class="card-text">Creado hace: {{fechaCreacion}}</p>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <img src="subidasPost/{{id}}.jpg" class="card-img-top" alt="{{nombre}}">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="card-body ">
+                <h5 class="card-title">{{nombre}}</h5>
+                <p class="card-text">{{descripcion}}</p>
+                <div class="valoracionContainer">
+                  <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                      <a class="like" id="{{id}}">
+                        <span id="like-container">
+                          <i class="fa-regular fa-thumbs-up fa-xl" id="like-icon"></i>
+                        </span>
+                        {{#post_valoraciones}}
+                        <h5 id="like-contador">{{like}}</h5>
+                        {{/post_valoraciones}}
+                      </a>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                      <a class="dislike" id="{{id}}">
+                        <span id="dislike-container">
+                          <i class="fa-regular fa-thumbs-down fa-xl" id="dislike-icon"></i>
+                        </span>
+                        {{#post_valoraciones}}
+                        <h5 id="dislike-contador">{{dislike}}</h5>
+                        {{/post_valoraciones}}
+                      </a>
+                    </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3">
-                  <h4 class="card-text">{{usuario}}</h4>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6" id="fechaCreacionPost">
-                  <p class="card-text">Creado hace: {{fechaCreacion}}</p>
-                </div>
               </div>
             </div>
-
-            <img src="subidasPost/{{id}}.jpg" class="card-img-top" alt="{{nombre}}">
-            <div class="card-body mb-3">
-              <h5 class="card-title">{{nombre}}</h5>
-              <p class="card-text">{{descripcion}}</p>
-              <div class="valoracionContainer">
-                <div class="row ">
-                  <a class="like col-sm-3 col-md-3 col-lg-3" id="{{id}}">
-                    <span id="like-container">
-                      <i class="fa-regular fa-thumbs-up fa-xl" id="like-icon"></i>
-                    </span>
-                    {{#post_valoraciones}}
-                    <h5 id="like-contador">{{like}}</h5>
-                    {{/post_valoraciones}}
-                  </a>
-                  <a class="dislike col-sm-3 col-md-3 col-lg-3" id="{{id}}">
-                    <span id="dislike-container">
-                      <i class="fa-regular fa-thumbs-down fa-xl" id="dislike-icon"></i>
-                    </span>
-                    {{#post_valoraciones}}
-                    <h5 id="dislike-contador">{{dislike}}</h5>
-                    {{/post_valoraciones}}
-                  </a>
-                </div>
-              </div>
-
-            </div>
-
-            <button class="btn btn-primary" onclick="abrirComents()">Ver comentarios</button>
-
           </div>
-
-
+  
+          <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
+              <button class="btn btn-primary" onclick="abrirComents()">Ver comentarios</button>
+            </div>
+          </div>
+  
         </div>
       </div>
     </div>
   </div>
+  
   {{/post}}
   {{/.}}
 </body>
 
 </html>
-<script src="js/post.js"></script>
+<script src="js/bootstrapForm.js"></script>

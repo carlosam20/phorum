@@ -38,19 +38,32 @@
               <div class="row">
 
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                  <form id="form_registro_foro" class="d-grid gap-2">
+
+                  <form id="form_registro_foro" class="d-grid gap-3 needs-validation" novalidate>
 
                     <div class="row d-flex justify-content-center ">
-                      <div class="col-lg-11 col-md-12 col-sm-11">
-                        <input type="text" name="nombre" class="form-control form-control-lg"
-                          placeholder="Nombre del post" id="nombre" />
+                      <div class="col-lg-11 col-md-12 col-sm-11 position-relative">
+                        <input type="text" name="nombre" class="form-control form-control-lg" pattern="^.{1,60}$"
+                          placeholder="Nombre del post*" id="nombre" maxlength="60" required />
+                        <div class="invalid-tooltip"> 
+                          Nombre no valido
+                        </div>
+                        <div class="valid-tooltip">
+                          Nombre correcto
+                        </div>
                       </div>
                     </div>
 
                     <div class="row d-flex justify-content-center ">
-                      <div class="col-lg-11 col-md-11 col-sm-11">
+                      <div class="col-lg-11 col-md-11 col-sm-11 position-relative">
                         <textarea type="text" name="descripcion" class="form-control form-control-lg"
-                          placeholder="Descripcion" id="descripcion"></textarea>
+                          pattern="^.{1,300}$" placeholder="Descripcion*" id="descripcion" maxlength="300" required></textarea>
+                        <div class="invalid-tooltip">
+                          Descripción no valida
+                        </div>
+                        <div class="valid-tooltip">
+                          Descripción valida
+                        </div>
                       </div>
                     </div>
 
@@ -123,6 +136,7 @@
   </div>
 </body>
 <script src="js/forosIdentificado.js"></script>
+<script src="js/bootstrapForm.js"></script>
 <script>
   init();
 </script>

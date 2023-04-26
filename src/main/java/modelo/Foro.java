@@ -1,12 +1,13 @@
 package modelo;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
-import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 
 import java.util.ArrayList;
@@ -22,11 +23,11 @@ public class Foro {
 	private Long id;
 
 	@NotBlank(message = "Se requiere un nombre para el foro") // No puede ser ni nulo, ni tener longitud menor a 0
-	@Pattern(regexp = "^.{1,60}$", message = "Se admiten entre 1 y 60 caracteres")
+	@Pattern(regexp = "^.{1,60}$", message = "Se admiten entre 1 y 60 caracteres en el nombre")
 	private String nombre;
 
 	@NotBlank(message = "Se requiere una descripción para el foro") // No puede ser ni nulo, ni tener longitud menor a 0
-	@Pattern(regexp = "^.{1,300}$" + "", message = "La descripción no es correcta:" + "El tamaño no es el adecuado")
+	@Pattern(regexp = "^.{1,300}$" + "", message = "Se admiten entre 1 y 300 caracteres en la descripción")
 	@Length(min = 1, max = 300) // Rango de tamaño que tiene
 	private String descripcion;
 
@@ -36,7 +37,7 @@ public class Foro {
 	@OneToMany(cascade = { CascadeType.MERGE }, mappedBy = "foro")
 	private List<Follow> seguidores;
 
-	@FutureOrPresent (message = "La fecha tiene que ser actual o posterior")
+	@PastOrPresent (message = "La fecha tiene que ser actual o anterior")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date fechaCreacion;

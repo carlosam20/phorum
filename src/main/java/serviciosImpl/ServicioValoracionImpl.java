@@ -39,7 +39,6 @@ public class ServicioValoracionImpl implements ServicioValoracion {
 		Usuario u = (Usuario) sessionFactory.getCurrentSession().get(Usuario.class, v.getIdUsuario());
 		v.setUsuario(u);
 		
-		
 		sessionFactory.getCurrentSession().save(v);
 
 	}
@@ -180,9 +179,7 @@ public class ServicioValoracionImpl implements ServicioValoracion {
 		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(ConstantesSQL.COMPROBAR_EXISTE_VALORACION);
 		query.setParameter("idUsuario", idUsuario);
 		query.setParameter("idPost", idPost);
-		Object result = query.uniqueResult();
-		
-		
+		Object result = query.uniqueResult();	
 		
 		boolean[]existeYValor = new boolean[2];
 		

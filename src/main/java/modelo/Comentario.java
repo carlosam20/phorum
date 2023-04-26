@@ -3,6 +3,7 @@ package modelo;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -23,13 +24,14 @@ public class Comentario {
     		+ "", message="El comentario no es correcto:"
     				+ "Se pueden introducir guiones bajos, puntos, comas, espacios en blanco, numeros, acentos y mayúsculas y minúsculas")
     @Length(min=1, max=200)
-    @NotEmpty(message ="El texto del comentario no puedes estar nulo o vacío")
+    @NotEmpty(message ="El texto del comentario no puede estar nulo o vacío")
     private String textoComentario;
 
     @ManyToOne(cascade = {CascadeType.MERGE}, targetEntity = Post.class, optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "postComentario")
     private Post postComentario;
     
+    @PastOrPresent(message ="La fecha tiene que ser presente o anterior")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
     private Date fechaCreacion;

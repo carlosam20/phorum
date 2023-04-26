@@ -58,26 +58,64 @@ const handleStateChange = (state) => {
 
       // Registro de foros
       registrarForo();
+
       console.log("Handle Foros");
       $("#contenedor").html(state.textoHtml);
     } else if (state.url === baseURL + urlPostYComentarios) {
-      // Comentario en post
-      registrarComentarioPost();
+      $.ajax("identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" + state.id, {
+        success: (data, idPost) => {
+          const postYComentarios = JSON.parse(data);
+          let textoHtml = "";
+          textoHtml = Mustache.render(
+            plantillaListarPostYComentarios,
+            postYComentarios
+          );
+          $("#contenedor").html(textoHtml);
 
-      // Ver perfil de comentario
-      verPerfilDeComentario();
+          // Cambiar iconos según la valoración del usuario
+          const valor = postYComentarios.valoracion_usuario_sesion.valorUsuarioSesion;
+          console.log("Valor" + valor);
 
-      // Crear valoración y poner like
-      valoracionLike(state.id);
+          if (valor === "true") {
+            $("#like-icon")
+              .removeClass("fa-regular fa-thumbs-up fa-xl")
+              .addClass("fa-solid fa-thumbs-up fa-xl");
+          } else if (valor === "false") {
+            $("#dislike-icon")
+              .removeClass("fa-regular fa-thumbs-down fa-xl")
+              .addClass("fa-solid fa-thumbs-down fa-xl");
+          }
 
-      // Crear valoración y poner dislike
-      valoracionDislike(state.id);
-      $("#contenedor").html(state.textoHtml);
+          // Comentario en post
+          registrarComentarioPost();
+
+          // Ver perfil de comentario
+          verPerfilDeComentario();
+
+          // Crear valoración y poner like
+          valoracionLike(state.id);
+
+          // Crear valoración y poner dislike
+          valoracionDislike(state.id);
+
+          const stateObj = {
+            url: baseURL + urlPostYComentarios,
+            textoHtml:
+              Mustache.render(
+                plantillaListarPostYComentarios,
+                postYComentarios),
+            id: state.id
+          };
+          window.history.pushState(stateObj, urlPostYComentarios, baseURL + urlPostYComentarios);
+        }
+      });
     } else if (state.url === baseURL + urlPostsForo) {
       // Registrar post
       registrarPost();
       // Ver post y comentarios
       verPostYComentarios(state.id);
+      $("#contenedor").html(state.textoHtml);
+    } else if (state.url === baseURL + urlForosIdentificado) {
       $("#contenedor").html(state.textoHtml);
     } else if (state.url === baseURL + urlListadoFollows) {
       $("#contenedor").html(state.textoHtml);
@@ -93,7 +131,6 @@ let nWindows = 0;
 window.addEventListener("popstate", function (e) {
   if (e.state !== null) {
     nWindows = nWindows + 1;
-    console.log("State no es null:" + nWindows);
     handleStateChange(e.state);
   }
 });
@@ -297,10 +334,9 @@ const verPostYComentarios = () => {
           throw swal("Error no identificado", "Te debes identificar para acceder", "info");
         }
       })) {
-      const idPost = $(this).attr("id");
-      $.ajax("identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" + idPost, {
+      const idPostClick = $(this).attr("id");
+      $.ajax("identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" + idPostClick, {
         success: (data, idPost) => {
-          alert("recibido: " + data);
           const postYComentarios = JSON.parse(data);
           let textoHtml = "";
           textoHtml = Mustache.render(
@@ -311,6 +347,7 @@ const verPostYComentarios = () => {
 
           // Cambiar iconos según la valoración del usuario
           const valor = postYComentarios.valoracion_usuario_sesion.valorUsuarioSesion;
+          console.log("Valor" + valor);
 
           if (valor === "true") {
             $("#like-icon")
@@ -321,14 +358,7 @@ const verPostYComentarios = () => {
               .removeClass("fa-regular fa-thumbs-down fa-xl")
               .addClass("fa-solid fa-thumbs-down fa-xl");
           }
-          const stateObj = {
-            url: baseURL + urlPostYComentarios,
-            textoHtml:
-              Mustache.render(
-                plantillaListarPostYComentarios,
-                postYComentarios),
-            id: idPost
-          };
+
           // Comentario en post
           registrarComentarioPost();
 
@@ -336,14 +366,20 @@ const verPostYComentarios = () => {
           verPerfilDeComentario();
 
           // Crear valoración y poner like
-          valoracionLike(idPost);
+          valoracionLike(idPostClick);
 
           // Crear valoración y poner dislike
-          valoracionDislike(idPost);
+          valoracionDislike(idPostClick);
+
+          const stateObj = {
+            url: baseURL + urlPostYComentarios,
+            textoHtml:
+              Mustache.render(
+                plantillaListarPostYComentarios,
+                postYComentarios),
+            id: idPostClick
+          };
           window.history.pushState(stateObj, urlPostYComentarios, baseURL + urlPostYComentarios);
-        },
-        error: () => {
-          swal("Error en ver post", "", "error");
         }
       }
       ); // --end ajax--
@@ -373,6 +409,14 @@ const busquedaForos = () => {
 
           // Buscar foros
           busquedaForos();
+          const stateObj = {
+            url: baseURL + urlPostYComentarios,
+            textoHtml:
+              Mustache.render(
+                plantillaListarForos,
+                forosEncontrados)
+          };
+          window.history.replaceState(stateObj, urlPostYComentarios, baseURL + urlPostYComentarios);
         },
         error: (res) => {
           swal(res, "Error en busqueda", "error");
@@ -491,9 +535,6 @@ const obtenerListadoForos = () => {
 
           // Buscar foros
           busquedaForos();
-
-          // Registro de foros
-          registrarForo();
         })
       };
       window.history.pushState(stateObj, urlForos, baseURL + urlForos);
@@ -679,11 +720,10 @@ const obtenerListadoPostsPopulares = () => {
 
 const registrarPost = () => {
   $("#form_registro_post").submit(function (e) {
-    const nombre = $("#nombre").val();
-    const descripcion = $("#descripcion").val();
+    // const nombre = $("#nombre").val();
+    // const descripcion = $("#descripcion").val();
     const idForo = $(".enlacePost").attr("id");
 
-    console.log(idForo + " " + nombre + " " + descripcion + " ");
     const formulario = document.forms[0];
     const formData = new FormData(formulario);
     formData.append("idForo", idForo);
@@ -936,13 +976,13 @@ const perfil = () => {
       const stateObj = {
         url: baseURL + urlPerfil,
         textoHtml: Mustache.render(plantillaPerfil, info, () => {
-          // Editar usuario
-          editarUsuario();
-          // Borrar usuario
-          borrarUsuario();
+          // // Editar usuario
+          // editarUsuario();
+          // // Borrar usuario
+          // borrarUsuario();
 
-          // Ver listado follows
-          listadoFollowsPerfil();
+          // // Ver listado follows
+          // listadoFollowsPerfil();
         })
       };
       window.history.pushState(stateObj, urlPerfil, baseURL + urlPerfil);
@@ -951,7 +991,6 @@ const perfil = () => {
       editarUsuario();
       // Borrar usuario
       borrarUsuario();
-
       // Ver listado follows
       listadoFollowsPerfil();
     } // end success Obtener id

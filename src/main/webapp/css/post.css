@@ -62,13 +62,8 @@
 /* Post */
 
 .card {
-  width: 45%;
+  width: 100%;
   height: auto;
-}
-
-#post {
-  transition: margin-left .5s;
-  padding: 20px;
 }
 
 

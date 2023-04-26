@@ -34,8 +34,7 @@ public class Post {
     private String nombre;
    
     @NotBlank(message = "Se requiere una descripción para el foro")
-    @Pattern(regexp ="^.{1,300}$"
-    		+ "", message="El tamaño de la descripcion tiene que ser de 1 a 300 caracteres")
+    @Pattern(regexp ="^.{1,300}$", message="El tamaño de la descripcion tiene que ser de 1 a 300 caracteres")
     @Length(min=1, max=300)
     private String descripcion;
  
