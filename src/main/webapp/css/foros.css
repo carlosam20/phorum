@@ -2,9 +2,7 @@
   margin: 5%;
 }
 
-.fa-magnifying-glass {
-  color: white;
-}
+
 
 .form-inline {
   display: flex;
@@ -13,10 +11,6 @@
 }
 
 .descripcion {
-  /* white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 300px; */
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -24,10 +18,6 @@
 }
 
 .nombre {
-  /* white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px; */
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -47,7 +37,7 @@
 
   background-color: transparent;
   color: black;
-  padding: 1rem 1.4rem 1rem 2.5rem;
+  padding: 0.8rem 1.1rem 0.8rem 2.2rem;
 }
 
 .form-control:hover {
@@ -72,10 +62,14 @@
 .list-group-item {
   border-radius: 1em;
 }
-.boton_post_foro{
+
+.boton_post_foro {
   padding: 0.4em 0.5em;
 }
 
+.fa-magnifying-glass {
+  color: white;
+}
 @media only screen and (max-width: 425px) {
 
   .form-control {
@@ -89,7 +83,8 @@
   .descripcion {
     display: none;
   }
-  #boton_del_foro{
+
+  #boton_del_foro {
     display: none;
   }
 }
@@ -106,10 +101,12 @@
   .descripcion {
     display: none;
   }
+
   .descripcion {
     display: none;
   }
-  #boton_del_foro{
+
+  #boton_del_foro {
     display: none;
   }
 }

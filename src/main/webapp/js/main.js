@@ -32,6 +32,13 @@ const handleStateChange = (state) => {
   isHandlingStateChange = true;
   if (state && state.url && state.textoHtml) {
     if (state.url === baseURL + urlPerfil) {
+      // Editar usuario
+      editarUsuario();
+      // Borrar usuario
+      borrarUsuario();
+
+      // Ver listado follows
+      listadoFollowsPerfil();
       $("#contenedor").html(state.textoHtml);
     } else if (state.url === baseURL) {
       console.log("Handle Inicio");
@@ -134,6 +141,7 @@ window.addEventListener("popstate", function (e) {
     handleStateChange(e.state);
   }
 });
+
 // Cargamos el home
 const listadoInicio = () => {
   $.ajax("servicioWebForos/obtenerForosYPosts", {
@@ -164,32 +172,38 @@ listadoInicio();
 
 const registrarComentarioPost = () => {
   // Realizar comentario en post
-  $(".form_registro_comentario").submit(function (e) {
-    const idPost = $(this).attr("id");
-    const formulario = document.forms[0];
-    const formData = new FormData(formulario);
-    console.log(idPost);
-    $.ajax(
-      "identificado/servicioWebComentarios/registrarComentario?idPost=" +
-      idPost,
-      {
-        type: "POST",
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function (res) {
-          if (res === "ok") {
-            location.reload();
-          }
-        }, // end Success Registrar Comentario
-        error: (res) => {
-          swal("Error al registrar comentario", res.responseText, "error");
-        }// end Error
-      }
-    ); // end Registrar Comentarios
-    e.preventDefault();
-  });
+  if (comprobarIdentificacion().then((usuarioIdentificado) => {
+    if (usuarioIdentificado === false) {
+      throw swal("Error no identificado", "Te debes identificar para acceder", "info");
+    }
+  })) {
+    $(".form_registro_comentario").submit(function (e) {
+      const idPost = $(this).attr("id");
+      const formulario = document.forms[0];
+      const formData = new FormData(formulario);
+      console.log(idPost);
+      $.ajax(
+        "identificado/servicioWebComentarios/registrarComentario?idPost=" +
+        idPost,
+        {
+          type: "POST",
+          data: formData,
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function (res) {
+            if (res === "ok") {
+              location.reload();
+            }
+          }, // end Success Registrar Comentario
+          error: (res) => {
+            swal("Error al registrar comentario", res.responseText, "error");
+          }// end Error
+        }
+      ); // end Registrar Comentarios
+      e.preventDefault();
+    });
+  }
 }; // -end registrar comentario post-
 
 const verPerfilDeComentario = () => {
@@ -328,15 +342,14 @@ const valoracionDislike = (idPost) => {
 
 const verPostYComentarios = () => {
   $(".boton_ver_post").click(function (e) {
-    if (comprobarIdentificacion()
-      .then((usuarioIdentificado) => {
-        if (usuarioIdentificado === false) {
-          throw swal("Error no identificado", "Te debes identificar para acceder", "info");
-        }
-      })) {
+    if (comprobarIdentificacion().then((usuarioIdentificado) => {
+      if (usuarioIdentificado === false) {
+        throw swal("Error no identificado", "Te debes identificar para acceder", "info");
+      }
+    })) {
       const idPostClick = $(this).attr("id");
       $.ajax("identificado/servicioWebPosts/obtenerPostYComentariosPorId?idPost=" + idPostClick, {
-        success: (data, idPost) => {
+        success: (data) => {
           const postYComentarios = JSON.parse(data);
           let textoHtml = "";
           textoHtml = Mustache.render(
@@ -373,20 +386,17 @@ const verPostYComentarios = () => {
 
           const stateObj = {
             url: baseURL + urlPostYComentarios,
-            textoHtml:
-              Mustache.render(
-                plantillaListarPostYComentarios,
-                postYComentarios),
+            textoHtml: Mustache.render(plantillaListarPostYComentarios, postYComentarios),
             id: idPostClick
           };
+
           window.history.pushState(stateObj, urlPostYComentarios, baseURL + urlPostYComentarios);
         }
-      }
-      ); // --end ajax--
+      }); // --end ajax--
       e.preventDefault();
     }
   });
-};// -end ver Post y comentarios-
+}; // -end ver Post y comentarios-
 
 const busquedaForos = () => {
   // Buscador de Foros
@@ -418,8 +428,8 @@ const busquedaForos = () => {
           };
           window.history.replaceState(stateObj, urlPostYComentarios, baseURL + urlPostYComentarios);
         },
-        error: (res) => {
-          swal(res, "Error en busqueda", "error");
+        error: () => {
+          swal("No se ha encontrado ningún elemento", "info");
         } // ---end success---
       }
     ); // --end ajax obtenerForosBuscados--
@@ -465,29 +475,36 @@ const busquedaFollowsPerfil = () => {
 
 const registrarForo = () => {
   // Registro
-  $("#form_registro_foro").submit(function (e) {
-    // vamos a usar FormData para mandar el form al servicio web
-    const formulario = document.forms[0];
-    const formData = new FormData(formulario);
 
-    $.ajax("identificado/servicioWebForos/registroForo", {
-      type: "POST",
-      data: formData,
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: function (res) {
-        if (res === "ok") {
-          swal("", "Se ha creado correctamente", "success");
-          $("#crearForoModal").modal("hide");
-          obtenerListadoForosIdentificado();
-        }
-      },
-      error: (res) => {
-        swal("Error al registrar", res.responseText, "error");
+  $("#form_registro_foro").submit(function (e) {
+    if (comprobarIdentificacion().then((usuarioIdentificado) => {
+      if (usuarioIdentificado === false) {
+        throw swal("Error no identificado", "Te debes identificar para acceder", "info");
       }
-    });
-    e.preventDefault();
+    })) {
+      // vamos a usar FormData para mandar el form al servicio web
+      const formulario = document.forms[0];
+      const formData = new FormData(formulario);
+
+      $.ajax("identificado/servicioWebForos/registroForo", {
+        type: "POST",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (res) {
+          if (res === "ok") {
+            swal("", "Se ha creado correctamente", "success");
+            $("#crearForoModal").modal("hide");
+            obtenerListadoForosIdentificado();
+          }
+        },
+        error: (res) => {
+          swal("Error al registrar", res.responseText, "error");
+        }
+      });
+      e.preventDefault();
+    }
   });
 }; // -end registrar foro-
 
@@ -547,9 +564,20 @@ const obtenerListadoForos = () => {
 
       // Registro de foros
       registrarForo();
+
+      // // Refrescar
+      // $(document.body).on("keydown", function (e) {
+      //   alert("Entra en keydown");
+      //   if (e.code === "F5") { // F5
+      //     // obtenerListadoForos();
+      //     alert("F5");
+      //     listadoInicio();
+      //   }
+      // });
     } // ---end success---
+
   }); // --end ajax--
-}; // -end obtener_listado-
+};
 
 const obtenerListadoForosIdentificado = () => {
   $.ajax("identificado/servicioWebForos/obtenerForos", {
@@ -592,12 +620,32 @@ const obtenerListadoForosIdentificado = () => {
 
 const listadoFollowsPerfil = () => {
   $(".boton_ver_follows").click(function () {
-    $.ajax("identificado/servicioWebForos/obtenerForosPerfil", {
-      success: function (data) {
-        alert("recibido: " + data);
-        const foros = JSON.parse(data);
-        let textoHtml = "";
-        textoHtml = Mustache.render(plantillaListarForosIdentificado, foros, () => {
+    if (comprobarIdentificacion().then((usuarioIdentificado) => {
+      if (usuarioIdentificado === false) {
+        throw swal("Error no identificado", "Te debes identificar para acceder", "info");
+      }
+    })) {
+      $.ajax("identificado/servicioWebForos/obtenerForosPerfil", {
+        success: function (data) {
+          alert("recibido: " + data);
+          const foros = JSON.parse(data);
+          let textoHtml = "";
+          textoHtml = Mustache.render(plantillaListarForosIdentificado, foros, () => {
+            // Ver Posts de Foro
+            verPostsDeForo();
+
+            // Buscar foros
+            busquedaFollowsPerfil();
+
+            // Registro de foros
+            registrarForo();
+          });
+          $("#contenedor").html(textoHtml);
+          const stateObj = { url: baseURL + urlListadoFollows };
+          window.history.pushState(stateObj, urlListadoFollows, baseURL + urlListadoFollows);
+          // Dar follow por el usuario
+          follow();
+
           // Ver Posts de Foro
           verPostsDeForo();
 
@@ -606,41 +654,33 @@ const listadoFollowsPerfil = () => {
 
           // Registro de foros
           registrarForo();
-        });
-        $("#contenedor").html(textoHtml);
-        const stateObj = { url: baseURL + urlListadoFollows };
-        window.history.pushState(stateObj, urlListadoFollows, baseURL + urlListadoFollows);
-        // Dar follow por el usuario
-        follow();
-
-        // Ver Posts de Foro
-        verPostsDeForo();
-
-        // Buscar foros
-        busquedaFollowsPerfil();
-
-        // Registro de foros
-        registrarForo();
-      },
-      error: (data) => {
-        swal(data, "Error en listado follows de perfil", "error");
-      } // ---end success---
-    }); // --end ajax--
+        },
+        error: (data) => {
+          swal(data, "Error en listado follows de perfil", "error");
+        } // ---end success---
+      }); // --end ajax--
+    }
   });
 }; // -end listado follows perfil
 
 const follow = () => {
   $(".follow").click(function () {
-    const idForo = $(this).attr("id");
-    comprobarExisteFollow(idForo).then((followExiste) => {
-      if (!followExiste) {
-        // Dar follow si no hay
-        darFollow(idForo);
-      } else {
-        // Si ya le dio a seguir, le quitamos el follow
-        eliminarFollow(idForo);
+    if (comprobarIdentificacion().then((usuarioIdentificado) => {
+      if (usuarioIdentificado === false) {
+        throw swal("Error no identificado", "Te debes identificar para acceder", "info");
       }
-    });
+    })) {
+      const idForo = $(this).attr("id");
+      comprobarExisteFollow(idForo).then((followExiste) => {
+        if (!followExiste) {
+          // Dar follow si no hay
+          darFollow(idForo);
+        } else {
+          // Si ya le dio a seguir, le quitamos el follow
+          eliminarFollow(idForo);
+        }
+      });
+    }
   });
 }; // -end follow-
 
@@ -667,31 +707,42 @@ const darFollow = (idForo) => {
   // Se comprueba si hay follow previamente y se añade si no lo hay
   const formData = new FormData();
   formData.append("idForo", idForo);
-
-  $.ajax("identificado/servicioWebFollow/registrarFollow", {
-    type: "POST",
-    data: formData,
-    cache: false,
-    contentType: false,
-    processData: false
-  })
-    .done(() => {
-      console.log("Follow registrado");
+  if (comprobarIdentificacion().then((usuarioIdentificado) => {
+    if (usuarioIdentificado === false) {
+      throw swal("Error no identificado", "Te debes identificar para acceder", "info");
+    }
+  })) {
+    $.ajax("identificado/servicioWebFollow/registrarFollow", {
+      type: "POST",
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false
     })
-    .fail(function () {
-      swal("Ha fallado la funcion de dar follow", {
-        icon: "error"
+      .done(() => {
+        console.log("Follow registrado");
+      })
+      .fail(function () {
+        swal("Ha fallado la funcion de dar follow", {
+          icon: "error"
+        });
       });
-    });
+  }
 }; // -end dar follow
 
 const eliminarFollow = (idForo) => {
-  // Se comprueba si hay follow previamente y se elimina si lo hay
-  $.ajax("identificado/servicioWebFollow/eliminarFollow?idForo=" + idForo, {
-    error: (res) => {
-      swal("Error en eliminar Follow", res, "error");
+  if (comprobarIdentificacion().then((usuarioIdentificado) => {
+    if (usuarioIdentificado === false) {
+      throw swal("Error no identificado", "Te debes identificar para acceder", "info");
     }
-  }); // --end ajax--
+  })) {
+    // Se comprueba si hay follow previamente y se elimina si lo hay
+    $.ajax("identificado/servicioWebFollow/eliminarFollow?idForo=" + idForo, {
+      error: (res) => {
+        swal("Error en eliminar Follow", res, "error");
+      }
+    }); // --end ajax--
+  }
 }; // -end eliminar follow-
 
 const obtenerListadoPostsPopulares = () => {
@@ -720,33 +771,37 @@ const obtenerListadoPostsPopulares = () => {
 
 const registrarPost = () => {
   $("#form_registro_post").submit(function (e) {
-    // const nombre = $("#nombre").val();
-    // const descripcion = $("#descripcion").val();
-    const idForo = $(".enlacePost").attr("id");
+    if (comprobarIdentificacion().then((usuarioIdentificado) => {
+      if (usuarioIdentificado === false) {
+        throw swal("Error no identificado", "Te debes identificar para acceder", "info");
+      }
+    })) {
+      const idForo = $(".enlacePost").attr("id");
 
-    const formulario = document.forms[0];
-    const formData = new FormData(formulario);
-    formData.append("idForo", idForo);
+      const formulario = document.forms[0];
+      const formData = new FormData(formulario);
+      formData.append("idForo", idForo);
 
-    $.ajax("identificado/servicioWebPosts/registrarPosts", {
-      type: "POST",
-      data: formData,
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: function (res) {
-        if (res === "ok") {
-          swal("Registro correcto", "", "success");
-          $("#crearPostModal").modal("hide");
-          obtenerListadoPostsPopulares();
-        }
-      },
-      error: (res) => {
-        swal("Error en el registro", res.responseText, "error");
-      } // end Success Registrar Post
-    });
-    // end Registrar Post
-    e.preventDefault();
+      $.ajax("identificado/servicioWebPosts/registrarPosts", {
+        type: "POST",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (res) {
+          if (res === "ok") {
+            swal("Registro correcto", "", "success");
+            $("#crearPostModal").modal("hide");
+            obtenerListadoPostsPopulares();
+          }
+        },
+        error: (res) => {
+          swal("Error en el registro", res.responseText, "error");
+        } // end Success Registrar Post
+      });
+      // end Registrar Post
+      e.preventDefault();
+    }
   });
 }; // -end registrar post-
 
@@ -965,62 +1020,74 @@ const borrarUsuario = () => {
 }; // -end borrar usuario-
 
 const perfil = () => {
-  $.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
-    success: function (data) {
-      alert("recibido: " + data);
-      const info = JSON.parse(data);
-      let textoHtml = "";
+  if (comprobarIdentificacion().then((usuarioIdentificado) => {
+    if (usuarioIdentificado === false) {
+      throw swal("Error no identificado", "Te debes identificar para acceder", "info");
+    }
+  })) {
+    $.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
+      success: function (data) {
+        alert("recibido: " + data);
+        const info = JSON.parse(data);
+        let textoHtml = "";
 
-      textoHtml = Mustache.render(plantillaPerfil, info);
-      $("#contenedor").html(textoHtml);
-      const stateObj = {
-        url: baseURL + urlPerfil,
-        textoHtml: Mustache.render(plantillaPerfil, info, () => {
-          // // Editar usuario
-          // editarUsuario();
-          // // Borrar usuario
-          // borrarUsuario();
+        textoHtml = Mustache.render(plantillaPerfil, info);
+        $("#contenedor").html(textoHtml);
+        const stateObj = {
+          url: baseURL + urlPerfil,
+          textoHtml: Mustache.render(plantillaPerfil, info, () => {
 
-          // // Ver listado follows
-          // listadoFollowsPerfil();
-        })
-      };
-      window.history.pushState(stateObj, urlPerfil, baseURL + urlPerfil);
+          })
+        };
+        window.history.pushState(stateObj, urlPerfil, baseURL + urlPerfil);
 
-      // Editar usuario
-      editarUsuario();
-      // Borrar usuario
-      borrarUsuario();
-      // Ver listado follows
-      listadoFollowsPerfil();
-    } // end success Obtener id
-  }); // end ajax
+        // Editar usuario
+        editarUsuario();
+        // Borrar usuario
+        borrarUsuario();
+        // Ver listado follows
+        listadoFollowsPerfil();
+      } // end success Obtener id
+    }); // end ajax
+  }
 }; // -end perfil-
 
 const eliminarValoracionFalse = (idPost) => {
   // Eliminar valoración
   // Se le llama y se le pasa la valoración previa realizada
-  $(".like").click(
-    $.ajax(
-      "identificado/servicioWebValoracion/eliminarValoracion?idPost=" + idPost
-    ).fail(function () {
-      swal("Ha fallado la funcion de quitar dislike", {
-        icon: "error"
-      });
-    }) // --end ajax--
-  );
+  if (comprobarIdentificacion().then((usuarioIdentificado) => {
+    if (usuarioIdentificado === false) {
+      throw swal("Error no identificado", "Te debes identificar para acceder", "info");
+    }
+  })) {
+    $(".like").click(
+      $.ajax(
+        "identificado/servicioWebValoracion/eliminarValoracion?idPost=" + idPost
+      ).fail(function () {
+        swal("Ha fallado la funcion de quitar dislike", {
+          icon: "error"
+        });
+      }) // --end ajax--
+    );
+  }
 }; // -end eliminar valoracion false-
 
 const eliminarValoracionTrue = (idPost) => {
   // Eliminar valoración
   // Se le llama y se le pasa la valoración previa realizada
-  $(".dislike").click(
-    $.ajax(
-      "identificado/servicioWebValoracion/eliminarValoracion?idPost=" + idPost
-    ).fail(function () {
-      swal("Ha fallado la funcion de quitar like", "Error", "error");
-    }) // --end ajax--
-  );
+  if (comprobarIdentificacion().then((usuarioIdentificado) => {
+    if (usuarioIdentificado === false) {
+      throw swal("Error no identificado", "Te debes identificar para acceder", "info");
+    }
+  })) {
+    $(".dislike").click(
+      $.ajax(
+        "identificado/servicioWebValoracion/eliminarValoracion?idPost=" + idPost
+      ).fail(function () {
+        swal("Ha fallado la funcion de quitar like", "Error", "error");
+      }) // --end ajax--
+    );
+  }
 }; // -end eliminar valoracion true-
 
 const comprobarExisteValoracion = (idPost) => {

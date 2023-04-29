@@ -1,7 +1,7 @@
-const ojoDOM = document.getElementById("ojo-icon");
+let ojoDOM = document.getElementById("ojo-icon");
 
 ojoDOM.addEventListener("click", function () {
-  const pass = document.getElementById("pass");
+  let pass = document.getElementById("pass");
 
   if (pass.type === "password") {
     pass.type = "text";

@@ -59,6 +59,10 @@
   height: auto;
 }
 
+.media {
+  border: 2px solid var(--primaryHover);
+  border-radius: 1em;
+}
 /* Post */
 
 .card {
@@ -91,14 +95,6 @@
   text-decoration: none;
 }
 
-
-
-/* Contenedor valoracion */
-.valoracionContainer {
-  border: solid, 2px, var(--primaryHover);
-  border-radius: 1em;
-}
-
 /* Imagen perfil de usuario post */
 .perfilContenedor {
   width: 30px;
@@ -107,6 +103,10 @@
 }
 
 @media screen and (max-height: 450px) {
+
+  .botonPerfil{
+    display: none;
+  }
   .sidenav {
     padding-top: 15px;
   }

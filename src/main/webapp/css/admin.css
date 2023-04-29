@@ -125,10 +125,10 @@ a:hover{
 
 
 /* Cabecera */
-img {
+/* img {
     background-color: var(--secondaryHover);
     width: 50%;
-}
+} */
 
 
 /*Navbar*/
@@ -141,11 +141,6 @@ nav {
     background-color: var(--primaryFocus);
     text-align: center;
 }
-
-
-
-
-
 
 /*Scroll bar*/
 ::-webkit-scrollbar {

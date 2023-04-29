@@ -28,7 +28,7 @@ public class ServicioWebForos {
 	public ResponseEntity<String> obtenerForosDeNombreIntroducido(String nombreForo, HttpServletRequest request) {
 
 		List<Map<String, Object>> listadoForos = servicioForos.obtenerForosParaListadoBusquedaForo(nombreForo);
-		if (listadoForos.isEmpty() || listadoForos.equals(null)) {
+		if (listadoForos.equals(null)) {
 			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		String json = new Gson().toJson(listadoForos);

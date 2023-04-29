@@ -14,7 +14,7 @@
             <link rel="stylesheet" href="css/style.css">
 
             <!-- icons -->
-
+            <script src="https://kit.fontawesome.com/485aa9f350.js" crossorigin="anonymous"></script>
         </head>
 
 
@@ -141,14 +141,12 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
                 crossorigin="anonymous"></script>
-            <script src="https://kit.fontawesome.com/485aa9f350.js" crossorigin="anonymous"></script>
             <script type="text/javascript" src="librerias_javascript/jquery.js"></script>
             <script type="text/javascript" src="librerias_javascript/mustache.js"></script>
             <script type="text/javascript" src="librerias_javascript/js.cookie.min.js"></script>
             <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
             <script type="text/javascript" src="js/validaciones.js"></script>
             <script type="text/javascript" src="js/navbarIconoMobile.js"></script>
-            <script src="js/post.js"></script>
             <script type="text/javascript" src="js/cargarPlantillas.js"></script>
             <script type="text/javascript" src="js/main.js"></script>
         </body>

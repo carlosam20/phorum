@@ -16,6 +16,14 @@
     margin: 2%;
 }
 
+.editarUsuarioPng {
+        width: 20%;
+        height: auto;
+        max-height: 300px;
+        object-fit: cover;
+        margin: auto;    
+}
+
 .fa-rectangle-history-circle-plus{
     color: var(--primary);
 }

@@ -22,11 +22,19 @@
 }
 
 .form-control {
-  border: 1px, solid, black;
-  border-radius: 1rem;
+  border-right: none;
+  border-left: 1px, solid, black;
+  border-top: 1px, solid, black;
+  border-bottom: 1px, solid, black;
+
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-top-right-radius: none;
+  border-bottom-right-radius: none;
+
   background-color: transparent;
   color: black;
-  padding: 1rem 1.4rem 1rem 2.5rem;
+  padding: 0.8rem 1.1rem 0.8rem 2.2rem;
 }
 
 .form-control:hover {
@@ -61,12 +69,6 @@
   color: var(--primary);
 }
 
-.fa-magnifying-glass {
-  width: 50%;
-  height: auto;
-  color: white !important;
-}
-
 .descripcion {
 
   display: -webkit-box;
@@ -86,7 +88,9 @@
   padding: 0.4em 0.5em;
 }
 
-
+.fa-magnifying-glass {
+  color: white;
+}
 @media only screen and (max-width: 425px) {
 
   .form-control {
