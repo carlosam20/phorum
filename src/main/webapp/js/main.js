@@ -142,6 +142,32 @@ window.addEventListener("popstate", function (e) {
   }
 });
 
+// --Para recarga de URL
+function handleURL(url) {
+  console.log("URL"+url); // Debugging line
+  if (url.indexOf(baseURL) !== -1) {
+    listadoInicio();
+  } else if (url.indexOf(baseURL + urlForos) !== -1) {
+    obtenerListadoForos();
+  } else if (url.indexOf(baseURL + urlPosts) !== -1) {
+    obtenerListadoPostsPopulares();
+  } else if (url.indexOf(baseURL + urlRegistrar) !== -1) {
+    mostrarRegistroUsuario();
+  } else if (url.indexOf(baseURL + urlLogin) !== -1) {
+    mostrarIdentificacionUsuario();
+  }
+}
+
+$(document).ready(function () {
+  // get the current URL
+  let currentURL = window.location.href;
+
+  // detect the URL and call the appropriate function
+  handleURL(currentURL);
+});
+
+// -- Fin  recarga de URL
+
 // Cargamos el home
 const listadoInicio = () => {
   $.ajax("servicioWebForos/obtenerForosYPosts", {
@@ -175,35 +201,35 @@ const registrarComentarioPost = () => {
   if (comprobarIdentificacion().then((usuarioIdentificado) => {
     if (usuarioIdentificado === false) {
       throw swal("Error no identificado", "Te debes identificar para acceder", "info");
+    } else {
+      $(".form_registro_comentario").submit(function (e) {
+        const idPost = $(this).attr("id");
+        const formulario = document.forms[0];
+        const formData = new FormData(formulario);
+        console.log(idPost);
+        $.ajax(
+          "identificado/servicioWebComentarios/registrarComentario?idPost=" +
+          idPost,
+          {
+            type: "POST",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (res) {
+              if (res === "ok") {
+                location.reload();
+              }
+            }, // end Success Registrar Comentario
+            error: (res) => {
+              swal("Error al registrar comentario", res.responseText, "error");
+            }// end Error
+          }
+        ); // end Registrar Comentarios
+        e.preventDefault();
+      });
     }
-  })) {
-    $(".form_registro_comentario").submit(function (e) {
-      const idPost = $(this).attr("id");
-      const formulario = document.forms[0];
-      const formData = new FormData(formulario);
-      console.log(idPost);
-      $.ajax(
-        "identificado/servicioWebComentarios/registrarComentario?idPost=" +
-        idPost,
-        {
-          type: "POST",
-          data: formData,
-          cache: false,
-          contentType: false,
-          processData: false,
-          success: function (res) {
-            if (res === "ok") {
-              location.reload();
-            }
-          }, // end Success Registrar Comentario
-          error: (res) => {
-            swal("Error al registrar comentario", res.responseText, "error");
-          }// end Error
-        }
-      ); // end Registrar Comentarios
-      e.preventDefault();
-    });
-  }
+  }));
 }; // -end registrar comentario post-
 
 const verPerfilDeComentario = () => {
@@ -477,34 +503,34 @@ const registrarForo = () => {
   // Registro
 
   $("#form_registro_foro").submit(function (e) {
+    // vamos a usar FormData para mandar el form al servicio web
+    const formulario = document.forms[0];
+    const formData = new FormData(formulario);
+
     if (comprobarIdentificacion().then((usuarioIdentificado) => {
       if (usuarioIdentificado === false) {
         throw swal("Error no identificado", "Te debes identificar para acceder", "info");
-      }
-    })) {
-      // vamos a usar FormData para mandar el form al servicio web
-      const formulario = document.forms[0];
-      const formData = new FormData(formulario);
-
-      $.ajax("identificado/servicioWebForos/registroForo", {
-        type: "POST",
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function (res) {
-          if (res === "ok") {
-            swal("", "Se ha creado correctamente", "success");
-            $("#crearForoModal").modal("hide");
-            obtenerListadoForosIdentificado();
+      } else {
+        $.ajax("identificado/servicioWebForos/registroForo", {
+          type: "POST",
+          data: formData,
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function (res) {
+            if (res === "ok") {
+              swal("", "Se ha creado correctamente", "success");
+              $("#crearForoModal").modal("hide");
+              obtenerListadoForosIdentificado();
+            }
+          },
+          error: (res) => {
+            swal("Error al registrar", res.responseText, "error");
           }
-        },
-        error: (res) => {
-          swal("Error al registrar", res.responseText, "error");
-        }
-      });
-      e.preventDefault();
-    }
+        });
+        e.preventDefault();
+      }
+    }));
   });
 }; // -end registrar foro-
 
@@ -774,34 +800,34 @@ const registrarPost = () => {
     if (comprobarIdentificacion().then((usuarioIdentificado) => {
       if (usuarioIdentificado === false) {
         throw swal("Error no identificado", "Te debes identificar para acceder", "info");
+      } else {
+        const idForo = $(".enlacePost").attr("id");
+
+        const formulario = document.forms[0];
+        const formData = new FormData(formulario);
+        formData.append("idForo", idForo);
+
+        $.ajax("identificado/servicioWebPosts/registrarPosts", {
+          type: "POST",
+          data: formData,
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function (res) {
+            if (res === "ok") {
+              swal("Registro correcto", "", "success");
+              $("#crearPostModal").modal("hide");
+              obtenerListadoPostsPopulares();
+            }
+          },
+          error: (res) => {
+            swal("Error en el registro", res.responseText, "error");
+          } // end Success Registrar Post
+        });
+        // end Registrar Post
+        e.preventDefault();
       }
-    })) {
-      const idForo = $(".enlacePost").attr("id");
-
-      const formulario = document.forms[0];
-      const formData = new FormData(formulario);
-      formData.append("idForo", idForo);
-
-      $.ajax("identificado/servicioWebPosts/registrarPosts", {
-        type: "POST",
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function (res) {
-          if (res === "ok") {
-            swal("Registro correcto", "", "success");
-            $("#crearPostModal").modal("hide");
-            obtenerListadoPostsPopulares();
-          }
-        },
-        error: (res) => {
-          swal("Error en el registro", res.responseText, "error");
-        } // end Success Registrar Post
-      });
-      // end Registrar Post
-      e.preventDefault();
-    }
+    }));
   });
 }; // -end registrar post-
 
@@ -879,6 +905,7 @@ const loginUsuario = (email, pass) => {
     success: function (res) {
       if (res.includes("ok")) {
         nombreLogin = res.split(",")[1];
+        $("#mensaje_login").text(nombreLogin);
         swal("", "Inicio de sesión correcto", "success");
         if ($("#recordar_datos").prop("checked")) {
           swal("Cookies de Sesión", "Datos guardados", "success");
@@ -886,7 +913,6 @@ const loginUsuario = (email, pass) => {
           Cookies.set("pass", pass, { expires: 100 });
         }
       }
-      $("#mensaje_login").text(nombreLogin);
       const stateObj = {
         url: baseURL + urlLogin,
         textoHtml: Mustache.render(plantillaLogin)

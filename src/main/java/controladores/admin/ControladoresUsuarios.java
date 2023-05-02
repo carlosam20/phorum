@@ -73,17 +73,16 @@ public class ControladoresUsuarios {
 	public String guardarNuevoUsuario(@ModelAttribute("nuevoUsuario") @Valid Usuario nuevoUsuario, BindingResult br, Model model,
 			HttpServletRequest request) {
 		
-		//Eliminamos la hora del guardado de fecha
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.setTime(nuevoUsuario.getFechaCreacion());
+	    Calendar calendar = Calendar.getInstance();   
 	    calendar.set(Calendar.HOUR_OF_DAY, 0);
 	    calendar.set(Calendar.MINUTE, 0);
 	    calendar.set(Calendar.SECOND, 0);
 	    calendar.set(Calendar.MILLISECOND, 0);
 	    
-	    nuevoUsuario.setFechaCreacion(calendar.getTime());
-		
 		if (!br.hasErrors()) {
+			//Eliminamos la hora del guardado de fecha
+		    calendar.setTime(nuevoUsuario.getFechaCreacion());
+		    nuevoUsuario.setFechaCreacion(calendar.getTime());
 			
 
 			servicioUsuarios.registrarUsuario(nuevoUsuario);

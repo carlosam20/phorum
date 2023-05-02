@@ -1,7 +1,12 @@
+/* Root */
 :root {
   --primary: #003F30;
   --primaryHover: #00140F;
   --primaryFocus: #439F88;
+
+  --primaryHsl: hsl(166, 100%, 12%);
+  --primaryHover: hsl(165, 100%, 4%);
+  --primaryFocus: hsl(165, 41%, 44%);
 
   --secondary: #060637;
   --secondaryHover: #202031;
@@ -10,35 +15,34 @@
   --footer-color: #002031;
   --textLightColor: #34403A;
 
-  --error: #780B0B:
+
+  --error: #780B0B;
+  --errorHover: #ac1010;
+  --errorFocus: #f11b1b;
+
 }
 
-.registroUsuario {
+.registroUsuario,
+.editarUsuario,
+.registrarPost,
+.editarPost {
   background: rgb(67, 159, 136);
   background: linear-gradient(90deg, rgba(67, 159, 136, 1) 0%, rgba(67, 159, 136, 1) 41%, rgb(156, 156, 211) 77%);
   border-radius: 1em;
 }
 
 form {
-  box-shadow:
-    2.8px 2.8px 2.2px rgba(0, 0, 0, 0.034),
-    6.7px 6.7px 5.3px rgba(0, 0, 0, 0.048),
-    12.5px 12.5px 10px rgba(0, 0, 0, 0.06),
-    22.3px 22.3px 17.9px rgba(0, 0, 0, 0.072),
-    41.8px 41.8px 33.4px rgba(0, 0, 0, 0.086),
-    100px 100px 80px rgba(0, 0, 0, 0.12);
   padding-bottom: 15%;
   margin: auto;
 }
 
-.fa-regular {
+.fa-regular .fa-solid {
   color: #003F30;
 }
 
 
 /* Selects */
-
-select{
+select {
   font-family: 'Roboto', sans-serif;
   outline: 0;
   background: var(--primary);
@@ -47,7 +51,32 @@ select{
   padding: 1%;
   border-radius: 1em;
 }
-select-items{
+
+select-items {
   word-spacing: 0.1rem;
   border-radius: 1em;
+}
+
+.form-control {
+  padding: 0.8rem 1.1rem 0.8rem 2.2rem;
+}
+
+.span-estilo {
+  /* Glassmorphismo */
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(221, 221, 221, 0.75);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3);
+  border-radius: 1em;
+}
+
+.span-col .fa-circle-exclamation {
+  display: none;
+}
+
+.show-icon .fa-circle-exclamation {
+  display: block;
+  color: var(--error);
+
 }

@@ -12,9 +12,9 @@
 </head>
 <body>
 <jsp:include page="cabecera.jsp"></jsp:include>
-<div id="title-phorum" style="text-align: center">Bienvenido a la administraci&acuteon de phorum</div>
+<div id="title-phorum" style="text-align: center">Bienvenido a la administraci&oacuten de phorum</div>
 
-<img src="../images/loginMovil.png" alt="Girl in a jacket">
+<img src="../images/editarUsuario.png" alt="login">
 
 
 </body>

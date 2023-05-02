@@ -9,7 +9,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container-fluid">
    	 <img src="../images/logo-phorum.svg" id="phorum-icon" alt="phorum-logo" >
-    <h1 class="navbar-brand">
+    <h1 class="navbar-brand mx-1">
       Phorum Admin
     </h1>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
