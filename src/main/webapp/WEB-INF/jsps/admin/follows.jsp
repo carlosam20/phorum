@@ -16,24 +16,29 @@
 		<body>
 
 			<jsp:include page="cabecera.jsp"></jsp:include>
-			<a class="btn btn-outline-secondary m-3" href="registrarFollow">Nuevo Follow</a><br>
-
-
-			<form action="listarFollows">
-
-				<div class="input-group mb-3">
-					<span class="input-group-text" id="basic-addon1">id:</span>
-					<input type="number" name="id" value="${id}" class="form-control" placeholder="Id" aria-label="Id"
-						aria-describedby="basic-addon1" />
-					<input type="submit" value="BUSCAR" class="btn btn-primary" />
+			<div class="row text-left">
+				<div class="col-4">
+					<a class="btn btn-outline-secondary m-1" href="registrarFollow">Nuevo Follow</a><br>
 				</div>
+			</div>
 
+			<div class="row">
+				<div class="col-8 mx-auto">
+					<form action="listarFollows">
+						<div class="input-group mb-3">
+							<span class="input-group-text" id="basic-addon1">id:</span>
+							<input type="number" name="id" value="${id}" class="form-control" placeholder="Id"
+								aria-label="Id" aria-describedby="basic-addon1" />
+							<input type="submit" value="BUSCAR" class="btn btn-primary" />
+						</div>
 
-			</form>
+					</form>
+				</div>
+			</div>
 
 			<div class="mx-auto">
-				paginacion: <br>
-				total de follows: ${total} <br>
+				paginacion:
+				total de follows: ${total}
 
 				<c:if test="${ anterior >= 0 }">
 					<a href="listarFollows?comienzo=${anterior}&id=${id}" class="btn btn-outline-primary">anterior</a>
@@ -53,13 +58,15 @@
 
 								<div class="card-body">
 									<h3 class="card-title">Nombre foro: ${follow.foro.nombre}</h3>
-									<h3 class="card-title">Usuario: ${follow.foro.nombre} Id: ${follow.usuario.id}</h3>
+									<h3 class="card-title">Usuario: ${follow.foro.nombre} Id:
+										${follow.usuario.id}</h3>
 								</div>
 								<ul class="list-group list-group-flush m-2">
 									<li class="list-group-item">Id: ${follow.id} </li>
 									<li class="list-group-item">Id usuario: ${follow.usuario.id} </li>
 									<li class="list-group-item">Id foro: ${follow.foro.id} </li>
-									<li class="list-group-item">Nombre de usuario: ${follow.usuario.nombre} </li>
+									<li class="list-group-item">Nombre de usuario: ${follow.usuario.nombre}
+									</li>
 									<li class="list-group-item">Nombre foro: ${follow.foro.nombre} </li>
 								</ul>
 

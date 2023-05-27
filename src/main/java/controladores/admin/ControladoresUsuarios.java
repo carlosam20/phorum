@@ -1,17 +1,21 @@
 package controladores.admin;
 
-
-
 import javax.servlet.http.HttpServletRequest;
 
-
 import javax.validation.Valid;
+
+import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,137 +27,185 @@ import servicios.ServicioUsuarios;
 import servicios.ServicioValoracion;
 import utilidadesArchivos.GestorArchivos;
 
-
 @Controller
 @RequestMapping("admin/")
 public class ControladoresUsuarios {
 
 	@Autowired
 	private ServicioUsuarios servicioUsuarios;
-	
+
 	@Autowired
 	private ServicioPosts servicioPosts;
-	
+
 	@Autowired
 	private ServicioComentarios servicioComentarios;
-	
+
 	@Autowired
 	private ServicioValoracion servicioValoraciones;
-	
+
 	@Autowired
 	private ServicioFollow servicioFollows;
-	
-	
+
 	@RequestMapping("listarUsuarios")
-	public String listarUsuarios(@RequestParam(defaultValue = "")String nombre, Integer comienzo, Model model) {
-		
+	public String listarUsuarios(@RequestParam(defaultValue = "") String nombre, Integer comienzo, Model model) {
+
 		int comienzo_int = 0;
-		
+
 		if (comienzo != null) {
 			comienzo_int = comienzo.intValue();
 		}
-		
+
 		model.addAttribute("info", servicioUsuarios.obtenerUsuarios(nombre, comienzo_int));
-		model.addAttribute("siguiente", comienzo_int+10);
-		model.addAttribute("anterior", comienzo_int-10);
+		model.addAttribute("siguiente", comienzo_int + 10);
+		model.addAttribute("anterior", comienzo_int - 10);
 		model.addAttribute("total", servicioUsuarios.obtenerTotalDeUsuarios(nombre));
 		model.addAttribute("nombre", nombre);
-		
+
 		return "admin/usuarios";
 	}
-	
+
 	@RequestMapping("registrarUsuario")
 	public String registrarUsuario(Model model) {
 		Usuario nuevo = new Usuario();
 		model.addAttribute("nuevoUsuario", nuevo);
-		
+
 		return "admin/formularioRegistroUsuario";
 	}
+
 	@RequestMapping("guardarNuevoUsuario")
-	public String guardarNuevoUsuario(@ModelAttribute("nuevoUsuario") @Valid Usuario nuevoUsuario, BindingResult br, Model model,
-			HttpServletRequest request) {
+	public String guardarNuevoUsuario(@ModelAttribute("nuevoUsuario") @Valid Usuario nuevoUsuario, BindingResult br,
+			Model model, HttpServletRequest request) {
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
 		
-	    Calendar calendar = Calendar.getInstance();   
-	    calendar.set(Calendar.HOUR_OF_DAY, 0);
-	    calendar.set(Calendar.MINUTE, 0);
-	    calendar.set(Calendar.SECOND, 0);
-	    calendar.set(Calendar.MILLISECOND, 0);
-	    
+
+
 		if (!br.hasErrors()) {
-			//Eliminamos la hora del guardado de fecha
-		    calendar.setTime(nuevoUsuario.getFechaCreacion());
-		    nuevoUsuario.setFechaCreacion(calendar.getTime());
+
+			//Comprobamos que la fecha no sea nula
+			if (nuevoUsuario.getFechaCreacion() == null) {
+
+				FieldError error = new FieldError("nuevoUsuario", "fechaCreacion", "Se tiene que introducir una fecha");
+				br.addError(error);
+				return "admin/formularioRegistroUsuario";
+			}
+
 			
+			if(servicioUsuarios.comprobarEmail(nuevoUsuario.getEmail())) {
+				FieldError error = new FieldError("nuevoUsuario", "email",
+						"Existe una cuenta con ese email");
+				br.addError(error);
+				return "admin/formularioRegistroUsuario";
+			}
+
+			LocalDate localDate = LocalDate.now();
+			Date dateActual = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			
+			LocalDate localDateCreacion = nuevoUsuario.getFechaCreacion().toInstant().atZone(ZoneId.systemDefault())
+					.toLocalDate();
+			LocalDate localDateActual = dateActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+			if (!localDateCreacion.isBefore(localDateActual) && !localDateCreacion.isEqual(localDateActual)) {
+				FieldError error = new FieldError("nuevoUsuario", "fechaCreacion",
+						"La fecha tiene que ser anterior o actual");
+				br.addError(error);
+				return "admin/formularioRegistroUsuario";
+			}
+			if(nuevoUsuario.getImagen().getSize() == 0 || nuevoUsuario.getImagen().isEmpty()) {
+				FieldError error = new FieldError("nuevoUsuario", "imagen",
+						"Se tiene que introducir una imagen");
+				br.addError(error);
+				return "admin/formularioRegistroUsuario";
+			}
+
+			// Eliminamos la hora del guardado de fecha
+			calendar.setTime(nuevoUsuario.getFechaCreacion());
+			nuevoUsuario.setFechaCreacion(calendar.getTime());
 
 			servicioUsuarios.registrarUsuario(nuevoUsuario);
-			String rutaRealDelProyecto =
-			request.getServletContext().getRealPath("");
+			String rutaRealDelProyecto = request.getServletContext().getRealPath("");
 			GestorArchivos.guardarFotoUsuarioAdmin(nuevoUsuario, rutaRealDelProyecto);
 			return "admin/registroUsuarioOk";
-			
+
 		} else {
-				
-			System.out.println("Error en"+br.getFieldError());
+
+			System.out.println("Error en" + br.getFieldError());
 			model.addAttribute("nuevoUsuario", nuevoUsuario);
 			return "admin/formularioRegistroUsuario";
 		}
-		
+
 	}
+
 	@RequestMapping("guardarCambiosUsuario")
-	public String guardarCambiosUsuario(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult br,  Model model,
-			HttpServletRequest request) {
-		
-		//Eliminamos la hora del guardado de fecha
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.setTime(usuario.getFechaCreacion());
-	    calendar.set(Calendar.HOUR_OF_DAY, 0);
-	    calendar.set(Calendar.MINUTE, 0);
-	    calendar.set(Calendar.SECOND, 0);
-	    calendar.set(Calendar.MILLISECOND, 0);
-	    
-	    usuario.setFechaCreacion(calendar.getTime());
-	
-		if(!br.hasErrors()) {
-			String rutaRealDelProyecto = 
-					request.getServletContext().getRealPath("");
+	public String guardarCambiosUsuario(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult br,
+			Model model, HttpServletRequest request) {
+
+		// Eliminamos la hora del guardado de fecha
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(usuario.getFechaCreacion());
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+
+		usuario.setFechaCreacion(calendar.getTime());
+
+		if (!br.hasErrors()) {
+			String rutaRealDelProyecto = request.getServletContext().getRealPath("");
 			GestorArchivos.guardarFotoUsuarioAdmin(usuario, rutaRealDelProyecto);
 			servicioUsuarios.guardarCambiosUsuario(usuario);
-			return listarUsuarios("",0,model);
-			
-		}else {
-			return "admin/formularioEditarUsuario";	
+			return listarUsuarios("", 0, model);
+
+		} else {
+			return "admin/formularioEditarUsuario";
 		}
-		
+
 	}
+
 	@RequestMapping("editarUsuario")
 	public String editarUsuario(String id, Model model) {
 		Usuario u = servicioUsuarios.obtenerUsuario(Long.parseLong(id));
-		model.addAttribute("usuario",u);
+		model.addAttribute("usuario", u);
 		return "admin/formularioEditarUsuario";
-			
+
 	}
+
 	@RequestMapping("borrarUsuario")
 	public String borrarUsuario(String id, Model model) {
-		
-		
-		servicioComentarios.borrarComentariosPorIdUsuario(Long.parseLong(id));
-		
-		//Eliminar valoraciones por usuario
+
+		// Eliminar valoraciones por usuario
 		servicioValoraciones.eliminaValoracionesPorUsuario(Long.parseLong(id));
-		
-		//Eliminar follows por usuario
+
+		// Eliminar comentarios del usuario
+		servicioComentarios.borrarComentariosPorIdUsuario(Long.parseLong(id));
+
+		// Eliminar follows por usuario
 		servicioFollows.eliminarFollowsPorUsuario(Long.parseLong(id));
-		
-		//Eliminamos posts de  usuario
+
+		// Obtener posts del usuario
+		List<Map<String, Object>> postUsuario = servicioPosts.obtenerPostsPorIdUsuario(Long.parseLong(id));
+
+		// Eliminar las valoraciones y comentarios de los posts del usuario
+		if (postUsuario.size() != 0) {
+			for (int i = 0; i < postUsuario.size(); i++) {
+				long postId = Long.parseLong(String.valueOf(postUsuario.get(i).get("id")));
+				servicioValoraciones.eliminaValoracionesPorPost(postId);
+				servicioComentarios.borrarComentariosPoridPost(postId);
+			}
+		}
+
+		// Eliminar posts del usuario
 		servicioPosts.eliminarPostUsuarios(Long.parseLong(id));
-		
-		//Eliminamos el usuario finalmente
+
+		// Eliminar el usuario finalmente
 		servicioUsuarios.eliminarUsuario(Long.parseLong(id));
-		
+
 		return listarUsuarios("", null, model);
-			
+
 	}
-	
-	
-	
+
 }

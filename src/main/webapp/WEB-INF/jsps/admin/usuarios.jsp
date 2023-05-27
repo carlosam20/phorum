@@ -24,12 +24,10 @@
 			</div>
 
 			<div class="row">
-				<div class="col-lg-12 col-md-12">
+				<div class="col-8 mx-auto">
 					<form action="listarUsuarios">
-
 						<div class="input-group mb-3">
 							<label class="input-group-text">Nombre:</label>
-							<!--  <input type="text"  placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">-->
 							<input type="text" name="nombre" value="${nombre}" class="form-control" placeholder="Nombre"
 								aria-label="Nombre" aria-describedby="basic-addon1" />
 							<input type="submit" value="BUSCAR" class="btn btn-primary" />
@@ -38,21 +36,38 @@
 				</div>
 			</div>
 			<div class="mx-auto">
-				paginacion: <br>
-				total de usuarios: ${total} <br>
 
-				<c:if test="${ anterior >= 0 }">
-					<a href="listarUsarios?comienzo=${anterior}&nombre=${nombre}"
-						class="btn btn-outline-primary">anterior</a>
-				</c:if>
+				<div class="row d-flex justify-content-start m-1 d-flex d-grid gap-2" id="paginacion">
+					<div class="col-2">
+						<c:if test="${ anterior >= 0 }">
+							<a href="listarUsuarios?comienzo=${anterior}&nombre=${nombre}"
+								class="btn btn-outline-primary btn-sm">anterior</a>
+						</c:if>
+						<c:if test="${ anterior < 0 }">
+							<a href="listarUsuarios?comienzo=${anterior}&nombre=${nombre}"
+								class="btn btn-outline-primary disabled">anterior</a>
+						</c:if>
+					</div>
+					<div class="col-2">
+						<c:if test="${siguiente < total}">
+							<a href="listarUsuarios?comienzo=${siguiente}&nombre=${nombre}"
+								class="btn btn-outline-primary btn-sm">siguiente</a>
+						</c:if>
+						<c:if test="${ siguiente > total}">
+						<a href="listarUsuarios?comienzo=${anterior}&nombre=${nombre}"
+							class="btn btn-outline-primary disabled">siguiente</a>
+						</c:if>
+					</div>
 
-
-				<c:if test="${siguiente < total}">
-					<a href="listarUsuarios?comienzo=${siguiente}&nombre=${nombre}"
-						class="btn btn-outline-primary">siguiente</a>
-				</c:if>
+				</div>
+			</div>
+			<div class="row d-flex justify-content-start m-1 ">
+				<div class="col-4 d-flex justify-content-start">
+					<h4>Total de usuarios: </h4><span class="badge bg-primary">${total}</span>
+				</div>
 
 			</div>
+
 
 			<div class="d-grid gap-3">
 				<c:forEach var="usuario" items="${info}">

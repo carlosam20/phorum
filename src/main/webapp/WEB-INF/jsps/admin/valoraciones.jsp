@@ -16,24 +16,28 @@
 		<body>
 
 			<jsp:include page="cabecera.jsp"></jsp:include>
-			<a class="btn btn-outline-secondary m-3" href="registrarValoracion">Nuevo Valoracion</a><br>
-
-
-			<form action="listarValoraciones">
-
-				<div class="input-group mb-3">
-					<span class="input-group-text" id="basic-addon1">id:</span>
-					<input type="number" name="id" value="${id}" class="form-control" placeholder="Id" aria-label="Id"
-						aria-describedby="basic-addon1" />
-					<input type="submit" value="BUSCAR" class="btn btn-primary" />
+			<div class="row text-left">
+				<div class="col-4">
+					<a class="btn btn-outline-secondary m-1" href="registrarValoracion">Nuevo Valoracion</a><br>
 				</div>
+			</div>
 
-
-			</form>
+			<div class="row">
+				<div class="col-8 mx-auto">
+					<form action="listarValoraciones">
+						<div class="input-group mb-3">
+							<span class="input-group-text" id="basic-addon1">id:</span>
+							<input type="number" name="id" value="${id}" class="form-control" placeholder="Id"
+								aria-label="Id" aria-describedby="basic-addon1" />
+							<input type="submit" value="BUSCAR" class="btn btn-primary" />
+						</div>
+					</form>
+				</div>
+			</div>
 
 			<div class="mx-auto">
-				paginacion: <br>
-				total de valoraciones: ${total} <br>
+				paginacion:
+				total de valoraciones: ${total}
 
 				<c:if test="${anterior >= 0 }">
 					<a href="listarValoraciones?comienzo=${anterior}&id=${id}"

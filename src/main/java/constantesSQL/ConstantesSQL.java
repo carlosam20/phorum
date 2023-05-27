@@ -79,6 +79,7 @@ public class ConstantesSQL {
 	public final static String SQL_BORRAR_VALORACION="delete from valoracion where id = :id";
 	public final static String SQL_BORRAR_VALORACIONES_DE_USUARIO="delete from valoracion where usuario = :id";
 	public final static String SQL_BORRAR_VALORACIONES_DE_FORO="delete from valoracion where foro = :id";
+	public final static String SQL_BORRAR_VALORACIONES_DE_POST="delete from valoracion where post = :id";
 	public final static String SQL_BORRAR_POSTS_DE_FORO="delete from post where foro = :id";
 	public final static String SQL_BORRAR_POSTS_DE_USUARIO="delete from post where usuario = :id";
 	public final static String SQL_BORRAR_COMENTARIOS_DE_POST="delete from comentario where postComentario = :id";

@@ -15,26 +15,31 @@
     <body>
 
       <jsp:include page="cabecera.jsp"></jsp:include>
-      <a class="btn btn-outline-secondary m-3" href="registrarPost">Nuevo post</a><br>
-
-
-      <form action="listarPosts">
-
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1">Marca:</span>
-          <!--  <input type="text"  placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">-->
-          <input type="text" name="nombre" value="${nombre}" class="form-control" placeholder="Nombre Post"
-            aria-label="Post" aria-describedby="basic-addon1" />
-          <input type="submit" value="BUSCAR" class="btn btn-primary" />
+      <div class="row text-left">
+        <div class="col-4">
+          <a class="btn btn-outline-secondary m-1" href="registrarPost">Nuevo post</a><br>
         </div>
+      </div>
 
-      </form>
+
+      <div class="row">
+        <div class="col-8 mx-auto">
+          <form action="listarPosts">
+            <div class="input-group mb-3 mx-auto">
+              <span class="input-group-text" id="basic-addon1">Post:</span>
+              <input type="text" name="nombre" value="${nombre}" class="form-control" placeholder="Nombre Post"
+                aria-label="Post" aria-describedby="basic-addon1" />
+              <input type="submit" value="BUSCAR" class="btn btn-primary" />
+            </div>
+          </form>
+        </div>
+      </div>
 
 
 
       <div class="mx-auto">
-        paginacion: <br>
-        total de post: ${total} <br>
+        paginacion:
+        total de post: ${total}
         <c:if test="${ anterior >= 0 }">
           <a href="listarPost?comienzo=${anterior}&nombre=${nombre}" class="btn btn-outline-primary">anterior</a>
         </c:if>

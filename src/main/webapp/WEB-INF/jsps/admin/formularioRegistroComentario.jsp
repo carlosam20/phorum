@@ -5,82 +5,76 @@
 
 		<head>
 			<meta charset="UTF-8">
+			<title>formularioRegistrarComentario</title>
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 			<link rel="stylesheet" href="../css/style.css">
 			<link rel="stylesheet" href="../css/formsAdmin.css">
-			<title>formularioRegistroPost</title>
-
 		</head>
 
 		<body>
-
-			<div class="row justify-content-center m-1">
-				<h2 class="text-center">Registra tu comentario aqui</h2>
+			<div class="row text-center align-items-start">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<h1>Registro Comentario</h1>
+				</div>
 			</div>
-			<div class="registroComentario mx-auto my-auto">
-				<div class="row m-1 text-center d-flex justify-content-center align-items-center">
-					<div class="col-lg-10 col-md-10 col-sm-6">
-						<springform:form modelAttribute="nuevoComentario" action="guardarNuevoComentario"
-							enctype="multipart/form-data" class="d-grid gap-3">
 
-							<div class="row d-flex justify-content-center">
-								<div class="col-sm-2 col-md-2 col-lg-2">
-									<i class="fa-regular fa-comment"></i>
+			<div class="registrarComentario my-3">
+				<div class="row my-3 mx-2 text-center d-flex justify-content-center align-items-center">
+					<div class="col-lg-8 col-md-8 col-sm-8 my-3 mx-1">
+
+						<springform:form modelAttribute="nuevoComentario" action="guardarNuevoComentario"
+							enctype="multipart/form-data" class="d-grid gap-4" id="formularioComentario">
+
+							<div class="row">
+								<div class="col-sm-1 col-md-1 col-lg-1 d-flex align-items-center">
+									<p>Post</p>
 								</div>
-								<div class="col-sm-10 col-md-10 col-lg-10">
-									<div class="row">
-										<springform:textarea path="textoComentario" placeholder="Texto del comentario"
-											rows="5" cols="40" pattern="^.{1,60}$" maxlenght="60" class="text-start" />
-										<p>
-											<springform:errors path="textoComentario" />
-										</p>
-									</div>
+								<div class="col-sm-10 col-md-10 col-lg-10 d-flex align-items-center">
+									<springform:select path="idPostComentario">
+										<springform:options items="${posts}" />
+									</springform:select>
 								</div>
 							</div>
 
-							<div class="row d-flex justify-content-center">
-								<div class="col-sm-2 col-md-2 col-lg-2">
-									<i class="fa-regular fa-calendar-days fa-2xl"></i>
+							<div class="row">
+								<div class="col-sm-1 col-md-1 col-lg-1 d-flex align-items-center">
+									<p>Usuario</p>
 								</div>
-								<div class="col-sm-10 col-md-10 col-lg-10">
+								<div class="col-sm-11 col-md-11 col-lg-11 d-flex align-items-center">
+									<springform:select path="idUsuario">
+										<springform:options items="${usuarios}" />
+									</springform:select><br>
+								</div>
+							</div>
+							<div class="row d-flex justify-content-center">
+								<div class="col-1 d-flex align-items-center">
+									<i class="fa-regular fa-calendar-days fa-lg"></i>
+								</div>
+								<div class="col-sm-11 col-md-11 col-lg-11 d-flex align-items-center">
 									<springform:input type="date" pattern="yyyy/MM/dd" path="fechaCreacion" class="text-start" />
 									<p>
 										<springform:errors path="fechaCreacion" />
 									</p>
 								</div>
 							</div>
-
-							<div class="row d-flex justify-content-center">
-								<div class="col-sm-2 col-md-2 col-lg-2">
-									<p>Post:</p>
+							<div class="row">
+								<div class="col-sm-1 col-md-1 col-lg-1 d-flex align-items-center">
+									<p>Texto comentario</p>
 								</div>
-								<div class="col-sm-10 col-md-10 col-lg-10">
-									<div class="custom-select">
-										<springform:select path="idPostComentario" class="text-start">
-											<springform:options items="${posts}" />
-										</springform:select>
-									</div>
-								</div>
-							</div>
-
-							<div class="row d-flex justify-content-center">
-								<div class="col-sm-2 col-md-2 col-lg-2">
-									<p>Usuario:</p>
-								</div>
-								<div class="col-sm-10 col-md-10 col-lg-10">
-									<div class="custom-select">
-										<springform:select path="idUsuario" class="text-start">
-											<springform:options items="${usuarios}" />
-										</springform:select>
-									</div>
+								<div class="col-sm-11 col-md-11 col-lg-11 d-flex align-items-center">
+									<springform:textarea path="textoComentario" placeholder="Texto del comentario"
+										rows="5" cols="40" pattern="^.{1,60}$" maxlenght="60" class="text-start" />
 								</div>
 							</div>
 
 							<springform:hidden path="id" />
-							<div class="text-center m-3">
-								<input class="btn btn-primary" type="submit" value="Registrar Comentario">
+
+							<div class="row mt-2 " id="botonForm">
+								<div class="col-sm-12 col-md-12 col-lg-12 text-center mx-auto">
+									<input id="boton_submit" class="btn btn-primary btn-lg" type="submit"
+										value="Registrar Comentario">
+								</div>
 							</div>
-							
 						</springform:form>
 					</div>
 				</div>
@@ -91,5 +85,8 @@
 			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 			crossorigin="anonymous"></script>
 		<script src="https://kit.fontawesome.com/485aa9f350.js" crossorigin="anonymous"></script>
+		<script src="../js/togglePass.js"></script>
+		<script src="../js/spanAdmin.js"></script>
+		<script src="../js/reloadCache.js"></script>
 
 		</html>

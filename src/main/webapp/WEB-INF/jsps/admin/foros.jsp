@@ -15,34 +15,57 @@
     <body>
 
       <jsp:include page="cabecera.jsp"></jsp:include>
-      <a class="btn btn-outline-secondary m-3" href="registrarForo">Nuevo Foro</a><br>
-
-
-      <form action="listarForos">
-
-        <div class="input-group mb-3 mx-auto">
-          <span class="input-group-text" id="basic-addon1">Nombre:</span>
-          <!--  <input type="text"  placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">-->
-          <input type="text" name="nombre" value="${nombre}" class="form-control" placeholder="Username"
-            aria-label="Nombre" aria-describedby="basic-addon1" />
-          <input type="submit" value="BUSCAR" class="btn btn-primary" />
+      <div class="row text-left">
+        <div class="col-4">
+          <a class="btn btn-outline-secondary m-1" href="registrarForo">Nuevo Foro</a><br>
         </div>
+      </div>
 
 
-      </form>
+      <div class="row">
+        <div class="col-8 mx-auto">
+          <form action="listarForos">
+            <div class="input-group mb-3 mx-auto">
+              <span class="input-group-text" id="basic-addon1">Nombre:</span>
+              <input type="text" name="nombre" value="${nombre}" class="form-control" placeholder="Nombre"
+                aria-label="Nombre" aria-describedby="basic-addon1" />
+              <input type="submit" value="BUSCAR" class="btn btn-primary" />
+            </div>
+          </form>
+        </div>
+      </div>
 
 
       <div class="mx-auto">
-        paginacion: <br>
-        total de foros: ${total} <br>
-        <c:if test="${ anterior >= 0 }">
-          <a href="listarForos?comienzo=${anterior}&foro=${nombre}" class="btn btn-outline-primary">anterior</a>
-        </c:if>
+        <p>paginacion:</p>
 
+        <div class="row d-flex justify-content-start m-1 d-flex d-grid gap-2">
+          <div class="col-4">
+            <c:if test="${ anterior >= 0 }">
+              <a href="listarForos?comienzo=${anterior}&foro=${nombre}" class="btn btn-outline-primary">anterior</a>
+            </c:if>
+            <c:if test="${ anterior < 0 }">
+              <a href="listarForos?comienzo=${anterior}&foro=${nombre}" class="btn btn-outline-primary disabled">anterior</a>
+            </c:if>
 
-        <c:if test="${siguiente < total}">
-          <a href="listarForos?comienzo=${siguiente}&foro=${nombre}" class="btn btn-outline-primary">siguiente</a>
-        </c:if>
+          </div>
+          <div class="col-4">
+            <c:if test="${siguiente < total}">
+              <a href="listarForos?comienzo=${siguiente}&foro=${nombre}" class="btn btn-outline-primary">siguiente</a>
+            </c:if>
+            <c:if test="${ siguiente > total}">
+              <a href="listarForos?comienzo=${anterior}&foro=${nombre}" class="btn btn-outline-primary disabled">siguiente</a>
+            </c:if>
+          </div>
+
+        </div>
+
+        <div class="row d-flex justify-content-start m-1 ">
+          <div class="col-4 d-flex justify-content-start">
+            <p> total de foros: <span class="badge bg-primary">${total}</span></p>
+          </div>
+        </div>
+
 
       </div>
 

@@ -16,17 +16,17 @@
 
       <jsp:include page="cabecera.jsp"></jsp:include>
 
-      <div class="row m-1">
-        <div class="col-lg-5 col-md-5 col-sm-5">
-          <a class="btn btn-outline-secondary text-start" href="registrarComentario">Nuevo comentario</a>
+      <div class="row text-left">
+        <div class="col-4">
+          <a class="btn btn-outline-secondary m-1" href="registrarComentario">Nuevo comentario</a>
         </div>
       </div>
 
 
       <div class="row">
-        <div class="col-lg-6 col-md-6 col-md-6 mx-auto">
+        <div class="col-lg-8 col-md-8 col-md-8 mx-auto">
           <form action="listarComentarios">
-            <div class="input-group mb-3">
+            <div class="input-group mb-3 mx-auto">
               <span class="input-group-text" id="basic-addon1">Comentario:</span>
               <input type="text" name="nombre" value="${comentarioTexto}" class="form-control" placeholder="Comentario"
                 aria-label="Post" aria-describedby="basic-addon1" />

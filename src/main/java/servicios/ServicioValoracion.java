@@ -23,6 +23,8 @@ public interface ServicioValoracion {
 	void eliminaValoraciones(long id);
 	
 	void eliminaValoracionesPorForo(long id);
+	
+	void eliminaValoracionesPorPost(long id);
 
 	void guardarCambiosValoraciones(Valoracion v);
 

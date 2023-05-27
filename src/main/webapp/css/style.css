@@ -498,6 +498,8 @@ input {
 #phorum-icon {
     width: 5%;
     height: auto;
+    border: 1px solid #202031;
+    border-radius: 1rem;
     background-color: #202031;
 }
 
@@ -533,17 +535,20 @@ input {
     .card-header {
         border-radius: 1.1em;
     }
+
     #menuIcon {
         visibility: visible;
     }
-     #menuIcon:active {
+
+    #menuIcon:active {
         transform: translateY(6px);
         transition: 200ms;
     }
+
     #menuIcon:focus {
         transform: translateY(-6px);
         transition: 200ms;
-    } 
+    }
 
 }
 
@@ -570,15 +575,18 @@ input {
     .card-header {
         border-radius: 1.1em;
     }
+
     #menuIcon {
         visibility: visible;
     }
+
     #menuIcon:active {
         transform: translateY(6px);
         transition: 200ms;
     }
+
     #menuIcon:focus {
         transform: translateY(-6px);
         transition: 200ms;
-    } 
+    }
 }
