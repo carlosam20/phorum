@@ -13,6 +13,9 @@ const cargarPlantillasDelServidor = () => {
   $.get("plantillas_mustache/listado_foros_identificado.html", (data) => {
     plantillaListarForosIdentificado = data;
   });
+  $.get("plantillas_mustache/listado_follows.html", (data) => {
+    plantillaListarFollows = data;
+  });
   $.get("plantillas_mustache/listado_posts.html", (data) => {
     plantillaListarPosts = data;
   });

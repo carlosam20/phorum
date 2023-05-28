@@ -1,22 +1,23 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/listado_populares.css">
-  
+
   <title>Listado Posts Populares</title>
 
 </head>
+
 <body>
 
 
   <h1 class="text-center m-1">Posts</h1>
 
 
-  <button class="btn btn-primary  boton_post_top3" >Ver los 3 más populares</button>
+  <button class="btn btn-primary  boton_post_top3">Ver los 3 más populares</button>
   <!-- Listado los 3 post más populares por respuestas -->
   <div id="postsTop3" class="postsTop3">
     <div>
@@ -29,23 +30,24 @@
       <div class="col-lg-2 col-md-2 col-sm-2">
         <i class="fa-sharp fa-solid fa-trophy-star"></i>
       </div>
-       <div class="col-lg-10 col-md-10 col-sm-10">
+      <div class="col-lg-10 col-md-10 col-sm-10">
         <h1 class="mb-1 mu-1">Top 3 posts</h1>
-       </div>
+      </div>
     </div>
-    
+
 
     <ul class="col-lg-11 col-md-11 col-sm-11 list-group ">
 
       {{#.}}
       {{#postsTop3}}
       <li class="list-group-item  flex-column align-items-center">
-        <div class="d-flex w-100 justify-content-between align-items-center">
-          <img class="avatar avatar-8 m-1" src="subidasPost/{{id}}.jpg" alt="{{nombre}}">
-          <h5 class="m-1">{{nombre}}</h5>
-          <button class="btn btn-secondary boton_ver_post" type="button" id="{{id}}">
-            Ver post
-          </button>
+        <div class="d-flex w-100 justify-content-between align-items-center boton_ver_post" id="{{id}}">
+          <div class="d-flex justify-content-start">
+            <img class="avatar avatar-8 " src="subidasPost/{{id}}.jpg" alt="{{nombre}}">
+          </div>
+          <div class="d-flex justify-content-start">
+            <h5 class="m-1">{{nombre}}</h5>
+          </div>
         </div>
       </li>
       {{/postsTop3}}
@@ -77,4 +79,5 @@
   </div>
 </body>
 <script src="js/postsPopulares.js"></script>
+
 </html>

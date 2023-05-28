@@ -12,7 +12,7 @@
 }
 
 .foros {
-  margin: 5%;
+  margin: 8%;
 }
 
 .form-inline {
@@ -21,7 +21,7 @@
   background-color: #fff;
 }
 
-.form-control {
+#inputBuscador {
   border-right: none;
   border-left: 1px, solid, black;
   border-top: 1px, solid, black;
@@ -61,6 +61,12 @@
   background-color: var(--primary);
 }
 
+#foto {
+  background-color: var(--secondary);
+  border-radius: 1rem;
+  color: white;
+}
+
 .fa-regular {
   color: var(--primaryHover);
 }
@@ -78,10 +84,7 @@
 }
 
 .nombre {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  word-break: break-word;
 }
 
 .boton_post_foro {
@@ -91,9 +94,20 @@
 .fa-magnifying-glass {
   color: white;
 }
+
+
 @media only screen and (max-width: 425px) {
 
-  .form-control {
+  .avatar-ancho {
+    width: 100px;
+    height: auto;
+  }
+
+  #boton_del_foro {
+    display: none;
+  }
+
+  #inputBuscador {
     padding: 0.5rem 1.0rem 0.6rem 1.8rem;
   }
 
@@ -110,10 +124,18 @@
     border-radius: 1em;
   }
 
+  #foto {
+    font-size: 0.7rem;
+  }
 }
 
 @media only screen and (max-width: 768px) {
-  .form-control {
+
+  #boton_del_foro {
+    display: none;
+  }
+
+  #inputBuscador {
     padding: 0.8rem 1.2rem 0.8rem 2.3rem;
   }
 
@@ -123,5 +145,9 @@
 
   .descripcion {
     display: none;
+  }
+
+  #foto {
+    font-size: 0.7rem;
   }
 }

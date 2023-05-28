@@ -42,8 +42,8 @@
 
 .perfil-info {
     padding: 1%;
-    background: rgb(67,159,136);
-    background: linear-gradient(90deg, rgba(67,159,136,1) 0%, rgba(67,159,136,1) 41%, rgba(156,156,211,1) 77%);
+    background: rgb(67, 159, 136);
+    background: linear-gradient(90deg, rgba(67, 159, 136, 1) 0%, rgba(67, 159, 136, 1) 41%, rgba(156, 156, 211, 1) 77%);
     border-radius: 1em;
 }
 
@@ -56,6 +56,10 @@
 /*Pantallas*/
 
 @media only screen and (max-width: 425px) {
+    .fa-calendar-days {
+        display: none;
+    }
+
     .botones {
         visibility: hidden;
     }
@@ -66,13 +70,17 @@
 
     .perfil-info {
         padding: 1%;
-        background: rgb(67,159,136);
-        background: linear-gradient(90deg, rgba(156,156,211,1) 0%, rgba(67,159,136,1) 41%,rgba(67,159,136,1)  77%);
+        background: rgb(67, 159, 136);
+        background: linear-gradient(90deg, rgba(156, 156, 211, 1) 0%, rgba(67, 159, 136, 1) 41%, rgba(67, 159, 136, 1) 77%);
         border-radius: 1em;
     }
 }
 
 @media only screen and (max-width: 768px) {
+    .fa-calendar-days {
+        display: none;
+    }
+
     .botones {
         visibility: hidden;
     }
@@ -80,10 +88,11 @@
     .botonesMovil {
         visibility: visible;
     }
+
     .perfil-info {
         padding: 1%;
-        background: rgb(67,159,136);
-        background: linear-gradient(90deg, rgba(156,156,211,1) 0%, rgba(67,159,136,1) 41%,rgba(67,159,136,1)  77%);
+        background: rgb(67, 159, 136);
+        background: linear-gradient(90deg, rgba(156, 156, 211, 1) 0%, rgba(67, 159, 136, 1) 41%, rgba(67, 159, 136, 1) 77%);
         border-radius: 1em;
     }
 }

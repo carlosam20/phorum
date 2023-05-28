@@ -4,8 +4,8 @@ function init() {
   iconosFollow.forEach((icono) => {
     //Comprueba si contiene un número
     if (/\d+/.test(icono.id)) {
-      icono.classList.remove("fa-regular", "fa-square-plus", "fa-2xl");
-      icono.classList.add("fa-solid", "fa-square-plus", "fa-2xl");
+      icono.classList.remove("fa-regular", "fa-square-plus", "fa-xl");
+      icono.classList.add("fa-solid", "fa-square-plus", "fa-xl");
     }
     icono.addEventListener("click", function () {
       if (icono.classList.contains("fa-regular")) {

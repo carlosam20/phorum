@@ -47,6 +47,19 @@ public class ServicioWebForos {
 
 	@Autowired
 	private ServicioFollow servicioFollow;
+	
+	
+	@RequestMapping("obtenerForosDeNombreIntroducido")
+	public ResponseEntity<String> obtenerForosDeNombreIntroducido(String nombreForo, HttpServletRequest request) {
+
+		List<Map<String, Object>> listadoForos = servicioForos.obtenerForosParaListadoBusquedaForo(nombreForo);
+		if (listadoForos.equals(null)) {
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		String json = new Gson().toJson(listadoForos);
+		return new ResponseEntity<String>(json, HttpStatus.OK);
+
+	}
 
 	@RequestMapping("obtenerForoPorId")
 	public ResponseEntity<String> obtenerForoPorId(HttpServletRequest request) {

@@ -89,7 +89,23 @@ a {
     font-weight: 100;
 }
 
+#foto {
+
+    background-color: var(--secondary);
+    border-radius: 1rem;
+    color: white;
+}
+
 @media only screen and (max-width: 425px) {
+
+    #foto {
+        font-size: 0.7rem;
+    }
+
+    .botonPcVerPost {
+        display: none;
+    }
+
     #imagenPost {
         margin: auto;
         width: 100%;
@@ -124,6 +140,14 @@ a {
 }
 
 @media only screen and (max-width: 768px) {
+
+    #foto {
+        font-size: 0.7rem;
+    }
+
+    .botonPcVerPost {
+        display: none;
+    }
 
     #imagenPost {
         margin: auto;

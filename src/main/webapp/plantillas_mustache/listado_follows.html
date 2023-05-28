@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/forosIdentificado.css">
+  <title>Listado Foros</title>
+</head>
+
+<body>
+  <div class="foros">
+
+    <h1 class="text-center m-1">Foros</h1>
+
+    <!--Search Bar-->
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-6 col-sm-5">
+        <div class="row justify-content-center">
+          <div class="form-inline justify-content-center align-items-center input-group mb-3">
+            <input class="col-lg-8 col-md-6 col-sm-2 form-control" type="search" placeholder="Search"
+              aria-label="Search" id="inputBuscador" aria-describedby="button-addon">
+            <button
+              class="fa-solid fa-magnifying-glass fa-xl boton_buscar_identificado col-lg-4 col-sm-4 col-sm-3 btn btn-secondary justify-content-center align-items-center"
+              type="submit" id="button-addon">
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Listado foros-->
+    <div class="row d-flex justify-content-center m-1 recomendacionesForos ">
+      <div class="col-lg-11 col-md-11 col-sm-11 mx-auto">
+        <table class="table mx-auto">
+          <tbody>
+            {{#.}}
+            <tr class="elemento mx-auto" id="{{id}}">
+              <td colspan="8"><img class="avatar avatar-8 boton_post_foro avatar-ancho" src="subidas/{{id}}.jpg" id="{{id}}" alt="{{nombre}}"></td>
+              <td colspan="1">
+                <p class="nombre text-start boton_post_foro" id="{{id}}">{{nombre}}</p>
+              </td>
+              <td colspan="1"><a class="follow" id="{{id}}">
+                  <i class="fa-regular fa-square-plus fa-xl" id="{{idFollow}}"></i>
+                </a></td>
+              <td colspan="2">
+                <p class="descripcion mx-auto boton_post_foro" id="{{id}}">{{descripcion}}</p>
+              </td>
+              <td id="boton_del_foro" colspan="1"><button class="btn btn-secondary boton_post_foro " type="button"
+                  id="{{id}}">Ver Foro</button></td>
+            </tr>
+            {{/.}}
+          </tbody>
+        </table>
+      </div>
+      </ul>
+    </div>
+
+  </div>
+</body>
+<script src="js/forosIdentificado.js"></script>
+<script src="js/bootstrapForm.js"></script>
+<script>
+  init();
+</script>
+
+</html>

@@ -25,10 +25,12 @@ if (window.innerWidth <= 600) {
   }
 }
 
+let likeDOM;
+let dislikeDOM;
 
 if (typeof likeDOM === "undefined" && typeof dislikeDOM === "undefined") {
-  const likeDOM = document.getElementById("like-icon");
-  const dislikeDOM = document.getElementById("dislike-icon");
+  likeDOM = document.getElementById("like-icon");
+  dislikeDOM = document.getElementById("dislike-icon");
 
   // Clicks de likes y dislikes
   dislikeDOM.addEventListener("click", function () {

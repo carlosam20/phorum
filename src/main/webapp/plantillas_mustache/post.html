@@ -1,3 +1,5 @@
+<html>
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -6,7 +8,7 @@
   <title>Post</title>
 </head>
 
-<html>
+
 
 <body>
 
@@ -138,38 +140,72 @@
           <div class="row mb-3">
             <div class="col-lg-12 col-md-12 col-sm-12">
               <div class="card-body ">
-                <h5 class="card-title">{{nombre}}</h5>
-                <p class="card-text">{{descripcion}}</p>
-                <div class="valoracionContainer">
-                  <div class="row d-flex justify-content-left">
-                    <div class="col-sm-3 col-md-3 col-lg-3">
-                      <a class="like" id="{{id}}">
-                        <span id="like-container">
-                          <i class="fa-regular fa-thumbs-up fa-xl" id="like-icon"></i>
-                        </span>
-                        {{#post_valoraciones}}
-                        <h5 id="like-contador">{{like}}</h5>
-                        {{/post_valoraciones}}
-                      </a>
-                    </div>
-                    <div class="col-sm-3 col-md-3 col-lg-3">
-                      <a class="dislike" id="{{id}}">
-                        <span id="dislike-container">
-                          <i class="fa-regular fa-thumbs-down fa-xl" id="dislike-icon"></i>
-                        </span>
-                        {{#post_valoraciones}}
-                        <h5 id="dislike-contador">{{dislike}}</h5>
-                        {{/post_valoraciones}}
-                      </a>
-                    </div>
-                  </div>
+                <div class="row">
+                  <h5 class="card-title">{{nombre}}</h5>
                 </div>
+                <div class="row">
+                  <p class="card-text">{{descripcion}}</p>
+                </div>
+                <!-- Valoraciones ordenador -->
+                <!-- <div class="row valorSobreM">
+                  <div class="col-sm-6 col-md-3 col-lg-3 ">
+                    <a class="like" id="{{id}}">
+                      <span id="like-container">
+                        <i class="fa-regular fa-thumbs-up fa-xl" id="like-icon"></i>
+                      </span>
+                      {{#post_valoraciones}}
+                      <p id="like-contador">{{like}}</p>
+                      {{/post_valoraciones}}
+                    </a>
+
+                  </div>
+                  <div class="col-sm-6 col-md-3 col-lg-3">
+                    <a class="dislike" id="{{id}}">
+                      <span id="dislike-container">
+                        <i class="fa-regular fa-thumbs-down fa-xl" id="dislike-icon"></i>
+                      </span>
+                      {{#post_valoraciones}}
+                      <p id="dislike-contador">{{dislike}}</p>
+                      {{/post_valoraciones}}
+                    </a>
+                  </div>
+                </div> -->
+                <!-- ||| -->
+                <!-- Valoraciones movil -->
+                <div class="row valorMovil">
+
+                  <div class="col-4">
+                    <a class="like" id="{{id}}">
+                      <span id="like-container">
+                        <i class="fa-regular fa-thumbs-up fa-xl" id="like-icon"></i>
+                      </span>
+                      {{#post_valoraciones}}
+                      <p id="like-contador">{{like}}</p>
+                      {{/post_valoraciones}}
+                    </a>
+                  </div>
+
+                  <div class="col-4">
+                    <a class="dislike" id="{{id}}">
+                      <span id="dislike-container">
+                        <i class="fa-regular fa-thumbs-down fa-xl" id="dislike-icon"></i>
+                      </span>
+                      {{#post_valoraciones}}
+                      <p id="dislike-contador">{{dislike}}</p>
+                      {{/post_valoraciones}}
+                    </a>
+                  </div>
+
+                </div>
+                <!-- ||| -->
               </div>
             </div>
           </div>
 
+
+
           <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
+            <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center mb-1">
               <button class="btn btn-primary" onclick="abrirComents()">Ver comentarios</button>
             </div>
           </div>

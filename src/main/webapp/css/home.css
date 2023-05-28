@@ -11,15 +11,15 @@
   --footer-color: #002031;
   --textLightColor: #34403A;
 }
-
-/* .btn-outline-primary:hover {
-  background-color: var(--primaryHover);
-  border-color: black;
-  color: white ;
-
-} */
 .home {
-  margin: 2%;
+  margin: 4%;
+}
+
+.nombreForo {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Adjust the number of lines as needed */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .card-text {
@@ -40,13 +40,15 @@ scroll>a {
   text-decoration: none;
 }
 
-.boton_post_foro,.boton_ver_post {
+.boton_post_foro,
+.boton_ver_post {
   padding: 0.4em 0.5em;
 }
+
 /* .scroll{
   background-color: whi;
 } */
-.item{
+.item {
   /* Glassmorphismo */
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
@@ -57,13 +59,13 @@ scroll>a {
 }
 
 .item:hover {
-  box-shadow:  -22px -22px 57px #321f91,
-  22px 22px 57px #5e3bff;
+  box-shadow: -22px -22px 57px #321f91,
+    22px 22px 57px #5e3bff;
   transition: all 200ms ease-in-out;
 }
 
 
-  item:active{
+item:active {
   /* Glassmorphismo */
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
@@ -75,24 +77,27 @@ scroll>a {
   transform: translateY(6px);
   transition: 200ms;
 }
-.scroll > a{
+
+.scroll>a {
   text-decoration: none;
 }
-.scrollContainer{
-  background: rgb(6,6,55);
-  background: linear-gradient(90deg, rgba(6,6,55,1) 15%, rgba(156,156,211,1) 100%);
+
+.scrollContainer {
+  background: rgb(6, 6, 55);
+  background: linear-gradient(90deg, rgba(6, 6, 55, 1) 15%, rgba(156, 156, 211, 1) 100%);
   border-radius: 1em;
 }
 
 
 @media only screen and (max-width: 768px) {
 
-  h1{
+  h1 {
     margin-top: 2%;
     margin-bottom: 2%;
   }
+
   .home {
     margin: 4%;
   }
- 
+
 }

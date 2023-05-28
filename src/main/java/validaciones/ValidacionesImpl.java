@@ -17,6 +17,7 @@ import modelo.Foro;
 import modelo.Post;
 import modelo.Usuario;
 import modelo.Valoracion;
+import servicios.ServicioUsuarios;
 import validacionObjetos.ParValidacion;
 
 public class ValidacionesImpl {
@@ -62,7 +63,6 @@ public class ValidacionesImpl {
 		}
 
 		
-
 
 		if (foto.getSize() == 0) {
 			validacion.setResultado(false);
@@ -158,15 +158,7 @@ public class ValidacionesImpl {
 			return validacion;
 		}
 		
-		// Recogemos el nombre del archivo y comprobamos su extensión
-				String archivoUsuario = foto.getOriginalFilename();
-				String extension = archivoUsuario.substring(archivoUsuario.lastIndexOf(".") + 1);
-				
-				if ((!extension.equalsIgnoreCase("jpg") || !extension.equalsIgnoreCase("png"))) {
-					validacion.setResultado(false);
-					validacion.setRespuesta("Tiene que ser una imagen con extension png o jpg");
-					return validacion;
-				}
+
 
 
 		// Se comprueba si existe una imagen
@@ -202,17 +194,6 @@ public class ValidacionesImpl {
 			return validacion;
 		}
 		
-		// Recogemos el nombre del archivo y comprobamos su extensión
-				String archivoUsuario = foto.getOriginalFilename();
-				String extension = archivoUsuario.substring(archivoUsuario.lastIndexOf(".") + 1);
-				
-				if ((!extension.equalsIgnoreCase("jpg") || !extension.equalsIgnoreCase("png"))) {
-					validacion.setResultado(false);
-					validacion.setRespuesta("Tiene que ser una imagen con extension png o jpg");
-					return validacion;
-				}
-
-
 		if (foto.getSize() == 0) {
 			validacion.setResultado(false);
 			validacion.setRespuesta("No se ha subido una imágen y no hay ninguna existente");

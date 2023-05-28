@@ -14,10 +14,10 @@
 
     <h1 class="text-center m-1">Foros</h1>
 
-    <div class="row m-3">
-      <div class="col-11-lg col-11-md col-10-sm">
+    <div class="row m-3 d-flex justify-content-sm-left">
+      <div class="col-12-lg col-12-md col-12-sm d-flex justify-content-sm-left">
         <!-- Botón del Modal -->
-        <button type="submit" class=" btn btn-primary enlace_crear_foro  " data-bs-toggle="modal"
+        <button type="submit" class=" btn btn-primary enlace_crear_foro " data-bs-toggle="modal"
           data-bs-target="#crearForoModal">
           Crear Foro
         </button>
@@ -33,15 +33,15 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
-          <div class="modal-body p-2">
+          <div class="modal-body">
             <div class="container-fluid">
               <div class="row">
 
                 <div class="col-lg-12 col-md-12 col-sm-12">
 
-                  <form id="form_registro_foro" class="d-grid gap-3 needs-validation" novalidate>
+                  <form id="form_registro_foro" class="needs-validation" enctype="multipart/form-data" novalidate>
 
-                    <div class="row d-flex justify-content-center ">
+                    <div class="row d-flex justify-content-center my-2">
                       <div class="col-lg-11 col-md-12 col-sm-11 position-relative">
                         <input type="text" name="nombre" class="form-control form-control-lg" pattern="^.{1,60}$"
                           placeholder="Nombre del post*" id="nombre" maxlength="60" required />
@@ -54,7 +54,7 @@
                       </div>
                     </div>
 
-                    <div class="row d-flex justify-content-center ">
+                    <div class="row d-flex justify-content-center my-2 ">
                       <div class="col-lg-11 col-md-11 col-sm-11 position-relative">
                         <textarea type="text" name="descripcion" class="form-control form-control-lg"
                           pattern="^.{1,300}$" placeholder="Descripcion*" id="descripcion" maxlength="300"
@@ -68,13 +68,13 @@
                       </div>
                     </div>
 
-                    <div class="row d-flex justify-content-center">
+                    <div class="row d-flex justify-content-center my-2">
                       <div class="col-lg-8 col-md-8 col-sm-8">
                         <input type="file" name="foto" id="foto" />
                       </div>
                     </div>
 
-                    <div class="row d-flex justify-content-center ">
+                    <div class="row d-flex justify-content-center my-2 ">
                       <div class="col-lg-8 col-md-8 col-sm-8">
                         <input class="btn btn-primary" type="submit" value="Subir Foro" />
                       </div>
@@ -98,9 +98,10 @@
             <input class="col-lg-8 col-md-6 col-sm-2 form-control" type="search" placeholder="Search"
               aria-label="Search" id="inputBuscador" aria-describedby="button-addon">
             <button
-              class="fa-solid fa-magnifying-glass fa-lg boton_buscar col-lg-4 col-sm-4 col-sm-3 btn btn-secondary justify-content-center align-items-center"
+              class="fa-solid fa-magnifying-glass fa-xl boton_buscar_identificado col-lg-4 col-sm-4 col-sm-3 btn btn-secondary justify-content-center align-items-center"
               type="submit" id="button-addon">
             </button>
+
           </div>
         </div>
       </div>
@@ -112,16 +113,16 @@
         <table class="table mx-auto">
           <tbody>
             {{#.}}
-            <tr class="elemento mx-auto boton_post_foro" id="{{id}}">
-              <td colspan="2"><img class="avatar avatar-8" src="subidas/{{id}}.jpg" id="{{id}}" alt="{{nombre}}"></td>
+            <tr class="elemento mx-auto" id="{{id}}">
+              <td colspan="8"><img class="avatar avatar-8 boton_post_foro avatar-ancho" src="subidas/{{id}}.jpg" id="{{id}}" alt="{{nombre}}"></td>
               <td colspan="1">
-                <h5 class="nombre text-start">{{nombre}}</h5>
+                <p class="nombre text-start boton_post_foro" id="{{id}}">{{nombre}}</p>
               </td>
               <td colspan="1"><a class="follow" id="{{id}}">
-                  <i class="fa-regular fa-square-plus fa-2xl" id="{{idFollow}}"></i>
+                  <i class="fa-regular fa-square-plus fa-xl" id="{{idFollow}}"></i>
                 </a></td>
               <td colspan="2">
-                <p class="descripcion mx-auto">{{descripcion}}</p>
+                <p class="descripcion mx-auto boton_post_foro" id="{{id}}">{{descripcion}}</p>
               </td>
               <td id="boton_del_foro" colspan="1"><button class="btn btn-secondary boton_post_foro " type="button"
                   id="{{id}}">Ver Foro</button></td>

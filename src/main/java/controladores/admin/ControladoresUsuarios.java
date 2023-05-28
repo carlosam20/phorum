@@ -102,6 +102,7 @@ public class ControladoresUsuarios {
 				return "admin/formularioRegistroUsuario";
 			}
 
+			//Comprobamos si la fecha es anterior o actual a la fecha en la que estamos
 			LocalDate localDate = LocalDate.now();
 			Date dateActual = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 			
@@ -115,6 +116,7 @@ public class ControladoresUsuarios {
 				br.addError(error);
 				return "admin/formularioRegistroUsuario";
 			}
+			//Comprobamos el tamaño de la imagen
 			if(nuevoUsuario.getImagen().getSize() == 0 || nuevoUsuario.getImagen().isEmpty()) {
 				FieldError error = new FieldError("nuevoUsuario", "imagen",
 						"Se tiene que introducir una imagen");

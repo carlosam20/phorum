@@ -31,7 +31,9 @@
                     <img src="subidas/{{id}}.jpg" alt="{{nombre}}" id="{{id}}" class="avatar avatar-8 rounded mx-auto">
                   </div>
                 </div>
-                <h5 class="text-center">{{nombre}}</h5>
+                <div class="row">
+                  <h5 class="text-center nombreForo">{{nombre}}</h5>
+                </div>
               </div>
             </a>
             {{/foros}}
@@ -104,6 +106,10 @@
       </div>
     </div>
   </div>
+  <script src="js/limiteCaracteresforo.js"></script>
+  <script>
+    scriptCaracteresForo();
+  </script>
 </body>
 
 </html>

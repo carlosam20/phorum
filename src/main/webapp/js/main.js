@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 
 // Variables globales de usuario
 let email = "";
@@ -9,12 +10,9 @@ let nombreLogin = "";
 const urlForos = "foros";
 const urlPerfil = "perfil";
 const urlListadoFollows = "listadoFollows";
-const urlForosIdentificado = "forosIdentificados";
 const urlPosts = "listadoPostsPopulares";
 const urlPostsForo = "listadoPosts";
 const urlPostYComentarios = "postYcomentarios";
-const urlEditarPerfil = "editarPerfil";
-const urlLogin = "login";
 const urlRegistrar = "registrar";
 const baseURL = "http://localhost:8080/phorum/";
 
@@ -52,20 +50,37 @@ const handleStateChange = (state) => {
       registrarPost();
       console.log("Handle Posts");
       $("#contenedor").html(state.textoHtml);
-    } else if (state.url === baseURL + urlLogin) {
-      $("#contenedor").html(state.textoHtml);
     } else if (state.url === baseURL + urlRegistrar) {
       $("#contenedor").html(state.textoHtml);
     } else if (state.url === baseURL + urlForos) {
-      // Ver Posts de Foro
-      verPostsDeForo();
+      $.ajax("servicioWebForos/obtenerForos", {
+        url: baseURL + urlForos,
+        success: function (data) {
+          const foros = JSON.parse(data);
+          let textoHtml = "";
+          textoHtml = Mustache.render(plantillaListarForos, foros);
+          $("#contenedor").html(textoHtml);
 
-      // Buscar foros
-      busquedaForos();
+          const stateObj = {
+            url: baseURL + urlForos,
+            textoHtml: textoHtml = Mustache.render(plantillaListarForos, foros, () => {
+              // Ver Posts de Foro
+              verPostsDeForo();
 
-      // Registro de foros
-      registrarForo();
+              // Buscar foros
+              busquedaForos();
+            })
+          };
+          window.history.pushState(stateObj, urlForos, baseURL + urlForos);
 
+          // Ver Posts de Foro
+          verPostsDeForo();
+
+          // Buscar foros
+          busquedaForos();
+        } // ---end success---
+
+      }); // --end ajax--
       console.log("Handle Foros");
       $("#contenedor").html(state.textoHtml);
     } else if (state.url === baseURL + urlPostYComentarios) {
@@ -122,8 +137,6 @@ const handleStateChange = (state) => {
       // Ver post y comentarios
       verPostYComentarios(state.id);
       $("#contenedor").html(state.textoHtml);
-    } else if (state.url === baseURL + urlForosIdentificado) {
-      $("#contenedor").html(state.textoHtml);
     } else if (state.url === baseURL + urlListadoFollows) {
       $("#contenedor").html(state.textoHtml);
     }
@@ -142,24 +155,9 @@ window.addEventListener("popstate", function (e) {
   }
 });
 
-// --Para recarga de URL
-function handleURL(url) {
-  console.log("URL"+url); // Debugging line
-  if (url.indexOf(baseURL) !== -1) {
-    listadoInicio();
-  } else if (url.indexOf(baseURL + urlForos) !== -1) {
-    obtenerListadoForos();
-  } else if (url.indexOf(baseURL + urlPosts) !== -1) {
-    obtenerListadoPostsPopulares();
-  } else if (url.indexOf(baseURL + urlRegistrar) !== -1) {
-    mostrarRegistroUsuario();
-  } else if (url.indexOf(baseURL + urlLogin) !== -1) {
-    mostrarIdentificacionUsuario();
-  }
-}
-
 $(document).ready(function () {
   // get the current URL
+  // eslint-disable-next-line prefer-const
   let currentURL = window.location.href;
 
   // detect the URL and call the appropriate function
@@ -242,7 +240,6 @@ const verPerfilDeComentario = () => {
       {
         type: "GET",
         success: function (res) {
-          alert("recibido: " + res);
           const info = JSON.parse(res);
           let textoHtml = "";
           textoHtml = Mustache.render(plantillaPerfilUsuarioComentario, info);
@@ -440,19 +437,55 @@ const busquedaForos = () => {
           // Ver post Foros
           verPostsDeForo();
 
-          // Registrar foros
-          registrarForo();
-
           // Buscar foros
           busquedaForos();
           const stateObj = {
-            url: baseURL + urlPostYComentarios,
+            url: baseURL + urlForos,
             textoHtml:
               Mustache.render(
                 plantillaListarForos,
                 forosEncontrados)
           };
-          window.history.replaceState(stateObj, urlPostYComentarios, baseURL + urlPostYComentarios);
+          window.history.replaceState(stateObj, urlForos, baseURL + urlForos);
+        },
+        error: () => {
+          swal("No se ha encontrado ningún elemento", "info");
+        } // ---end success---
+      }
+    ); // --end ajax obtenerForosBuscados--
+    e.preventDefault();
+  }); // --end click boton_buscar--
+}; // -end busqueda foros-
+
+const busquedaForosIdentificado = () => {
+  // Buscador de Foros
+  $(".boton_buscar").click((e) => {
+    const nombreForo = $("#inputBuscador").val();
+    $.ajax(
+      "servicioWebForos/obtenerForosDeNombreIntroducido?nombreForo=" +
+      nombreForo,
+      {
+        success: function (res) {
+          const forosEncontrados = JSON.parse(res);
+          let textoHtml = "";
+          textoHtml = Mustache.render(plantillaListarForosIdentificado, forosEncontrados);
+          $("#contenedor").html(textoHtml);
+          // Ver post Foros
+          verPostsDeForo();
+
+          // Registrar foros
+          registrarForo();
+
+          // Buscar foros
+          busquedaForosIdentificado();
+          const stateObj = {
+            url: baseURL,
+            textoHtml:
+              Mustache.render(
+                plantillaListarForosIdentificado,
+                forosEncontrados)
+          };
+          window.history.replaceState(stateObj, baseURL, baseURL);
         },
         error: () => {
           swal("No se ha encontrado ningún elemento", "info");
@@ -475,7 +508,7 @@ const busquedaFollowsPerfil = () => {
           const forosEncontrados = JSON.parse(res);
           let textoHtml = "";
           textoHtml = Mustache.render(
-            plantillaListarForosIdentificado,
+            plantillaListarFollows,
             forosEncontrados
           );
           $("#contenedor").html(textoHtml);
@@ -483,9 +516,6 @@ const busquedaFollowsPerfil = () => {
         complete: () => {
           // Ver post Foros
           verPostsDeForo();
-
-          // Registrar foros
-          registrarForo();
 
           // Buscar foros
           busquedaForos();
@@ -545,11 +575,11 @@ const verPostsDeForo = () => {
         let textoHtml = Mustache.render(plantillaListarPosts, posts);
         $("#contenedor").html(textoHtml);
         const stateObj = {
-          url: baseURL + urlPostsForo,
+          url: baseURL,
           textoHtml: textoHtml = Mustache.render(plantillaListarPosts, posts),
           id: idForo
         };
-        window.history.pushState(stateObj, urlPostsForo, baseURL + urlPostsForo);
+        window.history.pushState(stateObj, baseURL, baseURL);
         // Registrar post
         registrarPost();
         // Ver post y comentarios
@@ -572,7 +602,7 @@ const obtenerListadoForos = () => {
 
       const stateObj = {
         url: baseURL + urlForos,
-        textoHtml: textoHtml = Mustache.render(plantillaListarForos, foros, function () {
+        textoHtml: textoHtml = Mustache.render(plantillaListarForos, foros, () => {
           // Ver Posts de Foro
           verPostsDeForo();
 
@@ -587,19 +617,6 @@ const obtenerListadoForos = () => {
 
       // Buscar foros
       busquedaForos();
-
-      // Registro de foros
-      registrarForo();
-
-      // // Refrescar
-      // $(document.body).on("keydown", function (e) {
-      //   alert("Entra en keydown");
-      //   if (e.code === "F5") { // F5
-      //     // obtenerListadoForos();
-      //     alert("F5");
-      //     listadoInicio();
-      //   }
-      // });
     } // ---end success---
 
   }); // --end ajax--
@@ -613,7 +630,7 @@ const obtenerListadoForosIdentificado = () => {
       textoHtml = Mustache.render(plantillaListarForosIdentificado, foros);
       $("#contenedor").html(textoHtml);
       const stateObj = {
-        url: baseURL + urlForosIdentificado,
+        url: baseURL,
         textoHtml: textoHtml = Mustache.render(plantillaListarForosIdentificado, foros, () => {
           // Dar follow por el usuario
           follow();
@@ -622,13 +639,13 @@ const obtenerListadoForosIdentificado = () => {
           verPostsDeForo();
 
           // Buscar foros
-          busquedaForos();
+          busquedaForosIdentificado();
 
           // Registro de foros
           registrarForo();
         })
       };
-      window.history.pushState(stateObj, urlForosIdentificado, baseURL + urlForosIdentificado);
+      window.history.pushState(stateObj, baseURL, baseURL);
       // Dar follow por el usuario
       follow();
 
@@ -653,18 +670,14 @@ const listadoFollowsPerfil = () => {
     })) {
       $.ajax("identificado/servicioWebForos/obtenerForosPerfil", {
         success: function (data) {
-          alert("recibido: " + data);
           const foros = JSON.parse(data);
           let textoHtml = "";
-          textoHtml = Mustache.render(plantillaListarForosIdentificado, foros, () => {
+          textoHtml = Mustache.render(plantillaListarFollows, foros, () => {
             // Ver Posts de Foro
             verPostsDeForo();
 
             // Buscar foros
             busquedaFollowsPerfil();
-
-            // Registro de foros
-            registrarForo();
           });
           $("#contenedor").html(textoHtml);
           const stateObj = { url: baseURL + urlListadoFollows };
@@ -677,9 +690,6 @@ const listadoFollowsPerfil = () => {
 
           // Buscar foros
           busquedaFollowsPerfil();
-
-          // Registro de foros
-          registrarForo();
         },
         error: (data) => {
           swal(data, "Error en listado follows de perfil", "error");
@@ -832,24 +842,23 @@ const registrarPost = () => {
 }; // -end registrar post-
 
 const mostrarRegistroUsuario = () => {
-  $("#contenedor").html(plantillaRegistrarUsuario);
   const stateObj = {
-    url: baseURL + urlRegistrar,
-    textoHtml: Mustache.render(plantillaRegistrarUsuario)
+    url: baseURL,
+    textoHtml: Mustache.render(plantillaLogin)
   };
-  window.history.pushState(stateObj, urlRegistrar, baseURL + urlRegistrar);
+  window.history.pushState(stateObj, baseURL, baseURL);
+  $("#contenedor").html(plantillaRegistrarUsuario);
+
   $("#form_registro_usuario").submit(function (e) {
     const formulario = document.forms[0];
     const formData = new FormData(formulario);
-    alert(formData);
     $.ajax("servicioWebUsuarios/registrarUsuario", {
       type: "POST",
       data: formData,
       cache: false,
       contentType: false,
       processData: false,
-      success: function (res) {
-        alert("success:" + res);
+      success: function () {
         swal(
           "El registro se ha realizado de forma correcta",
           "Realizado",
@@ -857,11 +866,9 @@ const mostrarRegistroUsuario = () => {
         );
       },
       error: function (res) {
-        console.log(res); // Log the entire XMLHttpRequest object to the console
         swal("Error al registrar", res.responseText, "error"); // Display the error message in the swal dialog
       }
     });
-    e.preventDefault();
   });
 }; // -end registro usuario-
 
@@ -869,10 +876,10 @@ const mostrarIdentificacionUsuario = () => {
   $("#contenedor").html(plantillaLogin);
 
   const stateObj = {
-    url: baseURL + urlLogin,
+    url: baseURL,
     textoHtml: Mustache.render(plantillaLogin)
   };
-  window.history.pushState(stateObj, urlLogin, baseURL + urlLogin);
+  window.history.pushState(stateObj, baseURL, baseURL);
 
   // Comprobamos si hay cookies guardadas
   if (typeof Cookies.get("email") !== "undefined") {
@@ -914,10 +921,10 @@ const loginUsuario = (email, pass) => {
         }
       }
       const stateObj = {
-        url: baseURL + urlLogin,
+        url: baseURL,
         textoHtml: Mustache.render(plantillaLogin)
       };
-      window.history.pushState(stateObj, urlLogin, baseURL + urlLogin);
+      window.history.pushState(stateObj, baseURL, baseURL);
     },
     error: () => {
       swal("", "Error al iniciar sesión", "error");
@@ -945,16 +952,15 @@ const editarUsuario = () => {
     if (comprobarIdentificacion()) {
       $.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
         success: function (data) {
-          alert("recibido: " + data);
           const info = JSON.parse(data);
           let textoHtml = "";
           textoHtml = Mustache.render(plantillaEditarUsuario, info);
           $("#contenedor").html(textoHtml);
           const stateObj = {
-            url: baseURL + urlEditarPerfil,
+            url: baseURL,
             textoHtml: Mustache.render(plantillaEditarUsuario, info)
           };
-          window.history.pushState(stateObj, urlEditarPerfil, baseURL + urlEditarPerfil);
+          window.history.pushState(stateObj, baseURL, baseURL);
           // Form
           $("#form_editar_usuario").submit(function (e) {
             const stateObj = {
@@ -1053,7 +1059,6 @@ const perfil = () => {
   })) {
     $.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
       success: function (data) {
-        alert("recibido: " + data);
         const info = JSON.parse(data);
         let textoHtml = "";
 
@@ -1175,7 +1180,6 @@ $("#enlace_listado_foros").click(() => {
 $("#enlace_home").click(listadoInicio);
 // $("#enlace_listado_foros").click(obtenerListadoForos);
 $("#enlace_listado_posts").click(obtenerListadoPostsPopulares);
-$("#enlace_editar_usuario").click(mostrarRegistroUsuario);
 $("#enlace_registrarme").click(mostrarRegistroUsuario);
 $("#enlace_identificarme").click(mostrarIdentificacionUsuario);
 $("#enlace_logout").click(logout);

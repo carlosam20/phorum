@@ -38,6 +38,8 @@ public class ServicioWebUsuarios {
 
 		// Hay que realizar una comprobación de que no se duplica el Usuario aqui y
 		// devolver duplicado si ocurre
+		
+		
 
 		
 		Gson gson = new Gson();
@@ -65,6 +67,10 @@ public class ServicioWebUsuarios {
 
 		ParValidacion resultadoValidacion =  ValidacionesImpl.validarUsuario(u,bp,foto);
 		
+		if(!servicioUsuarios.comprobarEmail(u.getEmail())) {
+			resultadoValidacion.setRespuesta("Hay un email con esta cuenta");
+			resultadoValidacion.setResultado(false);
+		}
 		
 		if(resultadoValidacion.getResultado() == true) {
 			servicioUsuarios.registrarUsuario(u);
