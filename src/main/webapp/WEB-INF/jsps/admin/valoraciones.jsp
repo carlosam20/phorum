@@ -35,22 +35,36 @@
 				</div>
 			</div>
 
-			<div class="mx-auto">
-				paginacion:
-				total de valoraciones: ${total}
-
-				<c:if test="${anterior >= 0 }">
+			<div class="row d-flex justify-content-start m-1 d-flex d-grid gap-2" id="paginacion">
+				<div class="col-2">
+				  <c:if test="${ anterior >= 0 }">
 					<a href="listarValoraciones?comienzo=${anterior}&id=${id}"
-						class="btn btn-outline-primary">anterior</a>
-				</c:if>
-
-
-				<c:if test="${siguiente < total}">
+					  class="btn btn-outline-primary btn-sm">anterior</a>
+				  </c:if>
+				  <c:if test="${ anterior < 0 }">
+					<a href="listarValoraciones?comienzo=${anterior}&id=${id}"
+					  class="btn btn-outline-primary disabled">anterior</a>
+				  </c:if>
+				</div>
+				<div class="col-2">
+				  <c:if test="${siguiente < total}">
 					<a href="listarValoraciones?comienzo=${siguiente}&id=${id}"
-						class="btn btn-outline-primary">siguiente</a>
-				</c:if>
-
-			</div>
+					  class="btn btn-outline-primary btn-sm">siguiente</a>
+				  </c:if>
+				  <c:if test="${ siguiente > total}">
+					<a href="listarForos?comienzo=${siguiente}&id=${id}"
+					  class="btn btn-outline-primary disabled">siguiente</a>
+				  </c:if>
+				</div>
+		
+			  </div>
+			  </div>
+			  <div class="row d-flex justify-content-start m-1 ">
+				<div class="col-4 d-flex justify-content-start align-items-center">
+				  <h4>Total de foros: </h4><span class="badge rounded-pill bg-primary">${total}</span>
+				</div>
+		
+			  </div>
 
 			<c:forEach var="valoracion" items="${info}">
 

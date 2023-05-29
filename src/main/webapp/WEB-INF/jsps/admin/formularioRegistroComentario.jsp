@@ -51,17 +51,18 @@
 									<i class="fa-regular fa-calendar-days fa-lg"></i>
 								</div>
 								<div class="col-sm-11 col-md-11 col-lg-11 d-flex align-items-center">
-									<springform:input type="date" pattern="yyyy/MM/dd" path="fechaCreacion" class="text-start" />
+									<springform:input type="date" pattern="yyyy/MM/dd" path="fechaCreacion"
+										class="form form-lg form-control text-start" />
 									<p>
 										<springform:errors path="fechaCreacion" />
 									</p>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm-1 col-md-1 col-lg-1 d-flex align-items-center">
+								<div class="col-2 d-flex align-items-center">
 									<p>Texto comentario</p>
 								</div>
-								<div class="col-sm-11 col-md-11 col-lg-11 d-flex align-items-center">
+								<div class="col-10 d-flex align-items-center">
 									<springform:textarea path="textoComentario" placeholder="Texto del comentario"
 										rows="5" cols="40" pattern="^.{1,60}$" maxlenght="60" class="text-start" />
 								</div>
@@ -85,7 +86,6 @@
 			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 			crossorigin="anonymous"></script>
 		<script src="https://kit.fontawesome.com/485aa9f350.js" crossorigin="anonymous"></script>
-		<script src="../js/togglePass.js"></script>
 		<script src="../js/spanAdmin.js"></script>
 		<script src="../js/reloadCache.js"></script>
 

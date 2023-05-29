@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
         <!DOCTYPE html>
         <html>
 
@@ -62,8 +63,7 @@
                                     <a class="nav-link m-2" id="enlace_registrarme" aria-current="page">Registrar</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link m-2" id="mensaje_login" aria-current="page">Sesi&oacuten no
-                                        iniciada</a>
+                                    <a class="nav-link m-2" id="mensaje_login" aria-current="page"></a>
                                 </li>
                             </ul>
 
@@ -121,6 +121,11 @@
                                             id="enlace_identificarme">Iniciar Sesi&oacuten</a></li>
                                     <li class="list-group-item list-footer-item"><a class="text-light"
                                             id="enlace_registrarme">Registrarse</a></li>
+                                    <li class="list-group-item list-footer-item">
+                                        <p class="text-light">
+                                            @phorum
+                                        </p>
+                                    </li>
                                 </ul>
                             </div>
 

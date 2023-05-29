@@ -36,36 +36,34 @@
       </div>
 
 
-      <div class="mx-auto">
-        <p>paginacion:</p>
-
-        <div class="row d-flex justify-content-start m-1 d-flex d-grid gap-2">
-          <div class="col-4">
-            <c:if test="${ anterior >= 0 }">
-              <a href="listarForos?comienzo=${anterior}&foro=${nombre}" class="btn btn-outline-primary">anterior</a>
-            </c:if>
-            <c:if test="${ anterior < 0 }">
-              <a href="listarForos?comienzo=${anterior}&foro=${nombre}" class="btn btn-outline-primary disabled">anterior</a>
-            </c:if>
-
-          </div>
-          <div class="col-4">
-            <c:if test="${siguiente < total}">
-              <a href="listarForos?comienzo=${siguiente}&foro=${nombre}" class="btn btn-outline-primary">siguiente</a>
-            </c:if>
-            <c:if test="${ siguiente > total}">
-              <a href="listarForos?comienzo=${anterior}&foro=${nombre}" class="btn btn-outline-primary disabled">siguiente</a>
-            </c:if>
-          </div>
-
+      <div class="row d-flex justify-content-start m-1 d-flex d-grid gap-2" id="paginacion">
+        <div class="col-2">
+          <c:if test="${ anterior >= 0 }">
+            <a href="listarForos?comienzo=${anterior}&foro=${nombre}"
+              class="btn btn-outline-primary btn-sm">anterior</a>
+          </c:if>
+          <c:if test="${ anterior < 0 }">
+            <a href="listarForos?comienzo=${anterior}&foro=${nombre}"
+              class="btn btn-outline-primary disabled">anterior</a>
+          </c:if>
+        </div>
+        <div class="col-2">
+          <c:if test="${siguiente < total}">
+            <a href="listarForos?comienzo=${siguiente}&foro=${nombre}"
+              class="btn btn-outline-primary btn-sm">siguiente</a>
+          </c:if>
+          <c:if test="${ siguiente > total}">
+            <a href="listarForos?comienzo=${siguiente}&foro=${nombre}"
+              class="btn btn-outline-primary disabled">siguiente</a>
+          </c:if>
         </div>
 
-        <div class="row d-flex justify-content-start m-1 ">
-          <div class="col-4 d-flex justify-content-start">
-            <p> total de foros: <span class="badge bg-primary">${total}</span></p>
-          </div>
+      </div>
+      </div>
+      <div class="row d-flex justify-content-start m-1 ">
+        <div class="col-4 d-flex justify-content-start align-items-center">
+          <h4>Total de foros: </h4><span class="badge rounded-pill bg-primary  ">${total}</span>
         </div>
-
 
       </div>
 

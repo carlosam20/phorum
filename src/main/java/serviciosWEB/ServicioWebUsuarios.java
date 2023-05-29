@@ -107,7 +107,7 @@ public class ServicioWebUsuarios {
 
 		request.getSession().setAttribute("usuario", u);
 		respuesta = "ok," + u.getNombre() + "," + u.getId();
-		return new ResponseEntity<String>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<String>(respuesta, HttpStatus.OK);
 	}
 
 	@RequestMapping("comprobarLogin")

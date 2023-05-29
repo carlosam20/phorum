@@ -54,7 +54,7 @@
 								class="btn btn-outline-primary btn-sm">siguiente</a>
 						</c:if>
 						<c:if test="${ siguiente > total}">
-						<a href="listarUsuarios?comienzo=${anterior}&nombre=${nombre}"
+						<a href="listarUsuarios?comienzo=${siguiente}&nombre=${nombre}"
 							class="btn btn-outline-primary disabled">siguiente</a>
 						</c:if>
 					</div>
@@ -62,8 +62,8 @@
 				</div>
 			</div>
 			<div class="row d-flex justify-content-start m-1 ">
-				<div class="col-4 d-flex justify-content-start">
-					<h4>Total de usuarios: </h4><span class="badge bg-primary">${total}</span>
+				<div class="col-4 d-flex justify-content-start align-items-center">
+					<h4>Total de usuarios: </h4><span class="badge rounded-pill bg-primary">${total}</span>
 				</div>
 
 			</div>

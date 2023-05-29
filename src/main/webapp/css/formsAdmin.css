@@ -31,7 +31,8 @@
 .editarUsuario,
 .editarPost,
 .editarForo,
-editarFollow {
+.editarFollow,
+.editarComentario {
   background: rgb(67, 159, 136);
   background: linear-gradient(90deg, rgba(67, 159, 136, 1) 0%, rgba(67, 159, 136, 1) 41%, rgb(156, 156, 211) 77%);
   border-radius: 1em;

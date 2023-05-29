@@ -36,7 +36,9 @@
 				</div>
 			</div>
 
-			<div class="mx-auto">
+
+
+			<!-- <div class="mx-auto">
 				paginacion:
 				total de follows: ${total}
 
@@ -48,6 +50,37 @@
 				<c:if test="${siguiente < total}">
 					<a href="listarFollows?comienzo=${siguiente}&id=${id}" class="btn btn-outline-primary">siguiente</a>
 				</c:if>
+
+			</div> -->
+
+			<div class="row d-flex justify-content-start m-1 d-flex d-grid gap-2" id="paginacion">
+				<div class="col-2">
+					<c:if test="${ anterior >= 0 }">
+						<a href="listarFollows?comienzo=${anterior}&id=${id}"
+							class="btn btn-outline-primary btn-sm">anterior</a>
+					</c:if>
+					<c:if test="${ anterior < 0 }">
+						<a href="listarFollows?comienzo=${anterior}&id=${id}"
+							class="btn btn-outline-primary disabled">anterior</a>
+					</c:if>
+				</div>
+				<div class="col-2">
+					<c:if test="${siguiente < total}">
+						<a href="listarFollows?comienzo=${siguiente}&id=${id}"
+							class="btn btn-outline-primary btn-sm">siguiente</a>
+					</c:if>
+					<c:if test="${ siguiente > total}">
+						<a href="listarFollows?comienzo=${siguiente}&id=${id}"
+							class="btn btn-outline-primary disabled">siguiente</a>
+					</c:if>
+				</div>
+
+			</div>
+			
+			<div class="row d-flex justify-content-start m-1 ">
+				<div class="col-4 d-flex justify-content-start align-items-center">
+					<h4>Total de foros: </h4><span class="badge rounded-pill  bg-primary">${total}</span>
+				</div>
 
 			</div>
 			<div class="d-grid gap-3">

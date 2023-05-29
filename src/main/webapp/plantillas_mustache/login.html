@@ -33,10 +33,11 @@
 
       <div class="row d-flex justify-content-center my-ms-2">
         <div class="col-lg-8 col-md-8 col-sm-8">
+          <!-- Formulario -->
           <form id="form_login" class="needs-validation" novalidate>
 
-            <div class=" row justify-content-center d-grid gap-2 m-3 ">
-              <div class="row align-self-center">
+            <div class="row justify-content-center d-grid gap-2">
+              <div class="row align-self-center my-3 ">
                 <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center d-grid gap-2 position-relative">
                   <input id="email" name="email" type="email" class="form-control" aria-describedby="emailHelp"
                     placeholder="Email" pattern="^[a-zA-Z]+@[a-zA-Z]+\\.[a-zA-Z]{3,255}+$" required>
@@ -48,11 +49,12 @@
                   </div>
                 </div>
               </div>
-              <div class="row align-self-center">
+
+              <div class="row d-flex align-self-center my-3">
 
                 <div
                   class="col-lg-10 col-md-10 col-sm-6 d-flex justify-content-center align-self-center position-relative">
-                  <input id="pass" name="pass" type="password" class="form-control" placeholder="Contraseña"
+                  <input id="pass" name="pass" type="password" class="form-control " placeholder="Contraseña"
                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$" required>
                   <div class="invalid-tooltip">
                     La contraseñas tienen que ser de 8 a 60 caracteres e incluir una mayúscula, un
@@ -69,7 +71,7 @@
               </div>
 
 
-              <div class="row">
+              <div class="row my-2">
                 <div class="col-lg-6 col-md-6 col-sm-2">
                   <p class="texto-sesion">Guardar Sesión</p>
                 </div>
@@ -87,7 +89,7 @@
 
             </div>
         </div>
-
+        <!-- ____ -->
         </form>
       </div>
     </div>

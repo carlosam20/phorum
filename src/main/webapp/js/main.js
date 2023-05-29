@@ -1,10 +1,7 @@
 /* eslint-disable no-undef */
 
 // Variables globales de usuario
-let email = "";
-let pass = "";
 const idUsuario = "";
-let nombreLogin = "";
 
 // URLS
 const urlForos = "foros";
@@ -449,7 +446,7 @@ const busquedaForos = () => {
           window.history.replaceState(stateObj, urlForos, baseURL + urlForos);
         },
         error: () => {
-          swal("No se ha encontrado ningún elemento", "info");
+          swal("No se ha encontrado ning\u00FAn elemento", "info");
         } // ---end success---
       }
     ); // --end ajax obtenerForosBuscados--
@@ -488,7 +485,7 @@ const busquedaForosIdentificado = () => {
           window.history.replaceState(stateObj, baseURL, baseURL);
         },
         error: () => {
-          swal("No se ha encontrado ningún elemento", "info");
+          swal("No se ha encontrado ning\u00FAn elemento", "info");
         } // ---end success---
       }
     ); // --end ajax obtenerForosBuscados--
@@ -759,7 +756,7 @@ const darFollow = (idForo) => {
         console.log("Follow registrado");
       })
       .fail(function () {
-        swal("Ha fallado la funcion de dar follow", {
+        swal("Ha fallado la funci\u00F3n de dar follow", {
           icon: "error"
         });
       });
@@ -775,7 +772,7 @@ const eliminarFollow = (idForo) => {
     // Se comprueba si hay follow previamente y se elimina si lo hay
     $.ajax("identificado/servicioWebFollow/eliminarFollow?idForo=" + idForo, {
       error: (res) => {
-        swal("Error en eliminar Follow", res, "error");
+        swal("Error en eliminar follow", res, "error");
       }
     }); // --end ajax--
   }
@@ -889,36 +886,41 @@ const mostrarIdentificacionUsuario = () => {
     $("#pass").val(Cookies.get("pass"));
   }
 
-  $("#form_login").submit(() => {
+  $("#form_login").submit((e) => {
+    e.preventDefault();
     window.history.replaceState(stateObj, "", baseURL);
-    email = $("#email").val();
-    pass = $("#pass").val();
+    const email = $("#email").val();
+    const pass = $("#pass").val();
     if (validarEmail(email) && validarPass(pass)) {
       // Llamamos a la función ajax de login
       loginUsuario(email, pass);
     } else if (!validarEmail(email)) {
-      swal("El formato del email no es valido", "Fallo", "error");
+      swal("El formato del email no es v\u00E1lido", "Fallo", "error");
     } else if (!validarPass(pass)) {
-      swal("El formato de la contraseña no es valido", "Fallo", "error");
+      swal("El formato de la contraseña no es v\u00E1lido", "Fallo", "error");
     } // endValidaciones
   });
 }; // -end identificacion usuario-
 
 const loginUsuario = (email, pass) => {
   $.ajax("servicioWebUsuarios/loginUsuario", {
-    // type: "POST",
+    type: "POST",
     url: baseURL,
     data: "email=" + email + "&pass=" + pass,
     success: function (res) {
       if (res.includes("ok")) {
-        nombreLogin = res.split(",")[1];
+        const nombreLogin = res.split(",")[1];
         $("#mensaje_login").text(nombreLogin);
-        swal("", "Inicio de sesión correcto", "success");
+        swal("", "Inicio de sesi\u00F3n correcto", "success");
         if ($("#recordar_datos").prop("checked")) {
-          swal("Cookies de Sesión", "Datos guardados", "success");
           Cookies.set("email", email, { expires: 100 });
           Cookies.set("pass", pass, { expires: 100 });
+        } else {
+          Cookies.remove("email");
+          Cookies.remove("pass");
         }
+      } else {
+        swal("", "Inicio de sesi\u00F3n incorrecto", "error");
       }
       const stateObj = {
         url: baseURL,
@@ -927,7 +929,7 @@ const loginUsuario = (email, pass) => {
       window.history.pushState(stateObj, baseURL, baseURL);
     },
     error: () => {
-      swal("", "Error al iniciar sesión", "error");
+      swal("", "Error al iniciar sesi\u00F3n", "error");
     }
   }); // end.ajax
 }; // -end loginUsuario-
@@ -936,7 +938,7 @@ const logout = () => {
   $.ajax("servicioWebUsuarios/logout", {
     success: function (res) {
       if (res === "ok") {
-        swal("Sesi&acuteon cerrada", "Operaci&acuteon completada", "success");
+        swal("Sesi&acuteon cerrada", "Operaci\u00F3n completada", "success");
         $("#mensaje_login").html("");
         setTimeout(() => {
           listadoInicio();
@@ -1023,8 +1025,8 @@ const borrarUsuario = () => {
   // Boton Borrar usuario
   $(".boton_borrar_usuario").click(function (e) {
     swal({
-      title: "Est&aacutes seguro de que quieres eliminarlo?",
-      text: "No se podr&aacute recuperar el usuario",
+      title: "Est\u00E1s seguro de que quieres eliminarlo?",
+      text: "No se podr\u00E1 recuperar el usuario",
       icon: "warning",
       buttons: true,
       dangerMode: true
@@ -1095,7 +1097,7 @@ const eliminarValoracionFalse = (idPost) => {
       $.ajax(
         "identificado/servicioWebValoracion/eliminarValoracion?idPost=" + idPost
       ).fail(function () {
-        swal("Ha fallado la funcion de quitar dislike", {
+        swal("Ha fallado la funci\u00F3n de quitar dislike", {
           icon: "error"
         });
       }) // --end ajax--
@@ -1115,7 +1117,7 @@ const eliminarValoracionTrue = (idPost) => {
       $.ajax(
         "identificado/servicioWebValoracion/eliminarValoracion?idPost=" + idPost
       ).fail(function () {
-        swal("Ha fallado la funcion de quitar like", "Error", "error");
+        swal("Ha fallado la funci\u00F3n de quitar like", "Error", "error");
       }) // --end ajax--
     );
   }
@@ -1172,7 +1174,7 @@ $("#enlace_listado_foros").click(() => {
       }
     })
     .catch(() => {
-      swal("se ha producido un error en identificación", "Error", "error");
+      swal("se ha producido un error en identificaci\u00F3n", "Error", "error");
     });
 }); // -end enlace listado foros
 

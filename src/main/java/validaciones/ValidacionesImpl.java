@@ -1,6 +1,7 @@
 package validaciones;
 
 import java.io.File;
+
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -17,7 +18,6 @@ import modelo.Foro;
 import modelo.Post;
 import modelo.Usuario;
 import modelo.Valoracion;
-import servicios.ServicioUsuarios;
 import validacionObjetos.ParValidacion;
 
 public class ValidacionesImpl {
