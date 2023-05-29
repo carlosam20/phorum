@@ -405,12 +405,12 @@ const verPostYComentarios = () => {
           valoracionDislike(idPostClick);
 
           const stateObj = {
-            url: baseURL + urlPostYComentarios,
+            url: baseURL,
             textoHtml: Mustache.render(plantillaListarPostYComentarios, postYComentarios),
             id: idPostClick
           };
 
-          window.history.pushState(stateObj, urlPostYComentarios, baseURL + urlPostYComentarios);
+          window.history.pushState(stateObj, baseURL, baseURL);
         }
       }); // --end ajax--
       e.preventDefault();
@@ -839,11 +839,6 @@ const registrarPost = () => {
 }; // -end registrar post-
 
 const mostrarRegistroUsuario = () => {
-  const stateObj = {
-    url: baseURL,
-    textoHtml: Mustache.render(plantillaLogin)
-  };
-  window.history.pushState(stateObj, baseURL, baseURL);
   $("#contenedor").html(plantillaRegistrarUsuario);
 
   $("#form_registro_usuario").submit(function (e) {
@@ -855,17 +850,18 @@ const mostrarRegistroUsuario = () => {
       cache: false,
       contentType: false,
       processData: false,
-      success: function () {
+      success: () => {
         swal(
           "El registro se ha realizado de forma correcta",
           "Realizado",
           "success"
         );
       },
-      error: function (res) {
-        swal("Error al registrar", res.responseText, "error"); // Display the error message in the swal dialog
+      error: (res) => {
+        swal("Error al registrar", res.responseText, "error");
       }
     });
+    e.preventDefault();
   });
 }; // -end registro usuario-
 
@@ -911,7 +907,7 @@ const loginUsuario = (email, pass) => {
       if (res.includes("ok")) {
         const nombreLogin = res.split(",")[1];
         $("#mensaje_login").text(nombreLogin);
-        swal("", "Inicio de sesi\u00F3n correcto", "success");
+        swal("Realizado", "Inicio de sesi\u00F3n correcto", "success");
         if ($("#recordar_datos").prop("checked")) {
           Cookies.set("email", email, { expires: 100 });
           Cookies.set("pass", pass, { expires: 100 });
@@ -920,7 +916,7 @@ const loginUsuario = (email, pass) => {
           Cookies.remove("pass");
         }
       } else {
-        swal("", "Inicio de sesi\u00F3n incorrecto", "error");
+        swal("Error", "Inicio de sesi\u00F3n incorrecto", "error");
       }
       const stateObj = {
         url: baseURL,
@@ -929,7 +925,7 @@ const loginUsuario = (email, pass) => {
       window.history.pushState(stateObj, baseURL, baseURL);
     },
     error: () => {
-      swal("", "Error al iniciar sesi\u00F3n", "error");
+      swal("Error", "Error al iniciar sesi\u00F3n", "error");
     }
   }); // end.ajax
 }; // -end loginUsuario-
@@ -950,7 +946,8 @@ const logout = () => {
 
 const editarUsuario = () => {
   // Boton Editar
-  $(".boton_editar_usuario").click(function (e) {
+
+  $(".boton_editar_usuario").click(function () {
     if (comprobarIdentificacion()) {
       $.ajax("identificado/servicioWebUsuarios/obtenerUsuarioPorId", {
         success: function (data) {
@@ -958,34 +955,21 @@ const editarUsuario = () => {
           let textoHtml = "";
           textoHtml = Mustache.render(plantillaEditarUsuario, info);
           $("#contenedor").html(textoHtml);
-          const stateObj = {
-            url: baseURL,
-            textoHtml: Mustache.render(plantillaEditarUsuario, info)
-          };
-          window.history.pushState(stateObj, baseURL, baseURL);
           // Form
           $("#form_editar_usuario").submit(function (e) {
-            const stateObj = {
-              url: baseURL,
-              textoHtml: Mustache.render(plantillaLogin)
-            };
-            window.history.pushState(stateObj, "", baseURL);
             const formulario = document.forms[0];
             const formData = new FormData(formulario);
-
             $.ajax(
               "identificado/servicioWebUsuarios/editarUsuarioPorId",
               {
                 type: "POST",
                 data: formData,
-                cache: false,
                 contentType: false,
+                cache: false,
                 processData: false,
-                error: (res) => {
-                  swal("Error al editar", res.responseText, "error");
-                },
                 success: (res) => {
                   if (res === "ok") {
+                    alert(res);
                     swal("Usuario editado", "El usuario se ha editado correctamente", "success", {
                       buttons: {
                         catch: {
@@ -1001,14 +985,22 @@ const editarUsuario = () => {
                               cache
                                 .delete("/images/" + idUsuario + ".jpg")
                                 .then(() => {
+                                  const stateObj = {
+                                    url: baseURL,
+                                    textoHtml: Mustache.render(plantillaEditarUsuario)
+                                  };
+                                  window.history.pushState(stateObj, baseURL, baseURL);
                                   perfil();
-                                  window.location.reload();
                                 });
                             });
                             break;
                         }
                       });
                   }
+                },
+                error: (res) => {
+                  alert(res);
+                  swal("Error al editar", res.responseText, "error");
                 }
               }
             );
@@ -1040,7 +1032,7 @@ const borrarUsuario = () => {
                 icon: "success"
               });
               setTimeout(() => {
-                mostrarIdentificacionUsuario();
+                logout();
               }, 2000);
             }
           } // ---end success---

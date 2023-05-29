@@ -35,18 +35,12 @@ public class ServicioWebUsuarios {
 	@RequestMapping("registrarUsuario")
 	public ResponseEntity<String> registrarUsuario(@RequestParam Map<String, Object> formData,
 			@RequestParam("foto") CommonsMultipartFile foto, HttpServletRequest request) {
-
-		// Hay que realizar una comprobación de que no se duplica el Usuario aqui y
-		// devolver duplicado si ocurre
-		
-		
-
-		
 		Gson gson = new Gson();
 
 		JsonElement json = gson.toJsonTree(formData);
 
 		Usuario u = gson.fromJson(json, Usuario.class);
+		
 		// Creamos una fecha y la guardamos en fechaCreacion
 
 		// Recogemos la fecha actual en el formato adecuado
@@ -67,7 +61,7 @@ public class ServicioWebUsuarios {
 
 		ParValidacion resultadoValidacion =  ValidacionesImpl.validarUsuario(u,bp,foto);
 		
-		if(!servicioUsuarios.comprobarEmail(u.getEmail())) {
+		if(servicioUsuarios.comprobarEmail(u.getEmail())) {
 			resultadoValidacion.setRespuesta("Hay un email con esta cuenta");
 			resultadoValidacion.setResultado(false);
 		}

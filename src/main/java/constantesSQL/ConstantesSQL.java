@@ -111,10 +111,10 @@ public class ConstantesSQL {
 	public static final String SQL_OBTENER_DATOS_POST = "select * from post where id = :id"; 
 	public static final String SQL_OBTENER_DATOS_USUARIO="select * from usuario where id = :id ";
 			
-	
-	
 	public final static String OBTENER_POST_CON_FORO="select * from post where foro = :id";
 	
+	//Comprobar
+	public final static String COMPROBAR_EMAIL="select count(*) from Usuario where email = :email";
 		
 	
 

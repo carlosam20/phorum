@@ -74,7 +74,6 @@ public class ControladoresValoracion {
 	public String guardarNuevoValoracion(@ModelAttribute("nuevoValoracion") @Valid Valoracion nuevoValoracion, BindingResult br, Model model,
 			HttpServletRequest request) {
 	
-		//TODO se ha cambiado hace poco a lo mejor no funciona
 		Map<String, Object> valoraciones = servicioValoracion.obtenerValoracionPorPostIdYPorUsuarioId(nuevoValoracion.getIdPost(), nuevoValoracion.getIdUsuario());
 		
 		

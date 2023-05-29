@@ -31,7 +31,7 @@ public class ServicioValoracionImpl implements ServicioValoracion {
 
 	@Override
 	public void registrarValoracion(Valoracion v) {
-		// Esto ha estado comentado
+	
 
 		Post p = (Post) sessionFactory.getCurrentSession().get(Post.class, v.getIdPost());
 		v.setPost(p);

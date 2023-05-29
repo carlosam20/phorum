@@ -1,5 +1,9 @@
 package serviciosWEB.identificado;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +25,7 @@ import servicios.ServicioComentarios;
 import servicios.ServicioFollow;
 import servicios.ServicioPosts;
 import servicios.ServicioUsuarios;
+import servicios.ServicioValoracion;
 import utilidadesArchivos.GestorArchivos;
 import validacionObjetos.ParValidacion;
 import validaciones.ValidacionesImpl;
@@ -41,6 +46,9 @@ public class ServicioWebUsuarios {
 
 	@Autowired
 	private ServicioFollow servicioFollow;
+	
+	@Autowired
+	private ServicioValoracion servicioValoracion;
 
 	@RequestMapping("obtenerUsuarioPorId")
 	public ResponseEntity<String> obtenerUsuarioPorId(HttpServletRequest request) {
@@ -121,6 +129,14 @@ public class ServicioWebUsuarios {
 
 		if (resultadoValidacion.getResultado() == true) {
 			// Se asigna el Id previo del registro
+			try {
+				String encodedDescripcion = nu.getDescripcion();
+				String decodedDescripcion = URLDecoder.decode(encodedDescripcion, "UTF-8");
+				nu.setDescripcion(decodedDescripcion);
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			servicioUsuarios.guardarCambiosUsuario(nu);
 			
 			// Guardado de Imagen
@@ -138,21 +154,26 @@ public class ServicioWebUsuarios {
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 		String respuesta = "";
 
+		//Eliminar follows a foros
+		servicioFollow.eliminarFollowsPorUsuario(u.getId());
+		// Eliminar valoraciones por usuario
+		servicioValoracion.eliminaValoracionesPorUsuario(u.getId());
 		// Hay que eliminar todos sus comentarios
 		servicioComentarios.borrarComentariosPorIdUsuario(u.getId());
 
 		// Eliminar comentarios de post del usuario
-
 		List<Map<String, Object>> postHechosPorUsuario = servicioPosts.obtenerPostsPorIdUsuario(u.getId());
 
 		for (int i = 0; i < postHechosPorUsuario.size(); i++) {
 			System.out.println("Post Usuario:" + Long.parseLong(String.valueOf(postHechosPorUsuario.get(i).get("id"))));
-			servicioComentarios
-					.borrarComentariosPoridPost(Long.parseLong(String.valueOf(postHechosPorUsuario.get(i).get("id"))));
+			servicioValoracion.eliminaValoracionesPorPost(Long.parseLong(String.valueOf(postHechosPorUsuario.get(i).get("id"))));
+			servicioComentarios.borrarComentariosPoridPost(Long.parseLong(String.valueOf(postHechosPorUsuario.get(i).get("id"))));
 		}
 
 		// Eliminar post hechos por el usuario
 		servicioPosts.eliminarPostUsuarios(u.getId());
+		
+		//Eliminar usuario
 		servicioUsuarios.eliminarUsuario(u.getId());
 
 		// Elimina la sesión del usuario

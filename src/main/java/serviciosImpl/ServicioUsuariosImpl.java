@@ -1,6 +1,7 @@
 package serviciosImpl;
 
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,13 +52,18 @@ public class ServicioUsuariosImpl implements ServicioUsuarios {
 
 	@Override
 	public boolean comprobarEmail(String email) {
-		Criteria c = sessionFactory.getCurrentSession().createCriteria(Usuario.class);
-		c.add(Restrictions.eq("email", email));
-		if (c.uniqueResult() == null) {
-			return false;
-		} else {
-			return true;
-		}
+		SQLQuery query = sessionFactory.getCurrentSession()
+			    .createSQLQuery("SELECT COUNT(*) FROM Usuario WHERE email = :email");
+			query.setParameter("email", email);
+			BigInteger count = (BigInteger) query.uniqueResult();
+			if (count.intValue() == 0) {
+			    // Email existe ya
+			    return false;
+			} else {
+			    // Email no existe
+			    return true;
+			}
+
 	}
 
 	@Override

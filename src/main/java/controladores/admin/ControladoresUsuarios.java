@@ -179,14 +179,15 @@ public class ControladoresUsuarios {
 	@RequestMapping("borrarUsuario")
 	public String borrarUsuario(String id, Model model) {
 
+		// Eliminar follows por usuario
+		servicioFollows.eliminarFollowsPorUsuario(Long.parseLong(id));
+		
 		// Eliminar valoraciones por usuario
 		servicioValoraciones.eliminaValoracionesPorUsuario(Long.parseLong(id));
 
 		// Eliminar comentarios del usuario
 		servicioComentarios.borrarComentariosPorIdUsuario(Long.parseLong(id));
 
-		// Eliminar follows por usuario
-		servicioFollows.eliminarFollowsPorUsuario(Long.parseLong(id));
 
 		// Obtener posts del usuario
 		List<Map<String, Object>> postUsuario = servicioPosts.obtenerPostsPorIdUsuario(Long.parseLong(id));

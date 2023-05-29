@@ -35,7 +35,7 @@ public class FechaParaUsuario {
 		int mesActual = fechaActual.get(Calendar.MONTH);
 		int diaActual = fechaActual.get(Calendar.DAY_OF_MONTH);
 
-		// Realizamos las operaciones
+		// Realizamos las operaciones para calcular la diferencia
 		int anyos = anyoCreacion - anyoActual;
 		int meses = mesCreacion - mesActual;
 		int dias = diaCreacion - diaActual;
