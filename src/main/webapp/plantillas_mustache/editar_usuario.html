@@ -25,18 +25,18 @@
 			<div class="formulario  d-flex justify-content-center">
 				<div class="col-lg-5 col-md-5 col-sm-12 m-2">
 
-					<form id="form_editar_usuario">
+					<form id="form_editar_usuario" accept-charset="UTF-8">
 
 							<div class="row  my-2">
 								<div class="col-lg-12 col-md-12 col-sm-12">
 									<input type="text" name="nombre" class="form-control form-control-lg  "
-										placeholder="Nombre" id="nombre" value="{{nombre}}" />
+										placeholder="Nombre" id="nombre" value="{{nombre}}" required/>
 								</div>
 							</div>
 							<div class="row  my-2 ">
 								<div class="col-lg-12 col-md-12 col-sm-12">
 									<input type="text" name="email" class="form-control form-control-lg  "
-										placeholder="E-mail" id="email" value="{{email}}" />
+										placeholder="E-mail" id="email" value="{{email}}" required/>
 								</div>
 							</div>
 							<div class="row  my-2 ">
@@ -44,7 +44,7 @@
 									<div class="row">
 										<div class="col-lg-10 col-md-10 col-sm-6">
 											<input type="password" name="pass" class="form-control form-control-lg  "
-												placeholder="Password" id="pass" value="{{pass}}" />
+												placeholder="Password" id="pass" value="{{pass}}" required />
 										</div>
 										<div class="col-lg-2 col-md-2 col-sm-4 my-2">
 											<i class="fa-solid fa-eye" id="ojo-icon"></i>
@@ -55,15 +55,15 @@
 							</div>
 							<div class="row  my-2 ">
 								<div class="col-lg-12 col-md-12 col-sm-12">
-									<textarea type="text" name="descripcion" class="form-control form-control-lg  "
-										placeholder="Descripción" id="descripcion">{{descripcion}}
+									<textarea type="text" name="descripcion" class="form-control form-control-lg"
+										placeholder="Descripción" id="descripcion" required>{{descripcion}}
 										</textarea>
 								</div>
 							</div>
 
 							<div class="row  my-2">
 								<div class="col-lg-12 col-md-12 col-sm-12">
-									<input type="file" name="foto" id="foto" />
+									<input type="file" name="foto" id="foto"/>
 								</div>
 							</div>
 
@@ -81,6 +81,7 @@
 	</div>
 </body>
 <script src="js/togglePass.js"></script>
-
-
+<script>
+	initToggle();
+  </script>
 </html>

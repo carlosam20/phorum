@@ -53,9 +53,12 @@
 								<div class="col-sm-11 col-md-11 col-lg-11 d-flex align-items-center">
 									<springform:input type="date" pattern="yyyy/MM/dd" path="fechaCreacion"
 										class="form form-lg form-control text-start" />
-									<p>
-										<springform:errors path="fechaCreacion" />
-									</p>
+								</div>
+							</div>
+							<div class="row  d-flex justify-content-start">
+								<div class="span-col col-10 d-flex justify-content-center">
+									<i class="fa-solid fa-circle-exclamation m-1"></i>
+									<springform:errors class="span-error text-start text-danger" path="fechaCreacion" />
 								</div>
 							</div>
 							<div class="row">
@@ -65,6 +68,12 @@
 								<div class="col-10 d-flex align-items-center">
 									<springform:textarea path="textoComentario" placeholder="Texto del comentario"
 										rows="5" cols="40" pattern="^.{1,60}$" maxlenght="60" class="text-start" />
+								</div>
+							</div>
+							<div class="row  d-flex justify-content-start">
+								<div class="span-col col-10 d-flex justify-content-center">
+									<i class="fa-solid fa-circle-exclamation m-1"></i>
+									<springform:errors class="span-error text-start text-danger" path="textoComentario" />
 								</div>
 							</div>
 

@@ -82,19 +82,18 @@ public class ControladoresUsuarios {
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 		
+		
+		//Comprobamos que la fecha no sea nula
+		if (nuevoUsuario.getFechaCreacion() == null) {
+
+			FieldError error = new FieldError("nuevoUsuario", "fechaCreacion", "Se tiene que introducir una fecha");
+			br.addError(error);
+			return "admin/formularioRegistroUsuario";
+		} 
 
 
 		if (!br.hasErrors()) {
 
-			//Comprobamos que la fecha no sea nula
-			if (nuevoUsuario.getFechaCreacion() == null) {
-
-				FieldError error = new FieldError("nuevoUsuario", "fechaCreacion", "Se tiene que introducir una fecha");
-				br.addError(error);
-				return "admin/formularioRegistroUsuario";
-			}
-
-			
 			if(servicioUsuarios.comprobarEmail(nuevoUsuario.getEmail())) {
 				FieldError error = new FieldError("nuevoUsuario", "email",
 						"Existe una cuenta con ese email");
@@ -135,7 +134,6 @@ public class ControladoresUsuarios {
 
 		} else {
 
-			System.out.println("Error en" + br.getFieldError());
 			model.addAttribute("nuevoUsuario", nuevoUsuario);
 			return "admin/formularioRegistroUsuario";
 		}
@@ -146,17 +144,56 @@ public class ControladoresUsuarios {
 	public String guardarCambiosUsuario(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult br,
 			Model model, HttpServletRequest request) {
 
-		// Eliminamos la hora del guardado de fecha
 		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(usuario.getFechaCreacion());
 		calendar.set(Calendar.HOUR_OF_DAY, 0);
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
+		
+		
+		//Comprobamos que la fecha no sea nula
+		if (usuario.getFechaCreacion() == null) {
 
-		usuario.setFechaCreacion(calendar.getTime());
+			FieldError error = new FieldError("usuario", "fechaCreacion", "Se tiene que introducir una fecha");
+			br.addError(error);
+			return "admin/formularioEditarUsuario";
+		} 
 
 		if (!br.hasErrors()) {
+			
+			if(servicioUsuarios.comprobarEmail(usuario.getEmail())) {
+				FieldError error = new FieldError("usuario", "email",
+						"Existe una cuenta con ese email");
+				br.addError(error);
+				return "admin/formularioEditarUsuario";
+			}
+
+			//Comprobamos si la fecha es anterior o actual a la fecha en la que estamos
+			LocalDate localDate = LocalDate.now();
+			Date dateActual = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			
+			LocalDate localDateCreacion = usuario.getFechaCreacion().toInstant().atZone(ZoneId.systemDefault())
+					.toLocalDate();
+			LocalDate localDateActual = dateActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+			if (!localDateCreacion.isBefore(localDateActual) && !localDateCreacion.isEqual(localDateActual)) {
+				FieldError error = new FieldError("usuario", "fechaCreacion",
+						"La fecha tiene que ser anterior o actual");
+				br.addError(error);
+				return "admin/formularioEditarUsuario";
+			}
+			//Comprobamos el tamaño de la imagen
+			if(usuario.getImagen().getSize() == 0 || usuario.getImagen().isEmpty()) {
+				FieldError error = new FieldError("nuevoUsuario", "imagen",
+						"Se tiene que introducir una imagen");
+				br.addError(error);
+				return "admin/formularioEditarUsuario";
+			}
+
+			// Eliminamos la hora del guardado de fecha
+			calendar.setTime(usuario.getFechaCreacion());
+			usuario.setFechaCreacion(calendar.getTime());
+			
 			String rutaRealDelProyecto = request.getServletContext().getRealPath("");
 			GestorArchivos.guardarFotoUsuarioAdmin(usuario, rutaRealDelProyecto);
 			servicioUsuarios.guardarCambiosUsuario(usuario);

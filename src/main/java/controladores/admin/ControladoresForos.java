@@ -3,7 +3,10 @@ package controladores.admin;
 
 
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,21 +85,54 @@ public class ControladoresForos {
 		
 		//Eliminamos la hora del guardado de fecha
 	    Calendar calendar = Calendar.getInstance();
-	    calendar.setTime(nuevoForo.getFechaCreacion());
 	    calendar.set(Calendar.HOUR_OF_DAY, 0);
 	    calendar.set(Calendar.MINUTE, 0);
 	    calendar.set(Calendar.SECOND, 0);
 	    calendar.set(Calendar.MILLISECOND, 0);
 	    
-	    nuevoForo.setFechaCreacion(calendar.getTime());
+	   
 	    
+	    
+	    //Comprobamos que la fecha no sea nula
+		if (nuevoForo.getFechaCreacion() == null) {
+
+			FieldError error = new FieldError("nuevoForo", "fechaCreacion", "Se tiene que introducir una fecha");
+			br.addError(error);
+			return "admin/formularioRegistroForo";
+		} 
+		
+		
 		if (!br.hasErrors()) {
 			
+			//Comprobamos si la fecha es anterior o actual a la fecha en la que estamos
+			LocalDate localDate = LocalDate.now();
+			Date dateActual = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			
+			LocalDate localDateCreacion = nuevoForo.getFechaCreacion().toInstant().atZone(ZoneId.systemDefault())
+					.toLocalDate();
+			LocalDate localDateActual = dateActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+			if (!localDateCreacion.isBefore(localDateActual) && !localDateCreacion.isEqual(localDateActual)) {
+				FieldError error = new FieldError("nuevoForo", "fechaCreacion",
+						"La fecha tiene que ser anterior o actual");
+				br.addError(error);
+				return "admin/formularioRegistroForo";
+			}
+			//Comprobamos que la imágen no este vacía
+			if(nuevoForo.getImagen().getSize() == 0 || nuevoForo.getImagen().isEmpty()) {
+				FieldError error = new FieldError("nuevoForo", "imagen",
+						"Se tiene que introducir una imagen");
+				br.addError(error);
+				return "admin/formularioRegistroForo";
+			}
+			
+			calendar.setTime(nuevoForo.getFechaCreacion());
+			 nuevoForo.setFechaCreacion(calendar.getTime());
 			servicioForos.registrarForo(nuevoForo);
 			String rutaRealDelProyecto =
 			request.getServletContext().getRealPath("");
 			GestorArchivos.guardarImagenForoAdmin(nuevoForo, rutaRealDelProyecto);
-			return "admin/registroForoOk";
+			return "admin/foros";
 			
 		} else {
 			

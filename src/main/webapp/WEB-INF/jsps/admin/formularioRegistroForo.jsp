@@ -96,7 +96,7 @@
 							<div class="row mt-2 " id="botonForm">
 								<div class="col-sm-12 col-md-12 col-lg-12 text-center mx-auto">
 									<input id="boton_submit" class="btn btn-primary btn-lg" type="submit"
-										value="Registrar Post">
+										value="Registrar Foro">
 								</div>
 							</div>
 						</springform:form>

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,6 +77,13 @@ public class ControladoresValoracion {
 	
 		Map<String, Object> valoraciones = servicioValoracion.obtenerValoracionPorPostIdYPorUsuarioId(nuevoValoracion.getIdPost(), nuevoValoracion.getIdUsuario());
 		
+		Map<String, Object> valoracionesUsuarioPost= servicioValoracion.obtenerValoracionPorPostIdYPorUsuarioId(nuevoValoracion.getIdUsuario(), nuevoValoracion.getIdPost());
+		
+		if(!valoracionesUsuarioPost.isEmpty()) {
+			FieldError error = new FieldError("nuevoValoracion", "idPost",
+					"Ya hay una valoración con este usuario y post");
+			br.addError(error);
+		}
 		
 		if (!br.hasErrors() && valoraciones.isEmpty()) {
 			servicioValoracion.registrarValoracion(nuevoValoracion);

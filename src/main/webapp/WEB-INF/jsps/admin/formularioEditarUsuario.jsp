@@ -151,5 +151,8 @@
         <script src="../js/togglePass.js"></script>
         <script src="../js/spanAdmin.js"></script>
 
+        <script>
+            initToggle();
+        </script>
 
         </html>

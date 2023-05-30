@@ -3,8 +3,10 @@ package controladores.admin;
 
 
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
-
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,15 +81,50 @@ public class ControladoresComentarios {
 	@RequestMapping("guardarNuevoComentario")
 	public String guardarNuevoComentario(@ModelAttribute("nuevoComentario") @Valid Comentario nuevoComentario, BindingResult br, Model model,
 			HttpServletRequest request) {
-		//Eliminamos la hora del guardado de fecha
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.setTime(nuevoComentario.getFechaCreacion());
-	    calendar.set(Calendar.HOUR_OF_DAY, 0);
-	    calendar.set(Calendar.MINUTE, 0);
-	    calendar.set(Calendar.SECOND, 0);
-	    calendar.set(Calendar.MILLISECOND, 0);
-	    
-	    nuevoComentario.setFechaCreacion(calendar.getTime());
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		
+		
+		//Comprobamos que la fecha no sea nula
+		if (nuevoComentario.getFechaCreacion() == null) {
+
+			FieldError error = new FieldError("nuevoComentario", "fechaCreacion", "Se tiene que introducir una fecha");
+			br.addError(error);
+			Map<String, String> mapPosts = servicioPosts.obtenerPostsParaDesplegable();
+			model.addAttribute("posts", mapPosts);
+			
+			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+			model.addAttribute("usuarios", mapUsuarios);
+			
+			model.addAttribute("nuevoComentario", nuevoComentario);
+			return "admin/formularioRegistroComentario";
+		}
+		
+		//Comprobamos si la fecha es anterior o actual a la fecha en la que estamos
+		LocalDate localDate = LocalDate.now();
+		Date dateActual = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		
+		LocalDate localDateCreacion = nuevoComentario.getFechaCreacion().toInstant().atZone(ZoneId.systemDefault())
+				.toLocalDate();
+		LocalDate localDateActual = dateActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+		if (!localDateCreacion.isBefore(localDateActual) && !localDateCreacion.isEqual(localDateActual)) {
+			FieldError error = new FieldError("nuevoComentario", "fechaCreacion",
+					"La fecha tiene que ser anterior o actual");
+			br.addError(error);
+			Map<String, String> mapPosts = servicioPosts.obtenerPostsParaDesplegable();
+			model.addAttribute("posts", mapPosts);
+			
+			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+			model.addAttribute("usuarios", mapUsuarios);
+			
+			model.addAttribute("nuevoComentario", nuevoComentario);
+			return "admin/formularioRegistroComentario";
+		}
 	    
 		if (!br.hasErrors()) {		
 			servicioComentarios.registrarComentario(nuevoComentario);

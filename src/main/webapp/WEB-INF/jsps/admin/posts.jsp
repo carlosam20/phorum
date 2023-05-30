@@ -75,12 +75,14 @@
             <div class="card">
               <img class="fotoForo mx-auto my-3" src="../subidasPost/${post.id}.jpg" /><br>
               <div class="card-body">
-                <h5 class="card-title">${post.nombre} ${post.fechaCreacion }</h5>
+                <h5 class="card-title">${post.nombre}</h5>
               </div>
 
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">descripcion: ${post.descripcion} </li>
+                <li class="list-group-item">Fecha de creación: ${post.fechaCreacion} </li>
+                <li class="list-group-item">Descripción: ${post.descripcion} </li>
                 <li class="list-group-item">nombre foro: ${post.foro.nombre}</li>
+                <li class="list-group-item">Id: ${post.id}</li>
                 <li class="list-group-item">foro id: ${post.foro.id}</li>
               </ul>
 
