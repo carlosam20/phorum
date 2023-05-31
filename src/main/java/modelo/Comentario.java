@@ -20,11 +20,10 @@ public class Comentario {
     @Id	
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    @Pattern(regexp ="^.{1,60}$"
-    		+ "", message="El comentario no es correcto:"
-    				+ "Se pueden introducir guiones bajos, puntos, comas, espacios en blanco, numeros, acentos y mayúsculas y minúsculas")
-    @Length(min=1, max=200)
     @NotEmpty(message ="El texto del comentario no puede estar nulo o vacío")
+    @Pattern(regexp ="^.{1,60}$"
+    		+ "", message="")
+    @Length(min=1, max=60)
     private String textoComentario;
 
     @ManyToOne(cascade = {CascadeType.MERGE}, targetEntity = Post.class, optional = false, fetch = FetchType.EAGER)

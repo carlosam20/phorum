@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="col-sm-11 col-md-11 col-lg-11 d-flex align-items-center">
                                     <springform:input id="email" type="email" path="email"
-                                        pattern="^[a-zA-Z]+@[a-zA-Z]+\\.[a-zA-Z]{3,254}+$" maxlenght="254" minlength="3"
+                                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" maxlenght="255" minlength="3"
                                         class="form form-lg form-control" placeholder="E-mail" />
                                 </div>
                             </div>

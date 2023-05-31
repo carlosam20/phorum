@@ -1,9 +1,8 @@
 package serviciosWEB.identificado;
 
 import java.io.UnsupportedEncodingException;
+
 import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -72,7 +71,7 @@ public class ServicioWebUsuarios {
 		usuario.put("fechaCreacion", FechaParaUsuario.parseoDeFecha(fechaUsuario));
 
 		String json = new Gson().toJson(usuario);
-		System.out.println("json: " + json);
+		
 
 		return new ResponseEntity<String>(json, HttpStatus.OK);
 	}
@@ -93,7 +92,7 @@ public class ServicioWebUsuarios {
 		usuario.put("numeroPost", numeroPost);
 
 		String json = new Gson().toJson(usuario);
-		System.out.println("json: " + json);
+		
 
 		return new ResponseEntity<String>(json, HttpStatus.OK);
 
@@ -165,7 +164,7 @@ public class ServicioWebUsuarios {
 		List<Map<String, Object>> postHechosPorUsuario = servicioPosts.obtenerPostsPorIdUsuario(u.getId());
 
 		for (int i = 0; i < postHechosPorUsuario.size(); i++) {
-			System.out.println("Post Usuario:" + Long.parseLong(String.valueOf(postHechosPorUsuario.get(i).get("id"))));
+		
 			servicioValoracion.eliminaValoracionesPorPost(Long.parseLong(String.valueOf(postHechosPorUsuario.get(i).get("id"))));
 			servicioComentarios.borrarComentariosPoridPost(Long.parseLong(String.valueOf(postHechosPorUsuario.get(i).get("id"))));
 		}

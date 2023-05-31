@@ -105,6 +105,12 @@ public class ControladoresValoracion {
 	public String guardarCambiosValoracion(@ModelAttribute("valoracion") @Valid Valoracion valoracion, BindingResult br,  Model model,
 			HttpServletRequest request) {
 		
+		Valoracion valoracionOriginal = servicioValoracion.obtenerValoracion(valoracion.getId());
+		
+		valoracion.setIdUsuario(valoracionOriginal.getUsuario().getId());
+		valoracion.setIdPost(valoracionOriginal.getPost().getId());
+		valoracion.setUsuario(valoracionOriginal.getUsuario());
+		valoracion.setPost(valoracionOriginal.getPost());
 		
 		if(!br.hasErrors()) {
 			servicioValoracion.guardarCambiosValoraciones(valoracion);
@@ -120,7 +126,6 @@ public class ControladoresValoracion {
 			return "admin/formularioEditarValoracion";
 		}		
 	
-		
 		
 	}
 	@RequestMapping("editarValoracion")

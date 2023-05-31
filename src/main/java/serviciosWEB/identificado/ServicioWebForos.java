@@ -64,7 +64,7 @@ public class ServicioWebForos {
 	@RequestMapping("obtenerForoPorId")
 	public ResponseEntity<String> obtenerForoPorId(HttpServletRequest request) {
 		Foro f = (Foro) request.getSession().getAttribute("foro");
-		System.out.println("----El id----" + f.getId());
+		
 		String json = new Gson().toJson(servicioForos.obtenerForosPorId(f.getId()));
 		return new ResponseEntity<String>(json, HttpStatus.OK);
 	}
@@ -73,14 +73,14 @@ public class ServicioWebForos {
 	public ResponseEntity<String> registroPost(@RequestParam Map<String, Object> formData,
 			@RequestParam("foto") CommonsMultipartFile foto, HttpServletRequest request) {
 
-		System.out.println("--------" + formData);
+		
 
 		Gson gson = new Gson();
 		JsonElement json = gson.toJsonTree(formData);
 
-		System.out.println("--------" + json);
+
 		Foro f = gson.fromJson(json, Foro.class);
-		System.out.println("Foro a registrar " + f.toString());
+
 		
 		//Recogemos la fecha actual
 		LocalDate currentDate = LocalDate.now();
@@ -142,7 +142,7 @@ public class ServicioWebForos {
 		
 		
 		String json = new Gson().toJson(foros);
-		System.out.println("WebForos"+json);
+		
 		return new ResponseEntity<String>(json, HttpStatus.OK);
 
 	}
@@ -169,7 +169,7 @@ public class ServicioWebForos {
 		
 		
 		String json = new Gson().toJson(perfilForos);
-		System.out.println("WebForos"+json);
+		
 		return new ResponseEntity<String>(json, HttpStatus.OK);
 
 	}

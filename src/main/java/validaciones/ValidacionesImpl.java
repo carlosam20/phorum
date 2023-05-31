@@ -44,6 +44,16 @@ public class ValidacionesImpl {
 			return validacion;
 		}
 
+		if (foto.getSize() == 0) {
+			validacion.setResultado(false);
+			validacion.setRespuesta("No se ha subido una imagen");
+			return validacion;
+		}
+		if (foto.getSize() > 5000000) {
+			validacion.setResultado(false);
+			validacion.setRespuesta("La imágen es demasiado grande");
+			return validacion;
+		}
 		
 		
 		String archivoUsuario = foto.getOriginalFilename();
@@ -64,16 +74,7 @@ public class ValidacionesImpl {
 
 		
 
-		if (foto.getSize() == 0) {
-			validacion.setResultado(false);
-			validacion.setRespuesta("No se ha subido una imagen y no hay ninguna existente");
-			return validacion;
-		}
-		if (foto.getSize() > 5000000) {
-			validacion.setResultado(false);
-			validacion.setRespuesta("La imágen es demasiado grande");
-			return validacion;
-		}
+
 
 		validacion.setResultado(true);
 		validacion.setRespuesta("ok");
@@ -113,6 +114,12 @@ public class ValidacionesImpl {
 			validacion.setRespuesta("No se ha subido una imágen y no hay ninguna existente");
 			return validacion;
 		}
+		
+		if (foto.getSize() > 5000000) {
+			validacion.setResultado(false);
+			validacion.setRespuesta("La imágen es demasiado grande");
+			return validacion;
+		}
 
 		// Recogemos el nombre del archivo y comprobamos su extensión
 		String archivoUsuario = foto.getOriginalFilename();
@@ -124,11 +131,7 @@ public class ValidacionesImpl {
 			return validacion;
 		}
 
-		if (foto.getSize() > 5000000) {
-			validacion.setResultado(false);
-			validacion.setRespuesta("La imágen es demasiado grande");
-			return validacion;
-		}
+
 
 		validacion.setResultado(true);
 		validacion.setRespuesta("ok");
@@ -151,20 +154,17 @@ public class ValidacionesImpl {
 			bp.rejectValue(propertyPath, "", mensaje);
 			respuesta += mensaje + System.lineSeparator() + System.lineSeparator();
 		}
+		
+		// Se comprueba si existe una imagen
+		if (foto.getSize() <= 0) {
+			validacion.setResultado(false);
+			validacion.setRespuesta(respuesta+ System.lineSeparator()+"No se ha subido una imagen");
+			return validacion;
+		}
 
 		if (bp.hasErrors()) {
 			validacion.setResultado(false);
 			validacion.setRespuesta(respuesta);
-			return validacion;
-		}
-		
-
-
-
-		// Se comprueba si existe una imagen
-		if (foto.getSize() == 0) {
-			validacion.setResultado(false);
-			validacion.setRespuesta("No se ha subido una imagen");
 			return validacion;
 		}
 
@@ -187,6 +187,17 @@ public class ValidacionesImpl {
 			bp.rejectValue(propertyPath, "", mensaje);
 			respuesta += mensaje + System.lineSeparator() + System.lineSeparator();
 		}
+		
+		if (foto.getSize() == 0) {
+			validacion.setResultado(false);
+			validacion.setRespuesta(respuesta + System.lineSeparator()+"No se ha subido una imágen y no hay ninguna existente");
+			return validacion;
+		}
+		if (foto.getSize() > 5000000) {
+			validacion.setResultado(false);
+			validacion.setRespuesta(respuesta + System.lineSeparator()+"La imágen es demasiado grande");
+			return validacion;
+		}
 
 		if (bp.hasErrors()) {
 			validacion.setResultado(false);
@@ -194,17 +205,7 @@ public class ValidacionesImpl {
 			return validacion;
 		}
 		
-		if (foto.getSize() == 0) {
-			validacion.setResultado(false);
-			validacion.setRespuesta("No se ha subido una imágen y no hay ninguna existente");
-			return validacion;
-		}
-		if (foto.getSize() > 5000000) {
-			validacion.setResultado(false);
-			validacion.setRespuesta("La imágen es demasiado grande");
-			return validacion;
-		}
-
+	
 		validacion.setResultado(true);
 		validacion.setRespuesta("ok");
 		return validacion;

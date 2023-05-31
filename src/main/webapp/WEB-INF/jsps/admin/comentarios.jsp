@@ -92,8 +92,8 @@
                 <div class="card-body ">
                   <a class="btn btn-outline-primary" href="editarComentario?id=${comentario.id}"
                     class="card-link">Editar</a>
-                  <a class="btn btn-outline-danger" href="borrarComentario?id=${comentario.id}"
-                    onclick="confirmarBorrar(event)" Borrar</a>
+                  <a class="btn btn-outline-danger" href="borrarComentario?id=${comentario.id}" onclick="confirmarBorrar(event)">
+                     Borrar</a>
                 </div>
               </div>
             </div>

@@ -63,10 +63,10 @@ public class ServicioWebPosts {
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 
 
-		System.out.println("--------" + formData);
+		
 		Gson gson = new Gson();
 		JsonElement json = gson.toJsonTree(formData);
-		System.out.println("--------" + json);
+		
 
 		Post p = gson.fromJson(json, Post.class);
 
@@ -85,9 +85,7 @@ public class ServicioWebPosts {
 
 		if (resultadoValidacion.getResultado() == true) {
 			servicioPosts.registrarPost(p);
-			// tras hacer un registro con hibernate, hibernate asigna a este usuario la id
-			// del
-			// registro en la tabla de la base de datos
+			//hibernate asigna el id
 
 			GestorArchivos.guardarImagenPost(p, rutaRealDelProyecto, foto);
 		
@@ -182,7 +180,7 @@ public class ServicioWebPosts {
 
 			// Pasamos el JSON en forma de string
 			String jsonPostComentarios = combinacionDatos.toString();
-			System.out.println(jsonPostComentarios);
+			
 
 			return new ResponseEntity<String>(jsonPostComentarios, HttpStatus.OK);
 		} else {
@@ -208,7 +206,7 @@ public class ServicioWebPosts {
 			combinacionDatos.add("valoracion_usuario_sesion", valoracionUsuario);
 
 			String jsonPostComentarios = combinacionDatos.toString();
-			System.out.println(jsonPostComentarios);
+			
 
 			return new ResponseEntity<String>(jsonPostComentarios, HttpStatus.OK);
 		}

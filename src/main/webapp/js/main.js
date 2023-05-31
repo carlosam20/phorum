@@ -193,9 +193,9 @@ listadoInicio();
 
 const registrarComentarioPost = () => {
   // Realizar comentario en post
-  if (comprobarIdentificacion().then((usuarioIdentificado) => {
+  comprobarIdentificacion().then((usuarioIdentificado) => {
     if (usuarioIdentificado === false) {
-      throw swal("Error no identificado", "Te debes identificar para acceder", "info");
+      swal("Error no identificado", "Te debes identificar para acceder", "info");
     } else {
       $(".form_registro_comentario").submit(function (e) {
         const idPost = $(this).attr("id");
@@ -213,7 +213,7 @@ const registrarComentarioPost = () => {
             processData: false,
             success: function (res) {
               if (res === "ok") {
-                location.reload();
+                swal("Registrado", "Comentario registrado correctamente", "success");
               }
             }, // end Success Registrar Comentario
             error: (res) => {
@@ -224,7 +224,7 @@ const registrarComentarioPost = () => {
         e.preventDefault();
       });
     }
-  }));
+  });
 }; // -end registrar comentario post-
 
 const verPerfilDeComentario = () => {
@@ -459,7 +459,7 @@ const busquedaForosIdentificado = () => {
   $(".boton_buscar").click((e) => {
     const nombreForo = $("#inputBuscador").val();
     $.ajax(
-      "servicioWebForos/obtenerForosDeNombreIntroducido?nombreForo=" +
+      "identificado/servicioWebForos/obtenerForosDeNombreIntroducido?nombreForo=" +
       nombreForo,
       {
         success: function (res) {
@@ -530,29 +530,23 @@ const registrarForo = () => {
   // Registro
 
   $("#form_registro_foro").submit(function (e) {
-    // vamos a usar FormData para mandar el form al servicio web
-    const formulario = document.forms[0];
-    const formData = new FormData(formulario);
-
     if (comprobarIdentificacion().then((usuarioIdentificado) => {
       if (usuarioIdentificado === false) {
         throw swal("Error no identificado", "Te debes identificar para acceder", "info");
       } else {
+        const formulario = document.forms[0];
+        const formData = new FormData(formulario);
         $.ajax("identificado/servicioWebForos/registroForo", {
           type: "POST",
           data: formData,
           cache: false,
           contentType: false,
           processData: false,
-          success: function (res) {
-            if (res === "ok") {
-              swal("", "Se ha creado correctamente", "success");
-              $("#crearForoModal").modal("hide");
-              obtenerListadoForosIdentificado();
-            }
+          success: function () {
+            swal("", "Se ha creado correctamente", "success");
           },
-          error: (res) => {
-            swal("Error al registrar", res.responseText, "error");
+          error: function (e) {
+            swal("Error al registrar", e.responseText, "error");
           }
         });
         e.preventDefault();
@@ -804,14 +798,15 @@ const obtenerListadoPostsPopulares = () => {
 
 const registrarPost = () => {
   $("#form_registro_post").submit(function (e) {
-    if (comprobarIdentificacion().then((usuarioIdentificado) => {
+    e.preventDefault();
+    comprobarIdentificacion().then((usuarioIdentificado) => {
       if (usuarioIdentificado === false) {
-        throw swal("Error no identificado", "Te debes identificar para acceder", "info");
+        swal("Error no identificado", "Te debes identificar para acceder", "info");
       } else {
         const idForo = $(".enlacePost").attr("id");
-
         const formulario = document.forms[0];
         const formData = new FormData(formulario);
+
         formData.append("idForo", idForo);
 
         $.ajax("identificado/servicioWebPosts/registrarPosts", {
@@ -823,8 +818,6 @@ const registrarPost = () => {
           success: function (res) {
             if (res === "ok") {
               swal("Registro correcto", "", "success");
-              $("#crearPostModal").modal("hide");
-              obtenerListadoPostsPopulares();
             }
           },
           error: (res) => {
@@ -832,9 +825,8 @@ const registrarPost = () => {
           } // end Success Registrar Post
         });
         // end Registrar Post
-        e.preventDefault();
       }
-    }));
+    });
   });
 }; // -end registrar post-
 
@@ -842,6 +834,7 @@ const mostrarRegistroUsuario = () => {
   $("#contenedor").html(plantillaRegistrarUsuario);
 
   $("#form_registro_usuario").submit(function (e) {
+    e.preventDefault();
     const formulario = document.forms[0];
     const formData = new FormData(formulario);
     $.ajax("servicioWebUsuarios/registrarUsuario", {
@@ -850,18 +843,13 @@ const mostrarRegistroUsuario = () => {
       cache: false,
       contentType: false,
       processData: false,
-      success: () => {
-        swal(
-          "El registro se ha realizado de forma correcta",
-          "Realizado",
-          "success"
-        );
+      success: function () {
+        swal("", "Se ha creado correctamente", "success");
       },
-      error: (res) => {
-        swal("Error al registrar", res.responseText, "error");
+      error: function (e) {
+        swal("Error al registrar", e.responseText, "error");
       }
     });
-    e.preventDefault();
   });
 }; // -end registro usuario-
 
@@ -969,7 +957,6 @@ const editarUsuario = () => {
                 processData: false,
                 success: (res) => {
                   if (res === "ok") {
-                    alert(res);
                     swal("Usuario editado", "El usuario se ha editado correctamente", "success", {
                       buttons: {
                         catch: {
@@ -999,7 +986,6 @@ const editarUsuario = () => {
                   }
                 },
                 error: (res) => {
-                  alert(res);
                   swal("Error al editar", res.responseText, "error");
                 }
               }

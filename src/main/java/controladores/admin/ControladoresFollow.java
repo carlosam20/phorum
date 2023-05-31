@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,6 +68,13 @@ public class ControladoresFollow {
 	@RequestMapping("guardarNuevoFollow")
 	public String guardarNuevoFollow(@ModelAttribute("nuevoFollow") @Valid Follow nuevoFollow, BindingResult br, Model model,
 			HttpServletRequest request) {
+		
+		if(servicioFollow.comprobarExisteFollow(nuevoFollow.getIdForo(), nuevoFollow.getIdUsuario())) {
+			FieldError error = new FieldError("nuevoFollow", "idUsuario", "Ya un follow con este usuario y foro");
+			br.addError(error);
+		}
+		
+		
 		if (!br.hasErrors()) {		
 			servicioFollow.registrarFollow(nuevoFollow);
 			return "admin/registroFollowOk";
@@ -87,6 +95,11 @@ public class ControladoresFollow {
 	@RequestMapping("guardarCambiosFollow")
 	public String guardarCambiosFollow(@ModelAttribute("follow") @Valid Follow follow, BindingResult br,  Model model,
 			HttpServletRequest request) {
+		
+		if(servicioFollow.comprobarExisteFollow(follow.getIdForo(), follow.getIdUsuario())) {
+			FieldError error = new FieldError("nuevoFollow", "idUsuario", "Ya un follow con este usuario y foro");
+			br.addError(error);
+		}
 	
 		if(!br.hasErrors()) {
 

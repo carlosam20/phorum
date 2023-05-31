@@ -41,11 +41,11 @@ public class ServicioWebComentarios {
 			HttpServletRequest request) {
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 	
-		System.out.println("--------" + formData);
+		
 		
 		Gson gson = new Gson();
 		JsonElement json = gson.toJsonTree(formData);
-		System.out.println("--------" + json);
+		
 
 
 		Comentario c = gson.fromJson(json, Comentario.class);

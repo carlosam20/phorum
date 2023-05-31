@@ -46,6 +46,12 @@
 									</springform:select><br>
 								</div>
 							</div>
+							<div class="row  d-flex justify-content-start">
+								<div class="span-col col-10 d-flex justify-content-center">
+									<i class="fa-solid fa-circle-exclamation m-1"></i>
+									<springform:errors class="span-error text-start text-danger" path="idUsuario" />
+								</div>
+							</div>
 			
 							<springform:hidden path="id" />
 							<div class="row mt-2 " id="botonForm">
