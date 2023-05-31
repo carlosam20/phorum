@@ -25,33 +25,24 @@
 						<springform:form modelAttribute="valoracion" action="guardarCambiosValoracion"
 							enctype="multipart/form-data" class="d-grid gap-4" id="formularioValoracion">
 
-							<div class="row">
+							<div class="row d-flex align-items-center">
 								<div class="col-sm-1 col-md-1 col-lg-1 d-flex align-items-center">
-									<p>Post</p>
+									<p>Post:</p>
 								</div>
 								<div class="col-sm-10 col-md-10 col-lg-10 d-flex align-items-center">
-									<springform:select path="idPost">
-										<springform:options items="${posts}" />
-									</springform:select>
-								</div>
-								<div class="row  d-flex justify-content-start">
-									<div class="span-col col-10 d-flex justify-content-center">
-										<i class="fa-solid fa-circle-exclamation m-1"></i>
-										<springform:errors class="span-error text-start text-danger" path="idPost"/>
-									</div>
+									<p >${valoracion.post.nombre}</p>
 								</div>
 							</div>
-
-							<div class="row">
+							
+							<div class="row d-flex align-items-center">
 								<div class="col-sm-1 col-md-1 col-lg-1 d-flex align-items-center">
-									<p>Usuario</p>
+									<p >Usuario:</p>
 								</div>
 								<div class="col-sm-11 col-md-11 col-lg-11 d-flex align-items-center">
-									<springform:select path="idUsuario">
-										<springform:options items="${usuarios}" />
-									</springform:select><br>
+									<p >${valoracion.usuario.nombre}</p>
 								</div>
 							</div>
+							
 
 							<div class="row">
 								<div class="col-sm-1 col-md-1 col-lg-1 d-flex align-items-center">

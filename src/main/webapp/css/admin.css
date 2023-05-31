@@ -15,6 +15,10 @@ html{
 
     --footer-color: #002031;
     --textLightColor: #34403A;
+
+    --error: #780B0B;
+    --errorHover: #ac1010;
+    --errorFocus: #f11b1b;
 }
 
 body {
@@ -88,26 +92,6 @@ a:hover{
     color: var(--textLightColor);
 }
 
-.btn-outline-primary {
-    border-color: var(--primary);
-    color: var(--primary);
-    background-color: white;
-    
-}
-
-.btn-outline-primary:hover{
-    border-color: white;
-    color: white;
-    background-color: var(--primaryHover);
-    
-}
-.btn-outline-primary:focus{
-   
-    border-color: var(--primaryHover);
-    color: var(--primaryHover);
-    background-color: var(--primaryFocus);
-    
-}
 /* -Secundarios */
 
 .btn-secondary {
@@ -230,15 +214,14 @@ input[type=number] {
     font-size: 1.4rem;
 }
 
-.swal-button {
-    background-color: var(--primary);
-    border: 1px solid white;
-    border-radius: 4px;
-    font-size: 1rem;
+
+.adminHomePng{
+    width: 30%;
+    height: auto;
+    max-height: 300px;
+    object-fit: cover;
+    margin: auto;
 }
 
-/* Spinner */
-#spinner { visibility:hidden; } 
-body.cargando .spinner { visibility:visible !important; }
 
 

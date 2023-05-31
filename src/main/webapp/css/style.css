@@ -191,10 +191,19 @@ img {
 }
 
 .btn-outline-primary {
+    border-width: 1px;
+    border-style: solid;
     border-color: var(--primary);
     color: var(--primary);
     background-color: white;
 
+}
+.btn-outline-primary:disabled {
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--textLightColor);
+    color: var(--textLightColor);
+    background-color: var(--textLightColor);
 }
 
 .btn-outline-primary:hover {
@@ -234,8 +243,51 @@ img {
     color: var(--textLightColor);
 }
 
+.btn-outline-secondary {
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--secondary);
+    color: var(--secondary);
+    background-color: white;
+
+}
+.btn-outline-secondary:disabled {
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--textLightColor);
+    color: var(--textLightColor);
+    background-color: var(--textLightColor);
+}
+
+.btn-outline-secondary:hover {
+    border-color: white;
+    color: white;
+    background-color: var(--secondaryHover);
+
+}
+
+.btn-outline-secondary:focus {
+    border-color: var(--secondaryHover);
+    color: var(--secondaryHover);
+    background-color: var(--secondaryFocus);
+
+}
+
+.btn-outline-secondary:active {
+    border-color: var(--secondaryHover);
+    color: var(--secondaryHover);
+    background-color: var(--secondaryFocus);
+}
+
 .btn-danger {
     border-color: var(--error);
+}
+.disabled{
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--textLightColor) !important;
+    color: var(--textLightColor) !important;
+    background-color: white;
 }
 
 .btn-danger:hover {
@@ -248,6 +300,15 @@ img {
 
 .btn-danger:active {
     border-color: var(--error);
+}
+
+.btn-outline-danger {
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--error);
+    color: var(--error);
+    background-color: white;
+
 }
 
 /* Header */
@@ -433,6 +494,7 @@ input {
 
 .swal-button--cancel {
     background-color: var(--error);
+    color: white;
     border: 1px solid white;
     border-radius: 4px;
     font-size: 1rem;
@@ -491,7 +553,7 @@ input {
 
 
 .card-header {
-    background-color: var(--primaryFocus);
+    background-color: var(--secondaryFocus);
 }
 
 /* Cabecera */
@@ -550,6 +612,10 @@ input {
         transition: 200ms;
     }
 
+    .logo-footer {
+        display: none;
+    }
+
 }
 
 @media only screen and (max-width: 768px) {
@@ -589,4 +655,9 @@ input {
         transform: translateY(-6px);
         transition: 200ms;
     }
+
+    .logo-footer {
+        display: none;
+    }
+
 }

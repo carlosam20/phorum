@@ -76,7 +76,7 @@
 				</div>
 
 			</div>
-			
+
 			<div class="row d-flex justify-content-start m-1 ">
 				<div class="col-4 d-flex justify-content-start align-items-center">
 					<h4>Total de foros: </h4><span class="badge rounded-pill  bg-primary">${total}</span>
@@ -105,7 +105,8 @@
 
 								<div class="card-body">
 									<a href="editarFollow?id=${follow.id}" class="btn btn-outline-primary">Editar</a>
-									<a href="borrarFollow?id=${follow.id}" class="btn btn-outline-danger">Borrar</a>
+									<a href="borrarFollow?id=${follow.id}" class="btn btn-outline-danger"
+										onclick="confirmarBorrar(event)">Borrar</a>
 								</div>
 							</div>
 						</div>
@@ -118,6 +119,8 @@
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 				integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 				crossorigin="anonymous"></script>
+			<script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+			<script src="../js/swallBorrar.js"></script>
 		</body>
 
 		</html>

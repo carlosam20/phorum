@@ -65,6 +65,20 @@ public class ServicioUsuariosImpl implements ServicioUsuarios {
 			}
 
 	}
+	public boolean comprobarEmailEditar(String email) {
+		SQLQuery query = sessionFactory.getCurrentSession()
+			    .createSQLQuery("SELECT COUNT(*) FROM Usuario WHERE email = :email");
+			query.setParameter("email", email);
+			BigInteger count = (BigInteger) query.uniqueResult();
+			if (count.intValue() == 0) {
+			    // Email existe ya
+			    return false;
+			} else {
+			    // Email no existe
+			    return true;
+			}
+
+	}
 
 	@Override
 	public int obtenerTotalDeUsuarios(String nombre) {

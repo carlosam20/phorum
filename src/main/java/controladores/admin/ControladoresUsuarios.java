@@ -161,12 +161,18 @@ public class ControladoresUsuarios {
 
 		if (!br.hasErrors()) {
 			
-			if(servicioUsuarios.comprobarEmail(usuario.getEmail())) {
-				FieldError error = new FieldError("usuario", "email",
-						"Existe una cuenta con ese email");
-				br.addError(error);
-				return "admin/formularioEditarUsuario";
+			//Comprobamos si el usuario ha insertado un nuevo correo, si lo hace vemos si ya existe ese correo
+			if(!(servicioUsuarios.obtenerUsuario(usuario.getId()).getEmail().equals(usuario.getEmail()))) {
+				
+				if(servicioUsuarios.comprobarEmail(usuario.getEmail())) {
+					FieldError error = new FieldError("usuario", "email",
+							"Existe una cuenta con ese email");
+					br.addError(error);
+					return "admin/formularioEditarUsuario";
+				}
 			}
+			
+			
 
 			//Comprobamos si la fecha es anterior o actual a la fecha en la que estamos
 			LocalDate localDate = LocalDate.now();
@@ -182,13 +188,7 @@ public class ControladoresUsuarios {
 				br.addError(error);
 				return "admin/formularioEditarUsuario";
 			}
-			//Comprobamos el tamaño de la imagen
-			if(usuario.getImagen().getSize() == 0 || usuario.getImagen().isEmpty()) {
-				FieldError error = new FieldError("nuevoUsuario", "imagen",
-						"Se tiene que introducir una imagen");
-				br.addError(error);
-				return "admin/formularioEditarUsuario";
-			}
+
 
 			// Eliminamos la hora del guardado de fecha
 			calendar.setTime(usuario.getFechaCreacion());

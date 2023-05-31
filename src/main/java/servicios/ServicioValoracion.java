@@ -22,7 +22,7 @@ public interface ServicioValoracion {
 
 	void eliminaValoraciones(long id);
 	
-	void eliminaValoracionesPorForo(long id);
+
 	
 	void eliminaValoracionesPorPost(long id);
 

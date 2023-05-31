@@ -185,14 +185,19 @@ public class ControladoresForos {
 	@RequestMapping("borrarForo")
 	public String borrarForo(String id, Model model) {
 		
-		servicioValoracion.eliminaValoraciones(Long.parseLong(id));
+		servicioFollow.eliminarFollowsPorForo(Long.parseLong(id));
+		
+		
+		
 		List<Map<String, Object>> posts = servicioPosts.obtenerPostPorForoId(Long.parseLong(id));
 			
+		//Comentarios de los post y valoraciones
 		for (Map<String, Object> post : posts) {
 			servicioComentarios.borrarComentariosPoridPost(Long.parseLong(String.valueOf(post.get("id"))));
+			
+			servicioValoracion.eliminaValoracionesPorPost(Long.parseLong(String.valueOf(post.get("id"))));
 		}
-		
-		servicioFollow.eliminarFollowsPorForo(Long.parseLong(id));
+				
 		
 		servicioPosts.eliminarPostsDeForo(Long.parseLong(id));
 		

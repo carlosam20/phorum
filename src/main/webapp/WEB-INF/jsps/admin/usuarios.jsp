@@ -54,8 +54,8 @@
 								class="btn btn-outline-primary btn-sm">siguiente</a>
 						</c:if>
 						<c:if test="${ siguiente > total}">
-						<a href="listarUsuarios?comienzo=${siguiente}&nombre=${nombre}"
-							class="btn btn-outline-primary disabled">siguiente</a>
+							<a href="listarUsuarios?comienzo=${siguiente}&nombre=${nombre}"
+								class="btn btn-outline-primary disabled">siguiente</a>
 						</c:if>
 					</div>
 
@@ -81,13 +81,14 @@
 									<li class="list-group-item">id: ${usuario.id} </li>
 									<li class="list-group-item">nombre: ${usuario.nombre} </li>
 									<li class="list-group-item">email: ${usuario.email} </li>
-									<li class="list-group-item">descripcion: ${usuario.descripcion} </li>
+									<li class="list-group-item">descripci&oacuten: ${usuario.descripcion} </li>
 									<li class="list-group-item">fecha: ${usuario.fechaCreacion} </li>
 								</ul>
 
 								<div class="card-body">
 									<a class="btn btn-outline-primary" href="editarUsuario?id=${usuario.id}">Editar</a>
-									<a class="btn btn-outline-danger" href="borrarUsuario?id=${usuario.id}">Borrar</a>
+									<a class="btn btn-outline-danger" href="borrarUsuario?id=${usuario.id}"
+										onclick="confirmarBorrar(event)">Borrar</a>
 								</div>
 							</div>
 						</div>
@@ -98,6 +99,8 @@
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 				integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 				crossorigin="anonymous"></script>
+			<script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+			<script src="../js/swallBorrar.js"></script>
 		</body>
 
 		</html>

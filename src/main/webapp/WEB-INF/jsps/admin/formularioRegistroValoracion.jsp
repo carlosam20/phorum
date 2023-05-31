@@ -14,7 +14,7 @@
 		<body>
 			<div class="row text-center align-items-start">
 				<div class="col-lg-12 col-md-12 col-sm-12">
-					<h1>Registrar Valoraci&oacuten</h1>
+					<h1>Registrar Valoración</h1>
 				</div>
 			</div>
 
@@ -49,7 +49,7 @@
 
 							<div class="row">
 								<div class="col-sm-1 col-md-1 col-lg-1 d-flex align-items-center">
-									<p>Valoraci&ocuten</p>
+									<p>Valoración</p>
 								</div>
 								<div class="col-sm-11 col-md-11 col-lg-11 d-flex align-items-center">
 									<springform:select path="valor">
@@ -57,13 +57,19 @@
 									</springform:select>
 								</div>
 							</div>
+							<div class="row  d-flex justify-content-start">
+                                <div class="span-col col-10 d-flex justify-content-center">
+                                    <i class="fa-solid fa-circle-exclamation m-1"></i>
+                                    <springform:errors class="span-error text-start text-danger" path="valor" />
+                                </div>
+                            </div>
 
 							<springform:hidden path="id" />
 
 							<div class="row mt-2 " id="botonForm">
 								<div class="col-sm-12 col-md-12 col-lg-12 text-center mx-auto">
 									<input id="boton_submit" class="btn btn-primary btn-lg" type="submit"
-										value="Registrar Valoraci&ocuten">
+										value="Registrar Valoración">
 								</div>
 							</div>
 						</springform:form>

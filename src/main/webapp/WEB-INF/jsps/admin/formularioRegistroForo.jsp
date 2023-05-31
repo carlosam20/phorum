@@ -22,7 +22,7 @@
 				<div class="row my-3 mx-2 text-center d-flex justify-content-center align-items-center">
 					<div class="col-lg-8 col-md-8 col-sm-8 my-3 mx-1">
 
-						<springform:form modelAttribute="nuevoForo" action="guardarNuevoForo" enctype="multipart/form-data"
+						<springform:form modelAttribute="nuevoForo" action="guardarNuevoForo" enctype="multipart/form-data" accept-charset="UTF-8"
 							class="d-grid gap-4">
 
 							<div class="row">
@@ -75,10 +75,10 @@
 							</div>
 
 							<div class="row">
-								<div class="col-sm-1 col-md-1 col-lg-1">
+								<div class="col-sm-1 col-md-1 col-lg-1 d-flex align-items-center">
 									<i class="fa-regular fa-image fa-xl"></i>
 								</div>
-								<div class="col-sm-11 col-md-11 col-lg-11">
+								<div class="col-sm-11 col-md-11 col-lg-11 d-flex align-items-center">
 									<springform:input id="imagen" path="imagen" type="file"
 										class="form form-lg form-control" pattern="/^.+\.(png|jpg)$/" />
 								</div>

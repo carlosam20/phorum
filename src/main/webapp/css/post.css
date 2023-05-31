@@ -63,12 +63,15 @@
   border: 2px solid var(--primaryHover);
   border-radius: 1em;
 }
+
 /* Post */
 
 .card {
   width: 100%;
   height: auto;
 }
+
+
 
 
 /* iconos post */
@@ -101,12 +104,21 @@
   height: auto;
   border: solid, 2px, var(--secondaryHover);
 }
+.card-img-top{
+  width: 80%;
+  height: auto;
+  max-height: 600px;
+  object-fit: cover;
+  margin: auto;
+}
+
 
 @media screen and (max-height: 450px) {
 
-  .botonPerfil{
+  .botonPerfil {
     display: none;
   }
+
   .sidenav {
     padding-top: 15px;
   }

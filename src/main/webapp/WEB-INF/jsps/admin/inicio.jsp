@@ -13,11 +13,13 @@
 
         <body>
             <jsp:include page="cabecera.jsp"></jsp:include>
-            <div id="title-phorum" class="text-center">Bienvenido a la administraci&oacuten de phorum</div>
-
-            <div class="card-img-top">
-                <img src="../images/editarUsuario.png" alt="login">
+            <div id="title-phorum" class="text-center">
+                <h1>Bienvenido a la administraci&oacuten de phorum</h1>
             </div>
+
+
+            <img class="adminHomePng" src="../images/editarUsuario.png" alt="login">
+
 
         </body>
 

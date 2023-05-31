@@ -4,10 +4,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>comentarioRegistrado</title>
 </head>
 <body>
 <jsp:include page="cabecera.jsp"></jsp:include>
-Se ha registrado Correctamente
+
+<div class="text-center">
+    <h1>Se ha registrado correctamente el comentario</h1>
+</div>
+
 </body>
 </html>

@@ -88,6 +88,20 @@ item:active {
   border-radius: 1em;
 }
 
+.card {
+  width: 100%;
+  height: auto;
+  max-height: 700px;
+  object-fit: cover;
+}
+
+img {
+  height: auto;
+  max-height: 450px;
+  object-fit: cover;
+  margin: auto;
+}
+
 
 @media only screen and (max-width: 768px) {
 

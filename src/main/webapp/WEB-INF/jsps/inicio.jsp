@@ -65,8 +65,8 @@
                                         <a class="nav-link m-2" id="enlace_registrarme"
                                             aria-current="page">Registrar</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <p class="nav-link m-2" id="mensaje_login" aria-current="page"></p>
+                                    <li class="nav-item d-flex align-items-center">
+                                        <p class="text-light m-2" id="mensaje_login" aria-current="page"></p>
                                     </li>
                                 </ul>
 

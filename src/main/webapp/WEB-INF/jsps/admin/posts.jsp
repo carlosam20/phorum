@@ -79,8 +79,8 @@
               </div>
 
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">Fecha de creación: ${post.fechaCreacion} </li>
-                <li class="list-group-item">Descripción: ${post.descripcion} </li>
+                <li class="list-group-item">Fecha de creaci&oacuten: ${post.fechaCreacion} </li>
+                <li class="list-group-item">Descripci&oacuten: ${post.descripcion} </li>
                 <li class="list-group-item">nombre foro: ${post.foro.nombre}</li>
                 <li class="list-group-item">Id: ${post.id}</li>
                 <li class="list-group-item">foro id: ${post.foro.id}</li>
@@ -88,7 +88,8 @@
 
               <div class="card-body">
                 <a href="editarPost?id=${post.id}" class="btn btn-outline-primary">Editar</a>
-                <a href="borrarPost?id=${post.id}" class="btn btn-outline-danger">Borrar</a>
+                <a href="borrarPost?id=${post.id}" class="btn btn-outline-danger"
+                  onclick="confirmarBorrar(event)">Borrar</a>
               </div>
 
             </div>
@@ -99,6 +100,8 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+      <script src="../js/swallBorrar.js"></script>
     </body>
 
     </html>

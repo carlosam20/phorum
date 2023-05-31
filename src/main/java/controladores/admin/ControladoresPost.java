@@ -88,13 +88,13 @@ public class ControladoresPost {
 
 			model.addAttribute("foros", mapForos);
 			model.addAttribute("usuarios", mapUsuarios);
-
+			model.addAttribute("nuevoPost", nuevoPost);
 
 			return "admin/formularioRegistroPost";
 		}
 		
 		// Comprobamos el tamaño de la imagen
-		if (nuevoPost.getImagen() == null || nuevoPost.getImagen().isEmpty() || nuevoPost.getImagen().getBytes().length == 0) {
+		if (nuevoPost.getImagen().getSize() == 0) {
 			FieldError error = new FieldError("nuevoPost", "imagen", "Se tiene que introducir una imagen");
 			br.addError(error);
 			
@@ -107,39 +107,37 @@ public class ControladoresPost {
 			
 			return "admin/formularioRegistroPost";
 		}
+		
+		// Comprobamos si la fecha es anterior o actual a la fecha en la que estamos
+		LocalDate localDate = LocalDate.now();
+		Date dateActual = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+		LocalDate localDateCreacion = nuevoPost.getFechaCreacion().toInstant().atZone(ZoneId.systemDefault())
+				.toLocalDate();
+		LocalDate localDateActual = dateActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+		if (!localDateCreacion.isBefore(localDateActual) && !localDateCreacion.isEqual(localDateActual)) {
+			FieldError error = new FieldError("nuevoPost", "fechaCreacion",
+					"La fecha tiene que ser anterior o actual");
+			br.addError(error);
+			Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
+			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+
+			model.addAttribute("foros", mapForos);
+			model.addAttribute("usuarios", mapUsuarios);
+			model.addAttribute("nuevoPost", nuevoPost);
+
+			return "admin/formularioRegistroPost";
+		}
 
 		if (!br.hasErrors()) {
-			servicioPosts.registrarPost(nuevoPost);
-
-			// Comprobamos si la fecha es anterior o actual a la fecha en la que estamos
-			LocalDate localDate = LocalDate.now();
-			Date dateActual = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-			LocalDate localDateCreacion = nuevoPost.getFechaCreacion().toInstant().atZone(ZoneId.systemDefault())
-					.toLocalDate();
-			LocalDate localDateActual = dateActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-			if (!localDateCreacion.isBefore(localDateActual) && !localDateCreacion.isEqual(localDateActual)) {
-				FieldError error = new FieldError("nuevoPost", "fechaCreacion",
-						"La fecha tiene que ser anterior o actual");
-				br.addError(error);
-				Map<String, String> mapForos = servicioForos.obtenerForosParaDesplegable();
-				Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
-
-				model.addAttribute("foros", mapForos);
-				model.addAttribute("usuarios", mapUsuarios);
-
-	
-				return "admin/formularioRegistroPost";
-			}
-
-
 
 			// Eliminamos la hora del guardado de fecha
 			calendar.setTime(nuevoPost.getFechaCreacion());
 			nuevoPost.setFechaCreacion(calendar.getTime());
 
 			String rutaRealDelProyecto = request.getServletContext().getRealPath("");
+			servicioPosts.registrarPost(nuevoPost);
 			GestorArchivos.guardarImagenPostAdmin(nuevoPost, rutaRealDelProyecto);
 			return "admin/registroPostOk";
 		}

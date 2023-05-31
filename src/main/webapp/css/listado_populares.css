@@ -49,6 +49,20 @@
     animation: bounce 0.5s;
   }
 
+  .card {
+    width: 100%;
+    height: auto;
+    max-height: 700px;
+    object-fit: cover;
+  }
+
+  img {
+    height: auto;
+    max-height: 450px;
+    object-fit: cover;
+    margin: auto;
+  }
+
   @keyframes bounce {
     0% {
       transform: scale(1);

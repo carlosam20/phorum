@@ -865,33 +865,6 @@ const mostrarRegistroUsuario = () => {
   });
 }; // -end registro usuario-
 
-// const mostrarRegistroUsuario = () => {
-//   $("#contenedor").html(plantillaRegistrarUsuario);
-
-//   $("#form_registro_usuario").submit(function (e) {
-//     const formulario = document.forms[0];
-//     const formData = new FormData(formulario);
-//     $.ajax("servicioWebUsuarios/registrarUsuario", {
-//       type: "POST",
-//       data: formData,
-//       cache: false,
-//       contentType: "multipart/form-data; charset=UTF-8", // Set the content type with the correct encoding
-//       processData: false,
-//       success: () => {
-//         swal(
-//           "El registro se ha realizado de forma correcta",
-//           "Realizado",
-//           "success"
-//         );
-//       },
-//       error: (res) => {
-//         swal("Error al registrar", res.responseText, "error");
-//       }
-//     });
-//     e.preventDefault();
-//   });
-// };
-
 const mostrarIdentificacionUsuario = () => {
   $("#contenedor").html(plantillaLogin);
 

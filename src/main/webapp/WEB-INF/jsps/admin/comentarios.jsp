@@ -39,35 +39,35 @@
 
 
       <div class="row d-flex justify-content-start m-1 d-flex d-grid gap-2" id="paginacion">
-				<div class="col-2">
-				  <c:if test="${ anterior >= 0 }">
-					<a href="listarComentarios?comienzo=${anterior}&comentarioTexto=${comentarioTexto}"
-					  class="btn btn-outline-primary btn-sm">anterior</a>
-				  </c:if>
-				  <c:if test="${ anterior < 0 }">
-					<a href="listarComentarios?comienzo=${anterior}&comentarioTexto=${comentarioTexto}"
-					  class="btn btn-outline-primary disabled">anterior</a>
-				  </c:if>
-				</div>
-				<div class="col-2">
-				  <c:if test="${siguiente < total}">
-					<a href="listarComentarios?comienzo=${siguiente}&comentarioTexto=${comentarioTexto}"
-					  class="btn btn-outline-primary btn-sm">siguiente</a>
-				  </c:if>
-				  <c:if test="${ siguiente > total}">
-					<a href="listarComentarios?comienzo=${siguiente}&comentarioTexto=${comentarioTexto}"
-					  class="btn btn-outline-primary disabled">siguiente</a>
-				  </c:if>
-				</div>
-		
-			  </div>
-			  </div>
-			  <div class="row d-flex justify-content-start m-1 ">
-				<div class="col-4 d-flex justify-content-start align-items-center">
-				  <h4>Total de foros: </h4><span class="badge rounded-pill  bg-primary">${total}</span>
-				</div>
-		
-			  </div>
+        <div class="col-2">
+          <c:if test="${ anterior >= 0 }">
+            <a href="listarComentarios?comienzo=${anterior}&comentarioTexto=${comentarioTexto}"
+              class="btn btn-outline-primary btn-sm">anterior</a>
+          </c:if>
+          <c:if test="${ anterior < 0 }">
+            <a href="listarComentarios?comienzo=${anterior}&comentarioTexto=${comentarioTexto}"
+              class="btn btn-outline-primary disabled">anterior</a>
+          </c:if>
+        </div>
+        <div class="col-2">
+          <c:if test="${siguiente < total}">
+            <a href="listarComentarios?comienzo=${siguiente}&comentarioTexto=${comentarioTexto}"
+              class="btn btn-outline-primary btn-sm">siguiente</a>
+          </c:if>
+          <c:if test="${ siguiente > total}">
+            <a href="listarComentarios?comienzo=${siguiente}&comentarioTexto=${comentarioTexto}"
+              class="btn btn-outline-primary disabled">siguiente</a>
+          </c:if>
+        </div>
+
+      </div>
+      </div>
+      <div class="row d-flex justify-content-start m-1 ">
+        <div class="col-4 d-flex justify-content-start align-items-center">
+          <h4>Total de foros: </h4><span class="badge rounded-pill  bg-primary">${total}</span>
+        </div>
+
+      </div>
 
       <div class="d-grid gap-3">
         <c:forEach var="comentario" items="${info}">
@@ -92,7 +92,8 @@
                 <div class="card-body ">
                   <a class="btn btn-outline-primary" href="editarComentario?id=${comentario.id}"
                     class="card-link">Editar</a>
-                  <a class="btn btn-outline-danger" href="borrarComentario?id=${comentario.id}" onclick="">Borrar</a>
+                  <a class="btn btn-outline-danger" href="borrarComentario?id=${comentario.id}"
+                    onclick="confirmarBorrar(event)" Borrar</a>
                 </div>
               </div>
             </div>
@@ -104,6 +105,8 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+      <script src="../js/swallBorrar.js"></script>
     </body>
 
     </html>

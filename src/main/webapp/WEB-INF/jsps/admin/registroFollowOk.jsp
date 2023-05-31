@@ -8,6 +8,8 @@
 </head>
 <body>
 <jsp:include page="cabecera.jsp"></jsp:include>
-Se ha registrado el follow Correctamente
+<div class="text-center">
+    <h1>Se ha registrado correctamente el follow</h1>
+</div>
 </body>
 </html>

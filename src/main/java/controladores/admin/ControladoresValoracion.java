@@ -66,26 +66,22 @@ public class ControladoresValoracion {
 		model.addAttribute("posts", mapPosts);
 		model.addAttribute("usuarios", mapUsuarios);
 		model.addAttribute("valoraciones", mapValoraciones);
-		
 		model.addAttribute("nuevoValoracion", nuevo);
 		
 		return "admin/formularioRegistroValoracion";
 	}
 	@RequestMapping("guardarNuevoValoracion")
 	public String guardarNuevoValoracion(@ModelAttribute("nuevoValoracion") @Valid Valoracion nuevoValoracion, BindingResult br, Model model,
-			HttpServletRequest request) {
-	
-		Map<String, Object> valoraciones = servicioValoracion.obtenerValoracionPorPostIdYPorUsuarioId(nuevoValoracion.getIdPost(), nuevoValoracion.getIdUsuario());
+			HttpServletRequest request) { 
 		
-		Map<String, Object> valoracionesUsuarioPost= servicioValoracion.obtenerValoracionPorPostIdYPorUsuarioId(nuevoValoracion.getIdUsuario(), nuevoValoracion.getIdPost());
 		
-		if(!valoracionesUsuarioPost.isEmpty()) {
-			FieldError error = new FieldError("nuevoValoracion", "idPost",
-					"Ya hay una valoración con este usuario y post");
+		//Nos da un array de boolean el primer elemento indica si la valoración existe o no
+		if(servicioValoracion.comprobarExisteValoracion(nuevoValoracion.getIdPost(), nuevoValoracion.getIdUsuario())[0]) {
+			FieldError error = new FieldError("nuevoValoracion", "valor", "Ya existe una valoración con ese post y ese usuario");
 			br.addError(error);
 		}
 		
-		if (!br.hasErrors() && valoraciones.isEmpty()) {
+		if (!br.hasErrors()) {
 			servicioValoracion.registrarValoracion(nuevoValoracion);
 			return "admin/registroValoracionOk";
 			
@@ -93,14 +89,13 @@ public class ControladoresValoracion {
 			
 			Map<String, String> mapPosts = servicioPost.obtenerPostsParaDesplegable();
 			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
-			Map<String, Boolean> mapValoraciones = new HashMap<String, Boolean>();
-			mapValoraciones.put("Like", true);
-			mapValoraciones.put("Dislike", false);
+			Map<Boolean, String> mapValoraciones = new HashMap<Boolean, String>();
+			mapValoraciones.put(true, "Like");
+			mapValoraciones.put(false ,"Dislike");
 			
 			model.addAttribute("posts", mapPosts);
 			model.addAttribute("usuarios", mapUsuarios);
-			model.addAttribute("valoraciones", mapValoraciones);
-			
+			model.addAttribute("valoraciones", mapValoraciones);		
 			model.addAttribute("nuevoValoracion", nuevoValoracion);
 			return "admin/formularioRegistroValoracion";
 		}
@@ -109,22 +104,19 @@ public class ControladoresValoracion {
 	@RequestMapping("guardarCambiosValoracion")
 	public String guardarCambiosValoracion(@ModelAttribute("valoracion") @Valid Valoracion valoracion, BindingResult br,  Model model,
 			HttpServletRequest request) {
-	
+		
+		
 		if(!br.hasErrors()) {
-
 			servicioValoracion.guardarCambiosValoraciones(valoracion);
 			return listarValoraciones("0",0,model);
 			
 		}else {
-			Map<String, String> mapPosts = servicioPost.obtenerPostsParaDesplegable();
-			model.addAttribute("posts", mapPosts);
-			Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
-			model.addAttribute("usuarios", mapUsuarios);
-			Map<String, Boolean> mapValoraciones = new HashMap<String, Boolean>();
-			mapValoraciones.put("Like", true);
-			mapValoraciones.put("Dislike", false);
+			Map<Boolean, String> mapValoraciones = new HashMap<Boolean, String>();
+			mapValoraciones.put(true, "Like");
+			mapValoraciones.put(false ,"Dislike");
 			
-			model.addAttribute("valoraciones", mapValoraciones);
+			model.addAttribute("valoraciones", mapValoraciones);		
+			model.addAttribute("nuevoValoracion", valoracion);
 			return "admin/formularioEditarValoracion";
 		}		
 	
@@ -134,11 +126,8 @@ public class ControladoresValoracion {
 	@RequestMapping("editarValoracion")
 	public String editarValoracion(String id, Model model) {
 
-		Map<String, String> mapPosts = servicioPost.obtenerPostsParaDesplegable();
-		Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
+		
 		Map<Boolean, String> mapValoraciones = new HashMap<Boolean, String>();
-		model.addAttribute("posts", mapPosts);
-		model.addAttribute("usuarios", mapUsuarios);
 		mapValoraciones.put(true,"Like" );
 		mapValoraciones.put(false,"Dislike");
 		model.addAttribute("valoraciones", mapValoraciones);

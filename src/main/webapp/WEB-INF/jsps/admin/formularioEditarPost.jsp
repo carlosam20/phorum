@@ -23,7 +23,7 @@
 					<div class="col-lg-8 col-md-8 col-sm-8 my-3 mx-1">
 
 						<springform:form modelAttribute="post" action="guardarCambiosPost" enctype="multipart/form-data"
-							class="d-grid gap-4" id="formularioUsuario">
+							class="d-grid gap-4" id="formularioUsuario" accept-charset="UTF-8">
 
 							<div class="row">
 								<div class="col-sm-1 col-md-1 col-lg-1 d-flex align-items-center">
