@@ -14,7 +14,7 @@
         <body>
             <div class="row text-center align-items-start">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <h1>Registro de usuario</h1>
+                    <h1>Editar usuario</h1>
                 </div>
             </div>
 
@@ -48,7 +48,7 @@
                                 <div class="col-sm-9 col-md-9 col-lg-9 d-flex align-items-center">
                                     <springform:input type="password" path="pass" class="form form-lg form-control"
                                         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$"
-                                        maxlength="60" minlength="8" placeholder="Contraseña" id="pass" />
+                                        maxlength="60" minlength="8" placeholder="Contrase&ntilde;a" id="pass" />
                                 </div>
                                 <div class="col-sm-2 col-md-2 col-lg-2 d-flex align-items-center">
                                     <i class="fa-solid fa-eye" id="ojo-icon"></i>
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="col-sm-11 col-md-11 col-lg-11 d-flex align-items-center">
                                     <springform:input id="email" type="email" path="email"
-                                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" maxlenght="255" minlength="3"
+                                        pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,255}$" maxlenght="255" minlength="3"
                                         class="form form-lg form-control" placeholder="E-mail" />
                                 </div>
                             </div>

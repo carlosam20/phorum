@@ -17,7 +17,7 @@
       <jsp:include page="cabecera.jsp"></jsp:include>
       <div class="row text-left">
         <div class="col-4">
-          <a class="btn btn-outline-secondary m-1" href="registrarPost">Nuevo post</a><br>
+          <a class="btn btn-outline-secondary m-1" href="registrarPost">Nuevo Post</a><br>
         </div>
       </div>
 
@@ -61,8 +61,8 @@
       </div>
       </div>
       <div class="row d-flex justify-content-start m-1 ">
-        <div class="col-4 d-flex justify-content-start">
-          <h4>Total de post: </h4><span class="badge bg-primary">${total}</span>
+        <div class="col-4 d-flex justify-content-start align-items-center">
+          <h4>Total de post: </h4><span class="badge rounded-pill bg-primary">${total}</span>
         </div>
 
       </div>
@@ -81,14 +81,14 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">Fecha de creaci&oacuten: ${post.fechaCreacion} </li>
                 <li class="list-group-item">Descripci&oacuten: ${post.descripcion} </li>
-                <li class="list-group-item">nombre foro: ${post.foro.nombre}</li>
+                <li class="list-group-item">Nombre foro: ${post.foro.nombre}</li>
                 <li class="list-group-item">Id: ${post.id}</li>
-                <li class="list-group-item">foro id: ${post.foro.id}</li>
+                <li class="list-group-item">Foro id: ${post.foro.id}</li>
               </ul>
 
               <div class="card-body">
-                <a href="editarPost?id=${post.id}" class="btn btn-outline-primary">Editar</a>
-                <a href="borrarPost?id=${post.id}" class="btn btn-outline-danger"
+                <a href="editarPost?id=${post.id}" class="btn btn-outline-primary mr-1">Editar</a>
+                <a href="borrarPost?id=${post.id}" class="btn btn-outline-danger ml-1"
                   onclick="confirmarBorrar(event)">Borrar</a>
               </div>
 

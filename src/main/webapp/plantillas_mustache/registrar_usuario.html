@@ -28,11 +28,12 @@
 			<!--Termina Imagen y titulo-->
 
 			<!--Form-->
-			<div class="col-lg-6 col-md-6 col-sm-11  form">
+			<div class="col-lg-6 col-md-6 col-sm-11 pb-1 form">
 
 
-				<form class=" needs-validation" novalidate id="form_registro_usuario" accept-charset="UTF-8">
-					<div class="row d-flex justify-content-center">
+				<div class="row d-flex justify-content-center">
+					<form class=" needs-validation" novalidate id="form_registro_usuario" accept-charset="UTF-8">
+
 						<div class="row d-flex justify-content-center">
 							<img class="avatar avatar-8 explora" src="images/logo-phorum.svg" alt="logo-phorum"
 								id="logo_phorum">
@@ -53,8 +54,8 @@
 						<div class="row d-flex justify-content-center my-3 ">
 							<div class="col-lg-8 col-md-8 col-sm-12 position-relative">
 								<input type="text" name="email" class="form-control form-control-lg"
-									placeholder="E-mail*" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" id="email" maxlength="255"
-									required />
+									placeholder="E-mail*" pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{3,255}$" id="email"
+									maxlength="255" required />
 								<div class="invalid-tooltip">
 									Email no valido
 								</div>
@@ -64,9 +65,10 @@
 							</div>
 						</div>
 
-						<div class="row d-flex justify-content-center my-3 ">
-							<div class="col-lg-6 col-md-6 col-sm-7 position-relative">
-								<input id="pass" type="password" name="pass" class="form-control form-control-lg"
+						<div class="row d-flex justify-content-center my-3">
+
+							<div class="col-lg-8 col-md-8 col-sm-12 d-flex justify-content-center align-self-center position-relative">
+								<input id="pass" type="password" name="pass" class="form-control"
 									pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,60}$"
 									placeholder="Contraseña*" required />
 								<div class="invalid-tooltip">
@@ -76,10 +78,11 @@
 								<div class="valid-tooltip">
 									Contraseña correcta
 								</div>
+								<div class="mx-auto d-flex align-items-center"><i class="fa-solid fa-eye d-flex align-items-center m-3" id="ojo-icon"></i></div>
+								
 							</div>
-							<div class="col-lg-2 col-md-2 col-sm-3 ">
-								<i class="fa-solid fa-eye" id="ojo-icon"></i>
-							</div>
+							
+										
 						</div>
 
 						<div class="row d-flex justify-content-center my-3">
@@ -87,16 +90,16 @@
 								<input class="" type="file" name="foto" id="foto" required>
 							</div>
 						</div>
-					</div>
+				</div>
 
-					<div class="row d-flex justify-content-center ">
-						<div class="col-lg-8 col-md-6 col-sm-12">
-							<input class="btn btn-primary" id="registrar" type="submit" value="Registrarme" />
-						</div>
+				<div class="row d-flex justify-content-center my-3">
+					<div class="col-lg-8 col-md-6 col-sm-12 d-flex justify-content-center">
+						<input class="btn btn-primary" id="registrar" type="submit" value="Registrarme" />
 					</div>
+				</div>
+
+				</form>
 			</div>
-			</form>
-
 
 		</div> <!--Termina Formulario-->
 	</div>

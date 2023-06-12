@@ -15,7 +15,7 @@
 		<body>
 			<div class="row text-center align-items-start">
 				<div class="col-lg-12 col-md-12 col-sm-12">
-					<h1>EditarComentario</h1>
+					<h1>Editar comentario</h1>
 				</div>
 			</div>
 

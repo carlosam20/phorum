@@ -38,21 +38,6 @@
 
 
 
-			<!-- <div class="mx-auto">
-				paginacion:
-				total de follows: ${total}
-
-				<c:if test="${ anterior >= 0 }">
-					<a href="listarFollows?comienzo=${anterior}&id=${id}" class="btn btn-outline-primary">anterior</a>
-				</c:if>
-
-
-				<c:if test="${siguiente < total}">
-					<a href="listarFollows?comienzo=${siguiente}&id=${id}" class="btn btn-outline-primary">siguiente</a>
-				</c:if>
-
-			</div> -->
-
 			<div class="row d-flex justify-content-start m-1 d-flex d-grid gap-2" id="paginacion">
 				<div class="col-2">
 					<c:if test="${ anterior >= 0 }">
@@ -79,7 +64,7 @@
 
 			<div class="row d-flex justify-content-start m-1 ">
 				<div class="col-4 d-flex justify-content-start align-items-center">
-					<h4>Total de foros: </h4><span class="badge rounded-pill  bg-primary">${total}</span>
+					<h4>Total de follows: </h4><span class="badge rounded-pill  bg-primary">${total}</span>
 				</div>
 
 			</div>
@@ -104,8 +89,8 @@
 								</ul>
 
 								<div class="card-body">
-									<a href="editarFollow?id=${follow.id}" class="btn btn-outline-primary">Editar</a>
-									<a href="borrarFollow?id=${follow.id}" class="btn btn-outline-danger"
+									<a href="editarFollow?id=${follow.id}" class="btn btn-outline-primary mr-1">Editar</a>
+									<a href="borrarFollow?id=${follow.id}" class="btn btn-outline-danger ml-1"
 										onclick="confirmarBorrar(event)">Borrar</a>
 								</div>
 							</div>

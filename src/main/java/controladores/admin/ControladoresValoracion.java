@@ -39,6 +39,9 @@ public class ControladoresValoracion {
 	@RequestMapping("listarValoraciones")
 	public String listarValoraciones(@RequestParam(defaultValue = "0")String id, Integer comienzo, Model model) {
 		
+		if(id == null || id.isEmpty()) {
+			id = String.valueOf(0);
+		}
 		int comienzo_int = 0;
 		if (comienzo != null) {
 			comienzo_int = comienzo.intValue();

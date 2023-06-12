@@ -5,7 +5,7 @@
 
 		<head>
 			<meta charset="UTF-8">
-			<title>formularioRegistrarValoración</title>
+			<title>formularioRegistrarValoraci&oacute;n</title>
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 			<link rel="stylesheet" href="../css/style.css">
 			<link rel="stylesheet" href="../css/formsAdmin.css">
@@ -14,7 +14,7 @@
 		<body>
 			<div class="row text-center align-items-start">
 				<div class="col-lg-12 col-md-12 col-sm-12">
-					<h1>Registrar Valoración</h1>
+					<h1>Registro de valoraci&oacute;n</h1>
 				</div>
 			</div>
 

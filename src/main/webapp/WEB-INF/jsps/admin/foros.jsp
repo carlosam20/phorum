@@ -79,14 +79,14 @@
               </div>
 
               <ul class="list-group list-group-flush ">
-                <li class="list-group-item">descripcion: ${foro.descripcion} </li>
-                <li class="list-group-item">fecha: ${foro.fechaCreacion} </li>
-                <li class="list-group-item">id: ${foro.id}<br></li>
+                <li class="list-group-item">Descripcion: ${foro.descripcion} </li>
+                <li class="list-group-item">Fecha: ${foro.fechaCreacion} </li>
+                <li class="list-group-item">Id: ${foro.id}<br></li>
               </ul>
 
               <div class="card-body">
-                <a href="editarForo?id=${foro.id}" class="btn btn-outline-primary">Editar</a>
-                <a href="borrarForo?id=${foro.id}" class="btn btn-outline-danger"
+                <a href="editarForo?id=${foro.id}" class="btn btn-outline-primary mr-1">Editar</a>
+                <a href="borrarForo?id=${foro.id}" class="btn btn-outline-danger ml-1"
                   onclick="confirmarBorrar(event)">Borrar</a>
 
               </div>

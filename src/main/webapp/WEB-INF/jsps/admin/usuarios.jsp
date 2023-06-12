@@ -77,17 +77,19 @@
 							<div class="card">
 
 								<img class="fotoForo mx-auto my-3" src="../subidasUsuario/${usuario.id}.jpg" />
+								<div class="card-body">
+									<h3 class="card-title">${usuario.nombre}</h3>
+								  </div>
 								<ul class="list-group list-group-flush">
-									<li class="list-group-item">id: ${usuario.id} </li>
-									<li class="list-group-item">nombre: ${usuario.nombre} </li>
-									<li class="list-group-item">email: ${usuario.email} </li>
-									<li class="list-group-item">descripci&oacuten: ${usuario.descripcion} </li>
-									<li class="list-group-item">fecha: ${usuario.fechaCreacion} </li>
+									<li class="list-group-item">Id: ${usuario.id} </li>
+									<li class="list-group-item">Email: ${usuario.email} </li>
+									<li class="list-group-item">Descripci&oacuten: ${usuario.descripcion} </li>
+									<li class="list-group-item">Fecha: ${usuario.fechaCreacion} </li>
 								</ul>
 
 								<div class="card-body">
-									<a class="btn btn-outline-primary" href="editarUsuario?id=${usuario.id}">Editar</a>
-									<a class="btn btn-outline-danger" href="borrarUsuario?id=${usuario.id}"
+									<a class="btn btn-outline-primary mr-1" href="editarUsuario?id=${usuario.id}">Editar</a>
+									<a class="btn btn-outline-danger ml-1" href="borrarUsuario?id=${usuario.id}"
 										onclick="confirmarBorrar(event)">Borrar</a>
 								</div>
 							</div>

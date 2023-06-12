@@ -18,7 +18,7 @@
 
       <div class="row text-left">
         <div class="col-4">
-          <a class="btn btn-outline-secondary m-1" href="registrarComentario">Nuevo comentario</a>
+          <a class="btn btn-outline-secondary m-1" href="registrarComentario">Nuevo Comentario</a>
         </div>
       </div>
 
@@ -64,7 +64,7 @@
       </div>
       <div class="row d-flex justify-content-start m-1 ">
         <div class="col-4 d-flex justify-content-start align-items-center">
-          <h4>Total de foros: </h4><span class="badge rounded-pill  bg-primary">${total}</span>
+          <h4>Total de comentarios: </h4><span class="badge rounded-pill  bg-primary">${total}</span>
         </div>
 
       </div>
@@ -83,16 +83,16 @@
                 </div>
 
                 <ul class="list-group list-group-flush ">
-                  <li class="list-group-item">usuario: ${comentario.usuario.nombre} </li>
-                  <li class="list-group-item">usuario id: ${comentario.usuario.id} </li>
-                  <li class="list-group-item">nombre post: ${comentario.postComentario.nombre}</li>
-                  <li class="list-group-item">post id: ${comentario.postComentario.id}</li>
+                  <li class="list-group-item">Usuario: ${comentario.usuario.nombre} </li>
+                  <li class="list-group-item">Usuario id: ${comentario.usuario.id} </li>
+                  <li class="list-group-item">Nombre post: ${comentario.postComentario.nombre}</li>
+                  <li class="list-group-item">Post id: ${comentario.postComentario.id}</li>
                 </ul>
 
                 <div class="card-body ">
-                  <a class="btn btn-outline-primary" href="editarComentario?id=${comentario.id}"
+                  <a class="btn btn-outline-primary mr-1" href="editarComentario?id=${comentario.id}"
                     class="card-link">Editar</a>
-                  <a class="btn btn-outline-danger" href="borrarComentario?id=${comentario.id}" onclick="confirmarBorrar(event)">
+                  <a class="btn btn-outline-danger ml-1" href="borrarComentario?id=${comentario.id}" onclick="confirmarBorrar(event)">
                      Borrar</a>
                 </div>
               </div>

@@ -66,11 +66,11 @@ public class FechaParaUsuario {
 		    if (meses == 1 && dias == 1) {
 		        return String.format("%d año, %d mes y %d dia", anyos, meses, dias);
 		    } else if (meses == 1 && dias > 1) {
-		        return String.format("%d año, %d mes y %d dias", anyos, meses, dias);
+		        return String.format("%d año, %d mes y %d días", anyos, meses, dias);
 		    } else if (meses > 1 && dias == 1) {
 		        return String.format("%d año, %d meses y %d dia", anyos, meses, dias);
 		    } else if (meses > 1 && dias > 1) {
-		        return String.format("%d año, %d meses y %d dias", anyos, meses, dias);
+		        return String.format("%d año, %d meses y %d días", anyos, meses, dias);
 		    } else {
 		        return String.format("%d año", anyos);
 		    }
@@ -78,11 +78,11 @@ public class FechaParaUsuario {
 		    if (meses == 1 && dias == 1) {
 		        return String.format("%d años, %d mes y %d dia", anyos, meses, dias);
 		    } else if (meses == 1 && dias > 1) {
-		        return String.format("%d años, %d mes y %d dias", anyos, meses, dias);
+		        return String.format("%d años, %d mes y %d días", anyos, meses, dias);
 		    } else if (meses > 1 && dias == 1) {
-		        return String.format("%d años, %d meses y %d dia", anyos, meses, dias);
+		        return String.format("%d años, %d meses y %d día", anyos, meses, dias);
 		    } else if (meses > 1 && dias > 1) {
-		        return String.format("%d años, %d meses y %d dias", anyos, meses, dias);
+		        return String.format("%d años, %d meses y %d días", anyos, meses, dias);
 		    } else {
 		        return String.format("%d años", anyos);
 		    }

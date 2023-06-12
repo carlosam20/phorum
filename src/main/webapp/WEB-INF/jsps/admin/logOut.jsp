@@ -4,12 +4,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>LogOut</title>
+<title>Sesión cerrada</title>
 </head>
 <body>
 
-
-Hasta pronto admin.
+<div class="text-center">
+  <h1>Se ha cerrado la sesión</h1>  
+</div>
 
 </body>
 </html>

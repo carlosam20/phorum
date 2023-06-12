@@ -40,6 +40,11 @@ public class ControladoresFollow {
 	public String listarFollows(@RequestParam(defaultValue = "0")String id, Integer comienzo, Model model) {
 		
 		int comienzo_int = 0;
+		
+		if(id == null || id.isEmpty()) {
+			id = String.valueOf(0);
+		}
+		
 		if (comienzo != null) {
 			comienzo_int = comienzo.intValue();
 		}

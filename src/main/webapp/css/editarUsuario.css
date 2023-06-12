@@ -14,7 +14,7 @@
 }
 
 .editarUsuario {
-    margin: 2%;
+    margin: 1%;
 }
 
 .fa-rectangle-history-circle-plus {
@@ -39,7 +39,7 @@
 }
 
 .imagenSubida {
-    border: 1px, solid, black;
+    border: 1px, solid black;
     background-color: var(--primary);
     display: inline-block;
     padding: 6px 12px;
@@ -47,7 +47,7 @@
 }
 
 .imagenSubida:hover {
-    border: 1px, solid, black;
+    border: 1px, solid black;
     background-color: var(--primaryHover);
     display: inline-block;
     padding: 6px 12px;
@@ -55,7 +55,7 @@
 }
 
 .imagenSubida:focus {
-    border: 1px, solid, black;
+    border: 1px, solid black;
     background-color: var(--primaryHover);
     display: inline-block;
     padding: 6px 12px;

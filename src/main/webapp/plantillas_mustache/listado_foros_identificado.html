@@ -12,12 +12,12 @@
 <body>
   <div class="foros">
 
-    <h1 class="text-center m-1">Foros</h1>
+    <h1 class="text-center m-3">Foros</h1>
 
-    <div class="row m-3 d-flex justify-content-sm-left">
-      <div class="col-12-lg col-12-md col-12-sm d-flex justify-content-sm-left">
+    <div class="row m-lg-2 m-md-2 m-sm-1 mb-sm-2 d-flex justify-content-sm-start">
+      <div class="col-12-lg col-12-md col-12-sm d-flex justify-content-sm-start">
         <!-- Botón del Modal -->
-        <button type="submit" class=" btn btn-primary enlace_crear_foro " data-bs-toggle="modal"
+        <button type="submit" class=" btn btn-primary enlace_crear_foro  d-flex justify-content-sm-start" data-bs-toggle="modal"
           data-bs-target="#crearForoModal">
           Crear Foro
         </button>
@@ -91,11 +91,11 @@
 
 
     <!--Search Bar-->
-    <div class="row justify-content-center">
+    <div class="row d-flex justify-content-center mt-2">
       <div class="col-lg-6 col-md-6 col-sm-5">
-        <div class="row justify-content-center">
+        <div class="row d-flex justify-content-center">
           <div class="form-inline justify-content-center align-items-center input-group mb-3">
-            <input class="col-lg-8 col-md-6 col-sm-2 form-control" type="search" placeholder="Search"
+            <input class="col-lg-8 col-md-6 col-sm-2 form-control" type="search" placeholder="Buscar"
               aria-label="Search" id="inputBuscador" aria-describedby="button-addon">
             <button
               class="fa-solid fa-magnifying-glass fa-xl boton_buscar_identificado col-lg-4 col-sm-4 col-sm-3 btn btn-secondary justify-content-center align-items-center"
@@ -114,8 +114,8 @@
           <tbody>
             {{#.}}
             <tr class="elemento mx-auto" id="{{id}}">
-              <td colspan="3"><img class="avatar avatar-8 boton_post_foro avatar-ancho" src="subidas/{{id}}.jpg" id="{{id}}" alt="{{nombre}}"></td>
-              <td colspan="2">
+              <td colspan="3"><img class="avatar avatar-8 boton_post_foro" src="subidas/{{id}}.jpg" id="{{id}}" alt="{{nombre}}"></td>
+              <td colspan="3">
                 <p class="nombre text-start boton_post_foro" id="{{id}}">{{nombre}}</p>
               </td>
               <td colspan="2"><a class="follow" id="{{id}}">

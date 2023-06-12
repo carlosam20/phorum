@@ -14,7 +14,7 @@
 		<body>
 			<div class="row text-center align-items-start">
 				<div class="col-lg-12 col-md-12 col-sm-12">
-					<h1>Registro Comentario</h1>
+					<h1>Registro de comentario</h1>
 				</div>
 			</div>
 

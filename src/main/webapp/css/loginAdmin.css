@@ -1,9 +1,17 @@
+:root{
+   --secondary: #060637;
+}
+
+
 .loginAdmin {
    margin: 1%;
 }
 
 #logo-phorum {
-   background-color: #202031;
+   border: 1px, solid, var(--secondary);
+   border-radius: 1em;
+   background-color:var(--secondary);
+   
 }
 
 .contenedorFormulario {

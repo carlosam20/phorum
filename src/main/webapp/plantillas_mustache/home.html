@@ -13,7 +13,7 @@
 <body>
 
   <div class="home">
-    <h1 class="text-center mx-auto"><b>Explora los foros</b></h1>
+    <h2 class="text-center mx-auto"><b>Explora los foros</b></h2>
 
 
     <!--Scroll container-->
@@ -46,7 +46,7 @@
 
 
 
-    <h1 class="text-center mx-auto"><b>Explora los posts</b></h1>
+    <h2 class="text-center mx-auto"><b>Explora los posts</b></h2>
 
     <!--Listado Posts -->
     <div class="listadoPosts text-center">
@@ -86,14 +86,27 @@
                 <div class="card-body">
                   <h5 class="card-title text-start">{{nombre}}</h5>
                   <p class="card-text text-start">{{descripcion}}</p>
-                  <div class="row">
-                    <div class="col-lg-5 col-md-5 col-sm-11 mb-sm-2">
-                      <button class="btn btn-outline-primary boton_post_foro" type="button" id="{{foro}}">Ir al Foro</a>
+                  <div class="row botonesGrandes">
+                    <div class="col-lg-5 col-md-5 col-sm-11 my-sm-2">
+                      <button class="btn btn-outline-primary boton_post_foro" type="button" id="{{foro}}">Ir al
+                        Foro</a>
                     </div>
-                    <div class="col-lg-5 col-md-5 col-sm-11 mb-sm-1">
+                    <div class="col-lg-5 col-md-5 col-sm-11 my-sm-2">
                       <button class="btn btn-outline-primary boton_ver_post" type="button" id="{{id}}">Ver Post</a>
                     </div>
                   </div>
+                  <div class="row botonesPequenos">
+                    <div class="d-grid gap-2">
+                      <div class="col-lg-5 col-md-5 col-sm-12 my-sm-2">
+                        <button class="btn btn-outline-primary boton_post_foro" type="button" id="{{foro}}">Ir al
+                          Foro</a>
+                      </div>
+                      <div class="col-lg-5 col-md-5 col-sm-12 my-sm-2">
+                        <button class="btn btn-outline-primary boton_ver_post" type="button" id="{{id}}">Ver Post</a>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>

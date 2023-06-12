@@ -15,6 +15,14 @@ const baseURL = "http://localhost:8080/phorum/";
 
 // Se inician al principio
 // Call the function using the global variable
+$(document).ready(function () {
+  // get the current URL
+  // eslint-disable-next-line prefer-const
+  let currentURL = window.location.href;
+
+  // detect the URL and call the appropriate function
+  handleURL(currentURL);
+});
 
 let isHandlingStateChange = false;
 let popstateFlag = false;
@@ -152,17 +160,6 @@ window.addEventListener("popstate", function (e) {
   }
 });
 
-$(document).ready(function () {
-  // get the current URL
-  // eslint-disable-next-line prefer-const
-  let currentURL = window.location.href;
-
-  // detect the URL and call the appropriate function
-  handleURL(currentURL);
-});
-
-// -- Fin  recarga de URL
-
 // Cargamos el home
 const listadoInicio = () => {
   $.ajax("servicioWebForos/obtenerForosYPosts", {
@@ -293,7 +290,6 @@ const valoracionLike = (idPost) => {
             success: (e) => {
               console.log("Like registrado");
               contadorLikes.textContent = Number(contadorLikes.textContent) + 1;
-              e.preventDefault();
             }
           });
         } else if (valoracionExiste[0] && valoracionExiste[1]) {
@@ -456,7 +452,7 @@ const busquedaForos = () => {
 
 const busquedaForosIdentificado = () => {
   // Buscador de Foros
-  $(".boton_buscar").click((e) => {
+  $(".boton_buscar_identificado").click((e) => {
     const nombreForo = $("#inputBuscador").val();
     $.ajax(
       "identificado/servicioWebForos/obtenerForosDeNombreIntroducido?nombreForo=" +

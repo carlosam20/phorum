@@ -35,7 +35,7 @@
 							<div class="row d-flex justify-content-center">
 								<div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
 									<input type="password" class="form-control" value="${sessionScope.campo_pass}"
-										name="pass" id="pass" placeholder="Contraseña"
+										name="pass" id="pass" placeholder="Contrase&ntilde;a"
 										title="La contraseña tiene que tener entre 3 y 10 caracteteres"
 										maxlength="10" />
 								</div>

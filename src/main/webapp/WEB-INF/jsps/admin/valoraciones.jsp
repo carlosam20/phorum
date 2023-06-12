@@ -61,7 +61,7 @@
 			</div>
 			<div class="row d-flex justify-content-start m-1 ">
 				<div class="col-4 d-flex justify-content-start align-items-center">
-					<h4>Total de foros: </h4><span class="badge rounded-pill bg-primary">${total}</span>
+					<h4>Total de valoraciones: </h4><span class="badge rounded-pill bg-primary">${total}</span>
 				</div>
 
 			</div>
@@ -85,8 +85,8 @@
 						</ul>
 
 						<div class="card-body">
-							<a href="editarValoracion?id=${valoracion.id}" class="btn btn-outline-primary">Editar</a>
-							<a href="borrarValoracion?id=${valoracion.id}" class="btn btn-outline-danger"
+							<a href="editarValoracion?id=${valoracion.id}" class="btn btn-outline-primary mr-1">Editar</a>
+							<a href="borrarValoracion?id=${valoracion.id}" class="btn btn-outline-danger ml-1"
 								onclick="confirmarBorrar(event)">Borrar</a>
 						</div>
 					</div>
