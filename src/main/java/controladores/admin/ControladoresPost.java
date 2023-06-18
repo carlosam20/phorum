@@ -78,6 +78,11 @@ public class ControladoresPost {
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
+		
+		if(nuevoPost.getIdForo() == 0 ||  nuevoPost.getIdUsuario() == 0) {
+			FieldError error = new FieldError("nuevoPost", "imagen", "No se ha creado ningún foro o usuario antes");
+			br.addError(error);
+		}
 
 		// Comprobamos que la fecha no sea nula
 		if (nuevoPost.getFechaCreacion() == null) {

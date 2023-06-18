@@ -181,7 +181,7 @@ const listadoInicio = () => {
       verPostYComentarios();
     },
     error: () => {
-      swal("", "Error en el listado de inicio", "Error");
+      swal("", "Error en el listado de inicio, no hay datos disponibles", "error");
     }
   });
 };
@@ -787,7 +787,7 @@ const obtenerListadoPostsPopulares = () => {
       registrarPost();
     },
     error: () => {
-      swal("No ha cargado listado posts", "Error", "error");
+      swal("No ha cargado listado posts, se requiere tener post con valoraciones para ello", "Error", "error");
     }
   });
 }; // -end obtener listado posts-

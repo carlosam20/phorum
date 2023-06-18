@@ -49,7 +49,7 @@
 
 							<div class="row">
 								<div class="col-sm-1 col-md-1 col-lg-1 d-flex align-items-center">
-									<p>Valoración</p>
+									<p>Valoraci&oacute;n</p>
 								</div>
 								<div class="col-sm-11 col-md-11 col-lg-11 d-flex align-items-center">
 									<springform:select path="valor">

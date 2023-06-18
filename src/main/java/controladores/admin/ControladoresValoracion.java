@@ -60,6 +60,8 @@ public class ControladoresValoracion {
 	public String registrarValoracion(Model model) {
 		Valoracion nuevo = new Valoracion();
 		
+
+		
 		Map<String, String> mapPosts = servicioPost.obtenerPostsParaDesplegable();
 		Map<String, String> mapUsuarios = servicioUsuarios.obtenerUsuariosParaDesplegable();
 		Map<Boolean, String> mapValoraciones = new HashMap<Boolean, String>();
@@ -77,6 +79,11 @@ public class ControladoresValoracion {
 	public String guardarNuevoValoracion(@ModelAttribute("nuevoValoracion") @Valid Valoracion nuevoValoracion, BindingResult br, Model model,
 			HttpServletRequest request) { 
 		
+		
+		if(nuevoValoracion.getIdUsuario() == 0 ||  nuevoValoracion.getIdPost() == 0) {
+			FieldError error = new FieldError("nuevoValoracion", "valor", "No se ha creado ningún usuario o post antes");
+			br.addError(error);
+		}
 		
 		//Nos da un array de boolean el primer elemento indica si la valoración existe o no
 		if(servicioValoracion.comprobarExisteValoracion(nuevoValoracion.getIdPost(), nuevoValoracion.getIdUsuario())[0]) {

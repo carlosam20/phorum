@@ -74,6 +74,11 @@ public class ControladoresFollow {
 	public String guardarNuevoFollow(@ModelAttribute("nuevoFollow") @Valid Follow nuevoFollow, BindingResult br, Model model,
 			HttpServletRequest request) {
 		
+		if(nuevoFollow.getIdUsuario() == 0 ||  nuevoFollow.getIdForo() == 0) {
+			FieldError error = new FieldError("nuevoFollow", "valor", "No se ha creado ningún usuario o foro antes");
+			br.addError(error);
+		}
+		
 		if(servicioFollow.comprobarExisteFollow(nuevoFollow.getIdForo(), nuevoFollow.getIdUsuario())) {
 			FieldError error = new FieldError("nuevoFollow", "idUsuario", "Ya un follow con este usuario y foro");
 			br.addError(error);

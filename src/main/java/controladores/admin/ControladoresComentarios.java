@@ -88,6 +88,11 @@ public class ControladoresComentarios {
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 		
+		if(nuevoComentario.getIdUsuario() == 0 ||  nuevoComentario.getIdPostComentario() == 0) {
+			FieldError error = new FieldError("nuevoComentario", "textoComentario", "No se ha creado ningún usuario o post antes");
+			br.addError(error);
+		}
+		
 		
 		//Comprobamos que la fecha no sea nula
 		if (nuevoComentario.getFechaCreacion() == null) {
